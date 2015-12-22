@@ -1,11 +1,11 @@
 import Ember from "ember";
 
 export default Ember.Controller.extend({
-    debtSettlementTransfers: Ember.computed("model.paidOwned", function () {
-        const paidOwned = this.get("model.paidOwned");
+    debtSettlementTransfers: Ember.computed("model.paidOwed", function () {
+        const paidOwed = this.get("model.paidOwed");
 
-        const owed = paidOwned.filter((po) => po.get("summary") < 0).map(convertToUserAmount);
-        const paid = paidOwned.filter((po) => po.get("summary") > 0).map(convertToUserAmount);
+        const owed = paidOwed.filter((po) => po.get("summary") < 0).map(convertToUserAmount);
+        const paid = paidOwed.filter((po) => po.get("summary") > 0).map(convertToUserAmount);
         let transfers = [];
 
         function convertToUserAmount(po) {

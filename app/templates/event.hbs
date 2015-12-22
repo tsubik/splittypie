@@ -77,10 +77,10 @@
         <th>Summary</th>
     </thead>
     <tbody>
-        {{#each model.paidOwned as |paidOwned|}}
+        {{#each model.paidOwed as |po|}}
             <tr>
-                <td>{{paidOwned.user.name}}</td>
-                <td>{{paidOwned.summary}}</td>
+                <td>{{po.user.name}}</td>
+                <td>{{po.summary}}</td>
             </tr>
         {{/each}}
     </tbody>
