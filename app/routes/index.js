@@ -4,9 +4,7 @@ export default Ember.Route.extend({
     actions: {
         createEvent() {
             this.store
-                .createRecord("event", {
-                    name: ""
-                })
+                .createRecord("event", {name: ""})
                 .save()
                 .then((event) => {
                     this.transitionTo("event", event);

@@ -1,3 +1,24 @@
 <h2>Event Details</h2>
 
-{{input value=model.name}}
+
+<label>Event Name:</label>
+{{input value=model.name focus-out="saveChanges"}}
+
+<h2>Users</h2>
+
+<button {{action "addUser"}}>Add New User</button>
+
+<table class="user-list">
+    {{#each user in model.users}}
+        <tr class="item">
+            <td>
+                {{input value=user.name class="user-name" focus-out="saveChanges"}}
+            </td>
+            <td>
+                <button {{action "deleteUser" user}}>Delete</button>
+            </td>
+        </tr>
+    {{/each}}
+</table>
+
+<button {{action "saveChanges"}}>Save Changes!</button>
