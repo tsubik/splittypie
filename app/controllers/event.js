@@ -40,6 +40,16 @@ export default Ember.Controller.extend({
 
         saveChanges() {
             this.get("model").save();
+        },
+
+        updatePayer(transaction, payer) {
+            transaction.set("payer", payer);
+            transaction.save();
+        },
+
+        updateParticipants(transaction, participants) {
+            transaction.set("participants", participants);
+            transaction.save();
         }
     }
 });

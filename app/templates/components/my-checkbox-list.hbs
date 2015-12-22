@@ -1,0 +1,6 @@
+{{#each content key="@identity" as |item|}}
+    <label>
+        <input type="checkbox" checked={{is-included item selection}} {{action "change" on="change"}}/>
+        {{read-path item optionLabelPath}}
+    </label>
+{{/each}}
