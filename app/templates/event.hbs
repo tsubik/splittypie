@@ -9,7 +9,7 @@
 <button {{action "addUser"}}>Add New User</button>
 
 <table class="user-list">
-    {{#each user in model.users}}
+    {{#each model.users as |user|}}
         <tr class="item">
             <td>
                 {{input value=user.name class="user-name" focus-out="saveChanges"}}
@@ -19,6 +19,41 @@
             </td>
         </tr>
     {{/each}}
+</table>
+
+<h2>Transactions</h2>
+
+<button {{action "addTransaction"}}>Add New Transaction</button>
+
+<table class="user-list">
+    <thead>
+        <th>Name</th>
+        <th>Amount</th>
+        <th>Payer</th>
+        <th>Participants</th>
+        <th>Actions</th>
+    </thead>
+    <tbody>
+        {{#each model.transactions as |transaction|}}
+            <tr class="item">
+                <td>
+                    {{input value=transaction.name class="transaction-name" focus-out="saveChanges"}}
+                </td>
+                <td>
+                    {{input value=transaction.amount focus-out="saveChanges"}}
+                </td>
+                <td>
+                    {{my-select content=model.users selection=transaction.payer prompt="Select payer..." optionValuePath="id" optionLabelPath="name" action=(action (mut transaction.payer))}}
+                </td>
+                <td>
+                    {{multiselect-checkboxes options=model.users labelProperty="name" selection=transaction.participants}}
+                </td>
+                <td>
+                    <button {{action "deleteTransaction" transaction}}>Delete</button>
+                </td>
+            </tr>
+        {{/each}}
+    </tbody>
 </table>
 
 <button {{action "saveChanges"}}>Save Changes!</button>
