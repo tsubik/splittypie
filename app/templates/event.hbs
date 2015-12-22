@@ -69,4 +69,31 @@
     </tbody>
 </table>
 
+<h2>Paid/Owned</h2>
+
+<table class="user-list">
+    <thead>
+        <th>User</th>
+        <th>Summary</th>
+    </thead>
+    <tbody>
+        {{#each model.paidOwned as |paidOwned|}}
+            <tr>
+                <td>{{paidOwned.user.name}}</td>
+                <td>{{paidOwned.summary}}</td>
+            </tr>
+        {{/each}}
+    </tbody>
+</table>
+
+<h2>How to settle all debts?</h2>
+
+<ul>
+    {{#each debtSettlementTransfers as |transfer|}}
+        <li>
+            {{transfer.sender.name}} has to send {{transfer.recipient.name}} {{transfer.amount}}
+        </li>
+    {{/each}}
+</ul>
+
 <button {{action "saveChanges"}}>Save Changes!</button>
