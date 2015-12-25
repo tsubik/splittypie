@@ -38,7 +38,7 @@ export default Ember.Component.extend({
             transfers.pushObject(Ember.Object.create({
                 sender: sender.get("user"),
                 recipient: recipient.get("user"),
-                amount: possibleTransfer
+                amount: possibleTransfer.toFixed(2)
             }));
         }
 

@@ -15,6 +15,6 @@ export default DS.Model.extend({
             return prev + parseFloat(curr.get("amount")) / curr.get("participants").length;
         }, 0);
 
-        return paidMoney - owedMoney;
+        return (paidMoney - owedMoney).toFixed(2);
     })
 });
