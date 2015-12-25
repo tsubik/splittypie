@@ -11,6 +11,7 @@ export default Ember.Route.extend({
             const newTransaction = this.store.createRecord("transaction", {name: ""});
 
             event.get("transactions").pushObject(newTransaction);
+            event.save();
         },
 
         addUser() {
@@ -18,6 +19,7 @@ export default Ember.Route.extend({
             const newUser = this.store.createRecord("user", {name: ""});
 
             event.get("users").pushObject(newUser);
+            event.save();
         },
 
         saveChanges() {
