@@ -3,17 +3,17 @@ import Ember from 'ember';
 export default Ember.Component.extend({
     tagName: "ul",
 
-    transfers: Ember.computed("event.paidOwed", function () {
-        const paidOwed = this.get("event.paidOwed");
+    transfers: Ember.computed("users.@each.balance", function () {
+        const users = this.get("users");
 
-        const owed = paidOwed.filter((po) => po.get("summary") < 0).map(convertToUserAmount);
-        const paid = paidOwed.filter((po) => po.get("summary") > 0).map(convertToUserAmount);
+        const owed = users.filter((u) => u.get("balance") < 0).map(convertToUserAmount);
+        const paid = users.filter((u) => u.get("balance") > 0).map(convertToUserAmount);
         let transfers = [];
 
-        function convertToUserAmount(po) {
+        function convertToUserAmount(user) {
             return Ember.Object.create({
-                user: po.get("user"),
-                amount: Math.abs(po.get("summary"))
+                user: user,
+                amount: Math.abs(user.get("balance"))
             });
         }
 

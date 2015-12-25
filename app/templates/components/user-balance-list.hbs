@@ -1,0 +1,14 @@
+<table class="user-balance-list">
+    <thead>
+        <th>User</th>
+        <th>Balance</th>
+    </thead>
+    <tbody>
+        {{#each users as |user|}}
+            <tr>
+                <td>{{user.name}}</td>
+                <td>{{user.balance}}</td>
+            </tr>
+        {{/each}}
+    </tbody>
+</table>

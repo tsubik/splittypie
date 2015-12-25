@@ -15,23 +15,10 @@
 
 {{transaction-list transactions=model.transactions users=model.users saveChanges="saveChanges"}}
 
-<h2>Paid/Owed Summary</h2>
+<h2>Users Balances</h2>
 
-<table class="user-list">
-    <thead>
-        <th>User</th>
-        <th>Summary</th>
-    </thead>
-    <tbody>
-        {{#each model.paidOwed as |po|}}
-            <tr>
-                <td>{{po.user.name}}</td>
-                <td>{{po.summary}}</td>
-            </tr>
-        {{/each}}
-    </tbody>
-</table>
+{{user-balance-list users=model.users}}
 
 <h2>How to settle all debts?</h2>
 
-{{settlement-transfer-list event=model}}
+{{settlement-transfer-list users=model.users}}
