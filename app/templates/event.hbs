@@ -1,75 +1,21 @@
 <h2>Event Details</h2>
 
-
 <label>Event Name:</label>
 {{input value=model.name focus-out="saveChanges"}}
 
 <h2>Users</h2>
 
-<button {{action "addUser"}}>Add New User</button>
+<button {{action "addUser"}}>Add User</button>
 
-<table class="user-list">
-    {{#each model.users as |user|}}
-        <tr class="item">
-            <td>
-                {{input value=user.name class="user-name" focus-out="saveChanges"}}
-            </td>
-            <td>
-                <button {{action "deleteUser" user}}>Delete</button>
-            </td>
-        </tr>
-    {{/each}}
-</table>
+{{user-list users=model.users saveChanges="saveChanges"}}
 
 <h2>Transactions</h2>
 
-<button {{action "addTransaction"}}>Add New Transaction</button>
+<button {{action "addTransaction"}}>Add Transaction</button>
 
-<table class="user-list">
-    <thead>
-        <th>Name</th>
-        <th>Amount</th>
-        <th>Payer</th>
-        <th>Participants</th>
-        <th>Actions</th>
-    </thead>
-    <tbody>
-        {{#each model.transactions as |transaction|}}
-            <tr class="item">
-                <td>
-                    {{input value=transaction.name class="transaction-name" focus-out="saveChanges"}}
-                </td>
-                <td>
-                    {{input value=transaction.amount focus-out="saveChanges"}}
-                </td>
-                <td>
-                    {{my-select
-                      content=model.users
-                      selection=transaction.payer
-                      prompt="Select payer..."
-                      optionValuePath="id"
-                      optionLabelPath="name"
-                      action=(action "updatePayer" transaction)
-                    }}
-                </td>
-                <td>
-                    {{my-checkbox-list
-                      content=model.users
-                      selection=transaction.participants
-                      optionValuePath="id"
-                      optionLabelPath="name"
-                      action=(action "updateParticipants" transaction)
-                    }}
-                </td>
-                <td>
-                    <button {{action "deleteTransaction" transaction}}>Delete</button>
-                </td>
-            </tr>
-        {{/each}}
-    </tbody>
-</table>
+{{transaction-list transactions=model.transactions users=model.users saveChanges="saveChanges"}}
 
-<h2>Paid/Owned</h2>
+<h2>Paid/Owed Summary</h2>
 
 <table class="user-list">
     <thead>
@@ -88,12 +34,4 @@
 
 <h2>How to settle all debts?</h2>
 
-<ul>
-    {{#each debtSettlementTransfers as |transfer|}}
-        <li>
-            {{transfer.sender.name}} has to send {{transfer.recipient.name}} {{transfer.amount}}
-        </li>
-    {{/each}}
-</ul>
-
-<button {{action "saveChanges"}}>Save Changes!</button>
+{{settlement-transfer-list event=model}}

@@ -1,0 +1,43 @@
+<table class="transaction-list">
+    <thead>
+        <th>Name</th>
+        <th>Amount</th>
+        <th>Payer</th>
+        <th>Participants</th>
+        <th>Actions</th>
+    </thead>
+    <tbody>
+        {{#each transactions as |transaction|}}
+            <tr class="item">
+                <td>
+                    {{input value=transaction.name class="transaction-name" focus-out="saveChanges"}}
+                </td>
+                <td>
+                    {{input value=transaction.amount focus-out="saveChanges"}}
+                </td>
+                <td>
+                    {{my-select
+                      content=users
+                      selection=transaction.payer
+                      prompt="Select payer..."
+                      optionValuePath="id"
+                      optionLabelPath="name"
+                      action=(action "updatePayer" transaction)
+                    }}
+                </td>
+                <td>
+                    {{my-checkbox-list
+                      content=users
+                      selection=transaction.participants
+                      optionValuePath="id"
+                      optionLabelPath="name"
+                      action=(action "updateParticipants" transaction)
+                    }}
+                </td>
+                <td>
+                    <button {{action "deleteTransaction" transaction}}>Delete</button>
+                </td>
+            </tr>
+        {{/each}}
+    </tbody>
+</table>

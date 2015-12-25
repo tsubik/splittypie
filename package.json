@@ -38,6 +38,6 @@
     "ember-disable-proxy-controllers": "^1.0.1",
     "ember-export-application-global": "^1.0.4",
     "ember-resolver": "2.0.3",
-    "emberfire": "git://github.com/firebase/emberfire.git#8af017d4b54475eb7ca3fa493f401bb9b00fef59"
+    "emberfire": "git://github.com/firebase/emberfire.git#serialize-relationships-atomic"
   }
 }

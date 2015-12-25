@@ -1,0 +1,5 @@
+{{#each transfers as |transfer|}}
+    <li>
+        {{transfer.sender.name}} has to send {{transfer.recipient.name}} {{transfer.amount}}
+    </li>
+{{/each}}

@@ -1,0 +1,12 @@
+<table class="user-list">
+    {{#each users as |user|}}
+        <tr class="item">
+            <td>
+                {{input value=user.name class="user-name" focus-out="saveChanges"}}
+            </td>
+            <td>
+                <button {{action "deleteUser" user}}>Delete</button>
+            </td>
+        </tr>
+    {{/each}}
+</table>

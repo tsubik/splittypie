@@ -6,8 +6,26 @@ export default Ember.Route.extend({
     },
 
     actions: {
+        addTransaction() {
+            const event = this.get("currentModel");
+            const newTransaction = this.store.createRecord("transaction", {name: ""});
+
+            event.get("transactions").pushObject(newTransaction);
+        },
+
+        addUser() {
+            const event = this.get("currentModel");
+            const newUser = this.store.createRecord("user", {name: ""});
+
+            event.get("users").pushObject(newUser);
+        },
+
+        saveChanges() {
+            this.currentModel.save();
+        },
+
         willTransition() {
-            return this.controller.get("model").save();
+            return this.currentModel.save();
         }
     }
 });

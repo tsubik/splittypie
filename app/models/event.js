@@ -17,7 +17,6 @@ function createPaidOwedRecordForUser(user) {
     const transactions = this.get("transactions");
     const paidTransactions = transactions.filterBy("payer", user);
     const owedTransactions = transactions.filter((transaction) => transaction.get("participants").contains(user));
-
     const paid = paidTransactions.reduce((prev, curr) => {
         return prev + parseFloat(curr.get("amount"));
     }, 0);
