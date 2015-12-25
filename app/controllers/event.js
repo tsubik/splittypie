@@ -80,10 +80,6 @@ export default Ember.Controller.extend({
             event.save();
         },
 
-        saveChanges() {
-            this.get("model").save();
-        },
-
         updatePayer(transaction, payer) {
             transaction.set("payer", payer);
             transaction.save();
