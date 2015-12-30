@@ -1,5 +1,7 @@
 import Ember from "ember";
 
-export default Ember.Helper.helper(function ([object, path]) {
+export function readPath([object, path]) {
     return Ember.get(object, path);
-});
+}
+
+export default Ember.Helper.helper(readPath);

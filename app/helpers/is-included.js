@@ -1,5 +1,11 @@
 import Ember from "ember";
 
-export default Ember.Helper.helper(function ([item, array]) {
+export function isIncluded([item, array]) {
+    if(!array) {
+        return false;
+    }
+
     return array.contains(item);
-});
+}
+
+export default Ember.Helper.helper(isIncluded);

@@ -1,25 +1,20 @@
-import { moduleForComponent, test } from 'ember-qunit';
-import hbs from 'htmlbars-inline-precompile';
+import { moduleForComponent, test } from "ember-qunit";
+import hbs from "htmlbars-inline-precompile";
+import Ember from "ember";
 
-moduleForComponent('event-balance', 'Integration | Component | event balance', {
-  integration: true
+moduleForComponent("user-balance-list", "Integration | Component | user balance list", {
+    integration: true
 });
 
-test('it renders', function(assert) {
-  
-  // Set any properties with this.set('myProperty', 'value');
-  // Handle any actions with this.on('myAction', function(val) { ... });" + EOL + EOL +
+test("it renders", function(assert) {
+    const users = [
+        Ember.Object.create({name: "Bob", balance: 100}),
+        Ember.Object.create({name: "Alice", balance: -100})
+    ];
 
-  this.render(hbs`{{event-balance}}`);
+    this.set("users", users);
+    this.render(hbs`{{user-balance-list users=users}}`);
 
-  assert.equal(this.$().text().trim(), '');
-
-  // Template block usage:" + EOL +
-  this.render(hbs`
-    {{#event-balance}}
-      template block text
-    {{/event-balance}}
-  `);
-
-  assert.equal(this.$().text().trim(), 'template block text');
+    assert.equal(this.$(".user-balance-list-item").eq(0).text().trim().replace(/(\r\n|\n|\r)/g, " ").replace(/\s+/g, " "), "Bob 100");
+    assert.equal(this.$(".user-balance-list-item").eq(1).text().trim().replace(/(\r\n|\n|\r)/g, " ").replace(/\s+/g, " "), "Alice -100");
 });
