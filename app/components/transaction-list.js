@@ -1,6 +1,8 @@
-import Ember from 'ember';
+import Ember from "ember";
 
 export default Ember.Component.extend({
+    anyTransactions: Ember.computed.notEmpty("transactions"),
+
     actions: {
         deleteTransaction(transaction) {
             this.get("transactions").removeObject(transaction);

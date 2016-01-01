@@ -1,12 +1,14 @@
-<table class="user-list">
+<table class="table table-hover user-list">
+  <tbody>
     {{#each users as |user|}}
         <tr class="item">
             <td>
-                {{input value=user.name class="user-name" focus-out="saveChanges"}}
+                {{input value=user.name class="user-name, form-control" focus-out="saveChanges"}}
             </td>
             <td>
-                <button {{action "deleteUser" user}}>Delete</button>
+                <button class="btn btn-danger" {{action "deleteUser" user}}>Delete</button>
             </td>
         </tr>
     {{/each}}
+  </tbody>
 </table>

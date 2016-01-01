@@ -2,6 +2,7 @@ import Ember from 'ember';
 
 export default Ember.Component.extend({
     tagName: "ul",
+    classNames: ["list-unstyled"],
 
     transfers: Ember.computed("users.@each.balance", function () {
         const users = this.get("users");
