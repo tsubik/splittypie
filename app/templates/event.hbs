@@ -13,7 +13,7 @@
 <h3>Participants</h3>
 <div class="well">
   {{user-list users=model.users saveChanges="saveChanges"}}
-  <button class="btn btn-primary" {{action "addUser"}}>Add User</button>
+  <button class="btn btn-primary" {{action "addUser"}}>Add Participant</button>
 </div>
 
 <h3>Transactions</h3>
@@ -22,12 +22,5 @@
   <button class="btn btn-primary" {{action "addTransaction"}}>Add Transaction</button>
 </div>
 
-<h3>Users Balances</h3>
-<div class="well">
-  {{user-balance-list users=model.users}}
-</div>
-
-<h3>How to settle all debts?</h3>
-<div class="well">
-  {{settlement-transfer-list users=model.users}}
-</div>
+{{user-balance-list users=model.users}}
+{{settlement-transfer-list users=model.users}}

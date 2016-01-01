@@ -1,5 +1,10 @@
-{{#each transfers as |transfer|}}
-    <li class="settlement-item">
-      <strong>{{transfer.sender.name}}</strong> has to send <strong>{{transfer.recipient.name}}</strong> {{transfer.amount}}
-    </li>
-{{/each}}
+{{#if anyTransfers}}
+  <h3>How to settle all debts?</h3>
+  <div class="well">
+    {{#each transfers as |transfer|}}
+      <li class="settlement-item">
+        <strong>{{transfer.sender.name}}</strong> has to send <strong>{{transfer.recipient.name}}</strong> {{transfer.amount}}
+      </li>
+    {{/each}}
+  </div>
+{{/if}}

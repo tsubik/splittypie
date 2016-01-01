@@ -4,6 +4,8 @@ export default Ember.Component.extend({
     tagName: "ul",
     classNames: ["list-unstyled"],
 
+    anyTransfers: Ember.computed.notEmpty("transfers"),
+
     transfers: Ember.computed("users.@each.balance", function () {
         const users = this.get("users");
 

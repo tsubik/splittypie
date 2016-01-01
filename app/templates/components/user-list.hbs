@@ -1,14 +1,20 @@
-<table class="table table-hover user-list">
-  <tbody>
-    {{#each users as |user|}}
+{{#if anyUsers}}
+  <table class="table table-hover user-list">
+    <tbody>
+      {{#each users as |user|}}
         <tr class="item">
-            <td>
-                {{input value=user.name class="user-name, form-control" focus-out="saveChanges"}}
-            </td>
-            <td>
-                <button class="btn btn-danger" {{action "deleteUser" user}}>Delete</button>
-            </td>
+          <td>
+            {{input value=user.name class="user-name, form-control" focus-out="saveChanges" placeholder="Name"}}
+          </td>
+          <td>
+            <button class="btn btn-danger" {{action "deleteUser" user}}>Delete</button>
+          </td>
         </tr>
-    {{/each}}
-  </tbody>
-</table>
+      {{/each}}
+    </tbody>
+  </table>
+{{else}}
+  <div class="alert alert-info" role="alert">
+    There are no participants yet.
+  </div>
+{{/if}}
