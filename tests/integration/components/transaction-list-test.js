@@ -12,5 +12,5 @@ test("it renders", function(assert) {
 
     this.render(hbs`{{transaction-list}}`);
 
-    assert.equal(this.$().text().trim(), "");
+    assert.equal(this.$().text().trim(), "There are no transactions yet.");
 });

@@ -1,4 +1,4 @@
-import { moduleForComponent, test } from "~ember-qunit";
+import { moduleForComponent, test } from "ember-qunit";
 import hbs from "htmlbars-inline-precompile";
 
 moduleForComponent("user-list", "Integration | Component | user list", {
@@ -12,5 +12,5 @@ test("it renders", function(assert) {
 
     this.render(hbs`{{user-list}}`);
 
-    assert.equal(this.$().text().trim(), "");
+    assert.equal(this.$().text().trim(), "There are no participants yet.");
 });
