@@ -1,0 +1,34 @@
+<fieldset>
+  <legend>{{title}}</legend>
+
+  <div class="form-group">
+    <label for="exampleInputPassword1">Who paid?</label>
+    {{my-select
+      content=users
+      selection=transaction.payer
+      prompt="Select payer..."
+      optionValuePath="id"
+      optionLabelPath="name"
+    }}
+  </div>
+
+  <div class="form-group">
+    <label>For what?</label>
+    {{input value=transaction.name class="transaction-name, form-control" placeholder="Gift for Alice"}}
+  </div>
+
+  <div class="form-group">
+    <label for="exampleInputPassword1">How much?</label>
+    {{input value=transaction.amount class="form-control" placeholder="Amount"}}
+  </div>
+
+  <div class="form-group">
+    <label for="exampleInputPassword1">Divide the cost among:</label>
+    {{my-checkbox-list
+      content=users
+      selection=transaction.participants
+      optionValuePath="id"
+      optionLabelPath="name"
+    }}
+  </div>
+</fieldset>

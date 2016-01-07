@@ -27,8 +27,10 @@ export default Ember.Component.extend({
                 }
             });
 
-            const changeCallback = this.get("action");
-            changeCallback(selection);
+            this.set("selection", selection);
+
+            // const changeCallback = this.get("action");
+            // changeCallback(selection);
         }
     }
 });

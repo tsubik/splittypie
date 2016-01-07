@@ -1,0 +1,5 @@
+<h3>Transactions</h3>
+<div class="well">
+  {{transaction-list transactions=model.transactions users=model.users}}
+  {{link-to "Add Transaction" "event.transactions.new" class="btn btn-primary"}}
+</div>
