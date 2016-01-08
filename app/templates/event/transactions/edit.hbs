@@ -1,4 +1,3 @@
-{{transaction-form title="Make some changes in this transaction" transaction=model users=users}}
-<button {{action "save"}} class="btn btn-success">Save Changes</button>
-or
-{{link-to "Cancel" "event.transactions"}}
+<h3>Make some changes in this transaction</h3>
+
+{{transaction-form transaction=model users=users save="save"}}

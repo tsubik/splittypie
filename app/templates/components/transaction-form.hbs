@@ -1,34 +1,46 @@
-<fieldset>
-  <legend>{{title}}</legend>
-
-  <div class="form-group">
-    <label for="exampleInputPassword1">Who paid?</label>
-    {{my-select
-      content=users
-      selection=transaction.payer
-      prompt="Select payer..."
-      optionValuePath="id"
-      optionLabelPath="name"
-    }}
+<div class="form-group {{if formErrors.transaction.payer "has-error"}}">
+  <label class="control-label">Who paid?</label>
+  {{my-select
+    content=users
+    selection=transaction.payer
+    prompt="Select payer..."
+    optionValuePath="id"
+    optionLabelPath="name"
+  }}
+  <div class="help-block with-errors">
+    {{formErrors.transaction.payer}}
   </div>
+</div>
 
-  <div class="form-group">
-    <label>For what?</label>
-    {{input value=transaction.name class="transaction-name, form-control" placeholder="Gift for Alice"}}
+<div class="form-group {{if formErrors.transaction.name "has-error"}}">
+  <label class="control-label">For what?</label>
+  {{input value=transaction.name class="transaction-name, form-control" placeholder="Gift for Alice"}}
+  <div class="help-block with-errors">
+    {{formErrors.transaction.name}}
   </div>
+</div>
 
-  <div class="form-group">
-    <label for="exampleInputPassword1">How much?</label>
-    {{input value=transaction.amount class="form-control" placeholder="Amount"}}
+<div class="form-group {{if formErrors.transaction.amount "has-error"}}">
+  <label class="control-label">How much?</label>
+  {{input value=transaction.amount class="form-control" placeholder="Amount"}}
+  <div class="help-block with-errors">
+    {{formErrors.transaction.amount}}
   </div>
+</div>
 
-  <div class="form-group">
-    <label for="exampleInputPassword1">Divide the cost among:</label>
-    {{my-checkbox-list
-      content=users
-      selection=transaction.participants
-      optionValuePath="id"
-      optionLabelPath="name"
-    }}
+<div class="form-group {{if formErrors.transaction.participants "has-error"}}">
+  <label class="control-label">Divide the cost among:</label>
+  {{my-checkbox-list
+    content=users
+    selection=transaction.participants
+    optionValuePath="id"
+    optionLabelPath="name"
+  }}
+  <div class="help-block with-errors">
+    {{formErrors.transaction.participants}}
   </div>
-</fieldset>
+</div>
+
+<button {{action "save"}} class="btn btn-success">Save Changes</button>
+or
+{{link-to "Cancel" "event.transactions"}}

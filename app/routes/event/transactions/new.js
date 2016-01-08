@@ -15,7 +15,7 @@ export default Ember.Route.extend({
     },
 
     actions: {
-        create() {
+        save() {
             const transaction = this.currentModel;
             const event = this.modelFor("event");
 
