@@ -7,7 +7,7 @@
             {{input value=user.name class="user-name, form-control" focus-out="saveChanges" placeholder="Name"}}
           </td>
           <td>
-            <button class="btn btn-danger" {{action "deleteUser" user}}>Delete</button>
+            <button class="btn btn-danger" disabled={{isRemovingDisabled}} {{action "deleteUser" user}}>Delete</button>
           </td>
         </tr>
       {{/each}}

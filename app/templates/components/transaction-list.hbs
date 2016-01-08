@@ -1,35 +1,17 @@
 {{#if anyTransactions}}
-  <table class="transaction-list table table-hover">
-    <thead>
-      <th>Name</th>
-      <th>Amount</th>
-      <th>Payer</th>
-      <th>Participants</th>
-      <th>Actions</th>
-    </thead>
-    <tbody>
-      {{#each transactions as |transaction|}}
-        <tr class="item">
-          <td>
-            {{transaction.name}}
-          </td>
-          <td>
-            {{transaction.amount}}
-          </td>
-          <td>
-            {{transaction.payer.name}}
-          </td>
-          <td>
 
-          </td>
-          <td>
-            <button class="btn btn-danger" {{action "delete" transaction}}>Delete</button>
-            {{link-to "Edit" "event.transactions.edit" transaction.id class="btn btn-primary"}}
-          </td>
-        </tr>
-      {{/each}}
-    </tbody>
-  </table>
+  {{#each transactions as |transaction|}}
+    <div class="well">
+      {{transaction.payer.name}} paid {{transaction.amount}} for {{transaction.name}}
+
+      <button class="btn btn-danger" {{action "delete" transaction}}>
+        <span class="glyphicon glyphicon-trash" aria-hidden="true"></span>
+      </Button>
+      {{#link-to "event.transactions.edit" transaction.id class="btn btn-primary"}}
+        <span class="glyphicon glyphicon-edit" aria-hidden="true"></span>
+      {{/link-to}}
+    </div>
+  {{/each}}
 {{else}}
   <div class="alert alert-info" role="alert">
     There are no transactions yet.
