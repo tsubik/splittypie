@@ -19,6 +19,12 @@ export default Ember.Route.extend({
             const transaction = this.currentModel;
 
             transaction.save().then(() => this.transitionTo("event.transactions"));
+        },
+
+        willTransition() {
+            const transaction = this.currentModel;
+
+            transaction.rollbackAttributes();
         }
     }
 });

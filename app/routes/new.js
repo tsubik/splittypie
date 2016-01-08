@@ -13,16 +13,13 @@ export default Ember.Route.extend({
     actions: {
         addUser() {
             const event = this.currentModel;
-            const newUser = this.store.createRecord("user", {name: ""});
+            const newUser = this.store.createRecord("user");
 
             event.get("users").pushObject(newUser);
         },
 
         createEvent() {
-            Ember.RSVP.all(this.currentModel.get("users").invoke("save"))
-                .then(() => {
-                    return this.currentModel.save();
-                })
+            this.currentModel.save()
                 .then((event) => {
                     this.transitionTo("event.transactions.new", event);
                 });

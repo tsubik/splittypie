@@ -5,8 +5,10 @@ export default Ember.Component.extend({
 
     actions: {
         delete(transaction) {
-            this.get("transactions").removeObject(transaction);
-            this.sendAction("saveChanges");
+            if (confirm("Are you sure?")) {
+                this.get("transactions").removeObject(transaction);
+                this.sendAction("saveChanges");
+            }
         }
     }
 });
