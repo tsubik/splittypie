@@ -19,8 +19,10 @@ export default Ember.Route.extend({
         },
 
         createEvent() {
-            this.currentModel
-                .save()
+            Ember.RSVP.all(this.currentModel.get("users").invoke("save"))
+                .then(() => {
+                    return this.currentModel.save();
+                })
                 .then((event) => {
                     this.transitionTo("event.transactions.new", event);
                 });
