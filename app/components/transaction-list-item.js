@@ -5,12 +5,7 @@ export default Ember.Component.extend({
     classNames: ["well"],
 
     participants: Ember.computed("transaction.participants", function () {
-        return this.get("transaction.participants").reduce((prev, item) => {
-            if (prev) {
-                return prev + ", " + item.get("name");
-            }
-            return item.get("name");
-        });
+        return this.get("transaction.participants").getEach("name").join(", ");
     }),
 
     actions: {

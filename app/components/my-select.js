@@ -15,7 +15,7 @@ export default Ember.Component.extend({
         }
     },
 
-    didValueChanged: Ember.on("init", Ember.observer("value", function () {
+    valueDidChanged: Ember.on("init", Ember.observer("value", function () {
         const options = this.get("options");
         const value = this.get("value");
 
