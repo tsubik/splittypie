@@ -6,6 +6,19 @@
       {{formErrors.event.name}}
     </div>
   </div>
+  <div class="form-group {{if formErrors.event.currency "has-error"}}">
+    <label for="inputEmail3" class="control-label">Currency</label>
+    {{my-select
+      options=currencies
+      value=event.currencyCode
+      prompt="Select currency..."
+      optionValuePath="code"
+      optionLabelPath="nameWithCode"
+    }}
+    <div class="help-block with-errors">
+      {{formErrors.event.name}}
+    </div>
+  </div>
 </div>
 <h3>Participants</h3>
 <div class="well">

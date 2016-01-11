@@ -1,12 +1,12 @@
 <select class="form-control" {{action 'change' on='change'}}>
     {{#if prompt}}
-        <option disabled selected={{is-not selection}}>
+        <option disabled selected={{is-not selected}}>
             {{prompt}}
         </option>
     {{/if}}
 
-    {{#each content key="@identity" as |item|}}
-        <option value="{{read-path item optionValuePath}}" selected={{is-equal item selection}}>
+    {{#each options key="@identity" as |item|}}
+        <option value="{{read-path item optionValuePath}}" selected={{is-equal item selected}}>
             {{read-path item optionLabelPath}}
         </option>
     {{/each}}

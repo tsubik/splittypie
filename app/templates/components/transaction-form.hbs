@@ -1,8 +1,8 @@
 <div class="form-group {{if formErrors.transaction.payer "has-error"}}">
   <label class="control-label">Who paid?</label>
   {{my-select
-    content=users
-    selection=transaction.payer
+    options=users
+    selected=transaction.payer
     prompt="Select payer..."
     optionValuePath="id"
     optionLabelPath="name"
