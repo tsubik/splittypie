@@ -6,8 +6,10 @@ module.exports = function(environment) {
         environment: environment,
         contentSecurityPolicy: {
             "connect-src": "'self' https://auth.firebase.com wss://*.firebaseio.com",
+            "script-src": "'self' 'unsafe-inline' https://*.firebaseio.com ",
             "font-src": "'self' data:"
         },
+
         firebase: "https://splitr-lite.firebaseio.com/",
         baseURL: "/",
         locationType: "auto",

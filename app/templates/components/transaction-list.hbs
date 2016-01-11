@@ -1,16 +1,6 @@
 {{#if anyTransactions}}
-
   {{#each transactions as |transaction|}}
-    <div class="well">
-      {{transaction.payer.name}} paid {{transaction.amount}} for {{transaction.name}}
-
-      <button class="btn btn-danger" {{action "delete" transaction}}>
-        <span class="glyphicon glyphicon-trash" aria-hidden="true"></span>
-      </Button>
-      {{#link-to "event.transactions.edit" transaction.id class="btn btn-primary"}}
-        <span class="glyphicon glyphicon-edit" aria-hidden="true"></span>
-      {{/link-to}}
-    </div>
+    {{transaction-list-item transaction=transaction delete=(action "delete")}}
   {{/each}}
 {{else}}
   <div class="alert alert-info" role="alert">

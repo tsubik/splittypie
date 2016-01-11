@@ -1,7 +1,8 @@
 import Ember from "ember";
 import Validations from "ember-validations";
+import Form from "splitr-lite/mixins/form";
 
-export default Ember.Component.extend(Validations, {
+export default Ember.Component.extend(Validations, Form, {
     validations: {
         "transaction.name": {
             presence: true,
@@ -16,18 +17,6 @@ export default Ember.Component.extend(Validations, {
         },
         "transaction.participants": {
             presence: true
-        }
-    },
-
-    formErrors: Ember.computed("isSubmitted", function () {
-        return this.get("isSubmitted") ? this.errors : {};
-    }),
-
-    actions: {
-        save() {
-            this.set("isSubmitted", true);
-            this.validate()
-                .then(() => this.sendAction("save"));
         }
     }
 });

@@ -1,20 +1,3 @@
-{{#if anyUsers}}
-  <table class="table table-hover user-list">
-    <tbody>
-      {{#each users as |user|}}
-        <tr class="item">
-          <td>
-            {{input value=user.name class="user-name, form-control" focus-out="saveChanges" placeholder="Name"}}
-          </td>
-          <td>
-            <button class="btn btn-danger" disabled={{isRemovingDisabled}} {{action "deleteUser" user}}>Delete</button>
-          </td>
-        </tr>
-      {{/each}}
-    </tbody>
-  </table>
-{{else}}
-  <div class="alert alert-info" role="alert">
-    There are no participants yet.
-  </div>
-{{/if}}
+{{#each users as |user|}}
+  {{user-form user=user isSubmitted=isSubmitted isRemoveDisabled=isRemoveDisabled registerAs=user.form delete=(action "deleteUser")}}
+{{/each}}

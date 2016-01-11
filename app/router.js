@@ -14,7 +14,7 @@ Router.map(function () {
           this.route("new");
           this.route("edit", {path: "/:transactionId"});
       });
-      this.route('users');
+      this.route("edit");
     });
     this.route("new");
 });

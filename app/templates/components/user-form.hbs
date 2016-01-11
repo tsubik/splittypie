@@ -1,0 +1,11 @@
+<div class="form-group {{if formErrors.user.name "has-error"}}">
+  <div class="input-group">
+    {{input value=user.name class="user-name, form-control" placeholder="Name"}}
+    <span class="input-group-btn">
+      <button class="btn btn-danger" type="button" disabled={{isRemoveDisabled}} {{action "delete" user}}>Delete</button>
+    </span>
+  </div>
+  <div class="help-block with-errors">
+    {{formErrors.user.name}}
+  </div>
+</div>
