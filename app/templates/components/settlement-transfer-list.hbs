@@ -2,7 +2,8 @@
   <div class="well">
     {{#each transfers as |transfer|}}
       <li class="settlement-item">
-        <strong>{{transfer.sender.name}}</strong> has to send <strong>{{transfer.recipient.name}}</strong> {{transfer.amount}}
+        <strong>{{transfer.sender.name}}</strong> has to send <strong>{{transfer.recipient.name}}</strong>
+        {{transfer.amount}} {{currency.code}}
       </li>
     {{/each}}
   </div>

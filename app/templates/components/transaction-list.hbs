@@ -1,6 +1,6 @@
 {{#if anyTransactions}}
   {{#each transactions as |transaction|}}
-    {{transaction-list-item transaction=transaction delete=(action "delete")}}
+    {{transaction-list-item currency=currency transaction=transaction delete=(action "delete")}}
   {{/each}}
 {{else}}
   <div class="alert alert-info" role="alert">

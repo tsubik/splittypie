@@ -1,18 +1,10 @@
 import Ember from "ember";
 
 export default Ember.Route.extend({
-    model() {
-        return Ember.RSVP.hash({
-            model: this.modelFor("event"),
-            currencies: this.store.findAll("currency")
-        });
-    },
-
     setupController(controller, models) {
         this._super(controller, models);
         controller.setProperties({
-            model: models.model,
-            currencies: models.currencies
+            currencies: this.modelFor("application").currencies
         });
     },
 
