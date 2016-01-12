@@ -8,6 +8,7 @@ export default Ember.Component.extend({
 
     transfers: Ember.computed("users.@each.balance", function () {
         const users = this.get("users");
+        const currency = this.get("users.firstObject.event.currency");
 
         const owed = users.filter((u) => u.get("balance") < 0).map(convertToUserAmount);
         const paid = users.filter((u) => u.get("balance") > 0).map(convertToUserAmount);
@@ -41,7 +42,8 @@ export default Ember.Component.extend({
             transfers.pushObject(Ember.Object.create({
                 sender: sender.get("user"),
                 recipient: recipient.get("user"),
-                amount: possibleTransfer.toFixed(2)
+                amount: possibleTransfer.toFixed(2),
+                currency: currency
             }));
         }
 

@@ -1,15 +1,17 @@
 import Ember from "ember";
-import EventRouteMixin from "splitr-lite/mixins/event-route-mixin";
 
-export default Ember.Route.extend(EventRouteMixin, {
+export default Ember.Route.extend({
     model() {
         return this.store.createRecord("transaction");
     },
 
     setupController(controller, model) {
+        model.set("event", this.modelFor("event"));
         this._super(controller, model);
-        this._setupCurrency(controller);
-        controller.set("users", this.modelFor("event").get("users"));
+        controller.setProperties({
+            transaction: model,
+            users: this.modelFor("event").get("users")
+        });
     },
 
     renderTemplate() {
@@ -23,6 +25,14 @@ export default Ember.Route.extend(EventRouteMixin, {
 
             event.get("transactions").pushObject(transaction);
             event.save().then(() => this.transitionTo("event.transactions"));
+        },
+
+        willTransition() {
+            const transaction = this.currentModel;
+
+            if (transaction.get("isNew")) {
+                transaction.destroyRecord();
+            }
         }
     }
 });

@@ -3,7 +3,7 @@ import Ember from "ember";
 export default Ember.Route.extend({
     model() {
         return Ember.RSVP.hash({
-            model: this.store.createRecord("event", {
+            event: this.store.createRecord("event", {
                 users: [
                     this.store.createRecord("user"),
                     this.store.createRecord("user")
@@ -16,14 +16,14 @@ export default Ember.Route.extend({
     setupController(controller, models) {
         this._super(controller, models);
         controller.setProperties({
-            model: models.model,
+            event: models.event,
             currencies: models.currencies
         });
     },
 
     actions: {
         createEvent() {
-            this.currentModel.model.save()
+            this.currentModel.event.save()
                 .then((event) => {
                     this.transitionTo("event.transactions.new", event);
                 });

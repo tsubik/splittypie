@@ -9,7 +9,7 @@
         {{#each users as |user|}}
           <tr class="user-balance-list-item">
             <td>{{user.name}}</td>
-            <td>{{user.balance}} {{currency.code}}</td>
+            <td>{{user.balance}} {{user.event.currency.code}}</td>
           </tr>
         {{/each}}
       </tbody>
