@@ -1,12 +1,12 @@
 <div class="well">
-  <div class="form-group {{if formErrors.event.name "has-error"}}">
+  <div class="form-group {{if event.formErrors.name "has-error"}}">
     <label for="inputEmail3" class="control-label">Event Name</label>
     {{input value=event.name classNames="form-control" placeholder="Example: Trip to Barcelona"}}
     <div class="help-block with-errors">
-      {{formErrors.event.name}}
+      {{event.formErrors.name}}
     </div>
   </div>
-  <div class="form-group {{if formErrors.event.currency "has-error"}}">
+  <div class="form-group {{if event.formErrors.currency "has-error"}}">
     <label for="inputEmail3" class="control-label">Currency</label>
     {{my-select
       options=currencies
@@ -16,13 +16,13 @@
       optionLabelPath="nameWithCode"
     }}
     <div class="help-block with-errors">
-      {{formErrors.event.name}}
+      {{event.formErrors.currency}}
     </div>
   </div>
 </div>
 <h3>Participants</h3>
 <div class="well">
-  {{user-list users=event.users isSubmitted=isSubmitted registerAs=userList}}
+  {{user-list users=event.users}}
   <button type="button" class="btn btn-primary" {{action "addUser"}}>Add Participant</button>
 </div>
 

@@ -1,4 +1,5 @@
 import Ember from "ember";
+import TransactionForm from "splitr-lite/forms/transaction";
 
 export default Ember.Route.extend({
     model() {
@@ -7,6 +8,7 @@ export default Ember.Route.extend({
 
     setupController(controller, model) {
         model.set("event", this.modelFor("event"));
+        model = TransactionForm.create({ model: model });
         this._super(controller, model);
         controller.setProperties({
             transaction: model,
@@ -19,8 +21,7 @@ export default Ember.Route.extend({
     },
 
     actions: {
-        save() {
-            const transaction = this.currentModel;
+        modelUpdated(transaction) {
             const event = this.modelFor("event");
 
             event.get("transactions").pushObject(transaction);

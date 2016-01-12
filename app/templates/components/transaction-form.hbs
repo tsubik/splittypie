@@ -1,4 +1,4 @@
-<div class="form-group {{if formErrors.transaction.payer "has-error"}}">
+<div class="form-group {{if transaction.formErrors.payer "has-error"}}">
   <label class="control-label">Who paid?</label>
   {{my-select
     options=users
@@ -8,30 +8,30 @@
     optionLabelPath="name"
   }}
   <div class="help-block with-errors">
-    {{formErrors.transaction.payer}}
+    {{transaction.formErrors.payer}}
   </div>
 </div>
 
-<div class="form-group {{if formErrors.transaction.name "has-error"}}">
+<div class="form-group {{if transaction.formErrors.name "has-error"}}">
   <label class="control-label">For what?</label>
   {{input value=transaction.name class="transaction-name, form-control" placeholder="Gift for Alice"}}
   <div class="help-block with-errors">
-    {{formErrors.transaction.name}}
+    {{transaction.formErrors.name}}
   </div>
 </div>
 
-<div class="form-group {{if formErrors.transaction.amount "has-error"}}">
+<div class="form-group {{if transaction.formErrors.amount "has-error"}}">
   <label class="control-label">How much?</label>
   <div class="input-group">
     <span class="input-group-addon">{{transaction.event.currency.code}}</span>
     {{input value=transaction.amount class="form-control" placeholder="Amount"}}
   </div>
   <div class="help-block with-errors">
-    {{formErrors.transaction.amount}}
+    {{transaction.formErrors.amount}}
   </div>
 </div>
 
-<div class="form-group {{if formErrors.transaction.participants "has-error"}}">
+<div class="form-group {{if transaction.formErrors.participants "has-error"}}">
   <label class="control-label">Divide the cost among:</label>
   {{my-checkbox-list
     content=users
@@ -40,7 +40,7 @@
     optionLabelPath="name"
   }}
   <div class="help-block with-errors">
-    {{formErrors.transaction.participants}}
+    {{transaction.formErrors.participants}}
   </div>
 </div>
 

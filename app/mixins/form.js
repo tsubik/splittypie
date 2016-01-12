@@ -2,23 +2,25 @@ import Ember from "ember";
 import Validations from "ember-validations";
 
 export default Ember.Mixin.create(Validations, {
+    container: Ember.computed.alias("model.container"),
+    parent: null,
     isSubmitted: false,
+
+    parentSubmittedChanged: Ember.on("init", Ember.observer("parent.isSubmitted", function () {
+        this.set("isSubmitted", this.get("parent.isSubmitted"));
+    })),
 
     formErrors: Ember.computed("isSubmitted", function () {
         return this.get("isSubmitted") ? this.errors : {};
     }),
 
-    _register: Ember.on("init", function () {
-        Ember.run.schedule("afterRender", this, () => {
-            this.set("registerAs", this);
-        });
-    }),
+    updateModel() {
+        const model = this.get("model");
 
-    actions: {
-        save() {
-            this.set("isSubmitted", true);
-            this.validate()
-                .then(() => this.sendAction("save"));
-        }
+        this.set("isSubmitted", true);
+
+        return this.validate()
+            .then(() => this.updateModelAttributes())
+            .then(() => model);
     }
 });

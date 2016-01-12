@@ -1,4 +1,5 @@
 import Ember from "ember";
+import EventForm from "splitr-lite/forms/event";
 
 export default Ember.Route.extend({
     model() {
@@ -14,6 +15,7 @@ export default Ember.Route.extend({
     },
 
     setupController(controller, models) {
+        models.event = EventForm.create({model: models.event});
         this._super(controller, models);
         controller.setProperties({
             event: models.event,
@@ -22,11 +24,9 @@ export default Ember.Route.extend({
     },
 
     actions: {
-        createEvent() {
-            this.currentModel.event.save()
-                .then((event) => {
-                    this.transitionTo("event.transactions.new", event);
-                });
+        modelUpdated(event) {
+            event.save()
+                .then(() => this.transitionTo("event.transactions.new", event));
         }
     }
 });
