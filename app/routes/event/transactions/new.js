@@ -1,9 +1,6 @@
 import Ember from "ember";
-import { injectForms } from "splitr-lite/utils/inject";
 
 export default Ember.Route.extend({
-    transactionForm: injectForms("transaction"),
-
     model() {
         return Ember.Object.create({});
     },
