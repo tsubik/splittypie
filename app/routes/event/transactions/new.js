@@ -10,7 +10,7 @@ export default Ember.Route.extend({
 
     setupController(controller, model) {
         model.set("event", this.modelFor("event"));
-        model = this.get("transactionForm").create({ model: model });
+        model = this.get("formFactory").createForm("transaction", model);
         this._super(controller, model);
         controller.setProperties({
             transaction: model,

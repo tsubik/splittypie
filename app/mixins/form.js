@@ -3,6 +3,7 @@ import Validations from "ember-validations";
 
 export default Ember.Mixin.create(Validations, {
     store: Ember.inject.service(),
+    formFactory: Ember.inject.service(),
     parent: null,
     isSubmitted: false,
 
@@ -13,6 +14,10 @@ export default Ember.Mixin.create(Validations, {
     formErrors: Ember.computed("isSubmitted", function () {
         return this.get("isSubmitted") ? this.errors : {};
     }),
+
+    createInnerForm(name, model) {
+        return this.get("formFactory").createForm(name, model, { parent: this });
+    },
 
     updateModel() {
         this.set("isSubmitted", true);
@@ -29,7 +34,6 @@ export default Ember.Mixin.create(Validations, {
         const modelName = this.get("modelName");
 
         if (this.get("model.constructor.modelName") !== modelName) {
-            console.log("Form Object creating model " + modelName);
             this.set("model", this.get("store").createRecord(modelName));
         }
     }

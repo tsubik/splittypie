@@ -1,9 +1,7 @@
 import Ember from "ember";
 import Form from "splitr-lite/mixins/form";
-import { injectForms } from "splitr-lite/utils/inject";
 
 export default Ember.Object.extend(Form, {
-    userForm: injectForms("user"),
     modelName: "event",
     validations: {
         name: {
@@ -22,12 +20,12 @@ export default Ember.Object.extend(Form, {
         this.setProperties(model.getProperties("name", "currency"));
 
         this.set("users", model.getWithDefault("users", []).map((user) => {
-            return this.get("userForm").create({ parent: this, model: user });
+            return this.createInnerForm("user", user);
         }));
     },
 
     addUser() {
-        const emptyUserForm = this.get("userForm").create({ parent: this, model: Ember.Object.create() });
+        const emptyUserForm = this.createInnerForm("user", Ember.Object.create());
 
         this.get("users").pushObject(emptyUserForm);
     },
