@@ -35,8 +35,7 @@ export default Ember.Object.extend(Form, {
         const model = this.get("model");
 
         model.setProperties(this.getProperties("name", "currency"));
-        this.get("users").invoke("createModelIfNotInStore");
-        this.get("users").invoke("updateModelAttributes");
+        this.get("users").invoke("applyChangesToModel");
         model.set("users", this.get("users").getEach("model"));
     }
 });

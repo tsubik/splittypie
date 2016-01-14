@@ -24,10 +24,14 @@ export default Ember.Mixin.create(Validations, {
 
         return this.validate()
             .then(() => {
-                this.createModelIfNotInStore();
-                this.updateModelAttributes();
+                this.applyChangesToModel();
                 return this.get("model");
             });
+    },
+
+    applyChangesToModel() {
+        this.createModelIfNotInStore();
+        this.updateModelAttributes();
     },
 
     createModelIfNotInStore() {
@@ -40,12 +44,12 @@ export default Ember.Mixin.create(Validations, {
 
     validate() {
         const validateThis = this._super(...arguments);
-        const validateArrays = this._getObjectsFromInnerArrays().invoke("validate");
+        const validateArrays = this._getObjectsToValidateFromInnerArrays().invoke("validate");
 
         return Ember.RSVP.Promise.all([validateThis].concat(validateArrays));
     },
 
-    _getObjectsFromInnerArrays() {
+    _getObjectsToValidateFromInnerArrays() {
         const validations = this.get("validations");
 
         return Object.keys(validations)
