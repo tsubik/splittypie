@@ -1,14 +1,16 @@
 import Ember from "ember";
-import TransactionForm from "splitr-lite/forms/transaction";
+import { injectForms } from "splitr-lite/utils/inject";
 
 export default Ember.Route.extend({
+    transactionForm: injectForms("transaction"),
+
     model(params) {
         return this.store.find("transaction", params.transactionId);
     },
 
     setupController(controller, model) {
         this._super(controller, model);
-        model = TransactionForm.create({ model: model });
+        model = this.get("transactionForm").create({ model: model });
         controller.setProperties({
             transaction: model,
             users: this.modelFor("event").get("users")

@@ -1,7 +1,9 @@
 import Ember from "ember";
-import EventForm from "splitr-lite/forms/event";
+import { injectForms } from "splitr-lite/utils/inject";
 
 export default Ember.Route.extend({
+    eventForm: injectForms("event"),
+
     model() {
         return Ember.RSVP.hash({
             event: this.modelFor("event"),
@@ -10,7 +12,7 @@ export default Ember.Route.extend({
     },
 
     setupController(controller, models) {
-        models.event = EventForm.create({ model: models.event });
+        models.event = this.get("eventForm").create({ model: models.event });
         this._super(controller, models);
         controller.setProperties({
             event: models.event,

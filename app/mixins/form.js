@@ -2,7 +2,7 @@ import Ember from "ember";
 import Validations from "ember-validations";
 
 export default Ember.Mixin.create(Validations, {
-    container: Ember.computed.alias("model.container"),
+    store: Ember.inject.service(),
     parent: null,
     isSubmitted: false,
 
@@ -15,12 +15,22 @@ export default Ember.Mixin.create(Validations, {
     }),
 
     updateModel() {
-        const model = this.get("model");
-
         this.set("isSubmitted", true);
 
         return this.validate()
-            .then(() => this.updateModelAttributes())
-            .then(() => model);
+            .then(() => {
+                this.createModelIfNotInStore();
+                this.updateModelAttributes();
+                return this.get("model");
+            });
+    },
+
+    createModelIfNotInStore() {
+        const modelName = this.get("modelName");
+
+        if (this.get("model.constructor.modelName") !== modelName) {
+            console.log("Form Object creating model " + modelName);
+            this.set("model", this.get("store").createRecord(modelName));
+        }
     }
 });

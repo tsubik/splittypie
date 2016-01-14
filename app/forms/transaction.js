@@ -2,6 +2,7 @@ import Ember from "ember";
 import Form from "splitr-lite/mixins/form";
 
 export default Ember.Object.extend(Form, {
+    modelName: "transaction",
     validations: {
         name: {
             presence: true,
@@ -19,19 +20,19 @@ export default Ember.Object.extend(Form, {
         }
     },
 
-    name: Ember.computed.oneWay("model.name"),
-    amount: Ember.computed.oneWay("model.amount"),
-    payer: Ember.computed.oneWay("model.payer"),
     event: Ember.computed.oneWay("model.event"),
 
-    initParticipants: Ember.on("init", function () {
-        this.set("participants", this.get("model.participants").toArray());
-    }),
+    init() {
+        this._super(...arguments);
+        const model = this.get("model");
+
+        this.setProperties(model.getProperties("name", "amount", "payer", "participants"));
+        this.set("participants", model.getWithDefault("participants", []).toArray());
+    },
 
     updateModelAttributes() {
         const model = this.get("model");
 
-        model.setProperties(this.getProperties("name", "amount", "payer"));
-        model.set("participants", this.get("participants"));
+        model.setProperties(this.getProperties("name", "amount", "payer", "participants"));
     }
 });

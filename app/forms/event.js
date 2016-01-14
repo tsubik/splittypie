@@ -1,8 +1,10 @@
 import Ember from "ember";
 import Form from "splitr-lite/mixins/form";
-import UserForm from "splitr-lite/forms/user";
+import { injectForms } from "splitr-lite/utils/inject";
 
 export default Ember.Object.extend(Form, {
+    userForm: injectForms("user"),
+    modelName: "event",
     validations: {
         name: {
             presence: true,
@@ -13,16 +15,21 @@ export default Ember.Object.extend(Form, {
         }
     },
 
-    name: Ember.computed.oneWay("model.name"),
-    currency: Ember.computed.oneWay("model.currency"),
-    users: Ember.computed.map("model.users", function (user) {
-        return UserForm.create({ parent: this, model: user });
-    }),
-    addUser() {
-        const emptyUser = Ember.Object.create({ name: "" });
+    init() {
+        this._super(...arguments);
+        const model = this.get("model");
 
-        // TODO: Find better workaround for injecting container
-        this.get("users").pushObject(UserForm.create({ parent: this, container: this.get("container"), model: emptyUser }));
+        this.setProperties(model.getProperties("name", "currency"));
+
+        this.set("users", model.getWithDefault("users", []).map((user) => {
+            return this.get("userForm").create({ parent: this, model: user });
+        }));
+    },
+
+    addUser() {
+        const emptyUserForm = this.get("userForm").create({ parent: this, model: Ember.Object.create() });
+
+        this.get("users").pushObject(emptyUserForm);
     },
 
     validate() {
@@ -36,7 +43,8 @@ export default Ember.Object.extend(Form, {
         const model = this.get("model");
 
         model.setProperties(this.getProperties("name", "currency"));
-
+        this.get("users").invoke("createModelIfNotInStore");
         this.get("users").invoke("updateModelAttributes");
+        model.set("users", this.get("users").getEach("model"));
     }
 });

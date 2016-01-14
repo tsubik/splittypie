@@ -2,7 +2,7 @@ import Ember from "ember";
 import Form from "splitr-lite/mixins/form";
 
 export default Ember.Object.extend(Form, {
-    store: Ember.inject.service(),
+    modelName: "user",
     validations: {
         name: {
             presence: true,
@@ -10,15 +10,16 @@ export default Ember.Object.extend(Form, {
         }
     },
 
-    name: Ember.computed.oneWay("model.name"),
+    init() {
+        this._super(...arguments);
+        const model = this.get("model");
+
+        this.set("name", model.get("name"));
+    },
 
     updateModelAttributes() {
         let model = this.get("model");
 
-        if (model.constructor.modelName !== "user") {
-            model = this.get("store").createRecord("user");
-        }
-
-        return model.setProperties(this.getProperties("name"));
+        model.setProperties(this.getProperties("name"));
     }
 });

@@ -1,14 +1,16 @@
 import Ember from "ember";
-import TransactionForm from "splitr-lite/forms/transaction";
+import { injectForms } from "splitr-lite/utils/inject";
 
 export default Ember.Route.extend({
+    transactionForm: injectForms("transaction"),
+
     model() {
-        return this.store.createRecord("transaction");
+        return Ember.Object.create({});
     },
 
     setupController(controller, model) {
         model.set("event", this.modelFor("event"));
-        model = TransactionForm.create({ model: model });
+        model = this.get("transactionForm").create({ model: model });
         this._super(controller, model);
         controller.setProperties({
             transaction: model,
@@ -26,14 +28,6 @@ export default Ember.Route.extend({
 
             event.get("transactions").pushObject(transaction);
             event.save().then(() => this.transitionTo("event.transactions"));
-        },
-
-        willTransition() {
-            const transaction = this.currentModel;
-
-            if (transaction.get("isNew")) {
-                transaction.destroyRecord();
-            }
         }
     }
 });
