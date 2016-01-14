@@ -10,7 +10,8 @@ export default Ember.Object.extend(Form, {
         },
         currency: {
             presence: true
-        }
+        },
+        users: true
     },
 
     init() {
@@ -28,13 +29,6 @@ export default Ember.Object.extend(Form, {
         const emptyUserForm = this.createInnerForm("user", Ember.Object.create());
 
         this.get("users").pushObject(emptyUserForm);
-    },
-
-    validate() {
-        const validateUsers = this.get("users").invoke("validate");
-        const validateThis = this._super.apply(this, arguments);
-
-        return Ember.RSVP.Promise.all([validateThis].concat(validateUsers));
     },
 
     updateModelAttributes() {

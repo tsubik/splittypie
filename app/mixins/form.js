@@ -36,5 +36,21 @@ export default Ember.Mixin.create(Validations, {
         if (this.get("model.constructor.modelName") !== modelName) {
             this.set("model", this.get("store").createRecord(modelName));
         }
+    },
+
+    validate() {
+        const validateThis = this._super(...arguments);
+        const validateArrays = this._getObjectsFromInnerArrays().invoke("validate");
+
+        return Ember.RSVP.Promise.all([validateThis].concat(validateArrays));
+    },
+
+    _getObjectsFromInnerArrays() {
+        const validations = this.get("validations");
+
+        return Object.keys(validations)
+            .map((attributeName) => this.get(attributeName))
+            .filter((value) => Ember.isArray(value))
+            .reduce((prev, array) => prev.concat(array), []);
     }
 });
