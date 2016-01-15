@@ -1,25 +1,44 @@
-import { moduleForComponent, test } from 'ember-qunit';
-import hbs from 'htmlbars-inline-precompile';
+import { moduleForComponent, test } from "ember-qunit";
+import hbs from "htmlbars-inline-precompile";
+import Ember from "ember";
 
-moduleForComponent('transaction-form', 'Integration | Component | transaction form', {
-  integration: true
+moduleForComponent("transaction-form", "Integration | Component | transaction form", {
+    integration: true
 });
 
-test('it renders', function(assert) {
-  
-  // Set any properties with this.set('myProperty', 'value');
-  // Handle any actions with this.on('myAction', function(val) { ... });" + EOL + EOL +
+test("it renders", function(assert) {
+    assert.expect(4);
 
-  this.render(hbs`{{transaction-form}}`);
+    this.render(hbs`{{transaction-form}}`);
 
-  assert.equal(this.$().text().trim(), '');
+    assert.equal(this.$(".transaction-payer").find(":selected").val(), "Select payer...");
+    assert.equal(this.$(".transaction-name").val(), "");
+    assert.equal(this.$(".transaction-name").attr("placeholder"), "Example: Tickets to museum");
+    assert.equal(this.$(".transaction-amount").val(), "");
+});
 
-  // Template block usage:" + EOL +
-  this.render(hbs`
-    {{#transaction-form}}
-      template block text
-    {{/transaction-form}}
-  `);
+test("it renders with transaction model", function(assert) {
+    assert.expect(4);
 
-  assert.equal(this.$().text().trim(), 'template block text');
+    const users = [
+        { id: 1, name: "Bob" },
+        { id: 2, name: "John" },
+        { id: 3, name: "Billy" }
+    ];
+
+    const transaction = Ember.Object.create({
+        payer: users[1],
+        name: "Gift for Alice",
+        amount: "200",
+        participants: users.slice(1)
+    });
+
+    this.set("users", users);
+    this.set("transaction", transaction);
+    this.render(hbs`{{transaction-form transaction=transaction users=users}}`);
+
+    assert.equal(this.$(".transaction-payer").find(":selected").text().trim(), "John");
+    assert.equal(this.$(".transaction-name").val(), "Gift for Alice");
+    assert.equal(this.$(".transaction-amount").val(), "200");
+    assert.equal(this.$(".transaction-participants").find(":checked").length, 2);
 });
