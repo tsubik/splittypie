@@ -3,6 +3,7 @@ import Form from "splitr-lite/mixins/form";
 
 export default Ember.Object.extend(Form, {
     modelName: "event",
+    innerForms: ["users"],
     validations: {
         name: {
             presence: true,
@@ -35,7 +36,6 @@ export default Ember.Object.extend(Form, {
         const model = this.get("model");
 
         model.setProperties(this.getProperties("name", "currency"));
-        this.get("users").invoke("applyChangesToModel");
         model.set("users", this.get("users").getEach("model"));
     }
 });

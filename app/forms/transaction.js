@@ -21,6 +21,7 @@ export default Ember.Object.extend(Form, {
     },
 
     event: Ember.computed.oneWay("model.event"),
+    isSaving: Ember.computed.oneWay("event.isSaving"),
 
     init() {
         this._super(...arguments);
