@@ -55,6 +55,6 @@ export default Ember.Mixin.create(Validations, {
         return Object.keys(validations)
             .map((attributeName) => this.get(attributeName))
             .filter((value) => Ember.isArray(value))
-            .reduce((prev, array) => prev.concat(array), []);
+            .flatten();
     }
 });
