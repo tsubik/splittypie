@@ -1,25 +1,33 @@
-import { moduleForComponent, test } from 'ember-qunit';
-import hbs from 'htmlbars-inline-precompile';
+import { moduleForComponent, test } from "ember-qunit";
+import hbs from "htmlbars-inline-precompile";
+import Ember from "ember";
+import extraTrim from "../../helpers/extra-trim";
 
-moduleForComponent('transaction-list-item', 'Integration | Component | transaction list item', {
-  integration: true
+moduleForComponent("transaction-list-item", "Integration | Component | transaction list item", {
+    integration: true
 });
 
-test('it renders', function(assert) {
-  
-  // Set any properties with this.set('myProperty', 'value');
-  // Handle any actions with this.on('myAction', function(val) { ... });" + EOL + EOL +
+test("it renders", function (assert) {
+    assert.expect(1);
 
-  this.render(hbs`{{transaction-list-item}}`);
+    const users = [
+        { id: 1, name: "Bob" },
+        { id: 2, name: "John" },
+        { id: 3, name: "Billy" }
+    ];
 
-  assert.equal(this.$().text().trim(), '');
+    const transaction = Ember.Object.create({
+        payer: users[1],
+        name: "Gift for Alice",
+        amount: "200",
+        participants: users.slice(1),
+        event: {
+            currency: { code: "USD" }
+        }
+    });
 
-  // Template block usage:" + EOL +
-  this.render(hbs`
-    {{#transaction-list-item}}
-      template block text
-    {{/transaction-list-item}}
-  `);
+    this.set("transaction", transaction);
+    this.render(hbs`{{transaction-list-item transaction=transaction}}`);
 
-  assert.equal(this.$().text().trim(), 'template block text');
+    assert.equal(extraTrim(this.$().text()), "John paid 200 USD for Gift for Alice Participants: John, Billy");
 });

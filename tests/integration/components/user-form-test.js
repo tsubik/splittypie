@@ -1,25 +1,23 @@
-import { moduleForComponent, test } from 'ember-qunit';
-import hbs from 'htmlbars-inline-precompile';
+import { moduleForComponent, test } from "ember-qunit";
+import hbs from "htmlbars-inline-precompile";
 
-moduleForComponent('user-form', 'Integration | Component | user form', {
-  integration: true
+moduleForComponent("user-form", "Integration | Component | user form", {
+    integration: true
 });
 
-test('it renders', function(assert) {
-  
-  // Set any properties with this.set('myProperty', 'value');
-  // Handle any actions with this.on('myAction', function(val) { ... });" + EOL + EOL +
+test("it renders", function (assert) {
+    this.render(hbs`{{user-form}}`);
 
-  this.render(hbs`{{user-form}}`);
+    assert.equal(this.$(".user-name").val(), "");
+});
 
-  assert.equal(this.$().text().trim(), '');
+test("it renders with user model", function (assert) {
+    const user = {
+        name: "John"
+    };
 
-  // Template block usage:" + EOL +
-  this.render(hbs`
-    {{#user-form}}
-      template block text
-    {{/user-form}}
-  `);
+    this.set("user", user);
+    this.render(hbs`{{user-form user=user}}`);
 
-  assert.equal(this.$().text().trim(), 'template block text');
+    assert.equal(this.$(".user-name").val(), "John");
 });

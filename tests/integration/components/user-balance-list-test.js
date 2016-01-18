@@ -7,7 +7,7 @@ moduleForComponent("user-balance-list", "Integration | Component | user balance 
     integration: true
 });
 
-test("it renders", function(assert) {
+test("it renders", function (assert) {
     const users = [
         Ember.Object.create({name: "Bob", balance: 100}),
         Ember.Object.create({name: "Alice", balance: -100})

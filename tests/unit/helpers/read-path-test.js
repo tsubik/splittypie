@@ -5,7 +5,7 @@ import Ember from "ember";
 module("Unit | Helper | read path");
 
 // Replace this with your real tests.
-test("it works", function(assert) {
+test("it works", function (assert) {
     const object = Ember.Object.create({
         property: "test"
     });

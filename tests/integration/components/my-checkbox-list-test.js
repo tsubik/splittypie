@@ -5,7 +5,7 @@ moduleForComponent("my-checkbox-list", "Integration | Component | my checkbox li
     integration: true
 });
 
-test("it renders", function(assert) {
+test("it renders", function (assert) {
 
     // Set any properties with this.set("myProperty", "value");
     // Handle any actions with this.on("myAction", function(val) { ... });" + EOL + EOL +
@@ -22,7 +22,7 @@ test("it renders", function(assert) {
     assert.equal(this.$("label").eq(1).text().trim(), "Label for value 2");
 });
 
-test("it checks proper elements", function(assert) {
+test("it checks proper elements", function (assert) {
     const items = [
         {value: 1, label: "Label for value 1"},
         {value: 2, label: "Label for value 2"},

@@ -2,7 +2,7 @@ import Ember from "ember";
 
 export default Ember.Component.extend({
     tagName: "div",
-    classNames: ["well"],
+    classNames: ["well", "transaction-list-item"],
 
     participants: Ember.computed("transaction.participants", function () {
         return this.get("transaction.participants").getEach("name").join(", ");

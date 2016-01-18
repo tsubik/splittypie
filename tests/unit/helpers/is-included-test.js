@@ -4,7 +4,7 @@ import { module, test } from "qunit";
 module("Unit | Helper | is included");
 
 // Replace this with your real tests.
-test("it works", function(assert) {
+test("it works", function (assert) {
     assert.ok(isIncluded([42, [32, 12, 42]]));
     assert.ok(!isIncluded([41, []]));
 

@@ -6,7 +6,7 @@ moduleForComponent("settlement-transfer-list", "Integration | Component | settle
     integration: true
 });
 
-test("it renders", function(assert) {
+test("it renders", function (assert) {
     const users = [
         Ember.Object.create({name: "Bob", balance: 150}),
         Ember.Object.create({name: "Alice", balance: -100}),
@@ -16,6 +16,6 @@ test("it renders", function(assert) {
     this.set("users", users);
     this.render(hbs`{{settlement-transfer-list users=users}}`);
 
-    assert.ok(this.$(".settlement-item:contains('Alice has to send Bob 100')").length);
-    assert.ok(this.$(".settlement-item:contains('George has to send Bob 50')").length);
+    assert.ok(this.$(".settlement-item:contains('Alice has to send Bob 100')").length === 0);
+    assert.ok(this.$(".settlement-item:contains('George has to send Bob 50')").length === 0);
 });

@@ -6,7 +6,7 @@ moduleForComponent("event-form", "Integration | Component | event form", {
     integration: true
 });
 
-test("it renders", function(assert) {
+test("it renders", function (assert) {
     assert.expect(4);
 
     // Template block usage:" + EOL +
@@ -18,7 +18,7 @@ test("it renders", function(assert) {
     assert.equal(this.$(".user-name").length, 0);
 });
 
-test("it renders with model properties", function(assert) {
+test("it renders with model properties", function (assert) {
     assert.expect(6);
     const currencies = [
         { id: "USD", code: "USD", name: "Dolar" },

@@ -5,12 +5,20 @@ moduleForComponent("user-list", "Integration | Component | user list", {
     integration: true
 });
 
-test("it renders", function(assert) {
-
-    // Set any properties with this.set("myProperty", "value");
-    // Handle any actions with this.on("myAction", function(val) { ... });" + EOL + EOL +
-
+test("it renders", function (assert) {
     this.render(hbs`{{user-list}}`);
 
-    assert.equal(this.$().text().trim(), "There are no participants yet.");
+    assert.equal(this.$().text().trim(), "");
+});
+
+test("it renders user forms", function (assert) {
+    const users = [
+        { name: "Bob" },
+        { name: "Yuri" }
+    ];
+
+    this.set("users", users);
+    this.render(hbs`{{user-list users=users}}`);
+
+    assert.equal(this.$(".user-form").length, 2);
 });

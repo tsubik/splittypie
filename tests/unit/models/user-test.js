@@ -3,16 +3,16 @@ import Ember from "ember";
 
 moduleForModel("user", "Unit | Model | user", {
     // Specify the other units that are required for this test.
-    needs: ["model:event", "model:transaction"]
+    needs: ["model:event", "model:transaction", "model:currency"]
 });
 
-test("it exists", function(assert) {
+test("it exists", function (assert) {
     let model = this.subject();
     // let store = this.store();
     assert.ok(!!model);
 });
 
-test("it shows user's transactions balance", function(assert) {
+test("it shows user's transactions balance", function (assert) {
     let store = this.store();
     let alice, bob;
 

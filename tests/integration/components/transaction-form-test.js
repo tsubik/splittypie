@@ -6,7 +6,7 @@ moduleForComponent("transaction-form", "Integration | Component | transaction fo
     integration: true
 });
 
-test("it renders", function(assert) {
+test("it renders", function (assert) {
     assert.expect(4);
 
     this.render(hbs`{{transaction-form}}`);
@@ -17,7 +17,7 @@ test("it renders", function(assert) {
     assert.equal(this.$(".transaction-amount").val(), "");
 });
 
-test("it renders with transaction model", function(assert) {
+test("it renders with transaction model", function (assert) {
     assert.expect(4);
 
     const users = [
