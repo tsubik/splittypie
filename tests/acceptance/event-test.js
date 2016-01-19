@@ -2,9 +2,7 @@ import { test } from "qunit";
 import moduleForAcceptance from "splitr-lite/tests/helpers/module-for-acceptance";
 // import Ember from "ember";
 
-moduleForAcceptance("Acceptance | event", {
-    needs: ["form:event"]
-});
+moduleForAcceptance("Acceptance | event");
 
 test("creating event and first transaction", function (assert) {
     visit("/");
