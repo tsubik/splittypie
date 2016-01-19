@@ -32,11 +32,16 @@ export default Ember.Mixin.create(Validations, {
     updateModel() {
         this.set("isSubmitted", true);
 
-        return this.validate()
-            .then(() => {
-                this.applyChangesToModel();
-                return this.get("model");
-            });
+        return new Ember.RSVP.Promise((resolve) => {
+            this.validate()
+                .then(() => {
+                    this.applyChangesToModel();
+                    resolve(this.get("model"));
+                })
+            //nasty trick because ember validation reject promise if object is not valid
+            //I need to swallow this rejection
+                .catch(() => {});
+        });
     },
 
     validate() {

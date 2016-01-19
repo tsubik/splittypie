@@ -15,10 +15,6 @@ export default Ember.Component.extend({
             transaction.updateModel()
                 .then((transaction) => {
                     this.sendAction("modelUpdated", transaction);
-                })
-                .catch(() => {
-                    //TODO: remove this, I need to catch promise rejection
-                    // otherwise ember is throwing an error
                 });
         }
     }
