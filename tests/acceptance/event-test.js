@@ -57,27 +57,3 @@ test("creating event and first transaction", function (assert) {
         assert.equal(find(".user-name:eq(1)").val(), "Alice", "user 2 value");
     });
 });
-
-// test("adding users", function (assert) {
-//     const store = this.store;
-//     let event;
-
-//     Ember.run(() => {
-//         event = store.createRecord("event", {name: "New event"});
-//         event.save();
-//     });
-
-//     visit(`/${event.get("id")}`);
-//     addUser("Bob");
-//     addUser("Alice");
-//     andThen(() => {
-//         assert.equal(find(".user-list .item").length, 2);
-//         assert.equal(find(".user-list .item:eq(0) .user-name").text(), "Bob");
-//         assert.equal(find(".user-list .item:eq(1) .user-name").text(), "Alice");
-//     });
-// });
-
-// function addUser(name) {
-//     click("button:contains('Add New User')");
-//     fillIn(".user-name:last", name);
-// }

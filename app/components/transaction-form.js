@@ -12,10 +12,9 @@ export default Ember.Component.extend({
         save() {
             const transaction = this.get("transaction");
 
-            transaction.updateModel()
-                .then((transaction) => {
-                    this.sendAction("modelUpdated", transaction);
-                });
+            if (transaction.updateModel()) {
+                this.sendAction("modelUpdated", transaction.get("model"));
+            }
         }
     }
 });

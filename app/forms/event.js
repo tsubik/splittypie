@@ -12,7 +12,9 @@ export default Ember.Object.extend(Form, {
         currency: {
             presence: true
         },
-        users: true
+        users: {
+            array: true
+        }
     },
 
     init() {

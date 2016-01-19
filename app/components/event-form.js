@@ -21,10 +21,9 @@ export default Ember.Component.extend({
         save() {
             const event = this.get("event");
 
-            event.updateModel()
-                .then((event) => {
-                    this.sendAction("modelUpdated", event);
-                });
+            if (event.updateModel()) {
+                this.sendAction("modelUpdated", event.get("model"));
+            }
         }
     }
 });

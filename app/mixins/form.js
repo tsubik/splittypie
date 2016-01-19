@@ -32,23 +32,12 @@ export default Ember.Mixin.create(Validations, {
     updateModel() {
         this.set("isSubmitted", true);
 
-        return new Ember.RSVP.Promise((resolve) => {
-            this.validate()
-                .then(() => {
-                    this.applyChangesToModel();
-                    resolve(this.get("model"));
-                })
-            //nasty trick because ember validation reject promise if object is not valid
-            //I need to swallow this rejection
-                .catch(() => {});
-        });
-    },
+        if (this.get("isValid")) {
+            this.applyChangesToModel();
+            return true;
+        }
 
-    validate() {
-        const validateThis = this._super(...arguments);
-        const validateArrays = this._getObjectsToValidateFromInnerArrays().invoke("validate");
-
-        return Ember.RSVP.Promise.all([validateThis].concat(validateArrays));
+        return false;
     },
 
     applyChangesToModel() {
@@ -69,15 +58,6 @@ export default Ember.Mixin.create(Validations, {
 
     updateModelAttributes() {},
 
-    // Ember validations somehow doesn't validate objects in arrays
-    _getObjectsToValidateFromInnerArrays() {
-        const validations = this.get("validations");
-
-        return Object.keys(validations)
-            .map((attributeName) => this.get(attributeName))
-            .filter((value) => Ember.isArray(value))
-            .flatten();
-    },
     _getInnerForms() {
         const innerForms = this.getWithDefault("innerForms", []);
 
