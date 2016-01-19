@@ -1,6 +1,6 @@
 import { test } from "qunit";
 import moduleForAcceptance from "splitr-lite/tests/helpers/module-for-acceptance";
-// import Ember from "ember";
+import errorAt from "splitr-lite/tests/helpers/error-at";
 
 moduleForAcceptance("Acceptance | event");
 
@@ -57,10 +57,6 @@ test("creating event and first transaction", function (assert) {
         assert.equal(find(".user-name:eq(1)").val(), "Alice", "user 2 value");
     });
 });
-
-function errorAt(inputSelector) {
-    return find(inputSelector).parents(".form-group:first").find(".help-block.with-errors").text().trim();
-}
 
 // test("adding users", function (assert) {
 //     const store = this.store;
