@@ -6,7 +6,7 @@ export default function (name, options = {}) {
     module(name, {
         beforeEach() {
             this.application = startApp({});
-            this.store = this.application.__container__.lookup("store:main");
+            this.store = this.application.__container__.lookup("service:store");
 
             if (options.beforeEach) {
                 options.beforeEach.apply(this, arguments);
