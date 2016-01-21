@@ -22,7 +22,8 @@
     "currentURL",
     "currentPath",
     "currentRouteName",
-    "waitForPromise"
+    "waitForPromise",
+    "resetApp"
   ],
   "node": false,
   "browser": false,

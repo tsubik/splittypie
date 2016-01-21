@@ -2,6 +2,7 @@ import Ember from "ember";
 import Application from "../../app";
 import config from "../../config/environment";
 import "./wait-for-promise";
+import "./reset-app";
 
 export default function startApp(attrs) {
     let application;
