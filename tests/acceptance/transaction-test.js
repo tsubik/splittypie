@@ -45,7 +45,7 @@ test("adding new transaction", function (assert) {
     });
 });
 
-test("editing transaction", function (assert) {
+test("editing/removing transaction", function (assert) {
     let event;
 
     waitForPromise(new Ember.RSVP.Promise((resolve) => {
@@ -91,5 +91,16 @@ test("editing transaction", function (assert) {
     andThen(() => {
         assert.ok(!!find(".transaction-list-item:contains('Bob paid 50 USD for special')").length, "transaction item");
         assert.ok(!!find(".transaction-list-item:contains('Participants: Alice, Bob')"));
+    });
+    andThen(() => {
+        click("button.delete-transaction");
+    });
+    andThen(() => {
+        assert.ok(!!find("div:contains('Are you sure?')").length, "delete confirmation");
+
+        click("button:contains('Yes')");
+    });
+    andThen(() => {
+        assert.ok(!!find("div:contains('There are no transactions yet')").length, "No transactions text");
     });
 });
