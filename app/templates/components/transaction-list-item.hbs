@@ -7,7 +7,7 @@
     <button class="btn btn-danger delete-transaction" {{action "delete" transaction}}>
       <span class="glyphicon glyphicon-trash" aria-hidden="true"></span>
     </Button>
-    {{#link-to "event.transactions.edit" transaction.id class="btn btn-primary"}}
+    {{#link-to "event.transactions.edit" transaction.id class="btn btn-primary edit-transaction"}}
       <span class="glyphicon glyphicon-edit" aria-hidden="true"></span>
     {{/link-to}}
   </div>
