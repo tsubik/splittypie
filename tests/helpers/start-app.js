@@ -3,6 +3,7 @@ import Application from "../../app";
 import config from "../../config/environment";
 import "./wait-for-promise";
 import "./reload-page";
+import "./exist";
 
 export default function startApp(attrs) {
     let application;

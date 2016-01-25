@@ -47,7 +47,7 @@ test("creating event and first transaction", function (assert) {
     reloadPage();
     //check for transaction
     andThen(() => {
-        assert.ok(!!find(".transaction-list-item:contains('Alice paid 50 USD for special bottle of vodka')").length, "transaction item");
+        assert.ok(exist(".transaction-list-item:contains('Alice paid 50 USD for special bottle of vodka')"), "transaction item");
     });
     //check for event
     andThen(() => {

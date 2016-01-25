@@ -23,7 +23,8 @@
     "currentPath",
     "currentRouteName",
     "waitForPromise",
-    "reloadPage"
+    "reloadPage",
+    "exist"
   ],
   "node": false,
   "browser": false,

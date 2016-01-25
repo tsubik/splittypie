@@ -27,7 +27,7 @@ test("adding new transaction", function (assert) {
     });
     reloadPage();
     andThen(() => {
-        assert.ok(!!find("div:contains('There are no transactions yet')").length, "No transactions text");
+        assert.ok(exist("div:contains('There are no transactions yet')"), "No transactions text");
         click("a:contains('Add Transaction')");
     });
     andThen(() => {
@@ -41,7 +41,7 @@ test("adding new transaction", function (assert) {
     reloadPage();
     //check for transaction
     andThen(() => {
-        assert.ok(!!find(".transaction-list-item:contains('Alice paid 50 USD for special bottle of vodka')").length, "transaction item");
+        assert.ok(exist(".transaction-list-item:contains('Alice paid 50 USD for special bottle of vodka')"), "transaction item");
     });
 });
 
@@ -75,8 +75,8 @@ test("editing/removing transaction", function (assert) {
     });
     reloadPage();
     andThen(() => {
-        assert.ok(!!find(".transaction-list-item:contains('Alice paid 200 USD for Gift')").length, "transaction item");
-        assert.ok(!!find(".transaction-list-item:contains('Participants: Alice, Bob')"));
+        assert.ok(exist(".transaction-list-item:contains('Alice paid 200 USD for Gift')"), "transaction item");
+        assert.ok(exist(".transaction-list-item:contains('Participants: Alice, Bob')"));
 
         click("a.edit-transaction");
     });
@@ -89,18 +89,18 @@ test("editing/removing transaction", function (assert) {
     });
     reloadPage();
     andThen(() => {
-        assert.ok(!!find(".transaction-list-item:contains('Bob paid 50 USD for special')").length, "transaction item");
-        assert.ok(!!find(".transaction-list-item:contains('Participants: Alice, Bob')"));
+        assert.ok(exist(".transaction-list-item:contains('Bob paid 50 USD for special')"), "transaction item");
+        assert.ok(exist(".transaction-list-item:contains('Participants: Alice, Bob')"));
     });
     andThen(() => {
         click("button.delete-transaction");
     });
     andThen(() => {
-        assert.ok(!!find("div:contains('Are you sure?')").length, "delete confirmation");
+        assert.ok(exist("div:contains('Are you sure?')"), "delete confirmation");
 
         click("button:contains('Yes')");
     });
     andThen(() => {
-        assert.ok(!!find("div:contains('There are no transactions yet')").length, "No transactions text");
+        assert.ok(exist("div:contains('There are no transactions yet')"), "No transactions text");
     });
 });
