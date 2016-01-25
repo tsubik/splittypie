@@ -23,7 +23,7 @@ test("creating event and first transaction", function (assert) {
         fillIn(".user-name:eq(1)", "Alice");
         click("button:contains('Create Event')");
     });
-    resetApp();
+    reloadPage();
     // first transaction
     andThen(() => {
         click("button:contains('Create Transaction')");
@@ -44,7 +44,7 @@ test("creating event and first transaction", function (assert) {
         click(".transaction-participants input");
         click("button:contains('Create Transaction')");
     });
-    resetApp();
+    reloadPage();
     //check for transaction
     andThen(() => {
         assert.ok(!!find(".transaction-list-item:contains('Alice paid 50 USD for special bottle of vodka')").length, "transaction item");
@@ -90,7 +90,7 @@ test("editing event", function (assert) {
         fillIn(".user-name:eq(2)", "Johnny");
         click("button:contains('Save Changes')");
     });
-    resetApp();
+    reloadPage();
     andThen(() => {
         // assert.equal(false, true, "dupa");
         assert.equal(currentRouteName(), "event.overview", "after save transition to overview");

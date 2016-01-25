@@ -25,7 +25,7 @@ test("adding new transaction", function (assert) {
     andThen(() => {
         visit(`/${event.id}/transactions`);
     });
-    resetApp();
+    reloadPage();
     andThen(() => {
         assert.ok(!!find("div:contains('There are no transactions yet')").length, "No transactions text");
         click("a:contains('Add Transaction')");
@@ -38,7 +38,7 @@ test("adding new transaction", function (assert) {
         click(".transaction-participants input");
         click("button:contains('Create Transaction')");
     });
-    resetApp();
+    reloadPage();
     //check for transaction
     andThen(() => {
         assert.ok(!!find(".transaction-list-item:contains('Alice paid 50 USD for special bottle of vodka')").length, "transaction item");
@@ -73,7 +73,7 @@ test("editing/removing transaction", function (assert) {
     andThen(() => {
         visit(`/${event.id}/transactions`);
     });
-    resetApp();
+    reloadPage();
     andThen(() => {
         assert.ok(!!find(".transaction-list-item:contains('Alice paid 200 USD for Gift')").length, "transaction item");
         assert.ok(!!find(".transaction-list-item:contains('Participants: Alice, Bob')"));
@@ -87,7 +87,7 @@ test("editing/removing transaction", function (assert) {
         fillIn(".transaction-amount", "50");
         click("button:contains('Save Changes')");
     });
-    resetApp();
+    reloadPage();
     andThen(() => {
         assert.ok(!!find(".transaction-list-item:contains('Bob paid 50 USD for special')").length, "transaction item");
         assert.ok(!!find(".transaction-list-item:contains('Participants: Alice, Bob')"));
