@@ -1,7 +1,7 @@
 import Ember from "ember";
 
 export function isIncluded([item, array]) {
-    if(!array) {
+    if (!array) {
         return false;
     }
 

@@ -2,14 +2,14 @@ import Base from "ember-validations/validators/base";
 import Ember from "ember";
 
 export default Base.extend({
-    init: function() {
+    init() {
         // this call is necessary, don't forget it!
         this._super();
 
         this.dependentValidationKeys.pushObject(`${this.property}.@each.isValid`);
     },
 
-    call: function() {
+    call() {
         const arrayToValidate = this.model.get(this.property);
 
         if (!arrayToValidate) {
@@ -17,11 +17,13 @@ export default Base.extend({
         }
 
         if (!Ember.isArray(arrayToValidate)) {
-            throw new Error(`property ${this.property} is not an array, but array validator is used`);
+            throw new Error(
+                `property ${this.property} is not an array, but array validator is used`
+            );
         }
 
         if (arrayToValidate.isAny("isValid", false)) {
             this.errors.pushObject("not every element valid");
         }
-    }
+    },
 });

@@ -3,7 +3,7 @@ import hbs from "htmlbars-inline-precompile";
 import Ember from "ember";
 
 moduleForComponent("transaction-form", "Integration | Component | transaction form", {
-    integration: true
+    integration: true,
 });
 
 test("it renders", function (assert) {
@@ -23,14 +23,14 @@ test("it renders with transaction model", function (assert) {
     const users = [
         { id: 1, name: "Bob" },
         { id: 2, name: "John" },
-        { id: 3, name: "Billy" }
+        { id: 3, name: "Billy" },
     ];
 
     const transaction = Ember.Object.create({
         payer: users[1],
         name: "Gift for Alice",
         amount: "200",
-        participants: users.slice(1)
+        participants: users.slice(1),
     });
 
     this.set("users", users);

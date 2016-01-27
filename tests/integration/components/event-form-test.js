@@ -3,7 +3,7 @@ import hbs from "htmlbars-inline-precompile";
 import Ember from "ember";
 
 moduleForComponent("event-form", "Integration | Component | event form", {
-    integration: true
+    integration: true,
 });
 
 test("it renders", function (assert) {
@@ -23,7 +23,7 @@ test("it renders with model properties", function (assert) {
     const currencies = [
         { id: "USD", code: "USD", name: "Dolar" },
         { id: "CAD", code: "CAD", name: "Dolar kanadyjski" },
-        { id: "EUR", code: "EUR", name: "Euro" }
+        { id: "EUR", code: "EUR", name: "Euro" },
     ];
     const event = Ember.Object.create({
         name: "Test event",
@@ -31,8 +31,8 @@ test("it renders with model properties", function (assert) {
         users: [
             { name: "Bob" },
             { name: "Alice" },
-            { name: "John" }
-        ]
+            { name: "John" },
+        ],
     });
 
     this.set("event", event);

@@ -6,19 +6,19 @@ export default Ember.Route.extend({
             event: Ember.Object.create({
                 users: [
                     Ember.Object.create({}),
-                    Ember.Object.create({})
-                ]
+                    Ember.Object.create({}),
+                ],
             }),
-            currencies: this.store.findAll("currency")
-        }) ;
+            currencies: this.store.findAll("currency"),
+        });
     },
 
     setupController(controller, models) {
-        models.event = this.get("formFactory").createForm("event", models.event);
         this._super(controller, models);
+        const eventForm = this.get("formFactory").createForm("event", models.event);
         controller.setProperties({
-            event: models.event,
-            currencies: models.currencies
+            event: eventForm,
+            currencies: models.currencies,
         });
     },
 
@@ -26,6 +26,6 @@ export default Ember.Route.extend({
         modelUpdated(event) {
             event.save()
                 .then(() => this.transitionTo("event.transactions.new", event));
-        }
-    }
+        },
+    },
 });

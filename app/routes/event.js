@@ -10,6 +10,6 @@ export default Ember.Route.extend({
             const event = this.modelFor("event");
 
             event.save();
-        }
-    }
+        },
+    },
 });

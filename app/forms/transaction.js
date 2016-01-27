@@ -6,18 +6,18 @@ export default Ember.Object.extend(Form, {
     validations: {
         name: {
             presence: true,
-            length: { maximum: 50 }
+            length: { maximum: 50 },
         },
         amount: {
             presence: true,
-            numericality: true
+            numericality: true,
         },
         payer: {
-            presence: true
+            presence: true,
         },
         participants: {
-            presence: true
-        }
+            presence: true,
+        },
     },
 
     event: Ember.computed.oneWay("model.event"),
@@ -35,5 +35,5 @@ export default Ember.Object.extend(Form, {
         const model = this.get("model");
 
         model.setProperties(this.getProperties("name", "amount", "payer", "participants"));
-    }
+    },
 });

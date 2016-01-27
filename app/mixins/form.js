@@ -64,5 +64,5 @@ export default Ember.Mixin.create(Validations, {
         return innerForms
             .map((attribute) => this.get(attribute))
             .flatten();
-    }
+    },
 });

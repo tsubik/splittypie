@@ -7,6 +7,6 @@ export default Ember.Component.extend({
         delete(transaction) {
             this.get("transactions").removeObject(transaction);
             this.sendAction("saveChanges");
-        }
-    }
+        },
+    },
 });

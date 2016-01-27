@@ -9,8 +9,8 @@ test("it works", function (assert) {
     assert.ok(!isIncluded([41, []]));
 
     const items = [
-        {id: 1, value: "test 1"},
-        {id: 2, value: "test 2"}
+        { id: 1, value: "test 1" },
+        { id: 2, value: "test 2" },
     ];
     assert.ok(isIncluded([items[0], items]));
 });

@@ -1,25 +1,24 @@
-import { moduleForComponent, test } from 'ember-qunit';
-import hbs from 'htmlbars-inline-precompile';
+import { moduleForComponent, test } from "ember-qunit";
+import hbs from "htmlbars-inline-precompile";
 
-moduleForComponent('modal-dialog', 'Integration | Component | modal dialog', {
-  integration: true
+moduleForComponent("modal-dialog", "Integration | Component | modal dialog", {
+    integration: true,
 });
 
-test('it renders', function(assert) {
-  
-  // Set any properties with this.set('myProperty', 'value');
-  // Handle any actions with this.on('myAction', function(val) { ... });" + EOL + EOL +
+test("it renders", function (assert) {
+    // Set any properties with this.set("myProperty", "value");
+    // Handle any actions with this.on("myAction", function(val) { ... });" + EOL + EOL +
 
-  this.render(hbs`{{modal-dialog}}`);
+    this.render(hbs`{{modal-dialog}}`);
 
-  assert.equal(this.$().text().trim(), '');
+    assert.equal(this.$().text().trim(), "");
 
-  // Template block usage:" + EOL +
-  this.render(hbs`
+    // Template block usage:" + EOL +
+    this.render(hbs`
     {{#modal-dialog}}
       template block text
     {{/modal-dialog}}
   `);
 
-  assert.equal(this.$().text().trim(), 'template block text');
+    assert.equal(this.$().text().trim(), "template block text");
 });

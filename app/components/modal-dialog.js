@@ -13,5 +13,5 @@ export default Ember.Component.extend({
 
     hide() {
         this.$(".modal").modal("hide");
-    }
+    },
 });

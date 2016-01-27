@@ -1,4 +1,4 @@
-import Ember from 'ember';
+import Ember from "ember";
 
 export default Ember.Component.extend({
     tagName: "ul",
@@ -10,20 +10,20 @@ export default Ember.Component.extend({
         const users = this.get("users");
         const currency = this.get("users.firstObject.event.currency");
 
-        const owed = users.filter((u) => u.get("balance") < 0).map(convertToUserAmount);
-        const paid = users.filter((u) => u.get("balance") > 0).map(convertToUserAmount);
-        let transfers = [];
+        const owed = users.filter(u => u.get("balance") < 0).map(convertToUserAmount);
+        const paid = users.filter(u => u.get("balance") > 0).map(convertToUserAmount);
+        const transfers = [];
 
         function convertToUserAmount(user) {
             return Ember.Object.create({
-                user: user,
-                amount: Math.abs(user.get("balance"))
+                user,
+                amount: Math.abs(user.get("balance")),
             });
         }
 
         while (owed.length > 0 && paid.length > 0) {
-            let sender = owed.objectAt(0);
-            let recipient = paid.objectAt(0);
+            const sender = owed.objectAt(0);
+            const recipient = paid.objectAt(0);
 
             const canGive = sender.get("amount");
             const demand = recipient.get("amount");
@@ -43,10 +43,10 @@ export default Ember.Component.extend({
                 sender: sender.get("user"),
                 recipient: recipient.get("user"),
                 amount: possibleTransfer.toFixed(2),
-                currency: currency
+                currency,
             }));
         }
 
         return transfers;
-    })
+    }),
 });

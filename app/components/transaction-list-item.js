@@ -17,9 +17,9 @@ export default Ember.Component.extend({
                     ok: () => {
                         this.sendAction("delete", transaction);
                         this.get("modal").trigger("hide");
-                    }
-                }
+                    },
+                },
             });
-        }
-    }
+        },
+    },
 });

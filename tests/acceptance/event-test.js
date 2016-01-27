@@ -1,3 +1,4 @@
+/* eslint "max-len": 0 */
 import { test } from "qunit";
 import moduleForAcceptance from "splitr-lite/tests/helpers/module-for-acceptance";
 import errorAt from "splitr-lite/tests/helpers/error-at";
@@ -28,14 +29,14 @@ test("creating event and first transaction", function (assert) {
     andThen(() => {
         click("button:contains('Create Transaction')");
     });
-    //validations
+    // validations
     andThen(() => {
         assert.equal(errorAt(".transaction-payer"), "can't be blank", "transaction payer validation");
         assert.equal(errorAt(".transaction-name"), "can't be blank", "transaction name validation");
         assert.equal(errorAt(".transaction-amount"), "can't be blank,is not a number", "transaction amount validation");
         assert.equal(errorAt(".transaction-participants"), "can't be blank", "transaction participants validation");
     });
-    //fill first transaction
+    // fill first transaction
     andThen(() => {
         const AliceId = find(".transaction-payer select option:contains('Alice')").val();
         fillIn(".transaction-payer", AliceId);
@@ -45,11 +46,16 @@ test("creating event and first transaction", function (assert) {
         click("button:contains('Create Transaction')");
     });
     reloadPage();
-    //check for transaction
+    // check for transaction
     andThen(() => {
-        assert.ok(exist(".transaction-list-item:contains('Alice paid 50 USD for special bottle of vodka')"), "transaction item");
+        const expectedMessage = "Alice paid 50 USD for special bottle of vodka";
+
+        assert.ok(
+            exist(`.transaction-list-item:contains('${expectedMessage}')`),
+            "transaction item"
+        );
     });
-    //check for event
+    // check for event
     andThen(() => {
         click("a:contains('Edit Event')");
     });
@@ -69,11 +75,11 @@ test("editing event", function (assert) {
             this.store.findRecord("currency", "USD").then((currency) => {
                 event = this.store.createRecord("event", {
                     name: "Test event",
-                    currency: currency,
+                    currency,
                     users: [
                         this.store.createRecord("user", { name: "Alice" }),
-                        this.store.createRecord("user", { name: "Bob" })
-                    ]
+                        this.store.createRecord("user", { name: "Bob" }),
+                    ],
                 });
                 event.save().then(resolve);
             });

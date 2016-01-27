@@ -5,6 +5,7 @@ module("Unit | Helper | is not");
 
 // Replace this with your real tests.
 test("it works", function (assert) {
-    let result = isNot([false]);
+    const result = isNot([false]);
+
     assert.ok(result);
 });

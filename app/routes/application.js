@@ -11,24 +11,22 @@ export default Ember.Route.extend({
 
     model() {
         return Ember.RSVP.hash({
-            currencies: this.store.findAll("currency")
+            currencies: this.store.findAll("currency"),
         });
     },
 
-    showModal: function(options) {
-        options.actions = options.actions || {};
-
+    showModal(options) {
         this.render(`modals/${options.name}`, {
             into: "application",
             outlet: "modal",
-            model: options
+            model: options,
         });
     },
 
-    removeModal: function() {
+    removeModal() {
         this.disconnectOutlet({
             outlet: "modal",
-            parentView: "application"
+            parentView: "application",
         });
     },
 
@@ -39,6 +37,6 @@ export default Ember.Route.extend({
 
         removeModal() {
             this.removeModal();
-        }
-    }
+        },
+    },
 });

@@ -2,5 +2,5 @@ import Ember from "ember";
 
 export default Ember.LinkComponent.extend({
     tagName: "li",
-    ariaRole: "presentation"
+    ariaRole: "presentation",
 });

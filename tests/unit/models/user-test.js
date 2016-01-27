@@ -3,33 +3,34 @@ import Ember from "ember";
 
 moduleForModel("user", "Unit | Model | user", {
     // Specify the other units that are required for this test.
-    needs: ["model:event", "model:transaction", "model:currency"]
+    needs: ["model:event", "model:transaction", "model:currency"],
 });
 
 test("it exists", function (assert) {
-    let model = this.subject();
+    const model = this.subject();
     // let store = this.store();
     assert.ok(!!model);
 });
 
 test("it shows user's transactions balance", function (assert) {
-    let store = this.store();
-    let alice, bob;
+    const store = this.store();
+    let alice;
+    let bob;
 
     Ember.run(() => {
-        let event = store.createRecord("event", {
-            name: "Test event"
+        const event = store.createRecord("event", {
+            name: "Test event",
         });
         alice = this.subject();
         bob = store.createRecord("user", {
             name: "Bob",
-            event: event
+            event,
         });
-        let transaction = store.createRecord("transaction", {
+        const transaction = store.createRecord("transaction", {
             name: "Alice bought a present",
             amount: 120,
             payer: alice,
-            participants: [alice, bob]
+            participants: [alice, bob],
         });
 
         alice.set("event", event);

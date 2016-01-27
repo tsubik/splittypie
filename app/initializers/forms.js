@@ -13,5 +13,5 @@ export function initialize(application) {
 
 export default {
     name: "forms",
-    initialize
+    initialize,
 };

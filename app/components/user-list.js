@@ -17,6 +17,6 @@ export default Ember.Component.extend(Form, {
     actions: {
         deleteUser(user) {
             this.get("users").removeObject(user);
-        }
-    }
+        },
+    },
 });

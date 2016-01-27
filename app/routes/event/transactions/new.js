@@ -5,18 +5,21 @@ export default Ember.Route.extend({
         return Ember.Object.create({});
     },
 
-    setupController(controller, model) {
+    afterModel(model) {
         model.set("event", this.modelFor("event"));
-        model = this.get("formFactory").createForm("transaction", model);
+    },
+
+    setupController(controller, model) {
         this._super(controller, model);
+        const transactionForm = this.get("formFactory").createForm("transaction", model);
         controller.setProperties({
-            transaction: model,
-            users: this.modelFor("event").get("users")
+            transaction: transactionForm,
+            users: this.modelFor("event").get("users"),
         });
     },
 
     renderTemplate() {
-        this.render({into: "application"});
+        this.render({ into: "application" });
     },
 
     actions: {
@@ -25,6 +28,6 @@ export default Ember.Route.extend({
 
             event.get("transactions").pushObject(transaction);
             event.save().then(() => this.transitionTo("event.transactions"));
-        }
-    }
+        },
+    },
 });

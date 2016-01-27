@@ -4,7 +4,7 @@ import Ember from "ember";
 import extraTrim from "../../helpers/extra-trim";
 
 moduleForComponent("transaction-list-item", "Integration | Component | transaction list item", {
-    integration: true
+    integration: true,
 });
 
 test("it renders", function (assert) {
@@ -13,7 +13,7 @@ test("it renders", function (assert) {
     const users = [
         { id: 1, name: "Bob" },
         { id: 2, name: "John" },
-        { id: 3, name: "Billy" }
+        { id: 3, name: "Billy" },
     ];
 
     const transaction = Ember.Object.create({
@@ -22,12 +22,15 @@ test("it renders", function (assert) {
         amount: "200",
         participants: users.slice(1),
         event: {
-            currency: { code: "USD" }
-        }
+            currency: { code: "USD" },
+        },
     });
 
     this.set("transaction", transaction);
     this.render(hbs`{{transaction-list-item transaction=transaction}}`);
 
-    assert.equal(extraTrim(this.$().text()), "John paid 200 USD for Gift for Alice Participants: John, Billy");
+    assert.equal(
+        extraTrim(this.$().text()),
+        "John paid 200 USD for Gift for Alice Participants: John, Billy"
+    );
 });

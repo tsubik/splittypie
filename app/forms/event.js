@@ -7,14 +7,14 @@ export default Ember.Object.extend(Form, {
     validations: {
         name: {
             presence: true,
-            length: { maximum: 50 }
+            length: { maximum: 50 },
         },
         currency: {
-            presence: true
+            presence: true,
         },
         users: {
-            array: true
-        }
+            array: true,
+        },
     },
 
     init() {
@@ -23,9 +23,9 @@ export default Ember.Object.extend(Form, {
 
         this.setProperties(model.getProperties("name", "currency"));
 
-        this.set("users", model.getWithDefault("users", []).map((user) => {
-            return this.createInnerForm("user", user);
-        }));
+        const users = model.getWithDefault("users", [])
+                  .map(user => this.createInnerForm("user", user));
+        this.set("users", users);
     },
 
     addUser() {
@@ -39,5 +39,5 @@ export default Ember.Object.extend(Form, {
 
         model.setProperties(this.getProperties("name", "currency"));
         model.set("users", this.get("users").getEach("model"));
-    }
+    },
 });

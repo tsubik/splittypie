@@ -5,7 +5,11 @@ export default Ember.Component.extend({
         const isNew = this.get("transaction.isNew");
         const isSaving = this.get("transaction.isSaving");
 
-        return isSaving ? "Saving..." : (isNew ? "Create Transaction" : "Save Changes");
+        if (isSaving) {
+            return "Saving...";
+        }
+
+        return isNew ? "Create Transaction" : "Save Changes";
     }),
 
     actions: {
@@ -15,6 +19,6 @@ export default Ember.Component.extend({
             if (transaction.updateModel()) {
                 this.sendAction("modelUpdated", transaction.get("model"));
             }
-        }
-    }
+        },
+    },
 });

@@ -2,7 +2,7 @@ import { moduleForComponent, test } from "ember-qunit";
 import hbs from "htmlbars-inline-precompile";
 
 moduleForComponent("user-list", "Integration | Component | user list", {
-    integration: true
+    integration: true,
 });
 
 test("it renders", function (assert) {
@@ -14,7 +14,7 @@ test("it renders", function (assert) {
 test("it renders user forms", function (assert) {
     const users = [
         { name: "Bob" },
-        { name: "Yuri" }
+        { name: "Yuri" },
     ];
 
     this.set("users", users);

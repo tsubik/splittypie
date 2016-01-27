@@ -2,7 +2,7 @@ import { moduleForComponent, test } from "ember-qunit";
 import hbs from "htmlbars-inline-precompile";
 
 moduleForComponent("user-form", "Integration | Component | user form", {
-    integration: true
+    integration: true,
 });
 
 test("it renders", function (assert) {
@@ -13,7 +13,7 @@ test("it renders", function (assert) {
 
 test("it renders with user model", function (assert) {
     const user = {
-        name: "John"
+        name: "John",
     };
 
     this.set("user", user);

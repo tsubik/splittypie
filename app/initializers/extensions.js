@@ -1,3 +1,4 @@
+/* eslint "no-extend-native": 0 */
 import Ember from "ember";
 
 export function initialize(/* application */) {
@@ -5,7 +6,7 @@ export function initialize(/* application */) {
         const result = [];
 
         this.forEach((element) => {
-            result.push.apply(result, Ember.isArray(element)  ? element.flatten() : [element]);
+            result.push.apply(result, Ember.isArray(element) ? element.flatten() : [element]);
         });
 
         return result;
@@ -14,5 +15,5 @@ export function initialize(/* application */) {
 
 export default {
     name: "extensions",
-    initialize
+    initialize,
 };

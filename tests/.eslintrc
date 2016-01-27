@@ -1,0 +1,11 @@
+{
+  "env": {
+    "embertest": true
+  },
+
+  "globals": {
+    "waitForPromise": true,
+    "reloadPage": true,
+    "exist": true
+  }
+}

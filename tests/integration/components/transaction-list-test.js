@@ -2,11 +2,10 @@ import { moduleForComponent, test } from "ember-qunit";
 import hbs from "htmlbars-inline-precompile";
 
 moduleForComponent("transaction-list", "Integration | Component | transaction list", {
-    integration: true
+    integration: true,
 });
 
 test("it renders no transactions info", function (assert) {
-
     // Set any properties with this.set("myProperty", "value");
     // Handle any actions with this.on("myAction", function(val) { ... });" + EOL + EOL +
 
@@ -18,7 +17,7 @@ test("it renders no transactions info", function (assert) {
 test("it renders transaction list items", function (assert) {
     const users = [
         { name: "Bob" },
-        { name: "Yuri" }
+        { name: "Yuri" },
     ];
     const transactions = [
         { payer: users[0], name: "Transaction 1", amount: "200", participants: users },

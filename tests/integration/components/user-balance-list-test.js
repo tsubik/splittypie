@@ -4,13 +4,13 @@ import Ember from "ember";
 import extraTrim from "../../helpers/extra-trim";
 
 moduleForComponent("user-balance-list", "Integration | Component | user balance list", {
-    integration: true
+    integration: true,
 });
 
 test("it renders", function (assert) {
     const users = [
-        Ember.Object.create({name: "Bob", balance: 100}),
-        Ember.Object.create({name: "Alice", balance: -100})
+        Ember.Object.create({ name: "Bob", balance: 100 }),
+        Ember.Object.create({ name: "Alice", balance: -100 }),
     ];
 
     this.set("users", users);

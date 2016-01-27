@@ -6,8 +6,8 @@ export default Ember.Object.extend(Form, {
     validations: {
         name: {
             presence: true,
-            length: { maximum: 50 }
-        }
+            length: { maximum: 50 },
+        },
     },
 
     init() {
@@ -18,8 +18,8 @@ export default Ember.Object.extend(Form, {
     },
 
     updateModelAttributes() {
-        let model = this.get("model");
+        const model = this.get("model");
 
         model.setProperties(this.getProperties("name"));
-    }
+    },
 });

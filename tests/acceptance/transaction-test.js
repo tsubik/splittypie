@@ -12,11 +12,11 @@ test("adding new transaction", function (assert) {
             this.store.findRecord("currency", "USD").then((currency) => {
                 event = this.store.createRecord("event", {
                     name: "Test event",
-                    currency: currency,
+                    currency,
                     users: [
                         this.store.createRecord("user", { name: "Alice" }),
-                        this.store.createRecord("user", { name: "Bob" })
-                    ]
+                        this.store.createRecord("user", { name: "Bob" }),
+                    ],
                 });
                 event.save().then(resolve);
             });
@@ -39,9 +39,14 @@ test("adding new transaction", function (assert) {
         click("button:contains('Create Transaction')");
     });
     reloadPage();
-    //check for transaction
+    // check for transaction
     andThen(() => {
-        assert.ok(exist(".transaction-list-item:contains('Alice paid 50 USD for special bottle of vodka')"), "transaction item");
+        const expectedMessage = "Alice paid 50 USD for special bottle of vodka";
+
+        assert.ok(
+            exist(`.transaction-list-item:contains('${expectedMessage}')`),
+            "transaction item"
+        );
     });
 });
 
@@ -57,13 +62,13 @@ test("editing/removing transaction", function (assert) {
                     name: "Gift",
                     payer: alice,
                     amount: 200,
-                    participants: [alice, bob]
+                    participants: [alice, bob],
                 });
                 event = this.store.createRecord("event", {
                     name: "Test event",
-                    currency: currency,
+                    currency,
                     users: [alice, bob],
-                    transactions: [transaction]
+                    transactions: [transaction],
                 });
                 event.save().then(resolve);
             });
@@ -75,7 +80,10 @@ test("editing/removing transaction", function (assert) {
     });
     reloadPage();
     andThen(() => {
-        assert.ok(exist(".transaction-list-item:contains('Alice paid 200 USD for Gift')"), "transaction item");
+        assert.ok(
+            exist(".transaction-list-item:contains('Alice paid 200 USD for Gift')"),
+            "transaction item"
+        );
         assert.ok(exist(".transaction-list-item:contains('Participants: Alice, Bob')"));
 
         click("a.edit-transaction");
@@ -89,7 +97,10 @@ test("editing/removing transaction", function (assert) {
     });
     reloadPage();
     andThen(() => {
-        assert.ok(exist(".transaction-list-item:contains('Bob paid 50 USD for special')"), "transaction item");
+        assert.ok(
+            exist(".transaction-list-item:contains('Bob paid 50 USD for special')"),
+            "transaction item"
+        );
         assert.ok(exist(".transaction-list-item:contains('Participants: Alice, Bob')"));
     });
     andThen(() => {

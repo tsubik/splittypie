@@ -19,7 +19,7 @@ export default Ember.Component.extend({
             const inputs = this.$("input");
             const content = this.get("content");
 
-            let selection = [];
+            const selection = [];
 
             inputs.each((index, input) => {
                 if (input.checked) {
@@ -31,6 +31,6 @@ export default Ember.Component.extend({
 
             // const changeCallback = this.get("action");
             // changeCallback(selection);
-        }
-    }
+        },
+    },
 });

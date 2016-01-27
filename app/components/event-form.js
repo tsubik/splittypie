@@ -8,7 +8,11 @@ export default Ember.Component.extend({
         const isNew = this.get("event.isNew");
         const isSaving = this.get("event.isSaving");
 
-        return isSaving ? "Saving..." : (isNew ? "Create Event" : "Save Changes");
+        if (isSaving) {
+            return "Saving...";
+        }
+
+        return isNew ? "Create Event" : "Save Changes";
     }),
 
     actions: {
@@ -24,6 +28,6 @@ export default Ember.Component.extend({
             if (event.updateModel()) {
                 this.sendAction("modelUpdated", event.get("model"));
             }
-        }
-    }
+        },
+    },
 });
