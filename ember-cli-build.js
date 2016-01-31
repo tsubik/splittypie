@@ -8,6 +8,7 @@ module.exports = function (defaults) {
         sassOptions: {
             includePaths: [
                 "bower_components/bootstrap-sass/assets/stylesheets",
+                "vendor/bootstrap-paper",
             ],
         },
     });
