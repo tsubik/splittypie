@@ -2,7 +2,7 @@ import Ember from "ember";
 
 export default Ember.Component.extend({
     tagName: "div",
-    classNames: ["well", "transaction-list-item"],
+    classNames: ["panel", "panel-default", "transaction-list-item"],
     modal: Ember.inject.service(),
 
     participants: Ember.computed("transaction.participants", function () {
