@@ -20,13 +20,11 @@
       {{event.formErrors.currency}}
     </div>
   </div>
-</div>
-
-<h3>Participants</h3>
-
-<div class="well">
-  {{user-list users=event.users}}
-  <button type="button" class="btn btn-primary add-user" {{action "addUser"}}>Add Participant</button>
+  <div class="form-group">
+    <label class="control-label">Participants</label>
+    {{user-list users=event.users}}
+    <button type="button" class="btn btn-primary add-user" {{action "addUser"}}>Add Participant</button>
+  </div>
 </div>
 
 <div class="form-group">
