@@ -46,6 +46,7 @@
     "ember-validations": "2.0.0-alpha.4",
     "emberfire": "git://github.com/firebase/emberfire.git#serialize-relationships-atomic",
     "eslint": "^1.10.3",
-    "eslint-config-airbnb": "^4.0.0"
+    "eslint-config-airbnb": "^4.0.0",
+    "firebase-tools": "^2.2.1"
   }
 }
