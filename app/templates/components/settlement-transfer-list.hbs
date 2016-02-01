@@ -1,11 +1,15 @@
+<h4>How to settle all debts?</h4>
+
 {{#if anyTransfers}}
-  <div class="well">
-    {{#each transfers as |transfer|}}
-      <li class="settlement-item">
-        <strong>{{transfer.sender.name}}</strong> has to send <strong>{{transfer.recipient.name}}</strong>
-        {{transfer.amount}} {{transfer.currency.code}}
-      </li>
-    {{/each}}
+  <div class="panel panel-default">
+    <div class="panel-body">
+      {{#each transfers as |transfer|}}
+        <li class="settlement-item">
+          <strong>{{transfer.sender.name}}</strong> has to send <strong>{{transfer.recipient.name}}</strong>
+          {{transfer.amount}} {{transfer.currency.code}}
+        </li>
+      {{/each}}
+    </div>
   </div>
 {{else}}
   <div class="alert alert-info" role="alert">

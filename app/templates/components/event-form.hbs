@@ -1,32 +1,31 @@
-<div class="well">
-  <div class="form-group {{if event.formErrors.name "has-error"}}">
-    <label class="control-label">Event Name</label>
-    {{input value=event.name class="form-control event-name" placeholder="Example: Trip to Barcelona"}}
-    <div class="help-block with-errors">
-      {{event.formErrors.name}}
+<div class="panel panel-default">
+  <div class="panel-body">
+    <div class="form-group {{if event.formErrors.name "has-error"}}">
+      <label class="control-label">Event Name</label>
+      {{input value=event.name class="form-control event-name" placeholder="Example: Trip to Barcelona"}}
+      <div class="help-block with-errors">
+        {{event.formErrors.name}}
+      </div>
     </div>
-  </div>
-  <div class="form-group {{if event.formErrors.currency "has-error"}}">
-    <label class="control-label">Currency</label>
-    {{my-select
-      class="event-currency"
-      options=currencies
-      selected=event.currency
-      prompt="Select currency..."
-      optionValuePath="code"
-      optionLabelPath="nameWithCode"
-    }}
-    <div class="help-block with-errors">
-      {{event.formErrors.currency}}
+    <div class="form-group {{if event.formErrors.currency "has-error"}}">
+      <label class="control-label">Currency</label>
+      {{my-select
+        class="event-currency"
+        options=currencies
+        selected=event.currency
+        prompt="Select currency..."
+        optionValuePath="code"
+        optionLabelPath="nameWithCode"
+      }}
+      <div class="help-block with-errors">
+        {{event.formErrors.currency}}
+      </div>
     </div>
+
+    <h4>Participants</h4>
+    {{user-list users=event.users}}
+    <button type="button" class="btn btn-primary add-user" {{action "addUser"}}>Add Participant</button>
   </div>
-</div>
-
-<h3>Participants</h3>
-
-<div class="well">
-  {{user-list users=event.users}}
-  <button type="button" class="btn btn-primary add-user" {{action "addUser"}}>Add Participant</button>
 </div>
 
 <div class="form-group">
