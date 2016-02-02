@@ -5,11 +5,16 @@
 
 .transaction-list-item {
   text-transform: none;
+  padding: 10px;
+  display: flex;
+  justify-content: space-between;
 
   .transaction-list-item-amount {
-    margin-right: 10px;
+    text-align: right;
   }
+
   .transaction-list-item-description {
-    text-align: left
+    text-align: left;
+    white-space: normal;
   }
 }

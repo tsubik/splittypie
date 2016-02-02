@@ -1,9 +1,9 @@
-<div class="pull-left transaction-list-item-amount">
-  <h4>
-    {{transaction.amount}} {{transaction.event.currency.code}}
-  </h4>
-</div>
 <div class="transaction-list-item-description">
-  paid by <strong>{{transaction.payer.name}}</strong> for {{transaction.name}}<br>
-  <strong>Participants:</strong> {{participants}}
+  <strong>{{transaction.payer.name}}</strong> paid for {{transaction.name}}<br>
+  Participants: {{participants}}
+</div>
+<div class="transaction-list-item-amount">
+  <h5>
+    {{transaction.amount}} {{transaction.event.currency.code}}
+  </h5>
 </div>
