@@ -48,11 +48,12 @@ test("creating event and first transaction", function (assert) {
     reloadPage();
     // check for transaction
     andThen(() => {
-        const expectedMessage = "Alice paid 50 USD for special bottle of vodka";
+        const expectedMessage = "paid by Alice for special bottle of vodka";
 
+        assert.ok(exist(".transaction-list-item:contains('50 USD')"));
         assert.ok(
             exist(`.transaction-list-item:contains('${expectedMessage}')`),
-            "transaction item"
+            "transaction item description"
         );
     });
     // check for event

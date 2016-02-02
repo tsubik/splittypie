@@ -48,6 +48,14 @@
       </div>
     </div>
 
+    {{#unless transaction.isNew}}
+      <div class="form-group">
+        <label class="control-label">Other options:</label>
+        <div class="input-group">
+          <button {{action "delete"}} class="btn btn-danger delete-transaction">Delete Transaction</button>
+        </div>
+      </div>
+    {{/unless}}
   </div>
 </div>
 

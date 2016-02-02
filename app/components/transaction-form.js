@@ -15,7 +15,9 @@ export default Ember.Component.extend({
     }),
 
     actions: {
-        delete(transaction) {
+        delete() {
+            const transaction = this.get("transaction.model");
+
             this.get("modal").trigger("show", {
                 name: "confirm",
                 actions: {
@@ -28,10 +30,10 @@ export default Ember.Component.extend({
         },
 
         save() {
-            const transaction = this.get("transaction");
+            const form = this.get("transaction");
 
-            if (transaction.updateModel()) {
-                this.sendAction("modelUpdated", transaction.get("model"));
+            if (form.updateModel()) {
+                this.sendAction("modelUpdated", form.get("model"));
             }
         },
     },

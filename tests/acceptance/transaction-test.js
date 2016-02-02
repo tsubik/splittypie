@@ -41,8 +41,9 @@ test("adding new transaction", function (assert) {
     reloadPage();
     // check for transaction
     andThen(() => {
-        const expectedMessage = "Alice paid 50 USD for special bottle of vodka";
+        const expectedMessage = "paid by Alice for special bottle of vodka";
 
+        assert.ok(exist(".transaction-list-item:contains('50 USD')"), "transaction amount");
         assert.ok(
             exist(`.transaction-list-item:contains('${expectedMessage}')`),
             "transaction item"
@@ -80,13 +81,14 @@ test("editing/removing transaction", function (assert) {
     });
     reloadPage();
     andThen(() => {
+        assert.ok(exist(".transaction-list-item:contains('200 USD')"), "transaction amount");
         assert.ok(
-            exist(".transaction-list-item:contains('Alice paid 200 USD for Gift')"),
+            exist(".transaction-list-item:contains('paid by Alice for Gift')"),
             "transaction item"
         );
         assert.ok(exist(".transaction-list-item:contains('Participants: Alice, Bob')"));
 
-        click("a.edit-transaction");
+        click(".transaction-list-item");
     });
     andThen(() => {
         const BobId = find(".transaction-payer select option:contains('Bob')").val();
@@ -97,13 +99,15 @@ test("editing/removing transaction", function (assert) {
     });
     reloadPage();
     andThen(() => {
+        assert.ok(exist(".transaction-list-item:contains('50 USD')"), "transaction amount");
         assert.ok(
-            exist(".transaction-list-item:contains('Bob paid 50 USD for special')"),
+            exist(".transaction-list-item:contains('paid by Bob for special')"),
             "transaction item"
         );
         assert.ok(exist(".transaction-list-item:contains('Participants: Alice, Bob')"));
     });
     andThen(() => {
+        click(".transaction-list-item");
         click("button.delete-transaction");
     });
     andThen(() => {
