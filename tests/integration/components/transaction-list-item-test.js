@@ -31,6 +31,6 @@ test("it renders", function (assert) {
 
     assert.equal(
         extraTrim(this.$().text()),
-        "John paid 200 USD for Gift for Alice Participants: John, Billy"
+        "200 USD paid by John for Gift for Alice Participants: John, Billy"
     );
 });

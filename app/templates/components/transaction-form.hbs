@@ -1,48 +1,53 @@
-<div class="form-group {{if transaction.formErrors.payer "has-error"}}">
-  <label class="control-label">Who paid?</label>
-  {{my-select
-    class="transaction-payer"
-    options=users
-    selected=transaction.payer
-    prompt="Select payer..."
-    optionValuePath="id"
-    optionLabelPath="name"
-  }}
-  <div class="help-block with-errors">
-    {{transaction.formErrors.payer}}
-  </div>
-</div>
+<div class="panel panel-default">
+  <div class="panel-body">
+    <div class="form-group {{if transaction.formErrors.payer "has-error"}}">
+      <label class="control-label">Who paid?</label>
+      {{my-select
+        class="transaction-payer"
+        options=users
+        selected=transaction.payer
+        prompt="Select payer..."
+        optionValuePath="id"
+        optionLabelPath="name"
+      }}
+      <div class="help-block with-errors">
+        {{transaction.formErrors.payer}}
+      </div>
+    </div>
 
-<div class="form-group {{if transaction.formErrors.name "has-error"}}">
-  <label class="control-label">For what?</label>
-  {{input value=transaction.name class="form-control transaction-name" placeholder="Example: Tickets to museum"}}
-  <div class="help-block with-errors">
-    {{transaction.formErrors.name}}
-  </div>
-</div>
+    <div class="form-group {{if transaction.formErrors.name "has-error"}}">
+      <label class="control-label">For what?</label>
+      {{input value=transaction.name class="form-control transaction-name" placeholder="Example: Tickets to museum"}}
+      <div class="help-block with-errors">
+        {{transaction.formErrors.name}}
+      </div>
+    </div>
 
-<div class="form-group {{if transaction.formErrors.amount "has-error"}}">
-  <label class="control-label">How much?</label>
-  <div class="input-group">
-    <span class="input-group-addon">{{transaction.event.currency.code}}</span>
-    {{input value=transaction.amount class="form-control transaction-amount" placeholder="Amount"}}
-  </div>
-  <div class="help-block with-errors">
-    {{transaction.formErrors.amount}}
-  </div>
-</div>
+    <div class="form-group {{if transaction.formErrors.amount "has-error"}}">
+      <label class="control-label">How much?</label>
+      <div class="input-group">
+        <span class="input-group-addon">{{transaction.event.currency.code}}</span>
+        {{input value=transaction.amount class="form-control transaction-amount" placeholder="Amount"}}
+      </div>
+      <div class="help-block with-errors">
+        {{transaction.formErrors.amount}}
+      </div>
+    </div>
 
-<div class="form-group {{if transaction.formErrors.participants "has-error"}}">
-  <label class="control-label">Divide the cost among:</label>
-  {{my-checkbox-list
-    class="transaction-participants"
-    content=users
-    selection=transaction.participants
-    optionValuePath="id"
-    optionLabelPath="name"
-  }}
-  <div class="help-block with-errors">
-    {{transaction.formErrors.participants}}
+    <div class="form-group {{if transaction.formErrors.participants "has-error"}}">
+      <label class="control-label">Divide the cost among:</label>
+      {{my-checkbox-list
+        class="transaction-participants"
+        content=users
+        selection=transaction.participants
+        optionValuePath="id"
+        optionLabelPath="name"
+      }}
+      <div class="help-block with-errors">
+        {{transaction.formErrors.participants}}
+      </div>
+    </div>
+
   </div>
 </div>
 

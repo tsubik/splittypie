@@ -9,6 +9,7 @@ module.exports = function (environment) {
             "script-src": "'self' 'unsafe-inline' https://*.firebaseio.com",
             "style-src": "'self' 'unsafe-inline' https://fonts.googleapis.com",
             "font-src": "'self' data: https://fonts.gstatic.com",
+            "img-src": "'self' data:",
         },
 
         firebase: "https://splitr-lite.firebaseio.com/",
