@@ -5,15 +5,14 @@
     <div class="panel-body">
       <table class="table table-hover user-balance-list">
         <thead>
-          <th>User</th>
-          <th>Balance</th>
+          <tr>
+            <th>User</th>
+            <th>Balance</th>
+          </tr>
         </thead>
         <tbody>
-          {{#each users as |user|}}
-            <tr class="user-balance-list-item">
-              <td>{{user.name}}</td>
-              <td>{{user.balance}} {{user.event.currency.code}}</td>
-            </tr>
+          {{#each sortedUsers as |user|}}
+            {{user-balance-list-item user=user}}
           {{/each}}
         </tbody>
       </table>
