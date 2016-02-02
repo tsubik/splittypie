@@ -2,7 +2,7 @@ import Ember from "ember";
 
 export default Ember.Route.extend({
     model(params) {
-        return this.store.find("transaction", params.transactionId);
+        return this.store.find("transaction", params.transaction_id);
     },
 
     setupController(controller, model) {
@@ -19,11 +19,17 @@ export default Ember.Route.extend({
     },
 
     actions: {
+        delete(transaction) {
+            const event = this.modelFor("event");
+
+            event.get("transactions").removeObject(transaction);
+            event.save().then(() => this.transitionTo("event.transactions"));
+        },
+
         modelUpdated() {
             const event = this.modelFor("event");
 
-            event.save()
-                .then(() => this.transitionTo("event.transactions"));
+            event.save().then(() => this.transitionTo("event.transactions"));
         },
     },
 });

@@ -1,20 +1,22 @@
 {{#if anyUsers}}
-  <h4>Users Balances</h4>
+  <h4>Individual balance</h4>
 
-  <div class="well">
-    <table class="table table-hover user-balance-list">
-      <thead>
-        <th>User</th>
-        <th>Balance</th>
-      </thead>
-      <tbody>
-        {{#each users as |user|}}
-          <tr class="user-balance-list-item">
-            <td>{{user.name}}</td>
-            <td>{{user.balance}} {{user.event.currency.code}}</td>
-          </tr>
-        {{/each}}
-      </tbody>
-    </table>
+  <div class="panel panel-default">
+    <div class="panel-body">
+      <table class="table table-hover user-balance-list">
+        <thead>
+          <th>User</th>
+          <th>Balance</th>
+        </thead>
+        <tbody>
+          {{#each users as |user|}}
+            <tr class="user-balance-list-item">
+              <td>{{user.name}}</td>
+              <td>{{user.balance}} {{user.event.currency.code}}</td>
+            </tr>
+          {{/each}}
+        </tbody>
+      </table>
+    </div>
   </div>
 {{/if}}

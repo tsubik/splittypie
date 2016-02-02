@@ -1,25 +1,18 @@
 import Ember from "ember";
 
 export default Ember.Component.extend({
-    tagName: "div",
-    classNames: ["panel", "panel-default", "transaction-list-item"],
+    classNames: ["list-group-item", "btn", "btn-default", "transaction-list-item"],
     modal: Ember.inject.service(),
 
     participants: Ember.computed("transaction.participants", function () {
         return this.get("transaction.participants").getEach("name").join(", ");
     }),
 
-    actions: {
-        delete(transaction) {
-            this.get("modal").trigger("show", {
-                name: "confirm",
-                actions: {
-                    ok: () => {
-                        this.sendAction("delete", transaction);
-                        this.get("modal").trigger("hide");
-                    },
-                },
-            });
-        },
+    click() {
+        const onClick = this.get("onClick");
+
+        if (typeof onClick === "function") {
+            onClick();
+        }
     },
 });

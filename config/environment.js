@@ -1,14 +1,14 @@
 /* jshint node: true */
 
-module.exports = function(environment) {
-    var ENV = {
+module.exports = function (environment) {
+    const ENV = {
         modulePrefix: "splitr-lite",
-        environment: environment,
+        environment,
         contentSecurityPolicy: {
             "connect-src": "'self' https://auth.firebase.com wss://*.firebaseio.com",
             "script-src": "'self' 'unsafe-inline' https://*.firebaseio.com",
-            "style-src": "'self' 'unsafe-inline'",
-            "font-src": "'self' data:"
+            "style-src": "'self' 'unsafe-inline' https://fonts.googleapis.com",
+            "font-src": "'self' data: https://fonts.gstatic.com",
         },
 
         firebase: "https://splitr-lite.firebaseio.com/",
@@ -18,13 +18,13 @@ module.exports = function(environment) {
             FEATURES: {
                 // Here you can enable experimental features on an ember canary build
                 // e.g. "with-controller": true
-            }
+            },
         },
 
         APP: {
             // Here you can pass flags/options to your application instance
             // when it is created
-        }
+        },
     };
 
     if (environment === "development") {
@@ -49,7 +49,7 @@ module.exports = function(environment) {
     }
 
     if (environment === "production") {
-
+        // production config
     }
 
     return ENV;

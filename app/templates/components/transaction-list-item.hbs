@@ -1,14 +1,9 @@
-<div class="panel-body">
-  <div class="col-md-10">
-    {{transaction.payer.name}} paid {{transaction.amount}} {{transaction.event.currency.code}} for {{transaction.name}}<br>
-    <strong>Participants:</strong> {{participants}}
-  </div>
-  <div class="col-md-2 text-right">
-    <button class="btn btn-danger delete-transaction" {{action "delete" transaction}}>
-      <span class="glyphicon glyphicon-trash" aria-hidden="true"></span>
-    </Button>
-    {{#link-to "event.transactions.edit" transaction.id class="btn btn-primary edit-transaction"}}
-      <span class="glyphicon glyphicon-edit" aria-hidden="true"></span>
-    {{/link-to}}
-  </div>
+<div class="pull-left transaction-list-item-amount">
+  <h4>
+    {{transaction.amount}} {{transaction.event.currency.code}}
+  </h4>
+</div>
+<div class="transaction-list-item-description">
+  paid by <strong>{{transaction.payer.name}}</strong> for {{transaction.name}}<br>
+  <strong>Participants:</strong> {{participants}}
 </div>

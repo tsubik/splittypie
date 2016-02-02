@@ -7,12 +7,12 @@ const Router = Ember.Router.extend({
 
 Router.map(function () {
     this.route("event", {
-        path: "/:id",
+        path: "/:event_id",
     }, function () {
         this.route("overview");
         this.route("transactions", function () {
             this.route("new");
-            this.route("edit", { path: "/:transactionId" });
+            this.route("edit", { path: "/:transaction_id" });
         });
         this.route("edit");
     });

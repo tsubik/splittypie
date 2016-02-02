@@ -2,3 +2,14 @@
 @import "vendor/bootstrap-paper/_variables";
 @import "bootstrap";
 @import "vendor/bootstrap-paper/_bootswatch";
+
+.transaction-list-item {
+  text-transform: none;
+
+  .transaction-list-item-amount {
+    margin-right: 10px;
+  }
+  .transaction-list-item-description {
+    text-align: left
+  }
+}
