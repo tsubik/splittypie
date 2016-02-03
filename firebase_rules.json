@@ -1,0 +1,10 @@
+{
+    "rules": {
+        "events": {
+            "$eventId": {
+                ".read": true,
+                ".write": true
+            }
+        }
+    }
+}
