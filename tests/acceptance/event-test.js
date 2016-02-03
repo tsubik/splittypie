@@ -48,7 +48,7 @@ test("creating event and first transaction", function (assert) {
     reloadPage();
     // check for transaction
     andThen(() => {
-        const expectedMessage = "paid by Alice for special bottle of vodka";
+        const expectedMessage = "Alice paid for special bottle of vodka";
 
         assert.ok(exist(".transaction-list-item:contains('50 USD')"));
         assert.ok(
@@ -99,8 +99,7 @@ test("editing event", function (assert) {
     });
     reloadPage();
     andThen(() => {
-        // assert.equal(false, true, "dupa");
-        assert.equal(currentRouteName(), "event.overview", "after save transition to overview");
+        assert.equal(currentRouteName(), "event.index", "after save transition to overview");
         click("a:contains('Edit')");
     });
 
