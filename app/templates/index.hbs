@@ -5,3 +5,13 @@
   </p>
   <p>{{link-to "Start Now" "new" class="btn btn-lg btn-success"}}</p>
 </div>
+
+<h4 class="text-center">Your Previous Events</h4>
+
+<div class="list-group">
+  {{#each model.previousEvents as |event|}}
+    {{#link-to "event.index" event.id class="list-group-item btn btn-default"}}
+      <strong>{{event.name}}</strong>
+    {{/link-to}}
+  {{/each}}
+</div>
