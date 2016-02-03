@@ -1,6 +1,8 @@
 import Ember from "ember";
 
 export default Ember.Route.extend({
+    localStorage: Ember.inject.service(),
+
     model() {
         return Ember.RSVP.hash({
             event: this.modelFor("event"),
@@ -20,6 +22,10 @@ export default Ember.Route.extend({
     actions: {
         modelUpdated(event) {
             event.save()
+                .then(() => this.get("localStorage").push(
+                    "events",
+                    Ember.Object.create(event.getProperties("id", "name"))
+                ))
                 .then(() => this.transitionTo("event"));
         },
     },
