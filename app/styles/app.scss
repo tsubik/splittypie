@@ -3,6 +3,27 @@
 @import "bootstrap";
 @import "vendor/bootstrap-paper/_bootswatch";
 
+$icon-size: 28px;
+
+@mixin icon($size, $url) {
+  width: $size;
+  height: $size;
+  display: inline-block;
+  background: transparent url($url) no-repeat center;
+  background-size: $size;
+}
+
+.navbar {
+  .github {
+    @include icon($icon-size, "../assets/images/github_white.svg");
+  }
+
+  .cowbell {
+    @include icon($icon-size, "../assets/images/cowbell-labs.svg");
+  }
+}
+
+
 .transaction-list-item {
   text-transform: none;
   padding: 10px;
