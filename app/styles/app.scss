@@ -39,3 +39,12 @@ $icon-size: 28px;
     white-space: normal;
   }
 }
+
+.nav-tabs {
+    @include box-shadow(inset 0 -1px 0 #ddd);
+    text-transform: uppercase;
+}
+
+.nav-tabs li a {
+    box-shadow: none;
+}
