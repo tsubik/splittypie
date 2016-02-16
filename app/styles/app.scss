@@ -63,15 +63,30 @@ $icon-size: 28px;
 }
 
 .navbar {
-  .github {
-    @include icon($icon-size, "../assets/images/github_white.svg");
-  }
-
-  .cowbell {
-    @include icon($icon-size, "../assets/images/cowbell-labs.svg");
+  svg {
+    display: block;
+    padding: 0px;
+    margin: 0px;
   }
 }
 
+.navbar-nav > li > a {
+  padding: 16px 10px 16px 10px;
+}
+
+
+.nav-tabs {
+  @include box-shadow(inset 0 -1px 0 #ddd);
+  text-transform: uppercase;
+}
+
+.nav-tabs li a {
+  box-shadow: none;
+}
+
+main {
+  padding-bottom: 70px;
+}
 
 .transaction-list-item {
   text-transform: none;
@@ -89,21 +104,8 @@ $icon-size: 28px;
   }
 }
 
-.nav-tabs {
-    @include box-shadow(inset 0 -1px 0 #ddd);
-    text-transform: uppercase;
-}
-
-.nav-tabs li a {
-    box-shadow: none;
-}
-
 .btn-add-transaction {
   position: fixed;
   right: 20px;
   bottom: 20px;
-}
-
-main {
-  padding-bottom: 70px;
 }
