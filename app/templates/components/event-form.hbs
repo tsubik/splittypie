@@ -1,42 +1,53 @@
-<div class="panel panel-default">
-  <div class="panel-body">
-    <div class="form-group {{if event.formErrors.name "has-error"}}">
-      <label class="control-label">Event Name</label>
-      {{input value=event.name class="form-control event-name" placeholder="Example: Trip to Barcelona"}}
-      <div class="help-block with-errors">
-        {{event.formErrors.name}}
+{{#ember-wormhole to="navigation-xs"}}
+  <div class="navbar-header">
+    {{#link-to cancelRouteName class="btn btn-link navbar-btn pull-left"}}
+      <span class="glyphicon glyphicon-remove"></span>
+    {{/link-to}}
+    <span class="navbar-brand">{{title}}</span>
+    <button type="submit" {{action "save"}} disabled={{event.isSaving}} class="btn btn-link save-event navbar-btn pull-right">
+      {{saveButtonText}}
+    </button>
+  </div>
+{{/ember-wormhole}}
+
+<h4 class="hidden-xs">{{title}}</h4>
+<form>
+  <div class="panel panel-default">
+    <div class="panel-body">
+      <div class="form-group {{if event.formErrors.name "has-error"}}">
+        <label class="control-label">Event Name</label>
+        {{input value=event.name class="form-control event-name" placeholder="Example: Trip to Barcelona"}}
+        <div class="help-block with-errors">
+          {{event.formErrors.name}}
+        </div>
       </div>
-    </div>
-    <div class="form-group {{if event.formErrors.currency "has-error"}}">
-      <label class="control-label">Currency</label>
-      {{my-select
-        class="event-currency"
-        options=currencies
-        selected=event.currency
-        prompt="Select currency..."
-        optionValuePath="code"
-        optionLabelPath="nameWithCode"
-      }}
-      <div class="help-block with-errors">
-        {{event.formErrors.currency}}
+      <div class="form-group {{if event.formErrors.currency "has-error"}}">
+        <label class="control-label">Currency</label>
+        {{my-select
+          class="event-currency"
+          options=currencies
+          selected=event.currency
+          prompt="Select currency..."
+          optionValuePath="code"
+          optionLabelPath="nameWithCode"
+        }}
+        <div class="help-block with-errors">
+          {{event.formErrors.currency}}
+        </div>
       </div>
-    </div>
-    <div class="form-group">
-      <label class="control-label">Participants</label>
-      {{user-list users=event.users}}
-      <button type="button" class="btn btn-primary add-user" {{action "addUser"}}>Add Participant</button>
+      <div class="form-group">
+        <label class="control-label">Participants</label>
+        {{user-list users=event.users}}
+        <button type="button" class="btn btn-primary add-user" {{action "addUser"}}>Add Participant</button>
+      </div>
     </div>
   </div>
-</div>
 
-<div class="form-group">
-  <button type="submit" {{action "save"}} disabled={{event.isSaving}} class="btn btn-success save-event">
-    {{saveButtonText}}
-  </button>
-  or
-  {{#if event.isNew}}
-    {{link-to "Cancel" "index" class="cancel-edit"}}
-  {{else}}
-    {{link-to "Cancel" "event.transactions" class="cancel-edit"}}
-  {{/if}}
-</div>
+  <div class="form-group hidden-xs">
+    <button type="submit" {{action "save"}} disabled={{event.isSaving}} class="btn btn-success save-event">
+      {{saveButtonText}}
+    </button>
+    or
+    {{link-to "Cancel" cancelRouteName class="cancel-edit"}}
+  </div>
+</form>

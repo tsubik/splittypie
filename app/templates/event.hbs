@@ -1,3 +1,15 @@
+{{#ember-wormhole to="navigation-xs"}}
+  <div class="navbar-header">
+    <button class="navbar-btn btn btn-link pull-left">
+      <span class="glyphicon glyphicon-menu-hamburger"></span>
+    </button>
+    <a class="navbar-brand topnav" href="/">Splitr<strong>lite</strong></a>
+    <button type="submit" {{action "save"}} disabled={{event.isSaving}} class="btn btn-link save-event navbar-btn pull-right">
+      {{saveButtonText}}
+    </button>
+  </div>
+{{/ember-wormhole}}
+
 <ul class="nav nav-tabs">
   {{#nav-link-to "event.index"}}Overview{{/nav-link-to}}
   {{#nav-link-to "event.transactions"}}Transactions{{/nav-link-to}}

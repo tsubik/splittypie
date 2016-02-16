@@ -11,7 +11,7 @@ export default Ember.Component.extend({
             return "Saving...";
         }
 
-        return isNew ? "Create Transaction" : "Save Changes";
+        return isNew ? "Create" : "Save";
     }),
 
     actions: {

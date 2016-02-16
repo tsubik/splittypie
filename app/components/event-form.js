@@ -4,6 +4,12 @@ export default Ember.Component.extend({
     store: Ember.inject.service(),
     isSubmitted: Ember.computed.oneWay("event.isSubmitted"),
 
+    cancelRouteName: Ember.computed("event.isNew", function () {
+        const isNew = this.get("event.isNew");
+
+        return isNew ? "index" : "event.index";
+    }),
+
     saveButtonText: Ember.computed("event.isNew", "event.isSaving", function () {
         const isNew = this.get("event.isNew");
         const isSaving = this.get("event.isSaving");
@@ -12,7 +18,7 @@ export default Ember.Component.extend({
             return "Saving...";
         }
 
-        return isNew ? "Create Event" : "Save Changes";
+        return isNew ? "Create" : "Save";
     }),
 
     actions: {

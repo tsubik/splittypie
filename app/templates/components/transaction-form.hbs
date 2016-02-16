@@ -1,68 +1,84 @@
-<div class="panel panel-default">
-  <div class="panel-body">
-    <div class="form-group {{if transaction.formErrors.payer "has-error"}}">
-      <label class="control-label">Who paid?</label>
-      {{my-select
-        class="transaction-payer"
-        options=users
-        selected=transaction.payer
-        prompt="Select payer..."
-        optionValuePath="id"
-        optionLabelPath="name"
-      }}
-      <div class="help-block with-errors">
-        {{transaction.formErrors.payer}}
-      </div>
-    </div>
+{{#ember-wormhole to="navigation-xs"}}
+  <div class="navbar-header">
+    {{#link-to "event.transactions" class="btn btn-link navbar-btn pull-left"}}
+      <span class="glyphicon glyphicon-remove"></span>
+    {{/link-to}}
+    <span class="navbar-brand">{{title}}</span>
+    <button type="submit" {{action "save"}} disabled={{event.isSaving}} class="btn btn-link save-event navbar-btn pull-right">
+      {{saveButtonText}}
+    </button>
+  </div>
+{{/ember-wormhole}}
 
-    <div class="form-group {{if transaction.formErrors.name "has-error"}}">
-      <label class="control-label">For what?</label>
-      {{input value=transaction.name class="form-control transaction-name" placeholder="Example: Tickets to museum"}}
-      <div class="help-block with-errors">
-        {{transaction.formErrors.name}}
-      </div>
-    </div>
+<h4 class="hidden-xs">{{title}}</h4>
 
-    <div class="form-group {{if transaction.formErrors.amount "has-error"}}">
-      <label class="control-label">How much?</label>
-      <div class="input-group">
-        <span class="input-group-addon">{{transaction.event.currency.code}}</span>
-        {{input value=transaction.amount class="form-control transaction-amount" placeholder="Amount"}}
-      </div>
-      <div class="help-block with-errors">
-        {{transaction.formErrors.amount}}
-      </div>
-    </div>
-
-    <div class="form-group {{if transaction.formErrors.participants "has-error"}}">
-      <label class="control-label">Divide the cost among:</label>
-      {{my-checkbox-list
-        class="transaction-participants"
-        content=users
-        selection=transaction.participants
-        optionValuePath="id"
-        optionLabelPath="name"
-      }}
-      <div class="help-block with-errors">
-        {{transaction.formErrors.participants}}
-      </div>
-    </div>
-
-    {{#unless transaction.isNew}}
-      <div class="form-group">
-        <label class="control-label">Other options:</label>
-        <div class="input-group">
-          <button {{action "delete"}} class="btn btn-danger delete-transaction">Delete Transaction</button>
+<form>
+  <div class="panel panel-default">
+    <div class="panel-body">
+      <div class="form-group {{if transaction.formErrors.payer "has-error"}}">
+        <label class="control-label">Who paid?</label>
+        {{my-select
+          class="transaction-payer"
+          options=users
+          selected=transaction.payer
+          prompt="Select payer..."
+          optionValuePath="id"
+          optionLabelPath="name"
+        }}
+        <div class="help-block with-errors">
+          {{transaction.formErrors.payer}}
         </div>
       </div>
-    {{/unless}}
-  </div>
-</div>
 
-<div class="form-group">
-  <button {{action "save"}} type="submit" disabled={{transaction.isSaving}} class="btn btn-success save-transaction">
-    {{saveButtonText}}
-  </button>
-  or
-  {{link-to "Cancel" "event.transactions" class="cancel-edit"}}
-</div>
+      <div class="form-group {{if transaction.formErrors.name "has-error"}}">
+        <label class="control-label">For what?</label>
+        {{input value=transaction.name class="form-control transaction-name" placeholder="Example: Tickets to museum"}}
+        <div class="help-block with-errors">
+          {{transaction.formErrors.name}}
+        </div>
+      </div>
+
+      <div class="form-group {{if transaction.formErrors.amount "has-error"}}">
+        <label class="control-label">How much?</label>
+        <div class="input-group">
+          <span class="input-group-addon">{{transaction.event.currency.code}}</span>
+          {{input value=transaction.amount class="form-control transaction-amount" placeholder="Amount"}}
+        </div>
+        <div class="help-block with-errors">
+          {{transaction.formErrors.amount}}
+        </div>
+      </div>
+
+      <div class="form-group {{if transaction.formErrors.participants "has-error"}}">
+        <label class="control-label">Divide the cost among:</label>
+        {{my-checkbox-list
+          class="transaction-participants"
+          content=users
+          selection=transaction.participants
+          optionValuePath="id"
+          optionLabelPath="name"
+        }}
+        <div class="help-block with-errors">
+          {{transaction.formErrors.participants}}
+        </div>
+      </div>
+
+      {{#unless transaction.isNew}}
+        <div class="form-group">
+          <label class="control-label">Other options:</label>
+          <div class="input-group">
+            <button {{action "delete"}} class="btn btn-danger delete-transaction">Delete Transaction</button>
+          </div>
+        </div>
+      {{/unless}}
+    </div>
+  </div>
+
+  <div class="form-group">
+    <button {{action "save"}} type="submit" disabled={{transaction.isSaving}} class="btn btn-success save-transaction">
+      {{saveButtonText}}
+    </button>
+    or
+    {{link-to "Cancel" "event.transactions" class="cancel-edit"}}
+  </div>
+</form>

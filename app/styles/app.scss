@@ -13,6 +13,10 @@ $icon-size: 28px;
   background-size: $size;
 }
 
+.container {
+  max-width: 800px;
+}
+
 .navbar {
   .github {
     @include icon($icon-size, "../assets/images/github_white.svg");
