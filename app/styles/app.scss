@@ -13,6 +13,51 @@ $icon-size: 28px;
   background-size: $size;
 }
 
+.btn.btn-circle {
+  padding: 0;
+  border-radius: 50%;
+}
+
+.btn-circle {
+  width: 56px;
+  height: 56px;
+  min-width: 56px;
+
+  span {
+    line-height: 56px;
+  }
+}
+
+.btn-circle.btn-lg {
+  width: 78px;
+  height: 78px;
+  min-width: 78px;
+
+  span {
+    line-height: 78px;
+  }
+}
+
+.btn-circle.btn-sm {
+  width: 40px;
+  height: 40px;
+  min-width: 40px;
+
+  span {
+    line-height: 40px;
+  }
+}
+
+.btn-circle.btn-xs {
+  width: 30px;
+  height: 30px;
+  min-width: 30px;
+
+  span {
+    line-height: 30px;
+  }
+}
+
 .container {
   max-width: 800px;
 }
@@ -51,4 +96,14 @@ $icon-size: 28px;
 
 .nav-tabs li a {
     box-shadow: none;
+}
+
+.btn-add-transaction {
+  position: fixed;
+  right: 20px;
+  bottom: 20px;
+}
+
+main {
+  padding-bottom: 70px;
 }
