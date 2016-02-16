@@ -19,6 +19,10 @@ export default Ember.Route.extend({
         });
     },
 
+    renderTemplate() {
+        this.render({ into: "application" });
+    },
+
     actions: {
         modelUpdated(event) {
             event.save()

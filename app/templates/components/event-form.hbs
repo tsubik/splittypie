@@ -33,4 +33,10 @@
   <button type="submit" {{action "save"}} disabled={{event.isSaving}} class="btn btn-success save-event">
     {{saveButtonText}}
   </button>
+  or
+  {{#if event.isNew}}
+    {{link-to "Cancel" "index" class="cancel-edit"}}
+  {{else}}
+    {{link-to "Cancel" "event.transactions" class="cancel-edit"}}
+  {{/if}}
 </div>
