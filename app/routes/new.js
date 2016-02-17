@@ -25,7 +25,6 @@ export default Ember.Route.extend({
     actions: {
         modelUpdated(event) {
             event.save()
-                .then(() => this.send("resetPreviousEvents"))
                 .then(() => this.transitionTo("event.transactions.new", event));
         },
     },

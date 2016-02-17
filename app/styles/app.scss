@@ -150,7 +150,7 @@ main {
   right: 0;
   left: -70%;
   width: 70%;
-  overflow: hidden;
+  overflow: auto;
   z-index: 10000;
   transition: transform 0.2s ease-out;
 
@@ -198,4 +198,8 @@ main {
 
 .side-menu.open {
   transform: translateX(100%);
+}
+
+.disable-scroll {
+  overflow: hidden;
 }

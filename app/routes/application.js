@@ -18,6 +18,20 @@ export default Ember.Route.extend({
         });
     },
 
+    setupController() {
+        this._super(...arguments);
+        this.get("localStorage").on("changed", this, "resetPreviousEvents");
+    },
+
+    resetPreviousEvents() {
+        const controller = this.get("controller");
+
+        controller.set(
+            "model.previousEvents",
+            this.get("localStorage").findAll("events")
+        );
+    },
+
     showModal(options) {
         this.render(`modals/${options.name}`, {
             into: "application",
@@ -44,15 +58,6 @@ export default Ember.Route.extend({
 
         showSideMenu() {
             this.get("sideMenu").show();
-        },
-
-        resetPreviousEvents() {
-            const controller = this.get("controller");
-
-            controller.set(
-                "model.previousEvents",
-                this.get("localStorage").findAll("events")
-            );
         },
     },
 });

@@ -1,6 +1,6 @@
 import Ember from "ember";
 
-export default Ember.Service.extend({
+export default Ember.Service.extend(Ember.Evented, {
     push(typeName, item) {
         Ember.assert("First argument typeName must be present", typeName);
         Ember.assert("Pushed item must have id property", item.id);
@@ -15,6 +15,7 @@ export default Ember.Service.extend({
         }
 
         localStorage.setItem(typeName, JSON.stringify(items));
+        this.trigger("changed");
     },
 
     findAll(typeName) {
