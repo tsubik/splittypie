@@ -1,5 +1,19 @@
 {{#side-menu}}
-  <ul>
+  <ul class="nav">
+    <li class="header">Events</li>
+    {{#each model.previousEvents as |event|}}
+      {{#nav-link-to "event" event.id}}
+        <span class="glyphicon glyphicon-calendar"></span>
+        {{event.name}}
+      {{/nav-link-to}}
+    {{/each}}
+    <li>
+      {{#link-to "new"}}
+        <span class="glyphicon glyphicon-plus"></span>
+        New Event
+      {{/link-to}}
+    </li>
+    <li class="divider"></li>
     <li>
       <a href="">
         <svg class="github-logo" viewBox="0 0 32 32">
@@ -13,7 +27,7 @@
         <svg class="cowbell-logo" viewBox="0 0 54 54">
           {{partial "shared/cowbell-logo"}}
         </svg>
-        About the author
+        Cowbell Labs
       </a>
     </li>
   </ul>

@@ -1,11 +1,11 @@
 import Ember from "ember";
 
 export default Ember.Route.extend({
-    localStorage: Ember.inject.service(),
+    setupController(controller) {
+        this._super(...arguments);
 
-    model() {
-        return {
-            previousEvents: this.get("localStorage").findAll("events"),
-        };
+        const previousEvents = this.modelFor("application").previousEvents;
+
+        controller.setProperties({ previousEvents });
     },
 });

@@ -3,6 +3,7 @@ import Ember from "ember";
 export default Ember.Route.extend({
     modal: Ember.inject.service(),
     sideMenu: Ember.inject.service(),
+    localStorage: Ember.inject.service(),
 
     init() {
         this._super(...arguments);
@@ -13,6 +14,7 @@ export default Ember.Route.extend({
     model() {
         return Ember.RSVP.hash({
             currencies: this.store.findAll("currency"),
+            previousEvents: this.get("localStorage").findAll("events"),
         });
     },
 
@@ -40,8 +42,8 @@ export default Ember.Route.extend({
             this.removeModal();
         },
 
-        toggleMenu() {
-            this.get("sideMenu").toggle();
+        showSideMenu() {
+            this.get("sideMenu").show();
         },
     },
 });
