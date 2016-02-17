@@ -13,7 +13,7 @@ $icon-size: 28px;
   background-size: $size;
 }
 
-body {
+.page-content {
   padding-top: 80px;
 }
 
@@ -101,6 +101,19 @@ body {
   }
 }
 
+.github-logo {
+  width: 32px;
+  height: 32px;
+}
+
+.cowbell-logo {
+  width: 32px;
+  height: 32px;
+  fill: none;
+  stroke: #000;
+  stroke-width: 5px;
+}
+
 main {
   padding-bottom: 70px;
 }
@@ -125,4 +138,39 @@ main {
   position: fixed;
   right: 20px;
   bottom: 20px;
+}
+
+.side-menu {
+  position: absolute;
+  background: #fff;
+  top: 0;
+  bottom: 0;
+  right: 0;
+  left: -70%;
+  width: 70%;
+  overflow: hidden;
+  z-index: 10000;
+  transition: transform 0.2s ease-out;
+
+  ul {
+    list-style: none;
+
+    li {
+      line-height: 50px;
+
+      a {
+        text-decoration: none;
+        display: block;
+
+        svg {
+          margin: 9px 10px 0px 0px;
+          float: left;
+        }
+      }
+    }
+  }
+}
+
+.side-menu.open {
+  transform: translateX(100%);
 }

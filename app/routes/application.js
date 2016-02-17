@@ -2,6 +2,7 @@ import Ember from "ember";
 
 export default Ember.Route.extend({
     modal: Ember.inject.service(),
+    sideMenu: Ember.inject.service(),
 
     init() {
         this._super(...arguments);
@@ -37,6 +38,10 @@ export default Ember.Route.extend({
 
         removeModal() {
             this.removeModal();
+        },
+
+        toggleMenu() {
+            this.get("sideMenu").toggle();
         },
     },
 });
