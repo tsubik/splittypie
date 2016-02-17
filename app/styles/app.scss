@@ -87,17 +87,19 @@ $icon-size: 28px;
   box-shadow: none;
 }
 
-#navigation-xs {
-  .navbar-brand {
-    padding-left: 0px;
-  }
-
+.navbar.visible-xs {
   .navbar-nav {
     margin: 0px;
 
     li {
       float: left;
     }
+  }
+}
+
+.toolbar {
+  .navbar-brand {
+    padding-left: 0px;
   }
 }
 
@@ -154,9 +156,11 @@ main {
 
   ul {
     list-style: none;
+    padding-left: 0px;
 
     li {
       line-height: 50px;
+      padding-left: 15px;
 
       a {
         text-decoration: none;

@@ -1,4 +1,4 @@
-{{#ember-wormhole to="navigation-xs"}}
+<nav class="navbar navbar-default navbar-fixed-top visible-xs toolbar" role="navigation">
   <div class="navbar-header">
     <button class="navbar-btn btn btn-link pull-left" {{action "toggleMenu"}}>
       <span class="glyphicon glyphicon-menu-hamburger"></span>
@@ -8,7 +8,7 @@
       {{saveButtonText}}
     </button>
   </div>
-{{/ember-wormhole}}
+</nav>
 
 <ul class="nav nav-tabs">
   {{#nav-link-to "event.index"}}Overview{{/nav-link-to}}

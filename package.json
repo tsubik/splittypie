@@ -45,7 +45,6 @@
     "ember-export-application-global": "^1.0.4",
     "ember-resolver": "2.0.3",
     "ember-validations": "2.0.0-alpha.4",
-    "ember-wormhole": "0.3.5",
     "emberfire": "git://github.com/firebase/emberfire.git#serialize-relationships-atomic",
     "eslint": "^1.10.3",
     "eslint-config-airbnb": "^4.0.0",
