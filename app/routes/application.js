@@ -45,5 +45,14 @@ export default Ember.Route.extend({
         showSideMenu() {
             this.get("sideMenu").show();
         },
+
+        resetPreviousEvents() {
+            const controller = this.get("controller");
+
+            controller.set(
+                "model.previousEvents",
+                this.get("localStorage").findAll("events")
+            );
+        },
     },
 });

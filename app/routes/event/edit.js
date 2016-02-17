@@ -30,6 +30,7 @@ export default Ember.Route.extend({
                     "events",
                     Ember.Object.create(event.getProperties("id", "name"))
                 ))
+                .then(() => this.send("resetPreviousEvents"))
                 .then(() => this.transitionTo("event"));
         },
     },
