@@ -3,17 +3,30 @@
     <button class="navbar-btn btn btn-link pull-left" {{action "showSideMenu"}}>
       <span class="glyphicon glyphicon-menu-hamburger"></span>
     </button>
-    <a class="navbar-brand topnav" href="/">Splitr<strong>lite</strong></a>
-    <button type="submit" {{action "save"}} disabled={{event.isSaving}} class="btn btn-link save-event navbar-btn pull-right">
-      {{saveButtonText}}
-    </button>
+    <a class="navbar-brand topnav" href="/">{{model.name}}</a>
+    {{#link-to "event.edit" class="navbar-btn btn btn-link pull-right"}}
+      <span class="glyphicon glyphicon-edit"></span> Edit
+    {{/link-to}}
   </div>
 </nav>
+
+<div class="row hidden-xs">
+  <div class="col-md-12">
+    <div class="pull-left">
+      {{switch-event-dropdown eventName=model.name otherEvents=otherEvents}}
+    </div>
+
+    <div class="pull-right">
+      {{#link-to "event.edit" class="btn btn-link btn-lg"}}
+        <span class="glyphicon glyphicon-edit"></span> Edit
+      {{/link-to}}
+    </div>
+  </div>
+</div>
 
 <ul class="nav nav-tabs">
   {{#nav-link-to "event.index"}}Overview{{/nav-link-to}}
   {{#nav-link-to "event.transactions"}}Transactions{{/nav-link-to}}
-  {{#nav-link-to "event.edit" class="pull-right"}}Edit Event{{/nav-link-to}}
 </ul>
 
 <br>

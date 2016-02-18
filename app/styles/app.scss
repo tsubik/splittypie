@@ -95,6 +95,10 @@ $icon-size: 28px;
       float: left;
     }
   }
+
+  .navbar-text {
+    float: left;
+  }
 }
 
 .toolbar {
@@ -140,6 +144,12 @@ main {
   position: fixed;
   right: 20px;
   bottom: 20px;
+}
+
+.btn-change-event {
+  text-transform: none;
+  font-size: 24px;
+  margin-left: -16px;
 }
 
 .side-menu {

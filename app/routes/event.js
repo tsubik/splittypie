@@ -14,6 +14,14 @@ export default Ember.Route.extend({
         );
     },
 
+    setupController(controller, model) {
+        this._super(...arguments);
+        const previousEvents = this.modelFor("application").previousEvents;
+        const otherEvents = previousEvents.rejectBy("id", model.id);
+
+        controller.setProperties({ otherEvents });
+    },
+
     actions: {
         saveChanges() {
             const event = this.modelFor("event");
