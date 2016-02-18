@@ -9,7 +9,7 @@ moduleForAcceptance("Acceptance | event");
 test("creating event and first transaction", function (assert) {
     visit("/");
     click("a:contains('Start Now')");
-    click("button:contains('Create Event')");
+    click("button:contains('Create')");
     // validations
     andThen(() => {
         assert.equal(errorAt(".event-name"), "can't be blank", "event name validation");
@@ -22,12 +22,12 @@ test("creating event and first transaction", function (assert) {
         fillIn(".event-currency", "USD");
         fillIn(".user-name:eq(0)", "Billy");
         fillIn(".user-name:eq(1)", "Alice");
-        click("button:contains('Create Event')");
+        click("button:contains('Create')");
     });
     reloadPage();
     // first transaction
     andThen(() => {
-        click("button:contains('Create Transaction')");
+        click("button:contains('Create')");
     });
     // validations
     andThen(() => {
@@ -43,7 +43,7 @@ test("creating event and first transaction", function (assert) {
         fillIn(".transaction-name", "special bottle of vodka");
         fillIn(".transaction-amount", "50");
         click(".transaction-participants input");
-        click("button:contains('Create Transaction')");
+        click("button:contains('Create')");
     });
     reloadPage();
     // check for transaction
@@ -58,7 +58,7 @@ test("creating event and first transaction", function (assert) {
     });
     // check for event
     andThen(() => {
-        click("a:contains('Edit Event')");
+        click("a:contains('Edit')");
     });
     andThen(() => {
         assert.equal(find(".event-name").val(), "Gift for John's Birthday", "event name value");
@@ -95,7 +95,7 @@ test("editing event", function (assert) {
         fillIn(".user-name:eq(1)", "James");
         click("button:contains('Add Participant')");
         fillIn(".user-name:eq(2)", "Johnny");
-        click("button:contains('Save Changes')");
+        click("button:contains('Save')");
     });
     reloadPage();
     andThen(() => {

@@ -28,7 +28,7 @@ test("adding new transaction", function (assert) {
     reloadPage();
     andThen(() => {
         assert.ok(exist("div:contains('There are no transactions yet')"), "No transactions text");
-        click("a:contains('Add Transaction')");
+        click("a.btn-add-transaction");
     });
     andThen(() => {
         const AliceId = find(".transaction-payer select option:contains('Alice')").val();
@@ -36,7 +36,7 @@ test("adding new transaction", function (assert) {
         fillIn(".transaction-name", "special bottle of vodka");
         fillIn(".transaction-amount", "50");
         click(".transaction-participants input");
-        click("button:contains('Create Transaction')");
+        click("button:contains('Create')");
     });
     reloadPage();
     // check for transaction
@@ -95,7 +95,7 @@ test("editing/removing transaction", function (assert) {
         fillIn(".transaction-payer", BobId);
         fillIn(".transaction-name", "special");
         fillIn(".transaction-amount", "50");
-        click("button:contains('Save Changes')");
+        click("button:contains('Save')");
     });
     reloadPage();
     andThen(() => {

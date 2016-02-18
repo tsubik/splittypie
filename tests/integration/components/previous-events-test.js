@@ -12,13 +12,4 @@ test("it renders", function (assert) {
     this.render(hbs`{{previous-events}}`);
 
     assert.equal(this.$().text().trim(), "");
-
-    // Template block usage:" + EOL +
-    this.render(hbs`
-    {{#previous-events}}
-      template block text
-    {{/previous-events}}
-  `);
-
-    assert.equal(this.$().text().trim(), "template block text");
 });
