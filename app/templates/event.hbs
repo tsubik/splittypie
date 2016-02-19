@@ -3,7 +3,7 @@
     <button class="navbar-btn btn btn-link pull-left" {{action "showSideMenu"}}>
       <span class="glyphicon glyphicon-menu-hamburger"></span>
     </button>
-    <a class="navbar-brand topnav" href="/">{{model.name}}</a>
+    <span class="navbar-brand">{{model.name}}</span>
     {{#link-to "event.edit" class="navbar-btn btn btn-link pull-right"}}
       <span class="glyphicon glyphicon-edit"></span> Edit
     {{/link-to}}

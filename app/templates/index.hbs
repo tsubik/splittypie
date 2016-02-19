@@ -1,6 +1,8 @@
 <nav class="navbar navbar-default navbar-fixed-top visible-xs" role="navigation">
   <div class="navbar-header pull-left">
-    <a class="navbar-brand" href="/">Splitr<strong>lite</strong></a>
+    {{#link-to "index" class="navbar-brand"}}
+      Splitr<strong>lite</strong>
+    {{/link-to}}
   </div>
   {{top-menu-nav-links class="pull-right"}}
 </nav>

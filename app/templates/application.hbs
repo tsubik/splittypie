@@ -37,7 +37,9 @@
   <nav class="navbar navbar-default navbar-fixed-top hidden-xs" role="navigation">
     <div class="container">
       <div class="navbar-header">
-        <a class="navbar-brand topnav" href="/">Splitr<strong>lite</strong></a>
+        {{#link-to "index" class="navbar-brand"}}
+          Splitr<strong>lite</strong>
+        {{/link-to}}
       </div>
       {{top-menu-nav-links}}
     </div>
