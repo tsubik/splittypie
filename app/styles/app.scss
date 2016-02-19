@@ -62,6 +62,12 @@ $icon-size: 28px;
   }
 }
 
+table.no-border {
+  td {
+    border-top: none !important;
+  }
+}
+
 .container {
   max-width: 800px;
 }
@@ -130,6 +136,23 @@ main {
   .btn-group {
     margin: 10px 15px 10px 0px;
   }
+}
+
+.user-balance-list.table {
+  margin-bottom: 0px;
+}
+
+.user-balance-list-item {
+  font-size: 14px;
+
+  .label {
+    font-size: 14px;
+  }
+}
+
+.settlement-item {
+  font-size: 14px;
+  line-height: 32px;
 }
 
 .transaction-list-item {

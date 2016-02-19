@@ -3,13 +3,7 @@
 
   <div class="panel panel-default">
     <div class="panel-body">
-      <table class="table table-hover user-balance-list">
-        <thead>
-          <tr>
-            <th>User</th>
-            <th>Balance</th>
-          </tr>
-        </thead>
+      <table class="table table-hover no-border user-balance-list">
         <tbody>
           {{#each sortedUsers as |user|}}
             {{user-balance-list-item user=user}}

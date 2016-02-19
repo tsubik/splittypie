@@ -1,2 +1,8 @@
-<td>{{user.name}}</td>
-<td>{{user.balance}} {{user.event.currency.code}}</td>
+<td>
+  <strong>{{user.name}}</strong>
+</td>
+<td align="right">
+  <span class="label {{if isPositive "label-success" "label-danger"}}">
+    {{user.balance}} {{user.event.currency.code}}
+  </span>
+</td>
