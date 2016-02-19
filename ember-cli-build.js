@@ -1,4 +1,5 @@
 const EmberApp = require("ember-cli/lib/broccoli/ember-app");
+const env = process.env.EMBER_ENV;
 
 module.exports = function (defaults) {
     const app = new EmberApp(defaults, {
@@ -7,6 +8,9 @@ module.exports = function (defaults) {
         },
         "ember-cli-qunit": {
             useLintTree: false,
+        },
+        fingerprint: {
+            enabled: env === "production",
         },
         sassOptions: {
             includePaths: [
