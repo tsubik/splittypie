@@ -41,6 +41,15 @@
         {{user-list users=event.users}}
         <button type="button" class="btn btn-primary add-user" {{action "addUser"}}>Add Participant</button>
       </div>
+
+      {{#unless event.isNew}}
+        <div class="form-group">
+          <label class="control-label">Other options:</label>
+          <div class="input-group">
+            <button {{action "delete"}} class="btn btn-danger delete-event">Delete Event</button>
+          </div>
+        </div>
+      {{/unless}}
     </div>
   </div>
 

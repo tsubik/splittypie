@@ -124,6 +124,14 @@ main {
   padding-bottom: 70px;
 }
 
+.previous-events {
+  text-align: center;
+
+  .btn-group {
+    margin: 10px 15px 10px 0px;
+  }
+}
+
 .transaction-list-item {
   text-transform: none;
   padding: 10px;

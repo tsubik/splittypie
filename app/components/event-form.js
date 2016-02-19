@@ -1,6 +1,7 @@
 import Ember from "ember";
 
 export default Ember.Component.extend({
+    modal: Ember.inject.service(),
     store: Ember.inject.service(),
     isSubmitted: Ember.computed.oneWay("event.isSubmitted"),
 
@@ -26,6 +27,12 @@ export default Ember.Component.extend({
             const event = this.get("event");
 
             event.addUser();
+        },
+
+        delete() {
+            const event = this.get("event.model");
+
+            this.get("modal").onConfirm(() => this.sendAction("delete", event));
         },
 
         save() {

@@ -1,11 +1,16 @@
 {{#if anyEvents}}
-  <h4 class="text-center">Your Previous Events</h4>
+  <h4 class="text-center">You have already created the following events</h4>
 
-  <div class="list-group">
+  <div class="previous-events">
     {{#each events as |event|}}
-      {{#link-to "event.index" event.id class="list-group-item btn btn-default"}}
-        <strong>{{event.name}}</strong>
-      {{/link-to}}
+      <div class="btn-group">
+        {{#link-to "event.index" event.id class="btn btn-default"}}
+          <strong>{{event.name}}</strong>
+        {{/link-to}}
+        <button {{action "remove" event.id}} class="btn btn-default" title="Remove reference from this computer. The event still be reachable by url.">
+          <span class="glyphicon glyphicon-remove"></span>
+        </button>
+      </div>
     {{/each}}
   </div>
 {{/if}}

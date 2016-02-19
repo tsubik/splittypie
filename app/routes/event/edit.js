@@ -24,6 +24,13 @@ export default Ember.Route.extend({
     },
 
     actions: {
+        delete(event) {
+            event.destroyRecord().then(() => {
+                this.get("localStorage").remove("events", event.id);
+                this.transitionTo("index");
+            });
+        },
+
         modelUpdated(event) {
             event.save()
                 .then(() => this.get("localStorage").push(

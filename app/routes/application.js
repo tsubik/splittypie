@@ -24,12 +24,12 @@ export default Ember.Route.extend({
     },
 
     resetPreviousEvents() {
-        const controller = this.get("controller");
+        const previousEvents = this.get("controller.model.previousEvents");
 
-        controller.set(
-            "model.previousEvents",
-            this.get("localStorage").findAll("events")
-        );
+        if (previousEvents) {
+            previousEvents.clear();
+            previousEvents.pushObjects(this.get("localStorage").findAll("events"));
+        }
     },
 
     showModal(options) {

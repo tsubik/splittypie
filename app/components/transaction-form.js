@@ -18,15 +18,7 @@ export default Ember.Component.extend({
         delete() {
             const transaction = this.get("transaction.model");
 
-            this.get("modal").trigger("show", {
-                name: "confirm",
-                actions: {
-                    ok: () => {
-                        this.sendAction("delete", transaction);
-                        this.get("modal").trigger("hide");
-                    },
-                },
-            });
+            this.get("modal").onConfirm(() => this.sendAction("delete", transaction));
         },
 
         save() {
