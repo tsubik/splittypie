@@ -1,7 +1,7 @@
 {
   "name": "splitr-lite",
   "version": "0.0.0",
-  "description": "Small description for splitr-lite goes here",
+  "description": "Split your expenses with ease",
   "private": true,
   "directories": {
     "doc": "doc",
@@ -23,19 +23,20 @@
   "devDependencies": {
     "bower": "^1.7.1",
     "broccoli-asset-rev": "^2.2.0",
-    "ember-cli": "1.13.14",
+    "ember-cli": "2.3.0",
+    "ember-ajax": "0.7.1",
     "ember-cli-app-version": "^1.0.0",
     "ember-cli-babel": "^5.1.5",
-    "ember-cli-content-security-policy": "0.4.0",
-    "ember-cli-dependency-checker": "^1.1.0",
+    "ember-cli-content-security-policy": "0.5.0",
+    "ember-cli-dependency-checker": "^1.2.0",
     "ember-cli-htmlbars": "^1.0.1",
     "ember-cli-htmlbars-inline-precompile": "^0.3.1",
     "ember-cli-ic-ajax": "0.2.4",
     "ember-cli-inject-live-reload": "^1.3.1",
     "ember-cli-qunit": "^1.0.4",
     "ember-cli-qunit-eslint": "1.0.1",
-    "ember-cli-release": "1.0.0-beta.0",
-    "ember-cli-sass": "5.2.1",
+    "ember-cli-release": "1.0.0-beta.1",
+    "ember-cli-sass": "5.3.0",
     "ember-cli-sri": "^2.0.0",
     "ember-cli-test-model-waiter": "0.1.1",
     "ember-cli-uglify": "^1.2.0",
@@ -43,11 +44,13 @@
     "ember-data-fixture-adapter": "git://github.com/emberjs/ember-data-fixture-adapter#2-0",
     "ember-disable-proxy-controllers": "^1.0.1",
     "ember-export-application-global": "^1.0.4",
+    "ember-load-initializers": "^0.5.0",
     "ember-resolver": "2.0.3",
     "ember-validations": "2.0.0-alpha.4",
     "emberfire": "git://github.com/firebase/emberfire.git#serialize-relationships-atomic",
     "eslint": "^1.10.3",
     "eslint-config-airbnb": "^4.0.0",
-    "firebase-tools": "^2.2.1"
+    "firebase-tools": "^2.2.1",
+    "loader.js": "^4.0.0"
   }
 }
