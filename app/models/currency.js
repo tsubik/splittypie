@@ -12,16 +12,16 @@ const Currency = DS.Model.extend({
 
 Currency.reopenClass({
     FIXTURES: [
-        { id: "PLN", symbol: "zł", name: "złoty" },
-        { id: "GBP", symbol: "£", name: "funt szterling" },
-        { id: "USD", symbol: "$", name: "dolar amerykański" },
-        { id: "EUR", symbol: "€", name: "euro" },
-        { id: "CHF", symbol: "CHF", name: "frank szwajcarski" },
-        { id: "CZK", symbol: "Kč", name: "korona czeska" },
-        { id: "HRK", symbol: "kn", name: "kuna chorwacka" },
-        { id: "RON", symbol: "RON", name: "lej rumuński" },
-        { id: "BGN", symbol: "лв.", name: "lew bułgarski" },
-        { id: "RUB", symbol: "руб.", name: "rubel rosyjski" },
+        { id: "USD", symbol: "$", name: "United States dollar" },
+        { id: "EUR", symbol: "€", name: "Euro" },
+        { id: "GBP", symbol: "£", name: "Pound sterling" },
+        { id: "PLN", symbol: "zł", name: "Polish złoty" },
+        { id: "CHF", symbol: "CHF", name: "Swiss franc" },
+        { id: "CZK", symbol: "Kč", name: "Czech koruna" },
+        { id: "HRK", symbol: "kn", name: "Croatian kuna" },
+        { id: "RON", symbol: "RON", name: "Romanian leu" },
+        { id: "BGN", symbol: "лв.", name: "Bulgarian lev" },
+        { id: "RUB", symbol: "руб.", name: "Russian ruble" },
     ],
 });
 
