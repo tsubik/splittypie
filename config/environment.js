@@ -12,7 +12,7 @@ module.exports = function (environment) {
             "img-src": "'self' data:",
         },
 
-        firebase: "https://splitr-lite.firebaseio.com/",
+        firebase: "https://splitr-lite-dev.firebaseio.com/",
         baseURL: "/",
         locationType: "auto",
         EmberENV: {
@@ -49,8 +49,12 @@ module.exports = function (environment) {
         ENV.firebase = "https://splitr-lite-test.firebaseio.com";
     }
 
+    if (environment === "staging") {
+        ENV.firebase = "https://splitr-lite-staging.firebase.io.com";
+    }
+
     if (environment === "production") {
-        // production config
+        ENV.firebase = "https://splitr-lite.firebase.io.com";
     }
 
     return ENV;

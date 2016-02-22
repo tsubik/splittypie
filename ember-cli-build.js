@@ -10,7 +10,7 @@ module.exports = function (defaults) {
             useLintTree: false,
         },
         fingerprint: {
-            enabled: env === "production",
+            enabled: (env === "production" || env === "staging"),
         },
         sassOptions: {
             includePaths: [
