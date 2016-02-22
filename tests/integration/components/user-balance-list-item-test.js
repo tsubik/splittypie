@@ -20,5 +20,5 @@ test("it renders", function (assert) {
     this.render(hbs`{{user-balance-list-item user=user}}`);
 
     assert.equal(extraTrim(this.$().text()), "Tomasz 123 PLN", "proper text content");
-    assert.ok(this.$("tr").hasClass("success"), "success class for positive balance");
+    assert.ok(this.$("tr span").hasClass("label-success"), "success class for positive balance");
 });

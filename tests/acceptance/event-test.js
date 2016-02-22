@@ -6,9 +6,9 @@ import Ember from "ember";
 
 moduleForAcceptance("Acceptance | event");
 
-test("creating event and first transaction", function (assert) {
+test("creating event", function (assert) {
     visit("/");
-    click("a:contains('Start Now')");
+    click("a:contains('Create New Event')");
     click("button:contains('Create')");
     // validations
     andThen(() => {
@@ -25,37 +25,6 @@ test("creating event and first transaction", function (assert) {
         click("button:contains('Create')");
     });
     reloadPage();
-    // first transaction
-    andThen(() => {
-        click("button:contains('Create')");
-    });
-    // validations
-    andThen(() => {
-        assert.equal(errorAt(".transaction-payer"), "can't be blank", "transaction payer validation");
-        assert.equal(errorAt(".transaction-name"), "can't be blank", "transaction name validation");
-        assert.equal(errorAt(".transaction-amount"), "can't be blank,is not a number", "transaction amount validation");
-        assert.equal(errorAt(".transaction-participants"), "can't be blank", "transaction participants validation");
-    });
-    // fill first transaction
-    andThen(() => {
-        const AliceId = find(".transaction-payer select option:contains('Alice')").val();
-        fillIn(".transaction-payer", AliceId);
-        fillIn(".transaction-name", "special bottle of vodka");
-        fillIn(".transaction-amount", "50");
-        click(".transaction-participants input");
-        click("button:contains('Create')");
-    });
-    reloadPage();
-    // check for transaction
-    andThen(() => {
-        const expectedMessage = "Alice paid for special bottle of vodka";
-
-        assert.ok(exist(".transaction-list-item:contains('50 USD')"));
-        assert.ok(
-            exist(`.transaction-list-item:contains('${expectedMessage}')`),
-            "transaction item description"
-        );
-    });
     // check for event
     andThen(() => {
         click("a:contains('Edit')");
