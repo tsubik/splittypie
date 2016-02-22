@@ -1,8 +1,8 @@
 <nav class="navbar navbar-default navbar-fixed-top visible-xs toolbar" role="navigation">
   <div class="navbar-header">
-    {{#link-to cancelRouteName class="btn btn-link navbar-btn pull-left"}}
+    <button {{action "goBack"}} class="btn btn-link navbar-btn pull-left">
       <span class="glyphicon glyphicon-remove"></span>
-    {{/link-to}}
+    </button>
     <span class="navbar-brand">{{title}}</span>
     <button type="submit" {{action "save"}} disabled={{event.isSaving}} class="btn btn-link save-event navbar-btn pull-right">
       {{saveButtonText}}
