@@ -68,6 +68,12 @@ table.no-border {
   }
 }
 
+/* fixing liquid-fire outlet issue with left and right border shadow */
+.panel {
+    margin-left: 4px;
+    margin-right: 4px;
+}
+
 .container {
   max-width: 800px;
 }
