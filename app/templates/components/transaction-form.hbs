@@ -42,7 +42,7 @@
         <label class="control-label">How much?</label>
         <div class="input-group">
           <span class="input-group-addon">{{transaction.event.currency.code}}</span>
-          {{input value=transaction.amount class="form-control transaction-amount" placeholder="Amount"}}
+          {{input value=transaction.amount type="number" class="form-control transaction-amount" placeholder="Amount"}}
         </div>
         <div class="help-block with-errors">
           {{transaction.formErrors.amount}}
