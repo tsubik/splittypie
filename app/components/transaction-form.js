@@ -14,6 +14,10 @@ export default Ember.Component.extend({
         return isNew ? "Create" : "Save";
     }),
 
+    maxDate: function () {
+        return `${new Date().getFullYear()}-12-31`;
+    }.property(),
+
     actions: {
         delete() {
             const transaction = this.get("transaction.model");
