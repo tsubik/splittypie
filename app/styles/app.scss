@@ -69,9 +69,8 @@ table.no-border {
 }
 
 /* fixing liquid-fire outlet issue with left and right border shadow */
-.panel {
-    margin-left: 4px;
-    margin-right: 4px;
+.liquid-child {
+  padding: 4px; //extra room for shadows to display
 }
 
 .container {
