@@ -50,11 +50,11 @@ module.exports = function (environment) {
     }
 
     if (environment === "staging") {
-        ENV.firebase = "https://splitr-lite-staging.firebase.io.com";
+        ENV.firebase = "https://splitr-lite-staging.firebaseio.com";
     }
 
     if (environment === "production") {
-        ENV.firebase = "https://splitr-lite.firebase.io.com";
+        ENV.firebase = "https://splitr-lite.firebaseio.com";
     }
 
     return ENV;

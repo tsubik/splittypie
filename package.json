@@ -12,7 +12,8 @@
     "start": "ember server",
     "test": "ember test",
     "deploy": "ember build && firebase deploy",
-    "deploy:prod": "ember build --environment=production && firebase deploy"
+    "deploy:prod": "ember build --environment=production && firebase deploy",
+    "deploy:staging": "ember build --environment=staging && firebase deploy --firebase splitr-lite-staging"
   },
   "repository": "",
   "engines": {
