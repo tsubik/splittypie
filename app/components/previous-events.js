@@ -2,6 +2,9 @@ import Ember from "ember";
 
 export default Ember.Component.extend({
     localStorage: Ember.inject.service(),
+
+    classNames: ["previous-events-container"],
+
     anyEvents: Ember.computed.notEmpty("events"),
 
     actions: {

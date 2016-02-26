@@ -17,7 +17,7 @@
     <li>
       <a href="">
         <svg class="github-logo" viewBox="0 0 32 32">
-          {{partial "shared/github-logo"}}
+          {{partial "shared/svg/github-logo"}}
         </svg>
         Source Code
       </a>
@@ -25,7 +25,7 @@
     <li>
       <a href="">
         <svg class="cowbell-logo" viewBox="0 0 54 54">
-          {{partial "shared/cowbell-logo"}}
+          {{partial "shared/svg/cowbell-logo"}}
         </svg>
         Cowbell Labs
       </a>
@@ -38,10 +38,25 @@
     <div class="container">
       <div class="navbar-header">
         {{#link-to "index" class="navbar-brand"}}
-          Splitr<strong>lite</strong>
+          <strong>Split</strong>lite
         {{/link-to}}
       </div>
-      {{top-menu-nav-links}}
+      <ul class="nav navbar-nav navbar-right">
+        <li>
+          <a href="">
+            <svg class="github-logo" viewBox="0 0 32 32">
+              {{partial "shared/svg/github-logo"}}
+            </svg>
+          </a>
+        </li>
+        <li>
+          <a href="">
+            <svg class="cowbell-logo" viewBox="0 0 54 54">
+              {{partial "shared/svg/cowbell-logo"}}
+            </svg>
+          </a>
+        </li>
+      </ul>
     </div>
   </nav>
 
@@ -50,6 +65,7 @@
       {{outlet}}
     </div>
   </main>
-</div>
 
+  {{outlet "footer"}}
+</div>
 {{outlet "modal"}}
