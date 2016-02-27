@@ -1,0 +1,74 @@
+$side-menu-z-index: 10000;
+$content-backdrop-z-index: $side-menu-z-index - 1;
+
+.side-menu {
+  position: fixed;
+  background: #fff;
+  top: 0;
+  bottom: 0;
+  right: 0;
+  left: -70%;
+  width: 70%;
+  overflow: auto;
+  z-index: $side-menu-z-index;
+  box-shadow: 1px 0 2px rgba(0, 0, 0, 0.3);
+  will-change: transform;
+
+  ul {
+    li {
+      line-height: 32px;
+
+      &.active {
+        background-color: $nav-link-hover-bg;
+      }
+      &.divider {
+        height: 1px;
+        margin: 9px 0;
+        overflow: hidden;
+        background-color: #e5e5e5;
+      }
+      &.header {
+        padding-left: 15px;
+        font-weight: bold;
+        text-transform: uppercase;
+      }
+
+      a {
+        text-decoration: none;
+        display: block;
+        color: #000;
+
+        svg, span {
+          margin: 0px 10px 0px 0px;
+          float: left;
+          display: block;
+          width: 32px;
+          height: 32px;
+          font-size: 24px;
+
+          &.glyphicon {
+            top: 0px;
+            line-height: 32px;
+          }
+        }
+      }
+    }
+  }
+}
+
+.disable-scroll {
+  overflow: hidden;
+}
+
+.content-backdrop {
+    position: fixed;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    z-index: $content-backdrop-z-index;
+    background-color: rgba(black, 0.4);
+    opacity: 0;
+    visibility: hidden;
+    will-change: opacity;
+}

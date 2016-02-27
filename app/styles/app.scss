@@ -2,6 +2,7 @@
 @import "vendor/bootstrap-paper/_variables";
 @import "bootstrap";
 @import "vendor/bootstrap-paper/_bootswatch";
+@import "_side-menu";
 
 $icon-size: 28px;
 $btn-circle-size: 56px;
@@ -12,6 +13,10 @@ $btn-circle-size: 56px;
   display: inline-block;
   background: transparent url($url) no-repeat center;
   background-size: $size;
+}
+
+body, html {
+  height: 100%;
 }
 
 .page-content {
@@ -198,66 +203,4 @@ footer {
   text-transform: none;
   font-size: 24px;
   margin-left: -16px;
-}
-
-.side-menu {
-  position: fixed;
-  background: #fff;
-  top: 0;
-  bottom: 0;
-  right: 0;
-  left: -70%;
-  width: 70%;
-  overflow: auto;
-  z-index: 10000;
-  transition: transform 0.2s ease-out;
-
-  ul {
-    li {
-      line-height: 32px;
-
-      &.active {
-        background-color: $nav-link-hover-bg;
-      }
-      &.divider {
-        height: 1px;
-        margin: 9px 0;
-        overflow: hidden;
-        background-color: #e5e5e5;
-      }
-      &.header {
-        padding-left: 15px;
-        font-weight: bold;
-        text-transform: uppercase;
-      }
-
-      a {
-        text-decoration: none;
-        display: block;
-        color: #000;
-
-        svg, span {
-          margin: 0px 10px 0px 0px;
-          float: left;
-          display: block;
-          width: 32px;
-          height: 32px;
-          font-size: 24px;
-
-          &.glyphicon {
-            top: 0px;
-            line-height: 32px;
-          }
-        }
-      }
-    }
-  }
-}
-
-.side-menu.open {
-  transform: translateX(100%);
-}
-
-.disable-scroll {
-  overflow: hidden;
 }
