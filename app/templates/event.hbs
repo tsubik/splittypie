@@ -1,11 +1,12 @@
 <nav class="navbar navbar-default navbar-fixed-top visible-xs toolbar" role="navigation">
   <div class="navbar-header">
-    <button class="navbar-btn btn btn-link pull-left" {{action "showSideMenu"}}>
+    <button class="navbar-btn btn btn-link" {{action "showSideMenu"}}>
       <span class="glyphicon glyphicon-menu-hamburger"></span>
     </button>
     <span class="navbar-brand">{{model.name}}</span>
-    {{#link-to "event.edit" class="navbar-btn btn btn-link pull-right"}}
-      <span class="glyphicon glyphicon-edit"></span> Edit
+    {{#link-to "event.edit" class="navbar-btn btn btn-link"}}
+      <span class="glyphicon glyphicon-edit"></span>
+      Edit
     {{/link-to}}
   </div>
 </nav>

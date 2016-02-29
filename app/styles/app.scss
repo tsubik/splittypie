@@ -66,7 +66,7 @@ table.no-border {
 }
 
 .navbar-btn {
-  margin-top: 15px;
+  margin-top: 0px;
   margin-bottom: 0px;
 }
 
@@ -89,8 +89,19 @@ table.no-border {
 }
 
 .toolbar {
+  .navbar-header {
+    display: flex;
+    align-items: center;
+  }
+
   .navbar-brand {
     padding-left: 0px;
+    padding-right: 0px;
+    font-size: 20px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    flex: 1;
   }
 }
 

@@ -22,9 +22,26 @@ module.exports = function (defaults) {
 
     app.import("bower_components/bootstrap-sass/assets/javascripts/bootstrap.js");
     app.import(
+        "bower_components/bootstrap-sass/assets/fonts/bootstrap/glyphicons-halflings-regular.eot",
+        { destDir: "fonts/bootstrap" }
+    );
+    app.import(
+        "bower_components/bootstrap-sass/assets/fonts/bootstrap/glyphicons-halflings-regular.svg",
+        { destDir: "fonts/bootstrap" }
+    );
+    app.import(
+        "bower_components/bootstrap-sass/assets/fonts/bootstrap/glyphicons-halflings-regular.ttf",
+        { destDir: "fonts/bootstrap" }
+    );
+    app.import(
+        "bower_components/bootstrap-sass/assets/fonts/bootstrap/glyphicons-halflings-regular.woff",
+        { destDir: "fonts/bootstrap" }
+    );
+    app.import(
         "bower_components/bootstrap-sass/assets/fonts/bootstrap/glyphicons-halflings-regular.woff2",
         { destDir: "fonts/bootstrap" }
     );
+
 
     return app.toTree();
 };
