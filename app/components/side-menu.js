@@ -10,17 +10,23 @@ export default Ember.Component.extend({
     attributeBindings: ["style"],
     classNames: ["side-menu"],
 
-    isOpenOrClosedDidChange: Ember.observer("isOpen", "isClosed", function () {
-        const isOpen = this.get("isOpen");
+    disableScroll: Ember.on("init", Ember.observer("isClosed", function () {
         const isClosed = this.get("isClosed");
+        const wasClosed = this.get("wasClosed");
         const rootNode = this.get("rootNode");
 
-        if (isOpen) {
-            Ember.$(rootNode).addClass("disable-scroll");
-        } else if (isClosed) {
-            Ember.$(rootNode).removeClass("disable-scroll");
+        if (isClosed === wasClosed) {
+            return;
         }
-    }),
+
+        if (isClosed) {
+            Ember.$(rootNode).removeClass("disable-scroll");
+        } else {
+            Ember.$(rootNode).addClass("disable-scroll");
+        }
+
+        this.set("wasClosed", isClosed);
+    })),
 
     style: Ember.computed("progress", function () {
         const progress = this.get("progress");

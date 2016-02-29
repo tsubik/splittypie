@@ -22,6 +22,10 @@ body, html {
 .page-content {
   padding-top: 80px;
 }
+/* fixing crappy outline on button focus */
+.btn:focus {
+  outline: none !important;
+}
 
 .btn.btn-circle {
   padding: 0;
