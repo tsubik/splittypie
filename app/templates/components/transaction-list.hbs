@@ -1,6 +1,19 @@
 {{#if anyTransactions}}
-  {{#each transactions as |transaction|}}
-    {{transaction-list-item transaction=transaction onClick=(action "edit" transaction)}}
+  {{#each transactionsByDate as |transactionGroup|}}
+    {{#if anyTransactionWithDate}}
+      <div class="transaction-list-date">
+        {{#if transactionGroup.date}}
+          <span class="glyphicon glyphicon-calendar"></span>
+          <strong>{{transactionGroup.date}}</strong>
+        {{else}}
+          <strong>Without a date</strong>
+        {{/if}}
+      </div>
+    {{/if}}
+
+    {{#each transactionGroup.transactions as |transaction|}}
+      {{transaction-list-item transaction=transaction onClick=(action "edit" transaction)}}
+    {{/each}}
   {{/each}}
 {{else}}
   <div class="alert alert-info" role="alert">
