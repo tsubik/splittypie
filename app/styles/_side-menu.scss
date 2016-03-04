@@ -18,9 +18,6 @@ $content-backdrop-z-index: $side-menu-z-index - 1;
     li {
       line-height: 32px;
 
-      &.active {
-        background-color: $nav-link-hover-bg;
-      }
       &.divider {
         height: 1px;
         margin: 9px 0;
@@ -37,6 +34,10 @@ $content-backdrop-z-index: $side-menu-z-index - 1;
         text-decoration: none;
         display: block;
         color: #000;
+
+        &.active {
+          background-color: $nav-link-hover-bg;
+        }
 
         svg, span {
           margin: 0px 10px 0px 0px;

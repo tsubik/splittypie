@@ -1,17 +1,26 @@
 {{#side-menu}}
+  <header class="navbar navbar-default">
+    <div class="navbar-header">
+      {{#side-menu-link-to "index" class="navbar-brand"}}
+        Splitr<strong>lite</strong>
+      {{/side-menu-link-to}}
+    </div>
+  </header>
   <ul class="nav">
     <li class="header">Events</li>
     {{#each model.previousEvents as |event|}}
-      {{#nav-link-to "event" event.id}}
-        <span class="glyphicon glyphicon-calendar"></span>
-        {{event.name}}
-      {{/nav-link-to}}
+      <li>
+        {{#side-menu-link-to "event" event.id}}
+          <span class="glyphicon glyphicon-calendar"></span>
+          {{event.name}}
+        {{/side-menu-link-to}}
+      </li>
     {{/each}}
     <li>
-      {{#link-to "new"}}
+      {{#side-menu-link-to "new"}}
         <span class="glyphicon glyphicon-plus"></span>
         New Event
-      {{/link-to}}
+      {{/side-menu-link-to}}
     </li>
     <li class="divider"></li>
     <li>
