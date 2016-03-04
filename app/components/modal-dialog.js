@@ -6,12 +6,14 @@ export default Ember.Component.extend({
     didInsertElement() {
         this._super(...arguments);
         this.$(".modal").modal().on("hidden.bs.modal", () => {
-            this.get("modal").trigger("remove");
+            Ember.run(() => {
+                this.get("modal").trigger("remove");
+            });
         });
-        this.get("modal").on("hide", this, "hide");
+        this.get("modal").one("hide", this, "onHide");
     },
 
-    hide() {
+    onHide() {
         this.$(".modal").modal("hide");
     },
 });

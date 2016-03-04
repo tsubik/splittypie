@@ -86,7 +86,7 @@ test("editing/removing transaction", function (assert) {
             exist(".transaction-list-item:contains('Alice paid for Gift')"),
             "transaction item"
         );
-        assert.ok(exist(".transaction-list-item:contains('Participants: Alice, Bob')"));
+        assert.ok(exist(".transaction-list-item:contains('Alice, Bob')"));
 
         click(".transaction-list-item");
     });
@@ -104,7 +104,7 @@ test("editing/removing transaction", function (assert) {
             exist(".transaction-list-item:contains('Bob paid for special')"),
             "transaction item"
         );
-        assert.ok(exist(".transaction-list-item:contains('Participants: Alice, Bob')"));
+        assert.ok(exist(".transaction-list-item:contains('Alice, Bob')"));
     });
     andThen(() => {
         click(".transaction-list-item");

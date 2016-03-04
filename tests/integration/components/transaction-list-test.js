@@ -1,4 +1,5 @@
 import { moduleForComponent, test } from "ember-qunit";
+import Ember from "ember";
 import hbs from "htmlbars-inline-precompile";
 
 moduleForComponent("transaction-list", "Integration | Component | transaction list", {
@@ -20,12 +21,16 @@ test("it renders transaction list items", function (assert) {
         { name: "Yuri" },
     ];
     const transactions = [
-        { payer: users[0], name: "Transaction 1", amount: "200", participants: users },
-        { payer: users[1], name: "Transaction 2", amount: "300", participants: users },
+        Ember.Object.create(
+            { payer: users[0], date: "", name: "Transaction 1", amount: "200", participants: users }
+        ),
+        Ember.Object.create(
+            { payer: users[1], date: "", name: "Transaction 2", amount: "300", participants: users }
+        ),
     ];
 
     this.set("transactions", transactions);
     this.render(hbs`{{transaction-list transactions=transactions}}`);
 
-    assert.equal(this.$(".transaction-list-item").length, 2);
+    assert.equal(this.$(".transaction-list-item").length, 2, "renders 2 transactions");
 });

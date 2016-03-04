@@ -20,16 +20,6 @@ export default Ember.Route.extend({
 
     setupController() {
         this._super(...arguments);
-        this.get("localStorage").on("changed", this, "resetPreviousEvents");
-    },
-
-    resetPreviousEvents() {
-        const previousEvents = this.get("controller.model.previousEvents");
-
-        if (previousEvents) {
-            previousEvents.clear();
-            previousEvents.pushObjects(this.get("localStorage").findAll("events"));
-        }
     },
 
     showModal(options) {

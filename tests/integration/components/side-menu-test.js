@@ -11,7 +11,7 @@ test("it renders", function (assert) {
 
     this.render(hbs`{{side-menu}}`);
 
-    assert.equal(this.$().text().trim(), "Splitrlite");
+    assert.equal(this.$().text().trim(), "");
 
     // Template block usage:" + EOL +
     this.render(hbs`
@@ -20,5 +20,5 @@ test("it renders", function (assert) {
     {{/side-menu}}
   `);
 
-    // assert.equal(this.$().text().trim(), "template block text");
+    assert.equal(this.$().text().trim(), "template block text");
 });

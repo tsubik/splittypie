@@ -1,6 +1,6 @@
 import Ember from "ember";
 
-export default Ember.Service.extend(Ember.Evented, {
+export default Ember.Service.extend({
     push(entryName, item) {
         Ember.assert("First argument entryName must be present", entryName);
         Ember.assert("Pushed item must have id property", item.id);
@@ -9,16 +9,26 @@ export default Ember.Service.extend(Ember.Evented, {
         const itemToUpdate = items.findBy("id", item.id);
 
         if (itemToUpdate) {
-            Object.assign(itemToUpdate, this._toJSON(item));
+            itemToUpdate.setProperties(item);
         } else {
             items.pushObject(item);
         }
 
         localStorage.setItem(entryName, JSON.stringify(items));
-        this.trigger("changed");
     },
 
     findAll(entryName) {
+        const items = this._findAll(entryName).map((item) => Ember.Object.create(item));
+        const snapshot = this.getWithDefault(entryName, []);
+
+        snapshot.clear();
+        snapshot.pushObjects(items);
+        this.set(entryName, snapshot);
+
+        return snapshot;
+    },
+
+    _findAll(entryName) {
         const itemsString = localStorage.getItem(entryName);
 
         return !!itemsString ? JSON.parse(itemsString) : [];
@@ -27,13 +37,9 @@ export default Ember.Service.extend(Ember.Evented, {
     remove(entryName, id) {
         Ember.assert("First argument entryName must be present", entryName);
 
-        const items = this.findAll(entryName).rejectBy("id", id);
+        const items = this.findAll(entryName);
 
+        items.removeObject(items.findBy("id", id));
         localStorage.setItem(entryName, JSON.stringify(items));
-        this.trigger("changed");
-    },
-
-    _toJSON(object) {
-        return JSON.parse(JSON.stringify(object));
     },
 });

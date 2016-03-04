@@ -7,7 +7,7 @@
         {{#link-to "event.index" event.id class="btn btn-default"}}
           <strong>{{event.name}}</strong>
         {{/link-to}}
-        <button {{action "remove" event.id}} class="btn btn-default" title="Remove reference from this computer. The event still be reachable by url.">
+        <button {{action "remove" event}} class="btn btn-default" title="Remove reference from this computer. The event still be reachable by url.">
           <span class="glyphicon glyphicon-remove"></span>
         </button>
       </div>
