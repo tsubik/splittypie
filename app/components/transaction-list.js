@@ -10,7 +10,7 @@ export default Ember.Component.extend({
         const transactions = this.get("transactions").sortBy("date").reverse();
 
         transactions.forEach((transaction) => {
-            const date = transaction.get("date");
+            const date = transaction.get("date") || null;
             const group = result.findBy("date", date);
 
             if (!group) {
