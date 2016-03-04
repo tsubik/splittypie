@@ -13,7 +13,9 @@
     "test": "ember test",
     "deploy": "ember build && firebase deploy",
     "deploy:prod": "rm -rf dist/ && ember build --environment=production && firebase deploy",
-    "deploy:staging": "rm -rf dist/ && ember build --environment=staging && firebase deploy --firebase splitr-lite-staging"
+    "deploy:staging": "rm -rf dist/ && ember build --environment=staging && firebase deploy --firebase splitr-lite-staging",
+    "seed": "firebase data:set / firebase_seed.json -f splitr-lite-dev",
+    "seed:staging": "firebase data:set / firebase_seed.json -f splitr-lite-staging"
   },
   "repository": "",
   "engines": {
