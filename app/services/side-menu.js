@@ -13,4 +13,12 @@ export default Ember.Service.extend({
     show() {
         this.set("progress", 100);
     },
+
+    toggle() {
+        if (this.get("isOpen")) {
+            this.hide();
+        } else {
+            this.show();
+        }
+    },
 });

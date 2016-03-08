@@ -29,10 +29,6 @@ export default Ember.Component.extend({
             this.get("modal").onConfirm(() => this.sendAction("delete", event));
         },
 
-        goBack() {
-            window.history.back();
-        },
-
         save() {
             const event = this.get("event");
 

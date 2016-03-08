@@ -1,10 +1,6 @@
-<nav class="navbar navbar-default navbar-fixed-top visible-xs toolbar" role="navigation">
-  <div class="navbar-header">
-    <button class="navbar-btn btn btn-link pull-left" {{action "showSideMenu"}}>
-      <span class="glyphicon glyphicon-menu-hamburger"></span>
-    </button>
-    <span class="navbar-brand">Splitlite</span>
-  </div>
-</nav>
+{{#mobile-toolbar}}
+  {{side-menu-toggle}}
+  <span class="navbar-brand">Splitlite</span>
+{{/mobile-toolbar}}
 
 {{partial "shared/errors/not-found"}}
