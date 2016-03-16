@@ -1,5 +1,5 @@
 {
-  "firebase": "splitr-lite",
+  "firebase": "splittypie",
   "public": "dist",
   "ignore": [
     "firebase.json",

@@ -1,4 +1,4 @@
-import { isEqual } from "splitr-lite/helpers/is-equal";
+import { isEqual } from "splittypie/helpers/is-equal";
 import { module, test } from "qunit";
 
 module("Unit | Helper | is equal");

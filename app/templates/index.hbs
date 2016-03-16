@@ -1,13 +1,15 @@
 {{#mobile-toolbar}}
   {{side-menu-toggle}}
-  <span class="navbar-brand">Splitlite</span>
+  <span class="navbar-brand">
+    {{partial "shared/brand"}}
+  </span>
 {{/mobile-toolbar}}
 
 <div class="row main">
   <div class="col-sm-7 main-promotion-text">
     <h1>Easy expense splitting</h1>
     <p>
-      Create event, add users and their expenses. Splitrlite will calculate who owes who and how much exactly.
+      Create event, add users and their expenses. Splittypie will calculate who owes who and how much exactly.
       It's <strong>Free</strong> and with <strong class="text-nowrap">No Sign Up</strong>.
     </p>
     <p>{{link-to "Create New Event" "new" class="btn btn-lg btn-success"}}</p>
@@ -19,7 +21,7 @@
 
 {{previous-events events=model.previousEvents}}
 
-<h3 class="text-center">Find more about Splitrlite</h3>
+<h3 class="text-center">Find more about Splittypie</h3>
 
 <div class="row">
   <div class="col-md-4 text-center">

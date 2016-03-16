@@ -1,5 +1,5 @@
 {
-  "name": "splitr-lite",
+  "name": "splittypie",
   "version": "0.0.0",
   "description": "Split your expenses with ease",
   "private": true,
@@ -13,9 +13,9 @@
     "test": "ember test",
     "deploy": "ember build && firebase deploy",
     "deploy:prod": "ember github-pages:commit --message 'deploy' && git push origin gh-pages:gh-pages",
-    "deploy:staging": "rm -rf dist/ && ember build --environment=staging && firebase deploy --firebase splitr-lite-staging",
-    "seed": "firebase data:set / firebase_seed.json -f splitr-lite-dev",
-    "seed:staging": "firebase data:set / firebase_seed.json -f splitr-lite-staging"
+    "deploy:staging": "rm -rf dist/ && ember build --environment=staging && firebase deploy --firebase splittypie-staging",
+    "seed": "firebase data:set / firebase_seed.json -f splittypie-dev",
+    "seed:staging": "firebase data:set / firebase_seed.json -f splittypie-staging"
   },
   "repository": "",
   "engines": {

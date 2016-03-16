@@ -1,5 +1,5 @@
 import { test } from "qunit";
-import moduleForAcceptance from "splitr-lite/tests/helpers/module-for-acceptance";
+import moduleForAcceptance from "splittypie/tests/helpers/module-for-acceptance";
 import Ember from "ember";
 
 moduleForAcceptance("Acceptance | transaction");

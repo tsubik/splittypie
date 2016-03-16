@@ -1,6 +1,6 @@
-import EventForm from "splitr-lite/forms/event";
-import UserForm from "splitr-lite/forms/user";
-import TransactionForm from "splitr-lite/forms/transaction";
+import EventForm from "splittypie/forms/event";
+import UserForm from "splittypie/forms/user";
+import TransactionForm from "splittypie/forms/transaction";
 
 export function initialize(application) {
     application.register("forms:event", EventForm, { instantiate: false });

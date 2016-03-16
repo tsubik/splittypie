@@ -1,4 +1,4 @@
-import { readPath } from "splitr-lite/helpers/read-path";
+import { readPath } from "splittypie/helpers/read-path";
 import { module, test } from "qunit";
 import Ember from "ember";
 

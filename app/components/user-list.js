@@ -1,5 +1,5 @@
 import Ember from "ember";
-import Form from "splitr-lite/mixins/form";
+import Form from "splittypie/mixins/form";
 
 export default Ember.Component.extend(Form, {
     tagName: "ul",

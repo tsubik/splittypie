@@ -2,7 +2,7 @@
 
 module.exports = function (environment) {
     const ENV = {
-        modulePrefix: "splitr-lite",
+        modulePrefix: "splittypie",
         environment,
         contentSecurityPolicy: {
             "connect-src": "'self' https://auth.firebase.com wss://*.firebaseio.com",
@@ -12,7 +12,7 @@ module.exports = function (environment) {
             "img-src": "'self' data:",
         },
 
-        firebase: "https://splitr-lite-dev.firebaseio.com/",
+        firebase: "https://splittypie-dev.firebaseio.com/",
         baseURL: "/",
         locationType: "auto",
         EmberENV: {
@@ -46,15 +46,15 @@ module.exports = function (environment) {
         ENV.APP.LOG_VIEW_LOOKUPS = false;
 
         ENV.APP.rootElement = "#ember-testing";
-        ENV.firebase = "https://splitr-lite-test.firebaseio.com";
+        ENV.firebase = "https://splittypie-test.firebaseio.com";
     }
 
     if (environment === "staging") {
-        ENV.firebase = "https://splitr-lite-staging.firebaseio.com";
+        ENV.firebase = "https://splittypie-staging.firebaseio.com";
     }
 
     if (environment === "production") {
-        ENV.firebase = "https://splitr-lite.firebaseio.com";
+        ENV.firebase = "https://splittypie.firebaseio.com";
     }
 
     return ENV;

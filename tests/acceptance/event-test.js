@@ -1,7 +1,7 @@
 /* eslint "max-len": 0 */
 import { test } from "qunit";
-import moduleForAcceptance from "splitr-lite/tests/helpers/module-for-acceptance";
-import errorAt from "splitr-lite/tests/helpers/error-at";
+import moduleForAcceptance from "splittypie/tests/helpers/module-for-acceptance";
+import errorAt from "splittypie/tests/helpers/error-at";
 import Ember from "ember";
 
 moduleForAcceptance("Acceptance | event");
