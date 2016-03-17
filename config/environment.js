@@ -13,6 +13,14 @@ module.exports = function (environment) {
         },
 
         firebase: "https://splittypie-dev.firebaseio.com/",
+        rollbar: {
+            accessToken: "09923c3bb1984480a976e140dd1c361f",
+            enabled: environment === "production" || environment === "staging",
+            captureUncaught: true,
+            payload: {
+                environment,
+            },
+        },
         baseURL: "/",
         locationType: "auto",
         EmberENV: {
