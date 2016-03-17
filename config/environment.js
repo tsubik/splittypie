@@ -55,6 +55,7 @@ module.exports = function (environment) {
 
     if (environment === "production") {
         ENV.firebase = "https://splittypie.firebaseio.com";
+        ENV.GOOGLE_ANALYTICS_ID = "UA-75217573-1";
     }
 
     return ENV;

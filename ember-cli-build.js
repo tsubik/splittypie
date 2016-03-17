@@ -1,5 +1,8 @@
+/*eslint-disable */
+
 const EmberApp = require("ember-cli/lib/broccoli/ember-app");
 const env = process.env.EMBER_ENV;
+const config = require("./config/environment")(env);
 
 module.exports = function (defaults) {
     const app = new EmberApp(defaults, {
@@ -17,6 +20,15 @@ module.exports = function (defaults) {
                 "bower_components/bootstrap-sass/assets/stylesheets",
                 "vendor/bootstrap-paper",
             ],
+        },
+        inlineContent: {
+            analytics: {
+                file: "app/analytics.html",
+                enabled: !!config.GOOGLE_ANALYTICS_ID,
+                postProcess: function (content) {
+                    return content.replace(/\{\{GOOGLE_ANALYTICS_ID\}\}/g, config.GOOGLE_ANALYTICS_ID);
+                },
+            },
         },
     });
 
