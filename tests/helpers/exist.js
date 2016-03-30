@@ -1,5 +1,9 @@
 import Ember from "ember";
 
-export default Ember.Test.registerHelper("exist", function (app, selector) {
+export const exist = function (selector) {
     return !!find(selector).length;
+};
+
+export default Ember.Test.registerHelper("exist", function (app, selector) {
+    return exist(selector);
 });

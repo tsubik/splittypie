@@ -17,6 +17,6 @@ test("it renders", function (assert) {
     this.set("users", users);
     this.render(hbs`{{settlement-transfer-list users=users}}`);
 
-    assert.ok(this.$(".settlement-item:contains('Alice has to send Bob 100')").length === 0);
-    assert.ok(this.$(".settlement-item:contains('George has to send Bob 50')").length === 0);
+    assert.ok(!!this.$(":contains('Alice owes Bob')").has(":contains('100')").length);
+    assert.ok(!!this.$(":contains('George owes Bob')").has(":contains('50')").length);
 });

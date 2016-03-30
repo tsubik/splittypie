@@ -5,7 +5,7 @@
     <div class="panel-body">
       {{#each transfers as |transfer|}}
         <li class="settlement-item">
-          <strong>{{transfer.sender.name}}</strong> has to send <strong>{{transfer.recipient.name}}</strong>
+          <strong>{{transfer.sender.name}}</strong> owes <strong>{{transfer.recipient.name}}</strong>
           <span class="text-nowrap">
             {{transfer.amount}} {{transfer.currency.code}}
           </span>
