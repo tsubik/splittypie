@@ -2,7 +2,11 @@ import Ember from "ember";
 
 export default Ember.Route.extend({
     model() {
-        return Ember.Object.create({});
+        const users = this.modelFor("event").get("users");
+
+        return Ember.Object.create({
+            participants: users,
+        });
     },
 
     afterModel(model) {
@@ -11,10 +15,11 @@ export default Ember.Route.extend({
 
     setupController(controller, model) {
         this._super(controller, model);
+        const users = this.modelFor("event").get("users");
         const transactionForm = this.get("formFactory").createForm("transaction", model);
         controller.setProperties({
             transaction: transactionForm,
-            users: this.modelFor("event").get("users"),
+            users,
         });
     },
 

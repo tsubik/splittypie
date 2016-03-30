@@ -35,7 +35,11 @@ test("adding new transaction", function (assert) {
         fillIn(".transaction-payer", AliceId);
         fillIn(".transaction-name", "special bottle of vodka");
         fillIn(".transaction-amount", "50");
-        click(".transaction-participants input");
+        assert.equal(
+            find(".transaction-participants input:checked").length,
+            2,
+            "Everyone selected by default"
+        );
         click("button:contains('Create')");
     });
     reloadPage();
