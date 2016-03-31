@@ -223,3 +223,16 @@ footer {
   font-size: 24px;
   margin-left: -16px;
 }
+
+input.event-url {
+  font-size: 28px;
+  width: 100%;
+
+  @media (max-width: $screen-sm-min) {
+    font-size: 20px;
+  }
+
+  @media (max-width: $screen-xs-min) {
+    font-size: 16px;
+  }
+}
