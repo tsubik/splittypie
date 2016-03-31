@@ -29,6 +29,13 @@ module.exports = function (defaults) {
                     return content.replace(/\{\{GOOGLE_ANALYTICS_ID\}\}/g, config.GOOGLE_ANALYTICS_ID);
                 },
             },
+            rollbar: {
+                file: "app/rollbar.html",
+                enabled: config.rollbar.enabled,
+                postProcess: function (content) {
+                    return content.replace(/\{\{rollbarConfig\}\}/g, JSON.stringify(config.rollbar));
+                }
+            }
         },
     });
 
