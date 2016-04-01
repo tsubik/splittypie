@@ -1,3 +1,5 @@
+@import url("https://fonts.googleapis.com/css?family=Give+You+Glory");
+
 // Core variables and mixins
 @import "vendor/bootstrap-paper/_variables";
 @import "bootstrap";
@@ -212,10 +214,27 @@ footer {
   box-shadow: none;
 }
 
-.btn-add-transaction {
+.add-transaction-button {
   position: fixed;
+  display: flex;
+  align-items: center;
   right: 20px;
   bottom: 20px;
+}
+
+.onboarding-transaction-add {
+  display: flex;
+  align-items: center;
+
+  p {
+    font: 1.5em "Give You Glory", cursive;
+    margin: 0px;
+  }
+
+  img {
+    width: 87px;
+    height: 30px;
+  }
 }
 
 .btn-change-event {

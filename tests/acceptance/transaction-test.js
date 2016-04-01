@@ -28,6 +28,7 @@ test("adding new transaction", function (assert) {
     reloadPage();
     andThen(() => {
         assert.ok(exist("div:contains('There are no transactions yet')"), "No transactions text");
+        assert.ok(exist("div:contains('Add your first transaction')"), "Transaction onboarding");
         click("a.btn-add-transaction");
     });
     andThen(() => {
@@ -51,6 +52,10 @@ test("adding new transaction", function (assert) {
         assert.ok(
             exist(`.transaction-list-item:contains('${expectedMessage}')`),
             "transaction item"
+        );
+        assert.notOk(
+            exist("div:contains('Add your first transaction')"),
+            "No Transaction onboarding text"
         );
     });
 });

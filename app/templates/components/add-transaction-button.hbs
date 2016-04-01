@@ -1,0 +1,7 @@
+{{#unless anyTransactions}}
+  {{onboarding-transaction-add}}
+{{/unless}}
+
+{{#link-to "event.transactions.new" class="btn btn-primary btn-circle btn-add-transaction"}}
+  <span class="glyphicon glyphicon-plus"></span>
+{{/link-to}}
