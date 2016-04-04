@@ -1,6 +1,7 @@
 import Ember from "ember";
+import ResetScroll from "splittypie/mixins/reset-scroll";
 
-export default Ember.Route.extend({
+export default Ember.Route.extend(ResetScroll, {
     modal: Ember.inject.service(),
     sideMenu: Ember.inject.service(),
     localStorage: Ember.inject.service(),
