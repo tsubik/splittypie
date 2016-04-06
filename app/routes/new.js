@@ -1,8 +1,12 @@
 import Ember from "ember";
+import countryToCurrencyCode from "splittypie/utils/country-to-currency-code";
 
 export default Ember.Route.extend({
+    userCountryCode: Ember.inject.service(),
+
     model() {
         return Ember.RSVP.hash({
+            defaultCurrency: this._getDefaultCurrency(),
             event: Ember.Object.create({
                 users: [
                     Ember.Object.create({}),
@@ -13,8 +17,19 @@ export default Ember.Route.extend({
         });
     },
 
+    _getDefaultCurrency() {
+        return this.get("userCountryCode")
+            .getCountryCode()
+            .then((countryCode) => {
+                const currencyCode = countryToCurrencyCode(countryCode) || "USD";
+
+                return this.store.find("currency", currencyCode);
+            });
+    },
+
     setupController(controller, models) {
         this._super(controller, models);
+        models.event.set("currency", models.defaultCurrency);
         const eventForm = this.get("formFactory").createForm("event", models.event);
         controller.setProperties({
             event: eventForm,

@@ -12,6 +12,10 @@ test("creating event", function (assert) {
     click("button:contains('Create')");
     // validations
     andThen(() => {
+        // defaults
+        assert.ok(find(".event-name option:selected").val() !== "", "currency default");
+        fillIn(".event-currency", "");
+
         assert.equal(errorAt(".event-name"), "can't be blank", "event name validation");
         assert.equal(errorAt(".event-currency"), "can't be blank", "event currency validation");
         assert.equal(errorAt(".user-name:eq(0)"), "can't be blank", "event user 1 validation");

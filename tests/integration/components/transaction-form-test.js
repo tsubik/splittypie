@@ -11,7 +11,7 @@ test("it renders", function (assert) {
 
     this.render(hbs`{{transaction-form}}`);
 
-    assert.equal(this.$(".transaction-payer").find(":selected").val(), "Select payer...");
+    assert.equal(this.$(".transaction-payer").find(":selected").val(), "");
     assert.equal(this.$(".transaction-name").val(), "");
     assert.equal(this.$(".transaction-name").attr("placeholder"), "Example: Tickets to museum");
     assert.equal(this.$(".transaction-amount").val(), "");

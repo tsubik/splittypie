@@ -14,7 +14,7 @@ test("it renders", function (assert) {
 
     assert.equal(this.$(".event-name").attr("placeholder"), "Example: Trip to Barcelona");
     assert.equal(this.$(".event-name").val(), "");
-    assert.equal(this.$(".event-currency").find(":selected").val(), "Select currency...");
+    assert.equal(this.$(".event-currency").find(":selected").val(), "");
     assert.equal(this.$(".user-name").length, 0);
 });
 
