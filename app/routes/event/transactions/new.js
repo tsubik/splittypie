@@ -6,6 +6,7 @@ export default Ember.Route.extend({
 
         return Ember.Object.create({
             participants: users,
+            date: new Date().toISOString().substring(0, 10),
         });
     },
 
