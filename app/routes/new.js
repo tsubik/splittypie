@@ -3,6 +3,7 @@ import countryToCurrencyCode from "splittypie/utils/country-to-currency-code";
 
 export default Ember.Route.extend({
     userCountryCode: Ember.inject.service(),
+    localStorage: Ember.inject.service(),
 
     model() {
         return Ember.RSVP.hash({
@@ -40,7 +41,17 @@ export default Ember.Route.extend({
     actions: {
         modelUpdated(event) {
             event.save()
-                .then(() => this.transitionTo("event.index", event));
+                .then(() => {
+                    this.get("localStorage").push(
+                        "events",
+                        Ember.Object.create({
+                            id: event.id,
+                            name: event.name,
+                            userId: event.users[0].id,
+                        })
+                    );
+                    this.transitionTo("event.index", event);
+                });
         },
     },
 });

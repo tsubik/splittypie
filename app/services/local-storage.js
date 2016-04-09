@@ -28,6 +28,10 @@ export default Ember.Service.extend({
         return snapshot;
     },
 
+    find(entryName, id) {
+        return this.findAll(entryName).findBy("id", id);
+    },
+
     _findAll(entryName) {
         const itemsString = localStorage.getItem(entryName);
 

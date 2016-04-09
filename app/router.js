@@ -16,6 +16,7 @@ Router.map(function () {
             this.route("edit", { path: "/:transaction_id" });
         });
         this.route("edit");
+        this.route("who-are-you");
     });
     this.route("new");
     this.route("not-found", { path: "/*path" });

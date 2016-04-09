@@ -9,10 +9,11 @@ export default Ember.Route.extend({
     },
 
     afterModel(model) {
-        this.get("localStorage").push(
-            "events",
-            Ember.Object.create(model.getProperties("id", "name"))
-        );
+        const eventLS = this.get("localStorage").find("events", model.id);
+
+        if (!(eventLS && eventLS.userId)) {
+            this.transitionTo("event.who-are-you", model);
+        }
     },
 
     setupController(controller, model) {

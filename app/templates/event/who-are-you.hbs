@@ -1,0 +1,11 @@
+<h3>Please identify yourself</h3>
+<p>
+  Your friend {{model.users.firstObject.name}} created an event "{{model.name}}" and wants
+  to share expenses with you. Please tell us who you are and you will see this event.
+</p>
+
+{{#each model.users as |user|}}
+  <button class="btn btn-default" {{action "chooseUser" user}}>
+    {{user.name}}
+  </button>
+{{/each}}

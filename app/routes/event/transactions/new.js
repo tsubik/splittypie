@@ -1,11 +1,17 @@
 import Ember from "ember";
 
 export default Ember.Route.extend({
+    localStorage: Ember.inject.service(),
+
     model() {
-        const users = this.modelFor("event").get("users");
+        const event = this.modelFor("event");
+        const participants = event.get("users");
+        const eventLS = this.get("localStorage").find("events", event.id);
+        const payer = participants.findBy("id", eventLS.userId);
 
         return Ember.Object.create({
-            participants: users,
+            payer,
+            participants,
             date: new Date().toISOString().substring(0, 10),
         });
     },
