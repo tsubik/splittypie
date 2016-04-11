@@ -11,7 +11,7 @@ function shouldReportError(error) {
 
 export function initialize(/* application */) {
     const reportError = (error) => {
-        console.error(error);
+        console.error(error.stack);
 
         if (window.Rollbar && shouldReportError(error)) {
             window.Rollbar.error(error);

@@ -46,8 +46,8 @@ export default Ember.Route.extend({
                         "events",
                         Ember.Object.create({
                             id: event.id,
-                            name: event.name,
-                            userId: event.users[0].id,
+                            name: event.get("name"),
+                            userId: event.get("users.firstObject.id"),
                         })
                     );
                     this.transitionTo("event.index", event);

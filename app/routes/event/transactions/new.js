@@ -5,8 +5,8 @@ export default Ember.Route.extend({
 
     model() {
         const event = this.modelFor("event");
-        const participants = event.get("users");
         const eventLS = this.get("localStorage").find("events", event.id);
+        const participants = event.get("users");
         const payer = participants.findBy("id", eventLS.userId);
 
         return Ember.Object.create({
