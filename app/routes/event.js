@@ -12,7 +12,7 @@ export default Ember.Route.extend({
         const eventLS = this.get("localStorage").find("events", model.id);
 
         if (!(eventLS && eventLS.userId)) {
-            this.transitionTo("event.who-are-you", model);
+            this.transitionTo("event.who-are-you");
         }
     },
 

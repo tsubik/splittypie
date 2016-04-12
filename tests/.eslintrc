@@ -6,6 +6,7 @@
   "globals": {
     "waitForPromise": true,
     "reloadPage": true,
-    "exist": true
+    "exist": true,
+    "identifyUserAs": true
   }
 }

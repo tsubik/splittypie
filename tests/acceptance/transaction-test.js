@@ -23,6 +23,7 @@ test("adding new transaction", function (assert) {
         });
     }));
     andThen(() => {
+        identifyUserAs(event.id, "Bob");
         visit(`/${event.id}/transactions`);
     });
     reloadPage();
@@ -84,8 +85,8 @@ test("editing/removing transaction", function (assert) {
             });
         });
     }));
-
     andThen(() => {
+        identifyUserAs(event.id, "Bob");
         visit(`/${event.id}/transactions`);
     });
     reloadPage();

@@ -4,6 +4,7 @@ import config from "../../config/environment";
 import "./wait-for-promise";
 import "./reload-page";
 import "./exist";
+import "./identify-user-as";
 
 export default function startApp(attrs) {
     let application;

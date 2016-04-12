@@ -9,13 +9,14 @@ moduleForAcceptance("Acceptance | event");
 test("creating event", function (assert) {
     visit("/");
     click("a:contains('Create New Event')");
-    click("button:contains('Create')");
-    // validations
     andThen(() => {
         // defaults
         assert.ok(find(".event-name option:selected").val() !== "", "currency default");
         fillIn(".event-currency", "");
-
+        click("button:contains('Create')");
+    });
+    // validations
+    andThen(() => {
         assert.equal(errorAt(".event-name"), "can't be blank", "event name validation");
         assert.equal(errorAt(".event-currency"), "can't be blank", "event currency validation");
         assert.equal(errorAt(".user-name:eq(0)"), "can't be blank", "event user 1 validation");
@@ -60,10 +61,21 @@ test("editing event", function (assert) {
         });
     }));
 
+    // screen tell us who you are
     andThen(() => {
         visit(`/${event.id}/edit`);
-        fillIn(".event-name", "Gift for John's Birthday");
+    });
+    andThen(() => {
+        const message = "Your friend Alice created an event \"Test event\"";
+
+        assert.ok(exist(`div:contains('${message}')`), "your friend created event text");
+        click("button:contains('Bob')");
+        click("a:contains('Edit')");
+    });
+
+    andThen(() => {
         fillIn(".event-currency", "EUR");
+        fillIn(".event-name", "Gift for John's Birthday");
         fillIn(".user-name:eq(0)", "Jimmy");
         fillIn(".user-name:eq(1)", "James");
         click("button:contains('Add Participant')");
