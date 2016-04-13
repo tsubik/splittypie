@@ -1,7 +1,11 @@
 /*eslint-disable */
-
 const EmberApp = require("ember-cli/lib/broccoli/ember-app");
 const env = process.env.EMBER_ENV;
+
+require("dotenv").config({
+    path: `.env.${env}`
+});
+
 const config = require("./config/environment")(env);
 
 module.exports = function (defaults) {

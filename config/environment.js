@@ -6,21 +6,22 @@ module.exports = function (environment) {
         environment,
         contentSecurityPolicy: {
             "connect-src": "'self' https://auth.firebase.com wss://*.firebaseio.com",
-            "script-src": "'self' 'unsafe-inline' https://*.firebaseio.com",
+            "script-src": "'self' 'unsafe-inline' https://*.firebaseio.com https://www.google-analytics.com",
             "style-src": "'self' 'unsafe-inline' https://fonts.googleapis.com",
             "font-src": "'self' data: https://fonts.gstatic.com",
             "img-src": "'self' data:",
         },
 
-        firebase: "https://splittypie-dev.firebaseio.com/",
+        firebase: process.env.FIREBASE_URL,
         rollbar: {
-            accessToken: "09923c3bb1984480a976e140dd1c361f",
+            accessToken: process.env.ROLLBAR_ACCESS_TOKEN,
             enabled: environment === "production" || environment === "staging",
             captureUncaught: true,
             payload: {
                 environment,
             },
         },
+        GOOGLE_ANALYTICS_ID: process.env.GOOGLE_ANALYTICS_ID,
         baseURL: "/",
         locationType: "auto",
         EmberENV: {
@@ -54,16 +55,6 @@ module.exports = function (environment) {
         ENV.APP.LOG_VIEW_LOOKUPS = false;
 
         ENV.APP.rootElement = "#ember-testing";
-        ENV.firebase = "https://splittypie-test.firebaseio.com";
-    }
-
-    if (environment === "staging") {
-        ENV.firebase = "https://splittypie-staging.firebaseio.com";
-    }
-
-    if (environment === "production") {
-        ENV.firebase = "https://splittypie.firebaseio.com";
-        ENV.GOOGLE_ANALYTICS_ID = "UA-75217573-1";
     }
 
     return ENV;

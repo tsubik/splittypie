@@ -15,3 +15,6 @@ bower_components
 /libpeerconnection.log
 npm-debug.log
 testem.log
+
+.env*
+!.env.sample
