@@ -1,5 +1,6 @@
 <h3>Please identify yourself</h3>
-<p>
+
+<p class="lead">
   Your friend {{model.users.firstObject.name}} created an event "{{model.name}}" and wants
   to share expenses with you. Please tell us who you are and you will see this event.
 </p>
@@ -8,4 +9,5 @@
   <button class="btn btn-default" {{action "chooseUser" user}}>
     {{user.name}}
   </button>
+  &nbsp;
 {{/each}}
