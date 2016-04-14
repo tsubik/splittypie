@@ -25,6 +25,9 @@ module.exports = function (defaults) {
                 "vendor/bootstrap-paper",
             ],
         },
+        sourcemaps: {
+            enabled: true,
+        },
         inlineContent: {
             analytics: {
                 file: "app/analytics.html",

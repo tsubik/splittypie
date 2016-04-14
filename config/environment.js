@@ -1,5 +1,7 @@
 /* jshint node: true */
 
+const codeVersion = require("../utils/code-version");
+
 module.exports = function (environment) {
     const ENV = {
         modulePrefix: "splittypie",
@@ -19,6 +21,13 @@ module.exports = function (environment) {
             captureUncaught: true,
             payload: {
                 environment,
+                client: {
+                    javascript: {
+                        source_map_enabled: true,
+                        code_version: codeVersion(),
+                        guess_uncaught_frames: true,
+                    },
+                },
             },
         },
         GOOGLE_ANALYTICS_ID: process.env.GOOGLE_ANALYTICS_ID,

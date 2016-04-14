@@ -56,7 +56,13 @@
     "eslint": "^2.3.0",
     "eslint-config-airbnb": "^6.1.0",
     "firebase-tools": "^2.2.1",
+    "form-data": "^1.0.0-rc4",
     "liquid-fire": "0.23.0",
     "loader.js": "^4.0.0"
+  },
+  "ember-addon": {
+    "paths": [
+      "lib/upload-rollbar-source-maps"
+    ]
   }
 }
