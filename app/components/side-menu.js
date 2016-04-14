@@ -65,9 +65,9 @@ export default Ember.Component.extend({
         rootNode.removeEventListener("touchstart", onTouchStart);
     },
 
-    rootNodeTouch() {
+    rootNodeTouch(e) {
         const isOpen = this.get("isOpen");
-        const pageX = event.touches[0].pageX;
+        const pageX = e.touches[0].pageX;
         const rootNode = this.get("rootNode");
         const onTouchMove = (event) => {
             event.preventDefault();
@@ -84,8 +84,8 @@ export default Ember.Component.extend({
             this.completeMenuTransition(event);
         });
 
-        if (this.mustTrack(event)) {
-            this.set("touchStartEvent", event);
+        if (this.mustTrack(e)) {
+            this.set("touchStartEvent", e);
             if (isOpen) {
                 this.set("offset", Math.max(0, this.element.offsetWidth - pageX));
             } else {
