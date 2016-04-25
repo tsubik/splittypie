@@ -1,7 +1,6 @@
 import Ember from "ember";
-import ResetScroll from "splittypie/mixins/reset-scroll";
 
-export default Ember.Route.extend(ResetScroll, {
+export default Ember.Route.extend({
     modal: Ember.inject.service(),
     sideMenu: Ember.inject.service(),
     localStorage: Ember.inject.service(),
@@ -21,6 +20,7 @@ export default Ember.Route.extend(ResetScroll, {
 
     setupController() {
         this._super(...arguments);
+        this.removePreloader();
     },
 
     showModal(options) {
@@ -35,6 +35,12 @@ export default Ember.Route.extend(ResetScroll, {
         this.disconnectOutlet({
             outlet: "modal",
             parentView: "application",
+        });
+    },
+
+    removePreloader() {
+        Ember.run.schedule("afterRender", this, function () {
+            Ember.$("#preloader").remove();
         });
     },
 

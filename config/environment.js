@@ -13,7 +13,20 @@ module.exports = function (environment) {
             "font-src": "'self' data: https://fonts.gstatic.com",
             "img-src": "'self' data:",
         },
-
+        "ember-index": {
+            output: "200.html",
+            content: [{
+                key: "index-preload",
+                file: "index-preload.html",
+                includeInIndexHtml: true,
+                includeInOutput: false,
+            }, {
+                key: "app-preload",
+                file: "app-preload.html",
+                includeInIndexHtml: false,
+                includeInOutput: true,
+            }],
+        },
         firebase: process.env.FIREBASE_URL,
         rollbar: {
             accessToken: process.env.ROLLBAR_ACCESS_TOKEN,
