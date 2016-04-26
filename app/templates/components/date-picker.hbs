@@ -1,0 +1,5 @@
+{{#if isMobile}}
+  {{input type="date" value=value class=dateInputClasses min=min max=max}}
+{{else}}
+  {{pikaday-input class=dateInputClasses value=pikadayValue minDate=pikadayMin maxDate=pikadayMax useUTC=true}}
+{{/if}}

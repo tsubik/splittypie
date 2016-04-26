@@ -47,7 +47,7 @@
 
       <div class="form-group {{if transaction.formErrors.date "has-error"}}">
         <label class="control-label">When? (this is optional)</label>
-        {{input type="date" value=transaction.date class="form-control transaction-date" min="2000-01-01" max=maxDate}}
+        {{date-picker value=transaction.date className="transaction-date" min="2000-01-01" max=maxDate}}
         <div class="help-block with-errors">
           {{transaction.formErrors.date}}
         </div>
