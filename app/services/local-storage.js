@@ -1,9 +1,27 @@
 import Ember from "ember";
 
 export default Ember.Service.extend({
+    isLocalStorageSupported: function () {
+        if (localStorage) {
+            try {
+                localStorage.setItem("localStorageTest", 1);
+                localStorage.removeItem("localStorageTest");
+                return true;
+            } catch (e) {
+                Ember.warn("Browser does not support localstorage");
+            }
+        }
+
+        return false;
+    }.property(),
+
     push(entryName, item) {
         Ember.assert("First argument entryName must be present", entryName);
         Ember.assert("Pushed item must have id property", item.id);
+
+        if (!this.get("isLocalStorageSupported")) {
+            return;
+        }
 
         const items = this.findAll(entryName);
         const itemToUpdate = items.findBy("id", item.id);
@@ -33,6 +51,10 @@ export default Ember.Service.extend({
     },
 
     _findAll(entryName) {
+        if (!this.get("isLocalStorageSupported")) {
+            return [];
+        }
+
         const itemsString = localStorage.getItem(entryName);
 
         return !!itemsString ? JSON.parse(itemsString) : [];
@@ -40,6 +62,10 @@ export default Ember.Service.extend({
 
     remove(entryName, id) {
         Ember.assert("First argument entryName must be present", entryName);
+
+        if (!this.get("isLocalStorageSupported")) {
+            return;
+        }
 
         const items = this.findAll(entryName);
 
