@@ -26,24 +26,32 @@ test("adding new transaction", function (assert) {
         identifyUserAs(event.id, "Bob");
         visit(`/${event.id}/transactions`);
     });
+
     reloadPage();
     andThen(() => {
         assert.ok(exist("div:contains('There are no transactions yet')"), "No transactions text");
         assert.ok(exist("div:contains('Add your first transaction')"), "Transaction onboarding");
-        click("a.btn-add-transaction");
     });
+
+    click("a.btn-add-transaction");
+    // defaults
     andThen(() => {
-        const AliceId = find(".transaction-payer select option:contains('Alice')").val();
-        fillIn(".transaction-payer", AliceId);
-        fillIn(".transaction-name", "special bottle of vodka");
-        fillIn(".transaction-amount", "50");
         assert.equal(
             find(".transaction-participants input:checked").length,
             2,
             "Everyone selected by default"
         );
+    });
+
+    andThen(() => {
+        const AliceId = find(".transaction-payer select option:contains('Alice')").val();
+
+        fillIn(".transaction-payer", AliceId);
+        fillIn(".transaction-name", "special bottle of vodka");
+        fillIn(".transaction-amount", "50");
         click("button:contains('Create')");
     });
+
     reloadPage();
     // check for transaction
     andThen(() => {
@@ -89,6 +97,7 @@ test("editing/removing transaction", function (assert) {
         identifyUserAs(event.id, "Bob");
         visit(`/${event.id}/transactions`);
     });
+
     reloadPage();
     andThen(() => {
         assert.ok(exist(".transaction-list-item:contains('200 USD')"), "transaction amount");
@@ -97,16 +106,18 @@ test("editing/removing transaction", function (assert) {
             "transaction item"
         );
         assert.ok(exist(".transaction-list-item:contains('Alice, Bob')"));
-
-        click(".transaction-list-item");
     });
+
+    click(".transaction-list-item");
     andThen(() => {
         const BobId = find(".transaction-payer select option:contains('Bob')").val();
+
         fillIn(".transaction-payer", BobId);
         fillIn(".transaction-name", "special");
         fillIn(".transaction-amount", "50");
         click("button:contains('Save')");
     });
+
     reloadPage();
     andThen(() => {
         assert.ok(exist(".transaction-list-item:contains('50 USD')"), "transaction amount");
@@ -116,15 +127,14 @@ test("editing/removing transaction", function (assert) {
         );
         assert.ok(exist(".transaction-list-item:contains('Alice, Bob')"));
     });
-    andThen(() => {
-        click(".transaction-list-item");
-        click("button.delete-transaction");
-    });
+
+    click(".transaction-list-item");
+    click("button.delete-transaction");
+
     andThen(() => {
         assert.ok(exist("div:contains('Are you sure?')"), "delete confirmation");
-
-        click("button:contains('Yes')");
     });
+    click("button:contains('Yes')");
     andThen(() => {
         assert.ok(exist("div:contains('There are no transactions yet')"), "No transactions text");
     });

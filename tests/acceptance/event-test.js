@@ -10,11 +10,11 @@ test("creating event", function (assert) {
     visit("/");
     click("a:contains('Create New Event')");
     andThen(() => {
-        // defaults
+        // default values
         assert.ok(find(".event-name option:selected").val() !== "", "currency default");
-        fillIn(".event-currency", "");
-        click("button:contains('Create')");
     });
+    fillIn(".event-currency", "");
+    click("button:contains('Create')");
     // validations
     andThen(() => {
         assert.equal(errorAt(".event-name"), "can't be blank", "event name validation");
@@ -22,18 +22,17 @@ test("creating event", function (assert) {
         assert.equal(errorAt(".user-name:eq(0)"), "can't be blank", "event user 1 validation");
         assert.equal(errorAt(".user-name:eq(1)"), "can't be blank", "event user 2 validation");
     });
-    andThen(() => {
-        fillIn(".event-name", "Gift for John's Birthday");
-        fillIn(".event-currency", "USD");
-        fillIn(".user-name:eq(0)", "Billy");
-        fillIn(".user-name:eq(1)", "Alice");
-        click("button:contains('Create')");
-    });
+
+    fillIn(".event-name", "Gift for John's Birthday");
+    fillIn(".event-currency", "USD");
+    fillIn(".user-name:eq(0)", "Billy");
+    fillIn(".user-name:eq(1)", "Alice");
+    click("button:contains('Create')");
+
     reloadPage();
+
     // check for event
-    andThen(() => {
-        click("a:contains('Edit')");
-    });
+    click("a:contains('Edit')");
     andThen(() => {
         assert.equal(find(".event-name").val(), "Gift for John's Birthday", "event name value");
         assert.equal(find(".event-currency option:selected").val(), "USD", "event currency value");
@@ -42,7 +41,7 @@ test("creating event", function (assert) {
     });
 });
 
-test("editing event", function (assert) {
+test("identifying user on first visit", function (assert) {
     let event;
 
     waitForPromise(new Ember.RSVP.Promise((resolve) => {
@@ -69,25 +68,52 @@ test("editing event", function (assert) {
         const message = "Your friend Alice created an event \"Test event\"";
 
         assert.ok(exist(`div:contains('${message}')`), "your friend created event text");
-        click("button:contains('Bob')");
-        click("a:contains('Edit')");
     });
 
+    click("button:contains('Bob')");
     andThen(() => {
-        fillIn(".event-currency", "EUR");
-        fillIn(".event-name", "Gift for John's Birthday");
-        fillIn(".user-name:eq(0)", "Jimmy");
-        fillIn(".user-name:eq(1)", "James");
-        click("button:contains('Add Participant')");
-        fillIn(".user-name:eq(2)", "Johnny");
-        click("button:contains('Save')");
+        assert.equal(currentURL(), `/${event.id}`, "accessed event page");
     });
+});
+
+test("editing event", function (assert) {
+    let event;
+
+    waitForPromise(new Ember.RSVP.Promise((resolve) => {
+        Ember.run(() => {
+            this.store.findRecord("currency", "USD").then((currency) => {
+                event = this.store.createRecord("event", {
+                    name: "Test event",
+                    currency,
+                    users: [
+                        this.store.createRecord("user", { name: "Alice" }),
+                        this.store.createRecord("user", { name: "Bob" }),
+                    ],
+                });
+                event.save().then(resolve);
+            });
+        });
+    }));
+
+    andThen(() => {
+        identifyUserAs(event.id, "Bob");
+        visit(`/${event.id}/edit`);
+    });
+
+    fillIn(".event-currency", "EUR");
+    fillIn(".event-name", "Gift for John's Birthday");
+    fillIn(".user-name:eq(0)", "Jimmy");
+    fillIn(".user-name:eq(1)", "James");
+    click("button:contains('Add Participant')");
+    fillIn(".user-name:eq(2)", "Johnny");
+    click("button:contains('Save')");
+
     reloadPage();
     andThen(() => {
         assert.equal(currentRouteName(), "event.index", "after save transition to overview");
-        click("a:contains('Edit')");
     });
 
+    click("a:contains('Edit')");
     andThen(() => {
         assert.equal(find(".event-name").val(), "Gift for John's Birthday", "event name value");
         assert.equal(find(".event-currency option:selected").val(), "EUR", "event currency value");
