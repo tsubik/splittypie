@@ -7,12 +7,13 @@ module.exports = function (environment) {
         modulePrefix: "splittypie",
         environment,
         contentSecurityPolicy: {
-            "connect-src": "'self' https://auth.firebase.com wss://*.firebaseio.com",
-            "script-src": "'self' 'unsafe-inline' https://*.firebaseio.com https://www.google-analytics.com",
+            "connect-src": "'self' https://geoip.nekudo.com https://auth.firebase.com wss://*.firebaseio.com",
+            "script-src": "'self' 'unsafe-inline' https://*.rollbar.com https://*.firebaseio.com https://www.google-analytics.com",
             "style-src": "'self' 'unsafe-inline' https://fonts.googleapis.com",
             "font-src": "'self' data: https://fonts.gstatic.com",
-            "img-src": "'self' data:",
+            "img-src": "'self' data: https://www.google-analytics.com",
         },
+        contentSecurityPolicyMeta: true,
         "ember-index": {
             output: "200.html",
             content: [{
@@ -42,6 +43,7 @@ module.exports = function (environment) {
                     },
                 },
             },
+            rollbarJsUrl: "https://cdn.rollbar.com/js/v1.8/rollbar.min.js",
         },
         GOOGLE_ANALYTICS_ID: process.env.GOOGLE_ANALYTICS_ID,
         baseURL: "/",
