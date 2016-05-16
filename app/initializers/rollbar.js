@@ -6,12 +6,18 @@ function shouldReportError(error) {
         return false;
     }
 
+    if (error.name === "TransitionAborted") {
+        return false;
+    }
+
     return true;
 }
 
 export function initialize(/* application */) {
     const reportError = (error) => {
-        console.error(error.stack);
+        if (error.stack) {
+            console.error(error.stack);
+        }
 
         if (window.Rollbar && shouldReportError(error)) {
             window.Rollbar.error(error);
