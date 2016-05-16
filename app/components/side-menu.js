@@ -30,7 +30,7 @@ export default Ember.Component.extend({
 
     style: Ember.computed("progress", function () {
         const progress = this.get("progress");
-        const transition = (progress === 0 || progress === 100)
+        const transition = progress === 0 || progress === 100
                   ? "transform 0.2s ease-out"
                   : "none";
 
