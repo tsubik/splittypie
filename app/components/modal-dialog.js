@@ -14,6 +14,10 @@ export default Ember.Component.extend({
     },
 
     onHide() {
-        this.$(".modal").modal("hide");
+        const $modal = this.$(".modal");
+
+        if ($modal && $modal.modal) {
+            this.$(".modal").modal("hide");
+        }
     },
 });
