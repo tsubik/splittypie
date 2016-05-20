@@ -13,9 +13,6 @@ module.exports = function (defaults) {
         babel: {
             includePolyfill: true,
         },
-        "ember-cli-qunit": {
-            useLintTree: false,
-        },
         fingerprint: {
             enabled: (env === "production" || env === "staging"),
         },

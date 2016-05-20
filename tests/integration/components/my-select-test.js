@@ -1,3 +1,5 @@
+/* eslint-disable newline-per-chained-call */
+
 import { moduleForComponent, test } from "ember-qunit";
 import hbs from "htmlbars-inline-precompile";
 
