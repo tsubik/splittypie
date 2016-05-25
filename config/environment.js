@@ -28,7 +28,18 @@ module.exports = function (environment) {
                 includeInOutput: true,
             }],
         },
+        manifest: {
+            enabled: true,
+            appcacheFile: "/manifest.appcache",
+            excludePaths: ["index.html", "tests/index.html", "robots.txt", "crossdomain.xml", "testem.js"],
+            showCreateDate: true,
+        },
         firebase: process.env.FIREBASE_URL,
+        serviceWorker: {
+            enabled: true,
+            debug: true,
+            excludePaths: ["manifest.appcache"],
+        },
         rollbar: {
             accessToken: process.env.ROLLBAR_ACCESS_TOKEN,
             enabled: environment === "production" || environment === "staging",
