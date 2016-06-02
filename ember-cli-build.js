@@ -14,6 +14,7 @@ module.exports = function (defaults) {
             includePolyfill: true,
         },
         fingerprint: {
+            exclude: ["assets/icons/", "service-worker.js", "sw-toolbox.js"],
             enabled: (env === "production" || env === "staging"),
         },
         sassOptions: {

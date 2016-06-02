@@ -8,6 +8,7 @@ module.exports = function (environment) {
         environment,
         contentSecurityPolicy: {
             "connect-src": "'self' https://geoip.nekudo.com https://auth.firebase.com wss://*.firebaseio.com",
+            "manifest-src": "'self'",
             "script-src": "'self' 'unsafe-inline' https://*.rollbar.com https://*.firebaseio.com https://www.google-analytics.com",
             "style-src": "'self' 'unsafe-inline' https://fonts.googleapis.com",
             "font-src": "'self' data: https://fonts.gstatic.com",
@@ -28,17 +29,10 @@ module.exports = function (environment) {
                 includeInOutput: true,
             }],
         },
-        manifest: {
-            enabled: true,
-            appcacheFile: "/manifest.appcache",
-            excludePaths: ["index.html", "tests/index.html", "robots.txt", "crossdomain.xml", "testem.js"],
-            showCreateDate: true,
-        },
         firebase: process.env.FIREBASE_URL,
         serviceWorker: {
             enabled: true,
             debug: true,
-            excludePaths: ["manifest.appcache"],
         },
         rollbar: {
             accessToken: process.env.ROLLBAR_ACCESS_TOKEN,
