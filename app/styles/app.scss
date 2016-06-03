@@ -4,7 +4,8 @@
 @import "vendor/bootstrap-paper/_variables";
 @import "bootstrap";
 @import "vendor/bootstrap-paper/_bootswatch";
-@import "_side-menu";
+@import "side-menu";
+@import "_side-menu-custom";
 
 $icon-size: 28px;
 $btn-circle-size: 56px;
