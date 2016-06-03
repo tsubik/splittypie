@@ -11,11 +11,12 @@
     "build": "ember build",
     "start": "ember server",
     "test": "ember test",
-    "deploy": "rm -rf dist/ && ember build && firebase deploy",
+    "deploy": "rm -rf dist/ && ember build && firebase use dev && firebase deploy",
     "deploy:prod": "rm -rf dist/ && ember build --environment=production && cp CNAME dist/ && cp dist/index.html dist/200.html && surge dist/",
-    "deploy:staging": "rm -rf dist/ && ember build --environment=staging && firebase deploy --firebase splittypie-staging",
-    "seed": "firebase data:set / firebase_seed.json -f splittypie-dev",
-    "seed:staging": "firebase data:set / firebase_seed.json -f splittypie-staging"
+    "deploy:staging": "rm -rf dist/ && ember build --environment=staging && firebase use staging && firebase deploy",
+    "deploy:offline": "rm -rf dist/ && ember build --environment=offline && firebase use offline && firebase deploy",
+    "seed": "firebase use dev && firebase database:set / firebase_seed.json",
+    "seed:staging": "firebase use staging && firebase database:set / firebase_seed.json"
   },
   "repository": "",
   "engines": {
@@ -60,7 +61,7 @@
     "eslint": "^2.10.2",
     "eslint-config-airbnb-base": "^3.0.1",
     "eslint-plugin-import": "^1.8.0",
-    "firebase-tools": "^2.2.1",
+    "firebase-tools": "^3.0.0",
     "form-data": "^1.0.0-rc4",
     "liquid-fire": "0.23.0",
     "loader.js": "^4.0.0"
