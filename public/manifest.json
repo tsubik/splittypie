@@ -1,9 +1,9 @@
 {
-  "name": "Splittypie - Split expenses with ease",
+  "name": "Splittypie - Easy expense splitting",
   "short_name": "Splittypie",
   "theme_color": "#ffffff",
   "background_color": "#ffffff",
-  "display": "standalone",
+  "display": "fullscreen",
   "orientation": "portrait",
   "start_url": "/",
   "icons": [

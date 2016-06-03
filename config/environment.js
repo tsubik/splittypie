@@ -7,8 +7,8 @@ module.exports = function (environment) {
         modulePrefix: "splittypie",
         environment,
         contentSecurityPolicy: {
+            "default-src": "'self'",
             "connect-src": "'self' https://geoip.nekudo.com https://auth.firebase.com wss://*.firebaseio.com",
-            "manifest-src": "'self'",
             "script-src": "'self' 'unsafe-inline' https://*.rollbar.com https://*.firebaseio.com https://www.google-analytics.com",
             "style-src": "'self' 'unsafe-inline' https://fonts.googleapis.com",
             "font-src": "'self' data: https://fonts.gstatic.com",
@@ -31,7 +31,7 @@ module.exports = function (environment) {
         },
         firebase: process.env.FIREBASE_URL,
         serviceWorker: {
-            enabled: true,
+            enabled: false,
             debug: true,
         },
         rollbar: {
