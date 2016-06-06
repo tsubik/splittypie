@@ -8,8 +8,8 @@ export default Ember.Route.extend({
     },
 
     getErrorName(error) {
-        if (error) {
-            if (error.message && error.message.indexOf("no record was found") > -1) {
+        if (error && error.message) {
+            if (error.message.indexOf("no record was found") > -1) {
                 return "not-found";
             }
         }

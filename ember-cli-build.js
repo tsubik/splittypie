@@ -26,6 +26,10 @@ module.exports = function (defaults) {
             enabled: true,
         },
         inlineContent: {
+            "last-event": {
+                file: "app/last-event.html",
+                enabled: true,
+            },
             analytics: {
                 file: "app/analytics.html",
                 enabled: !!config.GOOGLE_ANALYTICS_ID,

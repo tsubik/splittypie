@@ -14,6 +14,8 @@ export default Ember.Route.extend({
         if (!(eventLS && eventLS.userId)) {
             this.transitionTo("event.who-are-you");
         }
+
+        window.localStorage.setItem("lastEventId", model.id);
     },
 
     setupController(controller, model) {
@@ -38,6 +40,21 @@ export default Ember.Route.extend({
             const event = this.modelFor("event");
 
             event.save();
+        },
+
+        error(error, transition) {
+            const eventId = transition.params.event.event_id;
+            const lastEventId = window.localStorage.getItem("lastEventId");
+
+            if (eventId === lastEventId) {
+                window.localStorage.removeItem("lastEventId");
+
+                this.transitionTo("index");
+            } else {
+                return true;
+            }
+
+            return false;
         },
     },
 });

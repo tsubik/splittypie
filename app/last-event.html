@@ -1,0 +1,7 @@
+<script>
+  const lastEventId = window.localStorage.getItem("lastEventId");
+
+  if (lastEventId && window.location.pathname === "/") {
+    window.location = "/" + lastEventId;
+  }
+</script>
