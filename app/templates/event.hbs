@@ -2,11 +2,10 @@
   {{side-menu-toggle-custom}}
   <span class="navbar-brand">{{model.name}}</span>
   <button {{action "share"}} class="navbar-btn btn btn-link">
-    <span class="glyphicon glyphicon-share"></span> Share
+    {{inline-svg "share" class="icon"}}
   </button>
   {{#link-to "event.edit" class="navbar-btn btn btn-link"}}
-    <span class="glyphicon glyphicon-edit"></span>
-    Edit
+    {{inline-svg "edit" class="icon"}}
   {{/link-to}}
 {{/mobile-toolbar}}
 
@@ -18,11 +17,11 @@
 
     <div class="pull-right">
       <button {{action "share"}} class="btn btn-link btn-lg">
-        <span class="glyphicon glyphicon-share"></span> Share
+        {{inline-svg "share" class="icon"}} Share
       </button>
 
       {{#link-to "event.edit" class="btn btn-link btn-lg"}}
-        <span class="glyphicon glyphicon-edit"></span> Edit
+        {{inline-svg "edit" class="icon"}} Edit
       {{/link-to}}
     </div>
   </div>

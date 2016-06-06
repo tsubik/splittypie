@@ -7,16 +7,8 @@
 @import "side-menu";
 @import "_side-menu-custom";
 
-$icon-size: 28px;
+$icon-size: 18px;
 $btn-circle-size: 56px;
-
-@mixin icon($size, $url) {
-  width: $size;
-  height: $size;
-  display: inline-block;
-  background: transparent url($url) no-repeat center;
-  background-size: $size;
-}
 
 body, html {
   height: 100%;
@@ -30,18 +22,17 @@ body, html {
   outline: none !important;
 }
 
-.btn.btn-circle {
+.btn-circle {
   padding: 0;
   border-radius: 50%;
-}
-
-.btn-circle {
   width: $btn-circle-size;
   height: $btn-circle-size;
   min-width: $btn-circle-size;
 
-  span {
-    line-height: $btn-circle-size;
+  .icon {
+    position: relative;
+    fill: #fff;
+    top: 15px;
   }
 }
 
@@ -60,21 +51,9 @@ table.no-border {
   max-width: 800px;
 }
 
-.navbar {
-  svg {
-    display: block;
-    padding: 0px;
-    margin: 0px;
-  }
-}
-
 .navbar-btn {
   margin-top: 0px;
   margin-bottom: 0px;
-}
-
-.navbar-nav > li > a {
-  padding: 16px 10px 16px 10px;
 }
 
 .navbar.visible-xs {
@@ -108,17 +87,18 @@ table.no-border {
   }
 }
 
-.github-logo {
-  width: 32px;
-  height: 32px;
-}
-
-.cowbell-logo {
-  width: 32px;
-  height: 32px;
+.cowbell {
   fill: none;
   stroke: #000;
   stroke-width: 5px;
+}
+
+.icon {
+  position: relative;
+  width: $icon-size;
+  height: $icon-size;
+  display: inline-block;
+  vertical-align: middle;
 }
 
 main {

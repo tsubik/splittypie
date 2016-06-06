@@ -8,7 +8,7 @@
     {{#each otherEvents as |event|}}
       <li>
         {{#link-to "event.index" event.id}}
-          <span class="glyphicon glyphicon-calendar"></span> {{event.name}}
+          {{inline-svg "calendar" class="icon"}} {{event.name}}
         {{/link-to}}
       </li>
     {{/each}}
@@ -16,7 +16,7 @@
   {{/if}}
   <li>
     {{#link-to "new"}}
-      <span class="glyphicon glyphicon-plus"></span>
+      {{inline-svg "plus" class="icon"}}
       Add New Event
     {{/link-to}}
   </li>

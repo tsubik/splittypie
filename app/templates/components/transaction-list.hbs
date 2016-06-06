@@ -3,7 +3,7 @@
     {{#if anyTransactionWithDate}}
       <div class="transaction-list-date">
         {{#if transactionGroup.date}}
-          <span class="glyphicon glyphicon-calendar"></span>
+          {{inline-svg "calendar" class="icon"}}
           <strong>{{transactionGroup.date}}</strong>
         {{else}}
           <strong>The other day</strong>

@@ -27,18 +27,11 @@
           background-color: $nav-link-hover-bg;
         }
 
-        svg, span {
+        .icon {
           margin: 0px 10px 0px 0px;
+          position: relative;
+          top: 6px;
           float: left;
-          display: block;
-          width: 32px;
-          height: 32px;
-          font-size: 24px;
-
-          &.glyphicon {
-            top: 0px;
-            line-height: 32px;
-          }
         }
       }
     }
