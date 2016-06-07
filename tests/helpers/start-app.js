@@ -16,6 +16,8 @@ export default function startApp(attrs) {
         application = Application.create(attributes);
         application.setupForTesting();
         application.injectTestHelpers();
+
+        window.localStorage.removeItem("lastEventId");
     });
 
     return application;
