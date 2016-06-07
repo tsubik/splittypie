@@ -66,7 +66,8 @@
     "firebase-tools": "^3.0.0",
     "form-data": "^1.0.0-rc4",
     "liquid-fire": "0.23.0",
-    "loader.js": "^4.0.0"
+    "loader.js": "^4.0.0",
+    "rsvp": "^3.2.1"
   },
   "ember-addon": {
     "paths": [
