@@ -60,6 +60,38 @@ test("identifying user on first visit", function (assert) {
     });
 });
 
+test("changing user context", function (assert) {
+    window.localStorage.removeItem("events");
+
+    runWithTestData("default", (events) => {
+        const event = events[0];
+
+        identifyUserAs(event.id, "Alice");
+        visit(`/${event.id}`);
+
+        andThen(() => {
+            assert.ok(exist(".btn-change-user:contains(Viewing as Alice)"), "viewing as Alice");
+        });
+
+        click(".btn-change-user");
+        click("a:contains(Daria)");
+
+        andThen(() => {
+            assert.ok(exist(".btn-change-user:contains(Viewing as Daria)"), "viewing as Daria");
+            assert.notOk(exist(".user-dropdown li a:contains(Daria)"), "cannot switch to Daria");
+        });
+
+        click(".btn-add-transaction");
+
+        andThen(() => {
+            assert.ok(
+                exist(".transaction-payer option:selected:contains(Daria)"),
+                "Daria is default"
+            );
+        });
+    });
+});
+
 test("editing event", function (assert) {
     runWithTestData("default", (events) => {
         const event = events[0];
