@@ -20,10 +20,14 @@ export default Ember.Route.extend({
 
     setupController(controller, model) {
         this._super(...arguments);
-        const previousEvents = this.modelFor("application").previousEvents;
-        const otherEvents = previousEvents.rejectBy("id", model.id);
+        const events = this.modelFor("application").previousEvents;
+        const currentUserId = this.get("localStorage").find("events", model.id).userId;
+        const currentUser = this.store.find("user", currentUserId);
 
-        controller.setProperties({ otherEvents });
+        controller.setProperties({
+            currentUser,
+            events,
+        });
     },
 
     actions: {
@@ -40,6 +44,15 @@ export default Ember.Route.extend({
             const event = this.modelFor("event");
 
             event.save();
+        },
+
+        switchUser(user) {
+            const event = this.modelFor("event");
+            const eventLS = this.get("localStorage").find("events", event.get("id"));
+
+            eventLS.set("userId", user.get("id"));
+            this.get("localStorage").push("events", eventLS);
+            this.controllerFor("event").set("currentUser", user);
         },
 
         error(error, transition) {

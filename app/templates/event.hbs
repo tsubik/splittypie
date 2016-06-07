@@ -7,12 +7,17 @@
   {{#link-to "event.edit" class="navbar-btn btn btn-link"}}
     {{inline-svg "edit" class="icon"}}
   {{/link-to}}
+  {{switch-user-dropdown selected=currentUser users=model.users action="switchUser" iconOnly=true class="navbar-btn btn btn-link"}}
 {{/mobile-toolbar}}
+
+{{#ember-wormhole to="navbar-right"}}
+  {{switch-user-dropdown selected=currentUser users=model.users action="switchUser" class="navbar-btn"}}
+{{/ember-wormhole}}
 
 <div class="row hidden-xs">
   <div class="col-md-12">
     <div class="pull-left">
-      {{switch-event-dropdown eventName=model.name otherEvents=otherEvents}}
+      {{switch-event-dropdown selected=model events=events}}
     </div>
 
     <div class="pull-right">
