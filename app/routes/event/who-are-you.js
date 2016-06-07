@@ -21,6 +21,7 @@ export default Ember.Route.extend({
                 })
             );
 
+            this.controllerFor("event").set("currentUser", user);
             this.transitionTo("event.index", event);
         },
     },
