@@ -141,14 +141,31 @@ footer {
   padding: 10px;
   display: flex;
   justify-content: space-between;
+  align-items: center;
+
+  .calendar-page {
+    text-transform: uppercase;
+
+    .month {
+      font-size: 10px;
+    }
+
+    .day {
+      font-size: 18px;
+      line-height: 18px;
+    }
+  }
 
   .transaction-list-item-amount {
     text-align: right;
   }
 
   .transaction-list-item-description {
+    flex: 1;
     text-align: left;
     white-space: normal;
+    padding-left: 10px;
+    padding-right: 10px;
   }
 }
 

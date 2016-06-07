@@ -1,10 +1,10 @@
 {{#if anyTransactions}}
-  {{#each transactionsByDate as |transactionGroup|}}
+  {{#each transactionsByMonth as |transactionGroup|}}
     {{#if anyTransactionWithDate}}
       <div class="transaction-list-date">
-        {{#if transactionGroup.date}}
+        {{#if transactionGroup.month}}
           {{inline-svg "calendar" class="icon"}}
-          <strong>{{transactionGroup.date}}</strong>
+          <strong>{{print-month-year transactionGroup.month}}</strong>
         {{else}}
           <strong>The other day</strong>
         {{/if}}
