@@ -15,8 +15,8 @@
     "deploy:prod": "rm -rf dist/ && ember build --environment=production && cp CNAME dist/ && cp dist/index.html dist/200.html && surge dist/",
     "deploy:staging": "rm -rf dist/ && ember build --environment=staging && firebase use staging && firebase deploy",
     "deploy:offline": "rm -rf dist/ && ember build --environment=offline && firebase use offline && firebase deploy",
-    "seed": "firebase use dev && firebase database:set / firebase_seed.json",
-    "seed:staging": "firebase use staging && firebase database:set / firebase_seed.json"
+    "seed": "firebase use dev && firebase database:set / firebase-seed.json",
+    "seed:staging": "firebase use staging && firebase database:set / firebase-seed.json"
   },
   "repository": "",
   "engines": {

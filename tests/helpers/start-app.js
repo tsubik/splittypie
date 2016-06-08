@@ -6,6 +6,7 @@ import "./reload-page";
 import "./exist";
 import "./identify-user-as";
 import "./run-with-test-data";
+import "./set-event-as-viewed";
 
 export default function startApp(attrs) {
     let application;

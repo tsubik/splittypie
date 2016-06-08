@@ -43,9 +43,11 @@ test("creating event", function (assert) {
 test("identifying user on first visit", function (assert) {
     window.localStorage.removeItem("events");
 
-    runWithTestData("default", () => {
+    runWithTestData("default", (events) => {
+        const event = events[0];
+
         // screen tell us who you are
-        visit("testId/edit");
+        visit(`${event.id}/edit`);
 
         andThen(() => {
             const message = "Your friend Alice created an event \"Trip to Barcelona\"";
@@ -55,18 +57,16 @@ test("identifying user on first visit", function (assert) {
 
         click("button:contains('Bob')");
         andThen(() => {
-            assert.equal(currentURL(), "/testId", "accessed event page");
+            assert.equal(currentURL(), `/${event.id}`, "accessed event page");
         });
     });
 });
 
 test("changing user context", function (assert) {
-    window.localStorage.removeItem("events");
-
     runWithTestData("default", (events) => {
         const event = events[0];
 
-        identifyUserAs(event.id, "Alice");
+        setEventAsViewed(event, "Alice");
         visit(`/${event.id}`);
 
         andThen(() => {
@@ -92,10 +92,38 @@ test("changing user context", function (assert) {
     });
 });
 
+test("changing event context", function (assert) {
+    runWithTestData("default", (events) => {
+        const event = events[0];
+        const event2 = events[1];
+
+        setEventAsViewed(event, "Alice");
+        setEventAsViewed(event2, "Tomasz");
+
+        visit(`/${event.id}`);
+
+        andThen(() => {
+            assert.ok(exist(".btn-change-event:contains(Trip to Barcelona)"), "Trip to Barca");
+        });
+
+        click(".btn-change-event");
+        click(".dropdown a:contains(Trip to New York)");
+
+        andThen(() => {
+            assert.ok(exist(".btn-change-event:contains(Trip to New York)"), "Trip to New York");
+            assert.notOk(
+                exist(".event-dropdown li a:contains(Trip to New York)"),
+                "cannot switch to Trip to New York"
+            );
+        });
+    });
+});
+
 test("editing event", function (assert) {
     runWithTestData("default", (events) => {
         const event = events[0];
 
+        setEventAsViewed(event, "Alice");
         visit(`/${event.id}/edit`);
 
         fillIn(".event-currency", "EUR");
