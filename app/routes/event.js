@@ -1,8 +1,11 @@
 import Ember from "ember";
 
+const { service } = Ember.inject;
+
 export default Ember.Route.extend({
-    localStorage: Ember.inject.service(),
-    modal: Ember.inject.service(),
+    localStorage: service(),
+    userContext: service(),
+    modal: service(),
 
     model(params) {
         return this.store.find("event", params.event_id);
@@ -15,19 +18,18 @@ export default Ember.Route.extend({
 
         if (!(eventLS && eventLS.userId)) {
             this.transitionTo("event.who-are-you");
+        } else {
+            return this.store.find("user", eventLS.userId).then((currentUser) => {
+                this.get("userContext").set("currentUser", currentUser);
+            });
         }
+
+        return null;
     },
 
-    setupController(controller, model) {
+    setupController(controller) {
         this._super(...arguments);
         const events = this.modelFor("application").previousEvents;
-        const eventLS = this.get("localStorage").find("events", model.id);
-
-        if (eventLS) {
-            const currentUser = this.store.find("user", eventLS.userId);
-
-            controller.setProperties({ currentUser });
-        }
 
         controller.setProperties({
             events,
@@ -52,11 +54,8 @@ export default Ember.Route.extend({
 
         switchUser(user) {
             const event = this.modelFor("event");
-            const eventLS = this.get("localStorage").find("events", event.get("id"));
 
-            eventLS.set("userId", user.get("id"));
-            this.get("localStorage").push("events", eventLS);
-            this.controllerFor("event").set("currentUser", user);
+            this.get("userContext").changeUserContext(event, user);
         },
 
         error(error, transition) {

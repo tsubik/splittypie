@@ -14,6 +14,10 @@ body, html {
   height: 100%;
 }
 
+.flex {
+  flex: 1;
+}
+
 .page-content {
   padding-top: 80px;
 }
@@ -136,25 +140,29 @@ footer {
   line-height: 32px;
 }
 
+.transaction-list-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  .calendar-page {
+    margin-right: 10px;
+  }
+
+  .total {
+    flex: 1;
+    text-align: right;
+    font-size: 18px;
+    font-weight: bold;
+  }
+}
+
 .transaction-list-item {
   text-transform: none;
   padding: 10px;
   display: flex;
   justify-content: space-between;
   align-items: center;
-
-  .calendar-page {
-    text-transform: uppercase;
-
-    .month {
-      font-size: 10px;
-    }
-
-    .day {
-      font-size: 18px;
-      line-height: 18px;
-    }
-  }
 
   .transaction-list-item-amount {
     text-align: right;
@@ -166,6 +174,19 @@ footer {
     white-space: normal;
     padding-left: 10px;
     padding-right: 10px;
+  }
+}
+
+.calendar-page {
+  text-transform: uppercase;
+
+  .month {
+    font-size: 10px;
+  }
+
+  .day {
+    font-size: 18px;
+    line-height: 18px;
   }
 }
 

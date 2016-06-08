@@ -1,4 +1,5 @@
 {{#if anyTransactions}}
+  {{transaction-list-header transactions=transactions currentUser=currentUser}}
   {{#each transactionsByMonth as |transactionGroup|}}
     {{#if anyTransactionWithDate}}
       <div class="transaction-list-date">
