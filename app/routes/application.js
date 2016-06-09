@@ -2,7 +2,6 @@ import Ember from "ember";
 
 export default Ember.Route.extend({
     modal: Ember.inject.service(),
-    sideMenu: Ember.inject.service(),
     localStorage: Ember.inject.service(),
 
     init() {
@@ -51,10 +50,6 @@ export default Ember.Route.extend({
 
         removeModal() {
             this.removeModal();
-        },
-
-        showSideMenu() {
-            this.get("sideMenu").show();
         },
     },
 });
