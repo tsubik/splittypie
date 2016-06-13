@@ -11,27 +11,27 @@
     {{#each model.previousEvents as |event|}}
       <li>
         {{#side-menu-link-to "event" event.id}}
-          <span class="glyphicon glyphicon-calendar"></span>
+          {{inline-svg "calendar" class="icon"}}
           {{event.name}}
         {{/side-menu-link-to}}
       </li>
     {{/each}}
     <li>
       {{#side-menu-link-to "new"}}
-        <span class="glyphicon glyphicon-plus"></span>
+        {{inline-svg "plus" class="icon"}}
         New Event
       {{/side-menu-link-to}}
     </li>
     <li class="divider"></li>
     <li>
       <a href="https://github.com/cowbell/splittypie" target="_blank">
-        {{partial "shared/svg/github-logo"}}
+        {{inline-svg "github" class="icon"}}
         Source Code
       </a>
     </li>
     <li>
       <a href="https://cowbell-labs.com/" target="_blank">
-        {{partial "shared/svg/cowbell-logo"}}
+        {{inline-svg "cowbell" class="icon cowbell"}}
         Cowbell Labs
       </a>
     </li>

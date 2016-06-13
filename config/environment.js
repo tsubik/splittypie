@@ -69,7 +69,7 @@ module.exports = function (environment) {
     if (environment === "development") {
         // ENV.APP.LOG_RESOLVER = true;
         // ENV.APP.LOG_ACTIVE_GENERATION = true;
-        // ENV.APP.LOG_TRANSITIONS = true;
+        ENV.APP.LOG_TRANSITIONS = true;
         // ENV.APP.LOG_TRANSITIONS_INTERNAL = true;
         // ENV.APP.LOG_VIEW_LOOKUPS = true;
     }
@@ -87,6 +87,7 @@ module.exports = function (environment) {
         ENV.APP.LOG_VIEW_LOOKUPS = false;
 
         ENV.APP.rootElement = "#ember-testing";
+        ENV.APP.testFirebase = ENV.firebase;
     }
 
     return ENV;

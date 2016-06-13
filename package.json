@@ -53,10 +53,13 @@
     "ember-disable-proxy-controllers": "^1.0.1",
     "ember-export-application-global": "^1.0.4",
     "ember-index": "0.2.5",
+    "ember-inline-svg": "0.1.5",
     "ember-load-initializers": "^0.5.0",
     "ember-pikaday": "1.1.0",
     "ember-resolver": "2.0.3",
+    "ember-side-menu": "0.0.1",
     "ember-validations": "2.0.0-alpha.4",
+    "ember-wormhole": "0.3.6",
     "emberfire": "git://github.com/tsubik/emberfire.git#serialize-relationships-atomic",
     "eslint": "^2.10.2",
     "eslint-config-airbnb-base": "^3.0.1",
@@ -64,7 +67,8 @@
     "firebase-tools": "^3.0.0",
     "form-data": "^1.0.0-rc4",
     "liquid-fire": "0.23.0",
-    "loader.js": "^4.0.0"
+    "loader.js": "^4.0.0",
+    "rsvp": "^3.2.1"
   },
   "ember-addon": {
     "paths": [

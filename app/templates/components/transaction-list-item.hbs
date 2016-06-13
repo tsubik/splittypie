@@ -1,6 +1,9 @@
+{{#if transaction.date}}
+  {{calendar-page date=transaction.date}}
+{{/if}}
 <div class="transaction-list-item-description">
   <strong>{{transaction.payer.name}}</strong> paid for <em>{{transaction.name}}</em><br>
-  <span class="glyphicon glyphicon-user" title="Participants"></span> <small>{{participants}}</small>
+  {{inline-svg "user" class="icon"}} <small>{{participants}}</small>
 </div>
 <div class="transaction-list-item-amount">
   <h5>

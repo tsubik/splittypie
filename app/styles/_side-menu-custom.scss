@@ -1,0 +1,39 @@
+.side-menu {
+  background: #fff;
+  box-shadow: 1px 0 2px rgba(0, 0, 0, 0.3);
+
+  ul {
+    li {
+      line-height: 32px;
+
+      &.divider {
+        height: 1px;
+        margin: 9px 0;
+        overflow: hidden;
+        background-color: #e5e5e5;
+      }
+      &.header {
+        padding-left: 15px;
+        font-weight: bold;
+        text-transform: uppercase;
+      }
+
+      a {
+        text-decoration: none;
+        display: block;
+        color: #000;
+
+        &.active {
+          background-color: $nav-link-hover-bg;
+        }
+
+        .icon {
+          margin: 0px 10px 0px 0px;
+          position: relative;
+          top: 6px;
+          float: left;
+        }
+      }
+    }
+  }
+}

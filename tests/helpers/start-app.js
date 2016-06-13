@@ -5,6 +5,8 @@ import "./wait-for-promise";
 import "./reload-page";
 import "./exist";
 import "./identify-user-as";
+import "./run-with-test-data";
+import "./set-event-as-viewed";
 
 export default function startApp(attrs) {
     let application;
@@ -16,6 +18,8 @@ export default function startApp(attrs) {
         application = Application.create(attributes);
         application.setupForTesting();
         application.injectTestHelpers();
+
+        window.localStorage.removeItem("lastEventId");
     });
 
     return application;

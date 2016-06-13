@@ -1,0 +1,18 @@
+<button class="btn btn-link btn-lg dropdown-toggle btn-change-user" type="button" id="dropDownUsers" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+  {{#if iconOnly}}
+    {{inline-svg "user" class="icon"}}
+  {{else}}
+    Viewing as {{selected.name}}
+    <span class="caret"></span>
+  {{/if}}
+</button>
+<ul class="dropdown-menu dropdown-menu-right" aria-labelledby="dropDownUsers">
+  <li class="dropdown-header">Switch user to</li>
+  {{#each otherUsers as |user|}}
+    <li>
+      <a {{action "switchUser" user}} href="#">
+        {{user.name}}
+      </a>
+    </li>
+  {{/each}}
+</ul>

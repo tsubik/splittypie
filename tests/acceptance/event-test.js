@@ -2,7 +2,6 @@
 import { test } from "qunit";
 import moduleForAcceptance from "splittypie/tests/helpers/module-for-acceptance";
 import errorAt from "splittypie/tests/helpers/error-at";
-import Ember from "ember";
 
 moduleForAcceptance("Acceptance | event");
 
@@ -42,83 +41,111 @@ test("creating event", function (assert) {
 });
 
 test("identifying user on first visit", function (assert) {
-    let event;
+    window.localStorage.removeItem("events");
 
-    waitForPromise(new Ember.RSVP.Promise((resolve) => {
-        Ember.run(() => {
-            this.store.findRecord("currency", "USD").then((currency) => {
-                event = this.store.createRecord("event", {
-                    name: "Test event",
-                    currency,
-                    users: [
-                        this.store.createRecord("user", { name: "Alice" }),
-                        this.store.createRecord("user", { name: "Bob" }),
-                    ],
-                });
-                event.save().then(resolve);
-            });
+    runWithTestData("default", (events) => {
+        const event = events[0];
+
+        // screen tell us who you are
+        visit(`${event.id}/edit`);
+
+        andThen(() => {
+            const message = "Your friend Alice created an event \"Trip to Barcelona\"";
+
+            assert.ok(exist(`div:contains('${message}')`), "your friend created event text");
         });
-    }));
 
-    // screen tell us who you are
-    andThen(() => {
-        visit(`/${event.id}/edit`);
+        click("button:contains('Bob')");
+        andThen(() => {
+            assert.equal(currentURL(), `/${event.id}`, "accessed event page");
+        });
     });
-    andThen(() => {
-        const message = "Your friend Alice created an event \"Test event\"";
+});
 
-        assert.ok(exist(`div:contains('${message}')`), "your friend created event text");
+test("changing user context", function (assert) {
+    runWithTestData("default", (events) => {
+        const event = events[0];
+
+        setEventAsViewed(event, "Alice");
+        visit(`/${event.id}`);
+
+        andThen(() => {
+            assert.ok(exist(".btn-change-user:contains(Viewing as Alice)"), "viewing as Alice");
+        });
+
+        click(".btn-change-user");
+        click("a:contains(Daria)");
+
+        andThen(() => {
+            assert.ok(exist(".btn-change-user:contains(Viewing as Daria)"), "viewing as Daria");
+            assert.notOk(exist(".user-dropdown li a:contains(Daria)"), "cannot switch to Daria");
+        });
+
+        click(".btn-add-transaction");
+
+        andThen(() => {
+            assert.ok(
+                exist(".transaction-payer option:selected:contains(Daria)"),
+                "Daria is default"
+            );
+        });
     });
+});
 
-    click("button:contains('Bob')");
-    andThen(() => {
-        assert.equal(currentURL(), `/${event.id}`, "accessed event page");
+test("changing event context", function (assert) {
+    runWithTestData("default", (events) => {
+        const event = events[0];
+        const event2 = events[1];
+
+        setEventAsViewed(event, "Alice");
+        setEventAsViewed(event2, "Tomasz");
+
+        visit(`/${event.id}`);
+
+        andThen(() => {
+            assert.ok(exist(".btn-change-event:contains(Trip to Barcelona)"), "Trip to Barca");
+        });
+
+        click(".btn-change-event");
+        click(".dropdown a:contains(Trip to New York)");
+
+        andThen(() => {
+            assert.ok(exist(".btn-change-event:contains(Trip to New York)"), "Trip to New York");
+            assert.notOk(
+                exist(".event-dropdown li a:contains(Trip to New York)"),
+                "cannot switch to Trip to New York"
+            );
+        });
     });
 });
 
 test("editing event", function (assert) {
-    let event;
+    runWithTestData("default", (events) => {
+        const event = events[0];
 
-    waitForPromise(new Ember.RSVP.Promise((resolve) => {
-        Ember.run(() => {
-            this.store.findRecord("currency", "USD").then((currency) => {
-                event = this.store.createRecord("event", {
-                    name: "Test event",
-                    currency,
-                    users: [
-                        this.store.createRecord("user", { name: "Alice" }),
-                        this.store.createRecord("user", { name: "Bob" }),
-                    ],
-                });
-                event.save().then(resolve);
-            });
-        });
-    }));
-
-    andThen(() => {
-        identifyUserAs(event.id, "Bob");
+        setEventAsViewed(event, "Alice");
         visit(`/${event.id}/edit`);
-    });
 
-    fillIn(".event-currency", "EUR");
-    fillIn(".event-name", "Gift for John's Birthday");
-    fillIn(".user-name:eq(0)", "Jimmy");
-    fillIn(".user-name:eq(1)", "James");
-    click("button:contains('Add Participant')");
-    fillIn(".user-name:eq(2)", "Johnny");
-    click("button:contains('Save')");
+        fillIn(".event-currency", "EUR");
+        fillIn(".event-name", "Gift for John's Birthday");
+        fillIn(".user-name:eq(0)", "Jimmy");
+        fillIn(".user-name:eq(1)", "James");
+        click("button:contains('Add Participant')");
+        fillIn(".user-name:eq(4)", "Johnny");
+        click("button:contains('Save')");
 
-    reloadPage();
-    andThen(() => {
-        assert.equal(currentRouteName(), "event.index", "after save transition to overview");
-    });
+        reloadPage();
+        andThen(() => {
+            assert.equal(currentRouteName(), "event.index", "after save transition to overview");
+        });
 
-    click("a:contains('Edit')");
-    andThen(() => {
-        assert.equal(find(".event-name").val(), "Gift for John's Birthday", "event name value");
-        assert.equal(find(".event-currency option:selected").val(), "EUR", "event currency value");
-        assert.equal(find(".user-name:eq(0)").val(), "Jimmy", "user 1 value");
-        assert.equal(find(".user-name:eq(1)").val(), "James", "user 2 value");
-        assert.equal(find(".user-name:eq(2)").val(), "Johnny", "user 3 value");
+        click("a:contains('Edit')");
+        andThen(() => {
+            assert.equal(find(".event-name").val(), "Gift for John's Birthday", "event name value");
+            assert.equal(find(".event-currency option:selected").val(), "EUR", "event currency value");
+            assert.equal(find(".user-name:eq(0)").val(), "Jimmy", "user 1 value");
+            assert.equal(find(".user-name:eq(1)").val(), "James", "user 2 value");
+            assert.equal(find(".user-name:eq(4)").val(), "Johnny", "user 3 value");
+        });
     });
 });

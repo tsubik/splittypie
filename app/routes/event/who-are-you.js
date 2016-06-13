@@ -1,7 +1,9 @@
 import Ember from "ember";
 
+const { service } = Ember.inject;
+
 export default Ember.Route.extend({
-    localStorage: Ember.inject.service(),
+    userContext: service(),
 
     renderTemplate() {
         this.render({ into: "application" });
@@ -10,17 +12,8 @@ export default Ember.Route.extend({
     actions: {
         chooseUser(user) {
             const event = this.modelFor("event");
-            const localStorage = this.get("localStorage");
 
-            localStorage.push(
-                "events",
-                Ember.Object.create({
-                    id: event.get("id"),
-                    name: event.get("name"),
-                    userId: user.get("id"),
-                })
-            );
-
+            this.get("userContext").changeUserContext(event, user);
             this.transitionTo("event.index", event);
         },
     },

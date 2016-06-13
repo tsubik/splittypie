@@ -4,21 +4,18 @@
 @import "vendor/bootstrap-paper/_variables";
 @import "bootstrap";
 @import "vendor/bootstrap-paper/_bootswatch";
-@import "_side-menu";
+@import "side-menu";
+@import "_side-menu-custom";
 
-$icon-size: 28px;
+$icon-size: 18px;
 $btn-circle-size: 56px;
-
-@mixin icon($size, $url) {
-  width: $size;
-  height: $size;
-  display: inline-block;
-  background: transparent url($url) no-repeat center;
-  background-size: $size;
-}
 
 body, html {
   height: 100%;
+}
+
+.flex {
+  flex: 1;
 }
 
 .page-content {
@@ -29,18 +26,17 @@ body, html {
   outline: none !important;
 }
 
-.btn.btn-circle {
+.btn-circle {
   padding: 0;
   border-radius: 50%;
-}
-
-.btn-circle {
   width: $btn-circle-size;
   height: $btn-circle-size;
   min-width: $btn-circle-size;
 
-  span {
-    line-height: $btn-circle-size;
+  .icon {
+    position: relative;
+    fill: #fff;
+    top: 15px;
   }
 }
 
@@ -60,33 +56,18 @@ table.no-border {
 }
 
 .navbar {
-  svg {
-    display: block;
-    padding: 0px;
-    margin: 0px;
-  }
-}
-
-.navbar-btn {
-  margin-top: 0px;
-  margin-bottom: 0px;
-}
-
-.navbar-nav > li > a {
-  padding: 16px 10px 16px 10px;
-}
-
-.navbar.visible-xs {
-  .navbar-nav {
-    margin: 0px;
-
-    li {
-      float: left;
-    }
+  .container {
+    display: flex;
+    align-items: center;
   }
 
-  .navbar-text {
-    float: left;
+  .navbar-header {
+    flex: 1;
+  }
+
+  .btn, .navbar-btn {
+    margin-top: 0px;
+    margin-bottom: 0px;
   }
 }
 
@@ -107,17 +88,18 @@ table.no-border {
   }
 }
 
-.github-logo {
-  width: 32px;
-  height: 32px;
-}
-
-.cowbell-logo {
-  width: 32px;
-  height: 32px;
+.cowbell {
   fill: none;
   stroke: #000;
   stroke-width: 5px;
+}
+
+.icon {
+  position: relative;
+  width: $icon-size;
+  height: $icon-size;
+  display: inline-block;
+  vertical-align: middle;
 }
 
 main {
@@ -158,19 +140,53 @@ footer {
   line-height: 32px;
 }
 
+.transaction-list-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  .calendar-page {
+    margin-right: 10px;
+  }
+
+  .total {
+    flex: 1;
+    text-align: right;
+    font-size: 18px;
+    font-weight: bold;
+  }
+}
+
 .transaction-list-item {
   text-transform: none;
   padding: 10px;
   display: flex;
   justify-content: space-between;
+  align-items: center;
 
   .transaction-list-item-amount {
     text-align: right;
   }
 
   .transaction-list-item-description {
+    flex: 1;
     text-align: left;
     white-space: normal;
+    padding-left: 10px;
+    padding-right: 10px;
+  }
+}
+
+.calendar-page {
+  text-transform: uppercase;
+
+  .month {
+    font-size: 10px;
+  }
+
+  .day {
+    font-size: 18px;
+    line-height: 18px;
   }
 }
 

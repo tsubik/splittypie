@@ -7,6 +7,8 @@
     "waitForPromise": true,
     "reloadPage": true,
     "exist": true,
-    "identifyUserAs": true
+    "identifyUserAs": true,
+    "runWithTestData": true,
+    "setEventAsViewed": true
   }
 }

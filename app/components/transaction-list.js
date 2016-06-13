@@ -5,17 +5,17 @@ export default Ember.Component.extend({
     classNames: ["list-group"],
 
     anyTransactions: Ember.computed.notEmpty("transactions"),
-    transactionsByDate: Ember.computed("transactions.[]", function () {
+    transactionsByMonth: Ember.computed("transactions.[]", function () {
         const result = [];
         const transactions = this.get("transactions").sortBy("date").reverse();
 
         transactions.forEach((transaction) => {
-            const date = transaction.get("date") || null;
-            const group = result.findBy("date", date);
+            const month = transaction.get("month");
+            const group = result.findBy("month", month);
 
             if (!group) {
                 result.pushObject(
-                    Ember.Object.create({ date, transactions: [transaction] })
+                    Ember.Object.create({ month, transactions: [transaction] })
                 );
             } else {
                 group.get("transactions").pushObject(transaction);
