@@ -1,6 +1,10 @@
 import Ember from "ember";
 
+const { service } = Ember.inject;
+
 export default Ember.Route.extend({
+    notify: service(),
+
     model(params) {
         return this.store.find("transaction", params.transaction_id);
     },
@@ -23,13 +27,19 @@ export default Ember.Route.extend({
             const event = this.modelFor("event");
 
             event.get("transactions").removeObject(transaction);
-            event.save().then(() => this.transitionTo("event.transactions"));
+            event.save().then(() => {
+                this.transitionTo("event.transactions");
+                this.get("notify").success("Transaction has been deleted.");
+            });
         },
 
         modelUpdated() {
             const event = this.modelFor("event");
 
-            event.save().then(() => this.transitionTo("event.transactions"));
+            event.save().then(() => {
+                this.transitionTo("event.transactions");
+                this.get("notify").success("Transaction has been changed.");
+            });
         },
     },
 });
