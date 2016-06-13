@@ -21,7 +21,7 @@
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black">
 
-    {{content-for "last-event"}}    
+    {{content-for "last-event"}}
     {{content-for "head"}}
 
     <link rel="stylesheet" href="assets/vendor.css">
@@ -40,16 +40,5 @@
     <script src="assets/splittypie.js"></script>
 
     {{content-for "body-footer"}}
-
-    <script>
-      navigator.serviceWorker.register("service-worker.js", { scope: "./" })
-               .then(function(res) {
-                 console.log("registered service worker");
-               })
-               .catch(function(error) {
-                 console.error("error... ");
-                 console.error(error);
-               });
-    </script>
   </body>
 </html>

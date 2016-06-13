@@ -15,7 +15,7 @@ module.exports = function (defaults) {
         },
         fingerprint: {
             exclude: ["assets/icons/", "service-worker.js", "sw-toolbox.js"],
-            enabled: (env === "production" || env === "staging"),
+            enabled: (env === "production" || env === "staging" || env === "offline"),
         },
         sassOptions: {
             includePaths: [
