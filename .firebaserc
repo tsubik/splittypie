@@ -2,6 +2,7 @@
   "projects": {
     "staging": "splittypie-staging",
     "offline": "splittypie-offline",
-    "dev": "splittypie-dev"
+    "dev": "splittypie-dev",
+    "prod": "splittypie"
   }
 }
