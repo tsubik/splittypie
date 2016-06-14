@@ -68,7 +68,8 @@
     "form-data": "^1.0.0-rc4",
     "liquid-fire": "0.23.0",
     "loader.js": "^4.0.0",
-    "rsvp": "^3.2.1"
+    "rsvp": "^3.2.1",
+    "surge": "^0.18.0"
   },
   "ember-addon": {
     "paths": [
