@@ -8,7 +8,9 @@
 {{#ember-wormhole to="navbar-right"}}
   <ul class="nav navbar-nav navbar-right">
     {{scroll-to href="#about" label="About"}}
-    {{scroll-to href="#events" label="Events"}}
+    {{#if (any model.previousEvents)}}
+      {{scroll-to href="#events" label="Events"}}
+    {{/if}}
     {{scroll-to href="#features" label="Features"}}
     <li>
       <a href="https://github.com/cowbell/splittypie" target="_blank">
@@ -94,7 +96,7 @@
       </div>
       <h4>Open Source</h4>
       <p>
-        Yes, it's open source. Check out the code on github.
+        Yes, it's open source. Check out the code on <a href="https://github.com/cowbell/splittypie" target="_blank">github</a>.
       </p>
     </div>
   </div>
