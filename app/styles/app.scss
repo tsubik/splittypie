@@ -8,6 +8,7 @@
 @import "_side-menu-custom";
 
 $icon-size: 18px;
+$icon-md-size: 28px;
 $btn-circle-size: 56px;
 
 body, html {
@@ -60,6 +61,23 @@ table.no-border {
   }
 }
 
+.small-border {
+  display: block;
+  width: 150px;
+  margin: 10px auto;
+  height: 1px;
+  background: #ececec;
+}
+
+.social-list {
+  text-align: center;
+  padding: 10px;
+
+  a {
+    margin: 0px 5px;
+  }
+}
+
 .navbar {
   .container {
     display: flex;
@@ -75,6 +93,20 @@ table.no-border {
     margin-bottom: 0px;
     padding-right: 10px;
     padding-left: 10px;
+  }
+
+  ul.nav {
+    li, li.active {
+      a,
+      a:focus,
+      a:hover {
+        background: none;
+      }
+    }
+
+    li.active {
+      font-weight: bold;
+    }
   }
 }
 
@@ -99,6 +131,13 @@ table.no-border {
   }
 }
 
+.brand {
+  position: relative;
+  top: -8px;
+  height: 40px;
+  width: 150px;
+}
+
 .cowbell {
   fill: none;
   stroke: #000;
@@ -113,12 +152,18 @@ table.no-border {
   vertical-align: middle;
 }
 
+.icon.icon-md {
+  width: $icon-md-size;
+  height: $icon-md-size;
+}
+
 main {
   padding-bottom: 70px;
 }
 
 footer {
   height: 50px;
+  margin-top: -50px;
 }
 
 .previous-events {
