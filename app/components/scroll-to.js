@@ -32,9 +32,11 @@ export default Ember.Component.extend({
 
     didInsertElement() {
         this._super(...arguments);
-
-        this.checkPosition();
         Ember.$(window).on("scroll", this.checkPosition.bind(this));
+
+        Ember.run.schedule("afterRender", () => {
+            this.checkPosition();
+        });
     },
 
     willDestroyElement() {
