@@ -11,7 +11,9 @@
 {{/mobile-toolbar}}
 
 {{#ember-wormhole to="navbar-right"}}
-  {{switch-user-dropdown selected=userContext.currentUser users=model.users action="switchUser" class="navbar-btn"}}
+  <div class="nav navbar-nav navbar-right">
+    {{switch-user-dropdown selected=userContext.currentUser users=model.users action="switchUser" class="navbar-btn"}}
+  </div>
 {{/ember-wormhole}}
 
 <div class="row hidden-xs">

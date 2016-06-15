@@ -6,6 +6,7 @@ export default Ember.Route.extend({
     localStorage: service(),
     userContext: service(),
     modal: service(),
+    notify: service(),
 
     model(params) {
         return this.store.find("event", params.event_id);
@@ -56,6 +57,7 @@ export default Ember.Route.extend({
             const event = this.modelFor("event");
 
             this.get("userContext").changeUserContext(event, user);
+            this.get("notify").success(`Now you are watching this event as ${user.get("name")}`);
         },
 
         error(error, transition) {

@@ -8,6 +8,7 @@
 @import "_side-menu-custom";
 
 $icon-size: 18px;
+$icon-md-size: 28px;
 $btn-circle-size: 56px;
 
 body, html {
@@ -53,6 +54,28 @@ table.no-border {
 
 .container {
   max-width: 800px;
+
+  @media (max-width: $screen-sm-min) {
+    padding-right: 5px;
+    padding-left: 5px;
+  }
+}
+
+.small-border {
+  display: block;
+  width: 150px;
+  margin: 10px auto;
+  height: 1px;
+  background: #ececec;
+}
+
+.social-list {
+  text-align: center;
+  padding: 10px;
+
+  a {
+    margin: 0px 5px;
+  }
 }
 
 .navbar {
@@ -68,6 +91,22 @@ table.no-border {
   .btn, .navbar-btn {
     margin-top: 0px;
     margin-bottom: 0px;
+    padding-right: 10px;
+    padding-left: 10px;
+  }
+
+  ul.nav {
+    li, li.active {
+      a,
+      a:focus,
+      a:hover {
+        background: none;
+      }
+    }
+
+    li.active {
+      font-weight: bold;
+    }
   }
 }
 
@@ -86,6 +125,21 @@ table.no-border {
     text-overflow: ellipsis;
     flex: 1;
   }
+
+  .navbar-brand.text-center {
+    margin-left: -50px;
+  }
+
+  .user-dropdown {
+    padding: 0px;
+  }
+}
+
+.brand {
+  position: relative;
+  top: -8px;
+  height: 40px;
+  width: 150px;
 }
 
 .cowbell {
@@ -102,12 +156,18 @@ table.no-border {
   vertical-align: middle;
 }
 
+.icon.icon-md {
+  width: $icon-md-size;
+  height: $icon-md-size;
+}
+
 main {
   padding-bottom: 70px;
 }
 
 footer {
   height: 50px;
+  margin-top: -50px;
 }
 
 .previous-events {
@@ -245,6 +305,7 @@ footer {
   p {
     font: 1.5em "Give You Glory", cursive;
     margin: 0px;
+    text-align: right;
   }
 
   img {

@@ -5,6 +5,10 @@ export default Ember.Component.extend({
     modal: Ember.inject.service(),
 
     classNames: ["previous-events-container"],
+    attributeBindings: ["id"],
+
+    tagName: "section",
+    id: "events",
 
     anyEvents: Ember.computed.notEmpty("events"),
 

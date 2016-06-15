@@ -1,7 +1,10 @@
 import Ember from "ember";
 
+const { service } = Ember.inject;
+
 export default Ember.Route.extend({
-    localStorage: Ember.inject.service(),
+    localStorage: service(),
+    notify: service(),
 
     model() {
         return Ember.RSVP.hash({
@@ -29,6 +32,7 @@ export default Ember.Route.extend({
                 this.get("localStorage").remove("events", event.id);
                 window.localStorage.removeItem("lastEventId");
                 this.transitionTo("index");
+                this.get("notify").success("Event has been deleted.");
             });
         },
 
@@ -38,7 +42,10 @@ export default Ember.Route.extend({
                     "events",
                     Ember.Object.create(event.getProperties("id", "name"))
                 ))
-                .then(() => this.transitionTo("event"));
+                .then(() => {
+                    this.transitionTo("event");
+                    this.get("notify").success("Event has been changed");
+                });
         },
     },
 });

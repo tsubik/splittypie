@@ -23,10 +23,14 @@ export default Ember.Route.extend({
     },
 
     showModal(options) {
+        const model = this.modelFor("application");
+
+        Object.assign(model, options);
+
         this.render(`modals/${options.name}`, {
             into: "application",
             outlet: "modal",
-            model: options,
+            model,
         });
     },
 
