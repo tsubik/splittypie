@@ -33,6 +33,18 @@ module.exports = function (environment) {
         serviceWorker: {
             enabled: true,
             debug: true,
+            precacheURLs: [
+                "/200.html",
+            ],
+            cacheFirstURLs: [
+                { route: "/(.*)", method: "get", options: { origin: "https://fonts.gstatic.com" } },
+            ],
+            fastestURLs: [
+                { route: "/css", method: "get", options: { origin: "https://fonts.googleapis.com" } },
+            ],
+            fallback: [
+                "/(.*) /200.html",
+            ],
         },
         rollbar: {
             accessToken: process.env.ROLLBAR_ACCESS_TOKEN,
