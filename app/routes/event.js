@@ -15,7 +15,7 @@ export default Ember.Route.extend({
     afterModel(model) {
         const eventLS = this.get("localStorage").find("events", model.id);
 
-        window.localStorage.setItem("lastEventId", model.id);
+        window.localStorage.setItem("lastSeenEventId", model.id);
 
         if (!(eventLS && eventLS.userId)) {
             this.transitionTo("event.who-are-you");
@@ -26,15 +26,6 @@ export default Ember.Route.extend({
         }
 
         return null;
-    },
-
-    setupController(controller) {
-        this._super(...arguments);
-        const events = this.modelFor("application").previousEvents;
-
-        controller.setProperties({
-            events,
-        });
     },
 
     actions: {
@@ -67,7 +58,7 @@ export default Ember.Route.extend({
             if (error.message &&
                 error.message.indexOf("no record was found") > -1
                 && eventId === lastEventId) {
-                window.localStorage.removeItem("lastEventId");
+                window.localStorage.removeItem("lastSeenEventId");
                 this.transitionTo("index");
             } else {
                 return true;

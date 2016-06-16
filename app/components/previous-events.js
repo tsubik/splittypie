@@ -1,8 +1,10 @@
 import Ember from "ember";
 
+const { service } = Ember.inject;
+
 export default Ember.Component.extend({
-    localStorage: Ember.inject.service(),
-    modal: Ember.inject.service(),
+    localData: service(),
+    modal: service(),
 
     classNames: ["previous-events-container"],
     attributeBindings: ["id"],
@@ -18,7 +20,7 @@ export default Ember.Component.extend({
 
             if (showModal) {
                 const yes = () => {
-                    this.get("localStorage").remove("events", event.id);
+                    this.get("localData").removeEvent(event.id);
                     this.get("modal").trigger("hide");
                 };
 
@@ -34,7 +36,7 @@ export default Ember.Component.extend({
                     event,
                 });
             } else {
-                this.get("localStorage").remove("events", event.id);
+                this.get("localData").removeEvent(event.id);
             }
         },
     },
