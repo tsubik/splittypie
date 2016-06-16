@@ -16,7 +16,7 @@ module.exports = function (environment) {
         },
         contentSecurityPolicyMeta: true,
         "ember-index": {
-            output: "200.html",
+            output: "app.html",
             content: [{
                 key: "index-preload",
                 file: "index-preload.html",
@@ -34,16 +34,14 @@ module.exports = function (environment) {
             enabled: true,
             debug: true,
             precacheURLs: [
-                "/200.html",
-            ],
-            cacheFirstURLs: [
-                { route: "/(.*)", method: "get", options: { origin: "https://fonts.gstatic.com" } },
+                "/app.html",
             ],
             fastestURLs: [
+                { route: "/(.*)", method: "get", options: { origin: "https://fonts.gstatic.com" } },
                 { route: "/css", method: "get", options: { origin: "https://fonts.googleapis.com" } },
             ],
             fallback: [
-                "/(.*) /200.html",
+                "/(.*) /app.html",
             ],
         },
         rollbar: {
