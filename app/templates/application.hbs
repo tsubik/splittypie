@@ -8,7 +8,7 @@
   </header>
   <ul class="nav">
     <li class="header">Events</li>
-    {{#each localData.previousEvents as |event|}}
+    {{#each model.previousEvents as |event|}}
       <li>
         {{#side-menu-link-to "event" event.id}}
           {{inline-svg "calendar" class="icon"}}

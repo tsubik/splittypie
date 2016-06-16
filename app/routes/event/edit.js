@@ -3,6 +3,7 @@ import Ember from "ember";
 const { service } = Ember.inject;
 
 export default Ember.Route.extend({
+    localStorage: service(),
     notify: service(),
 
     model() {
@@ -28,7 +29,8 @@ export default Ember.Route.extend({
     actions: {
         delete(event) {
             event.destroyRecord().then(() => {
-                this.get("localData").removeEvent(event.id);
+                this.get("localStorage").remove("events", event.id);
+                window.localStorage.removeItem("lastEventId");
                 this.transitionTo("index");
                 this.get("notify").success("Event has been deleted.");
             });
@@ -36,8 +38,11 @@ export default Ember.Route.extend({
 
         modelUpdated(event) {
             event.save()
-                .then((e) => {
-                    this.get("localData").pushEvent(e);
+                .then(() => this.get("localStorage").push(
+                    "events",
+                    Ember.Object.create(event.getProperties("id", "name"))
+                ))
+                .then(() => {
                     this.transitionTo("event");
                     this.get("notify").success("Event has been changed");
                 });

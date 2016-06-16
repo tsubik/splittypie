@@ -8,7 +8,7 @@
 {{#ember-wormhole to="navbar-right"}}
   <ul class="nav navbar-nav navbar-right">
     {{scroll-to href="#about" label="About"}}
-    {{#if (any localData.previousEvents)}}
+    {{#if (any model.previousEvents)}}
       {{scroll-to href="#events" label="Events"}}
     {{/if}}
     {{scroll-to href="#features" label="Features"}}
@@ -42,7 +42,7 @@
     </div>
   </section>
 
-  {{previous-events events=localData.previousEvents}}
+  {{previous-events events=model.previousEvents}}
 
   <section id="features">
     <h3 class="text-center">Find more about Splittypie</h3>
