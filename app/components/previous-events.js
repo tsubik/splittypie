@@ -1,8 +1,10 @@
 import Ember from "ember";
 
+const { service } = Ember.inject;
+
 export default Ember.Component.extend({
-    localStorage: Ember.inject.service(),
-    modal: Ember.inject.service(),
+    localStorage: service(),
+    modal: service(),
 
     classNames: ["previous-events-container"],
     attributeBindings: ["id"],
@@ -12,13 +14,24 @@ export default Ember.Component.extend({
 
     anyEvents: Ember.computed.notEmpty("events"),
 
+    _removeEventFromLocalStorage(event) {
+        const storage = this.get("localStorage");
+        const lastEventId = storage.getItem("lastEventId");
+
+        storage.remove("events", event.id);
+        if (lastEventId === event.id) {
+            storage.removeItem(lastEventId);
+        }
+    },
+
     actions: {
         remove(event) {
-            const showModal = window.localStorage.getItem("remove-prev-events-got-it") !== "true";
+            const storage = this.get("localStorage");
+            const showModal = storage.getItem("remove-prev-events-got-it") !== "true";
 
             if (showModal) {
                 const yes = () => {
-                    this.get("localStorage").remove("events", event.id);
+                    this._removeEventFromLocalStorage(event);
                     this.get("modal").trigger("hide");
                 };
 
@@ -27,14 +40,14 @@ export default Ember.Component.extend({
                     actions: {
                         yes,
                         yes_remember: () => {
-                            window.localStorage.setItem("remove-prev-events-got-it", "true");
+                            storage.setItem("remove-prev-events-got-it", "true");
                             yes();
                         },
                     },
                     event,
                 });
             } else {
-                this.get("localStorage").remove("events", event.id);
+                this._removeEventFromLocalStorage(event);
             }
         },
     },
