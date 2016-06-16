@@ -15,6 +15,30 @@ export default Ember.Service.extend({
         return false;
     }.property(),
 
+    setItem(key, value) {
+        if (!this.get("isLocalStorageSupported")) {
+            return;
+        }
+
+        localStorage.setItem(key, value);
+    },
+
+    getItem(key) {
+        if (!this.get("isLocalStorageSupported")) {
+            return null;
+        }
+
+        return localStorage.getItem(key);
+    },
+
+    removeItem(key) {
+        if (!this.get("isLocalStorageSupported")) {
+            return;
+        }
+
+        localStorage.removeItem(key);
+    },
+
     push(entryName, item) {
         Ember.assert("First argument entryName must be present", entryName);
         Ember.assert("Pushed item must have id property", item.id);

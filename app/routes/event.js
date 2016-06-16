@@ -13,9 +13,10 @@ export default Ember.Route.extend({
     },
 
     afterModel(model) {
-        const eventLS = this.get("localStorage").find("events", model.id);
+        const storage = this.get("localStorage");
+        const eventLS = storage.find("events", model.id);
 
-        window.localStorage.setItem("lastEventId", model.id);
+        storage.setItem("lastEventId", model.id);
 
         if (!(eventLS && eventLS.userId)) {
             this.transitionTo("event.who-are-you");
@@ -62,12 +63,13 @@ export default Ember.Route.extend({
 
         error(error, transition) {
             const eventId = transition.params.event.event_id;
-            const lastEventId = window.localStorage.getItem("lastEventId");
+            const storage = this.get("localStorage");
+            const lastEventId = storage.getItem("lastEventId");
 
             if (error.message &&
                 error.message.indexOf("no record was found") > -1
                 && eventId === lastEventId) {
-                window.localStorage.removeItem("lastEventId");
+                storage.removeItem("lastEventId");
                 this.transitionTo("index");
             } else {
                 return true;
