@@ -40,7 +40,12 @@ export default Ember.Component.extend({
             const selected = options.objectAt(contentIndex);
 
             this.set("selected", selected);
-            this.set("value", selected.get(this.get("optionValuePath")));
+            if (selected) {
+                this.set("value", selected.get(this.get("optionValuePath")));
+            } else {
+                this.set("value", null);
+            }
+
 
             // const changeCallback = this.get("action");
             // changeCallback(selection);
