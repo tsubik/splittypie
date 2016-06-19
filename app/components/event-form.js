@@ -6,6 +6,10 @@ export default Ember.Component.extend(FormComponent, {
     store: Ember.inject.service(),
     isSubmitted: Ember.computed.oneWay("event.isSubmitted"),
 
+    didInsertElement() {
+        this.$(".event-name").focus();
+    },
+
     actions: {
         addUser() {
             const event = this.get("event");
