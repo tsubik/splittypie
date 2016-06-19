@@ -20,7 +20,7 @@ export default Ember.Component.extend({
 
         storage.remove("events", event.id);
         if (lastEventId === event.id) {
-            storage.removeItem(lastEventId);
+            storage.removeItem("lastEventId");
         }
     },
 
