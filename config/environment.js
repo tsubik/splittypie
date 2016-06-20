@@ -15,7 +15,7 @@ module.exports = function (environment) {
         },
         contentSecurityPolicyMeta: true,
         "ember-index": {
-            output: "200.html",
+            output: "app.html",
             content: [{
                 key: "index-preload",
                 file: "index-preload.html",
