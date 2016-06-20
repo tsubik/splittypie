@@ -6,17 +6,7 @@ export default Ember.Component.extend({
     classNames: ["transaction-list-header"],
 
     currency: computed.alias("transactions.firstObject.event.currency.code"),
-
-    totalUser: computed("transactions.[]", "currentUser", function () {
-        const transactions = this.get("transactions");
-        const currentUser = this.get("currentUser");
-        const paidTransactions = transactions.filterBy("payer", currentUser);
-
-        return paidTransactions.reduce(
-            (prev, curr) => prev + parseFloat(curr.get("amount")),
-            0
-        );
-    }),
+    count: computed.alias("transactions.length"),
 
     total: computed("transactions.[]", function () {
         const transactions = this.get("transactions");
