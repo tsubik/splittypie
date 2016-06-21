@@ -22,6 +22,11 @@ body, html {
 .page-content {
   padding-top: 80px;
 }
+
+.no-borders {
+  box-shadow: none;
+}
+
 /* fixing crappy outline on button focus */
 .btn:focus {
   outline: none !important;
@@ -197,7 +202,11 @@ footer {
 
 .settlement-item {
   font-size: 14px;
-  line-height: 32px;
+  margin: 10px 0px;
+
+  .btn {
+    float: right;
+  }
 }
 
 .transaction-list-header {
@@ -292,7 +301,7 @@ footer {
     width: 100%;
     top: 60px;
     background: #fff;
-    z-index: 1031;
+    z-index: 1000;
   }
 }
 
@@ -301,7 +310,9 @@ footer {
 }
 
 .event-container {
-  padding-top: 30px;
+  @media (max-width: $screen-sm-min) {
+    padding-top: 30px;
+  }
 }
 
 .add-transaction-button {

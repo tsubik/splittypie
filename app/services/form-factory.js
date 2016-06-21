@@ -10,6 +10,6 @@ export default Ember.Service.extend({
             throw new Error(`There is no factory for ${name} form registered in application`);
         }
 
-        return formFactory.create(Ember.merge({ model }, properties));
+        return formFactory.create(Ember.merge({ model, formType: name }, properties));
     },
 });

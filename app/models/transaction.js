@@ -8,6 +8,7 @@ export default DS.Model.extend({
     event: DS.belongsTo("event", { async: false }),
     payer: DS.belongsTo("user", { async: false }),
     participants: DS.hasMany("user", { async: false }),
+    type: DS.attr("string", { defaultValue: "expense" }),
 
     month: Ember.computed("date", function () {
         const date = this.get("date");
@@ -18,4 +19,6 @@ export default DS.Model.extend({
 
         return null;
     }),
+
+    isTransfer: Ember.computed.equal("type", "transfer"),
 });

@@ -12,7 +12,7 @@ export default Ember.Route.extend({
         return this.store.find("event", params.event_id);
     },
 
-    afterModel(model) {
+    redirect(model) {
         const storage = this.get("localStorage");
         const eventLS = storage.find("events", model.id);
 
