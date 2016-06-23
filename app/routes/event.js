@@ -1,4 +1,5 @@
 import Ember from "ember";
+import isMobile from "splittypie/utils/is-mobile";
 
 const { service } = Ember.inject;
 
@@ -35,6 +36,7 @@ export default Ember.Route.extend({
 
         controller.setProperties({
             events,
+            isMobile: isMobile(),
         });
     },
 
