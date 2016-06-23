@@ -1,5 +1,5 @@
 {{#if anyTransactions}}
-  {{transaction-list-header transactions=transactions currentUser=currentUser}}
+  {{transaction-list-header transactions=expenses}}
   {{#each transactionsByMonth as |transactionGroup|}}
     {{#if anyTransactionWithDate}}
       <div class="transaction-list-date">

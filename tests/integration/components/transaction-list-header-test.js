@@ -32,5 +32,5 @@ test("it renders", function (assert) {
 
     this.render(hbs`{{transaction-list-header transactions=transactions currentUser=currentUser}}`);
 
-    assert.equal(extraTrim(this.$().text()), "Showing 2 transactions Total of 500 USD");
+    assert.equal(extraTrim(this.$().text()), "Showing 2 expenses Total of 500 USD");
 });

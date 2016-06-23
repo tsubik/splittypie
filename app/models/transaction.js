@@ -9,6 +9,11 @@ export default DS.Model.extend({
     payer: DS.belongsTo("user", { async: false }),
     participants: DS.hasMany("user", { async: false }),
     type: DS.attr("string", { defaultValue: "expense" }),
+    typeOrDefault: Ember.computed("type", {
+        get() {
+            return this.get("type") || "expense";
+        },
+    }),
 
     month: Ember.computed("date", function () {
         const date = this.get("date");
