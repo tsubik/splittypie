@@ -28,7 +28,10 @@ module.exports = function (environment) {
                 includeInOutput: true,
             }],
         },
-        firebase: process.env.FIREBASE_URL,
+        firebase: {
+            apiKey: process.env.FIREBASE_API_KEY,
+            databaseURL: `https://${process.env.FIREBASE_APP_NAME}.firebaseio.com`,
+        },
         rollbar: {
             accessToken: process.env.ROLLBAR_ACCESS_TOKEN,
             enabled: environment === "production" || environment === "staging",
