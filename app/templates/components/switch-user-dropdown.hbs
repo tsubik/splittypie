@@ -7,7 +7,9 @@
   {{/if}}
 </button>
 <ul class="dropdown-menu dropdown-menu-right" aria-labelledby="dropDownUsers">
-  <li class="dropdown-header visible-xs">Viewing as {{selected.name}}</li>
+  {{#if iconOnly}}
+    <li class="dropdown-header">Viewing as {{selected.name}}</li>
+  {{/if}}
   <li class="dropdown-header">Switch user to</li>
   {{#each otherUsers as |user|}}
     <li>
