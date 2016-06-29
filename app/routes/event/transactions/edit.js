@@ -6,7 +6,7 @@ export default Ember.Route.extend({
     notify: service(),
 
     model(params) {
-        return this.store.find("transaction", params.transaction_id);
+        return this.store.findRecord("transaction", params.transaction_id);
     },
 
     setupController(controller, model) {

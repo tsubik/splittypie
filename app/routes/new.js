@@ -24,7 +24,7 @@ export default Ember.Route.extend({
             .then((countryCode) => {
                 const currencyCode = countryToCurrencyCode(countryCode) || "USD";
 
-                return this.store.find("currency", currencyCode);
+                return this.store.findRecord("currency", currencyCode);
             });
     },
 

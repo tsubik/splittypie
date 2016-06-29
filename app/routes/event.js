@@ -10,7 +10,7 @@ export default Ember.Route.extend({
     notify: service(),
 
     model(params) {
-        return this.store.find("event", params.event_id);
+        return this.store.findRecord("event", params.event_id);
     },
 
     redirect(model) {
@@ -22,7 +22,7 @@ export default Ember.Route.extend({
         if (!(eventLS && eventLS.userId)) {
             this.transitionTo("event.who-are-you");
         } else {
-            return this.store.find("user", eventLS.userId).then((currentUser) => {
+            return this.store.findRecord("user", eventLS.userId).then((currentUser) => {
                 this.get("userContext").set("currentUser", currentUser);
             });
         }
