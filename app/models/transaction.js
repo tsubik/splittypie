@@ -1,7 +1,8 @@
 import DS from "ember-data";
 import Ember from "ember";
+import SyncModel from "splittypie/mixins/sync-model";
 
-export default DS.Model.extend({
+export default DS.Model.extend(SyncModel, {
     name: DS.attr("string"),
     amount: DS.attr("number"),
     date: DS.attr("string"),

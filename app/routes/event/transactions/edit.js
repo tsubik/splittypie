@@ -27,8 +27,10 @@ export default Ember.Route.extend({
         delete(transaction) {
             const event = this.modelFor("event");
 
-            event.get("transactions").removeObject(transaction);
-            event.save().then(() => {
+            transaction.destroyRecord();
+            // event.get("transactions").removeObject(transaction);
+            transaction.destroyRecord().then(() => {
+            // event.save().then(() => {
                 this.transitionTo("event.transactions");
                 this.get("notify").success("Transaction has been deleted.");
             });
