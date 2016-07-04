@@ -5,6 +5,7 @@ const { service } = Ember.inject;
 export default Ember.Route.extend({
     modal: service(),
     notify: service(),
+    transactionRepository: service(),
 
     actions: {
         settleUp(transfer) {
@@ -21,18 +22,20 @@ export default Ember.Route.extend({
                             date: new Date().toISOString().substring(0, 10),
                         });
 
-                        event.get("transactions").pushObject(transaction);
-                        event.save().then(() => {
-                            this.get("modal").trigger("hide");
-                            this.get("notify").success(
-                                "Everything settled"
-                            );
-                        }).catch(() => {
-                            this.get("modal").trigger("hide");
-                            this.get("notify").error(
-                                "An error occured"
-                            );
-                        });
+                        this.get("transactionRepository")
+                            .save(event, transaction)
+                            .then(() => {
+                                this.get("modal").trigger("hide");
+                                this.get("notify").success(
+                                    "Everything settled"
+                                );
+                            })
+                            .catch(() => {
+                                this.get("modal").trigger("hide");
+                                this.get("notify").error(
+                                    "An error occured"
+                                );
+                            });
                     },
                 },
                 transfer,

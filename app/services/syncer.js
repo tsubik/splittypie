@@ -22,9 +22,13 @@ export default Ember.Service.extend({
     },
 
     syncEvent(offlineEvent) {
-        this.get("store").findRecord("event", offlineEvent.get("id")).then((onlineEvent) => {
+        this.get("store").findRecord("event", offlineEvent.get("id"), { reload: true }).then((onlineEvent) => {
             const snapshot = onlineEvent._createSnapshot();
             this.pushToOfflineStore(snapshot);
+        }).catch(() => {
+            debug(`Event ${offlineEvent.get("name")} not found online`);
+            debug("Removing...");
+            return offlineEvent.destroyRecord();
         });
     },
 

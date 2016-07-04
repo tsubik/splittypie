@@ -6,6 +6,7 @@ const { debug } = Ember.Logger;
 export default Ember.Service.extend({
     onlineStore: service(),
     offlineStore: service(),
+    store: service(),
 
     process(job) {
         const name = job.get("name");
@@ -44,7 +45,7 @@ export default Ember.Service.extend({
     },
 
     updateTransaction(properties) {
-        const onlineStore = this.get("onlineStore");
+        const onlineStore = this.get("store");
         const id = properties.id;
         const eventId = properties.event;
 
@@ -52,7 +53,6 @@ export default Ember.Service.extend({
             const transaction = event.get("transactions").findBy("id", id);
 
             if (transaction) {
-                debugger;
                 transaction.updateModel(properties);
                 return transaction.save();
             }

@@ -14,7 +14,7 @@ export default Ember.Service.extend({
             event.get("transactions").pushObject(transaction);
         }
 
-        return event.save().then((record) => {
+        return transaction.save().then((record) => {
             if (this.get("isOffline")) {
                 const operation = transaction.get("isNew") ?
                           "createTransaction" : "updateTransaction";

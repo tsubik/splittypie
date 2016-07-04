@@ -20,7 +20,6 @@ export default Ember.Mixin.create({
     },
 
     onRemoved(record) {
-        debugger;
         const id = record.get("id");
         const modelName = record.modelName;
 
