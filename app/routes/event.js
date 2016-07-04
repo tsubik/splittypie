@@ -8,9 +8,10 @@ export default Ember.Route.extend({
     userContext: service(),
     modal: service(),
     notify: service(),
+    eventRepository: service(),
 
     model(params) {
-        return this.store.findRecord("event", params.event_id);
+        return this.get("eventRepository").find(params.event_id);
     },
 
     redirect(model) {

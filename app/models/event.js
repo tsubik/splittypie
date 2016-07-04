@@ -1,8 +1,7 @@
 import DS from "ember-data";
 import Ember from "ember";
-import SyncModel from "splittypie/mixins/sync-model";
 
-export default DS.Model.extend(SyncModel, {
+export default DS.Model.extend({
     name: DS.attr("string"),
     currency: DS.belongsTo("currency", { async: true }),
     users: DS.hasMany("user", { async: false }),

@@ -1,25 +1,16 @@
 import Ember from "ember";
 
-const { getOwner } = Ember;
 const { service } = Ember.inject;
 
 export default Ember.Service.extend({
     offlineStore: service(),
     store: service(),
+    connection: service(),
+    syncQueue: service(),
 
-    syncDown(id) {
-        const offlineStore = this.get("offlineStore");
-
-        offlineStore.findRecord("event", id)
-            .then(
-                (event) => this.syncEvent(event, "down"),
-                () => {
-                    this.get("store").findRecord("event", id).then((event) => {
-                        const snapshot = event._createSnapshot();
-                        offlineStore.createRecord("event", snapshot).save();
-                    });
-                }
-            );
+    syncOnline() {
+        this.get("syncQueue").flush();
+        this.syncEvents();
     },
 
     syncEvents() {
@@ -31,44 +22,19 @@ export default Ember.Service.extend({
 
     syncEvent(offlineEvent) {
         this.get("store").findRecord("event", offlineEvent.get("id")).then((onlineEvent) => {
-            this.syncRecord(offlineEvent, onlineEvent);
-
-            const onlineTransactions = onlineEvent.get("transactions");
-            const offlineTransactions = offlineEvent.get("transactions");
-
-            offlineEvent
-                .get("transactions")
-                .forEach((offlineTran) => {
-                    const onlineTran = onlineEvent.get("transactions").findBy("id", offlineTran.get("id"));
-
-                    this.syncRecord(offlineTran, onlineTran);
-                });
+            const snapshot = onlineEvent._createSnapshot();
+            this.pushToOfflineStore(snapshot);
         });
     },
 
-    // syncCollection(offline, online, offlineWins) {
+    pushToOfflineStore(snapshot) {
+        const offlineStore = this.get("offlineStore");
+        const type = snapshot.modelName;
+        const serializer = this.get("offlineStore").serializerFor(type);
+        const serialized = serializer.serialize(snapshot, { includeId: true });
+        const normalized = offlineStore.normalize(type, serialized);
 
-    // },
-
-    syncRecord(offline, online) {
-        const attributes = [];
-        const timeDiff = offline.get("modifiedAt") - online.get("modifiedAt");
-        const mustSync = timeDiff === 0;
-
-        if (mustSync) {
-            const offlineWins = timeDiff > 0;
-
-            online.eachAttribute((a) => attributes.push(a));
-
-            if (offlineWins) {
-                online.setProperties(offline.getProperties(attributes));
-                return online.save();
-            }
-
-            offline.setProperties(online.getProperties(attributes));
-            return offline.save();
-        }
-
-        return Ember.RSVP.resolve(true);
+        const model = offlineStore.push(normalized);
+        model.save();
     },
 });

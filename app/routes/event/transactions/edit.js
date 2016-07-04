@@ -4,6 +4,7 @@ const { service } = Ember.inject;
 
 export default Ember.Route.extend({
     notify: service(),
+    transactionRepository: service(),
 
     model(params) {
         return this.store.findRecord("transaction", params.transaction_id);
@@ -25,24 +26,23 @@ export default Ember.Route.extend({
 
     actions: {
         delete(transaction) {
-            const event = this.modelFor("event");
-
-            transaction.destroyRecord();
-            // event.get("transactions").removeObject(transaction);
-            transaction.destroyRecord().then(() => {
-            // event.save().then(() => {
-                this.transitionTo("event.transactions");
-                this.get("notify").success("Transaction has been deleted.");
-            });
+            this.get("transactionRepository")
+                .remove(transaction)
+                .then(() => {
+                    this.transitionTo("event.transactions");
+                    this.get("notify").success("Transaction has been deleted.");
+                });
         },
 
-        modelUpdated() {
+        modelUpdated(transaction) {
             const event = this.modelFor("event");
 
-            event.save().then(() => {
-                this.transitionTo("event.transactions");
-                this.get("notify").success("Transaction has been changed.");
-            });
+            this.get("transactionRepository")
+                .save(event, transaction)
+                .then(() => {
+                    this.transitionTo("event.transactions");
+                    this.get("notify").success("Transaction has been changed.");
+                });
         },
     },
 });

@@ -5,6 +5,7 @@ const { service } = Ember.inject;
 export default Ember.Route.extend({
     localStorage: service(),
     notify: service(),
+    transactionRepository: service(),
 
     model() {
         const event = this.modelFor("event");
@@ -41,11 +42,12 @@ export default Ember.Route.extend({
         modelUpdated(transaction) {
             const event = this.modelFor("event");
 
-            event.get("transactions").pushObject(transaction);
-            event.save().then(() => {
-                this.transitionTo("event.transactions");
-                this.get("notify").success("New transaction has been added");
-            });
+            this.get("transactionRepository")
+                .save(event, transaction)
+                .then(() => {
+                    this.transitionTo("event.transactions");
+                    this.get("notify").success("New transaction has been added");
+                });
         },
     },
 });
