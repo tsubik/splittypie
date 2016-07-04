@@ -34,10 +34,8 @@ export default Ember.Route.extend({
             });
         },
 
-        modelUpdated() {
-            const event = this.modelFor("event");
-
-            event.save().then(() => {
+        modelUpdated(transaction) {
+            transaction.save().then(() => {
                 this.transitionTo("event.transactions");
                 this.get("notify").success("Transaction has been changed.");
             });
