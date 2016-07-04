@@ -5,6 +5,7 @@ const { service } = Ember.inject;
 export default Ember.Route.extend({
     notify: service(),
     transactionRepository: service(),
+    offlineStore: service(),
 
     model(params) {
         return this.store.findRecord("transaction", params.transaction_id);

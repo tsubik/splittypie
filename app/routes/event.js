@@ -9,6 +9,8 @@ export default Ember.Route.extend({
     modal: service(),
     notify: service(),
     eventRepository: service(),
+    connection: service(),
+    syncer: service(),
 
     model(params) {
         return this.get("eventRepository").find(params.event_id);
@@ -23,9 +25,8 @@ export default Ember.Route.extend({
         if (!(eventLS && eventLS.userId)) {
             this.transitionTo("event.who-are-you");
         } else {
-            return this.store.findRecord("user", eventLS.userId).then((currentUser) => {
-                this.get("userContext").set("currentUser", currentUser);
-            });
+            const currentUser = model.get("users").findBy("id", eventLS.userId);
+            this.get("userContext").set("currentUser", currentUser);
         }
 
         return null;
@@ -62,6 +63,16 @@ export default Ember.Route.extend({
 
             this.get("userContext").changeUserContext(event, user);
             this.get("notify").success(`Now you are watching this event as ${user.get("name")}`);
+        },
+
+        // FIXME: REMOVE THIS, ONLY FOR TESTING
+        toggleConnection() {
+            if (this.get("connection.isOffline")) {
+                this.set("connection.state", "online");
+                this.get("syncer").syncOnline();
+            } else {
+                this.set("connection.state", "offline");
+            }
         },
 
         error(error, transition) {

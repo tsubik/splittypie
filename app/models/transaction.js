@@ -26,4 +26,37 @@ export default DS.Model.extend({
     }),
 
     isTransfer: Ember.computed.equal("type", "transfer"),
+
+    updateAttributes(json) {
+        this.eachAttribute((name) => {
+            if (json.hasOwnProperty(name)) {
+                this.set(name, json[name]);
+            }
+        });
+    },
+
+    updateRelationships(json) {
+        this.eachRelationship((name, descriptor) => {
+            if (json.hasOwnProperty(name)) {
+                const modelName = descriptor.type;
+
+                if (descriptor.kind === "belongsTo") {
+                    const id = json[name];
+                    const model = this.store.peekRecord(modelName, id);
+                    this.set(name, model);
+                } else if (descriptor.kind === "hasMany" && Ember.isArray(json[name])) {
+                    const ids = json[name];
+                    const array = this.store.peekAll(modelName).filter(
+                        (item) => ids.indexOf(item.get("id")) > -1
+                    );
+                    this.set(name, array);
+                }
+            }
+        });
+    },
+
+    updateModel(json) {
+        this.updateAttributes(json);
+        this.updateRelationships(json);
+    },
 });

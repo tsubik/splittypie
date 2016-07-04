@@ -6,17 +6,21 @@ export default Ember.Service.extend({
     store: service(),
     syncQueue: service(),
     connection: service(),
+    onlineStore: service(),
     isOffline: Ember.computed.alias("connection.isOffline"),
 
     save(event, transaction) {
         if (transaction.get("isNew")) {
             event.get("transactions").pushObject(transaction);
         }
+
         return event.save().then((record) => {
             if (this.get("isOffline")) {
+                const operation = transaction.get("isNew") ?
+                          "createTransaction" : "updateTransaction";
                 const payload = transaction.serialize({ includeId: true });
 
-                this.get("syncQueue").enqueue("createUpdateTransaction", payload);
+                this.get("syncQueue").enqueue(operation, payload);
             }
 
             return record;

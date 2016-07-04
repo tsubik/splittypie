@@ -1,6 +1,7 @@
 import Ember from "ember";
 
 const { service } = Ember.inject;
+const { debug } = Ember.Logger;
 
 export default Ember.Service.extend({
     offlineStore: service(),
@@ -9,13 +10,13 @@ export default Ember.Service.extend({
     syncQueue: service(),
 
     syncOnline() {
-        this.get("syncQueue").flush();
-        this.syncEvents();
+        this.get("syncQueue")
+            .flush()
+            .then(() => this.syncEvents());
     },
 
     syncEvents() {
-        const offlineStore = this.get("offlineStore");
-        offlineStore
+        this.get("offlineStore")
             .findAll("event")
             .then((offlineEvents) => offlineEvents.forEach(this.syncEvent.bind(this)));
     },
@@ -28,6 +29,7 @@ export default Ember.Service.extend({
     },
 
     pushToOfflineStore(snapshot) {
+        debug(`Syncing online event ${snapshot.record.get("name")} into offline store`);
         const offlineStore = this.get("offlineStore");
         const type = snapshot.modelName;
         const serializer = this.get("offlineStore").serializerFor(type);

@@ -4,48 +4,44 @@ import SyncRepositoryMixin from "splittypie/mixins/sync-repository";
 const { service } = Ember.inject;
 
 export default Ember.Service.extend(SyncRepositoryMixin, {
-    store: service(),
+    onlineStore: service(),
     offlineStore: service(),
+    store: service(),
     syncer: service(),
     syncQueue: service(),
     connection: service(),
     isOffline: Ember.computed.alias("connection.isOffline"),
+    isOnline: Ember.computed.alias("connection.isOnline"),
 
     find(id) {
-        // TODO: RxJS????? To replace offline model with online
-        // or one store many adapters
+        const record = this.get("store").findRecord("event", id);
 
-        return new Ember.RSVP.Promise((resolve, reject) => {
+        if (this.get("isOnline")) {
             const offlineRecord = this.get("offlineStore")
                       .findRecord("event", id)
                       .catch(() => false);
-            const onlineRecord = this.get("store").findRecord("event", id);
 
             Ember.RSVP.hash({
                 offlineRecord,
-                onlineRecord,
-            }).then(({ offlineRecord: offline, onlineRecord: online }) => {
+                record,
+            }).then(({ offlineRecord: offline, record: online }) => {
                 if (!offline && online) {
                     this.get("syncer").pushToOfflineStore(online._createSnapshot());
                 }
-
-                if (online) {
-                    resolve(online);
-                } else if (offline) {
-                    resolve(offline);
-                } else {
-                    reject("not found");
-                }
             });
-        });
+        }
+
+        return record;
     },
 
     save(event) {
+        const operation = event.get("isNew") ? "createEvent" : "updateEvent";
+
         return event.save().then((record) => {
             if (this.get("isOffline")) {
                 const payload = record.serialize({ includeId: true });
 
-                this.get("syncQueue").enqueue("createUpdateEvent", payload);
+                this.get("syncQueue").enqueue(operation, payload);
             }
 
             return record;

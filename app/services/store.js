@@ -44,21 +44,4 @@ export default DS.Store.extend({
             this.get("offlineStore").scheduleSave(...arguments);
         }
     },
-
-    // addOfflineJobFor(internalModel) {
-    //     const record = internalModel.record;
-    //     const modelName = internalModel.modelName;
-    //     let operation = "updating";
-
-    //     debugger;
-
-    //     if (record.get("isNew")) {
-    //         operation = "creating";
-    //     }
-    //     if (record.get("isDeleted")) {
-    //         operation = "deleting";
-    //     }
-
-    //     this.get("syncQueue").enqueue(modelName, record.serialize(), operation);
-    // },
 });
