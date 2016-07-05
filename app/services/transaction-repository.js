@@ -15,9 +15,7 @@ export default Ember.Service.extend({
         }
 
         return event.save().then(() => {
-            const serializer = this.get("onlineStore").serializerFor("transaction");
-            const snapshot = transaction._createSnapshot();
-            const payload = serializer.serialize(snapshot, { includeId: true });
+            const payload = transaction.serialize({ includeId: true });
 
             this.get("syncQueue").enqueue(operation, payload);
 
