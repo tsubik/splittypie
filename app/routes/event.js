@@ -66,7 +66,6 @@ export default Ember.Route.extend({
         toggleConnection() {
             if (this.get("connection.isOffline")) {
                 this.set("connection.state", "online");
-                this.get("syncer").syncOnline();
             } else {
                 this.set("connection.state", "offline");
             }
