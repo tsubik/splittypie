@@ -20,16 +20,15 @@ export default Ember.Service.extend(Ember.Evented, {
             name,
             payload: JSON.stringify(payload),
         });
+        job.save();
 
         if (this.get("connection.isOnline")) {
             this.get("pendingJobs").addObject(job);
-        } else {
-            job.save();
         }
     },
 
     flush() {
-        debug("flushing offline job");
+        debug("flushing offline jobs");
 
         return new Ember.RSVP.Promise((resolve) => {
             this.get("store")

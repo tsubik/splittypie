@@ -15,7 +15,10 @@ export default Ember.Service.extend({
         return new Ember.RSVP.Promise((resolve, reject) => {
             const offlineRecord = this.get("store")
                       .findRecord("event", id)
-                      .then(resolve)
+                      .then((event) => {
+                          resolve(event);
+                          return event;
+                      })
                       .catch(() => false);
             const onlineRecord = this.get("onlineStore")
                       .findRecord("event", id)
@@ -29,8 +32,8 @@ export default Ember.Service.extend({
                     resolve(
                         this.get("syncer").pushToOfflineStore(online._createSnapshot())
                     );
-                } else if (!offline && !online) {
-                    reject("not-found");
+                } else if (!online && !offline) {
+                    reject(new Ember.Error("no record was found"));
                 }
             });
         });
@@ -40,8 +43,6 @@ export default Ember.Service.extend({
         const operation = event.get("isNew") ? "createEvent" : "updateEvent";
 
         return event.save().then((record) => {
-            // const serializer = this.get("store").serializerFor("event");
-            // const payload = serializer.serialize(record._createSnapshot(), { includeId: true });
             const payload = record.serialize({ includeId: true });
 
             delete payload.transactions;

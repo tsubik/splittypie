@@ -31,6 +31,7 @@ export default Ember.Service.extend({
     },
 
     syncOnline() {
+        debug("Starting online full sync");
         this.set("isSyncing", true);
         this.get("syncQueue")
             .flush()
@@ -49,7 +50,7 @@ export default Ember.Service.extend({
     },
 
     syncEvent(offlineEvent) {
-        return this.get("onlineStore").findRecord("event", offlineEvent.get("id"), { reload: true })
+        return this.get("onlineStore").findRecord("event", offlineEvent.get("id"))
             .then((onlineEvent) => {
                 const snapshot = onlineEvent._createSnapshot();
 
@@ -57,8 +58,10 @@ export default Ember.Service.extend({
                 this.listenForChanges(onlineEvent);
             })
             .catch(() => {
+                // FIXME: Better tell the user about this situation
                 debug(`Event ${offlineEvent.get("name")} not found online`);
                 debug("Removing from offline store...");
+                this.removeListener(offlineEvent.get("id"));
                 return offlineEvent.destroyRecord();
             });
     },
@@ -105,5 +108,13 @@ export default Ember.Service.extend({
             eventListeners[eventId] = listener;
             this.set("eventListeners", eventListeners);
         }
+    },
+
+    removeListener(eventId) {
+        const eventListeners = this.get("eventListeners");
+
+        delete eventListeners[eventId];
+
+        this.set("eventListeners", eventListeners);
     },
 });

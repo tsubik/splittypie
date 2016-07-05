@@ -10,12 +10,20 @@ export default Ember.Service.extend({
     process(job) {
         const name = job.get("name");
         const payload = job.get("payload");
-        const worker = this[name];
+        const method = this[name];
         debug(`processing job ${name} with payload: ${payload}`);
 
-        Ember.assert(`Job ${name} doesn't exists`, worker);
+        Ember.assert(`Job ${name} doesn't exists`, method);
 
-        return worker.bind(this)(JSON.parse(payload));
+        return method.bind(this)(JSON.parse(payload))
+            .then((result) => {
+                debug(`Job ${name} has successfully completed`);
+                return result;
+            })
+            .catch((error) => {
+                debug("ERROR", error);
+                return error;
+            });
     },
 
     createEvent(properties) {
@@ -26,10 +34,7 @@ export default Ember.Service.extend({
         const onlineStore = this.get("onlineStore");
         const id = properties.id;
 
-        return Ember.RSVP.hash({
-            currencies: onlineStore.findAll("currency"),
-            event: onlineStore.findRecord("event", id),
-        }).then(({ event }) => {
+        return onlineStore.findRecord("event", id).then((event) => {
             event.updateModel(properties);
             return event.save();
         });
