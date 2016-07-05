@@ -1,7 +1,12 @@
 import Ember from "ember";
 
-const { service } = Ember.inject;
-const { debug } = Ember.Logger;
+const {
+    inject: { service },
+    Logger: { debug },
+    computed: { alias },
+    observer,
+    on,
+} = Ember;
 
 export default Ember.Service.extend({
     store: service(),
@@ -11,8 +16,8 @@ export default Ember.Service.extend({
 
     eventListeners: null,
 
-    isOnline: Ember.computed.alias("connection.isOnline"),
-    isOnlineStateDidChange: Ember.on("init", Ember.observer("isOnline", function () {
+    isOnline: alias("connection.isOnline"),
+    isOnlineStateDidChange: on("init", observer("isOnline", function () {
         const isOnline = this.get("isOnline");
 
         if (isOnline) {
