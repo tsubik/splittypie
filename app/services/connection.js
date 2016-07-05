@@ -8,12 +8,20 @@ export default Ember.Service.extend({
     init() {
         this._super(...arguments);
         this.set("state", navigator.onLine ? "online" : "offline");
-
-        window.addEventListener("offline", () => {
+        this._onOfflineHandler = () => {
             this.set("state", "offline");
-        });
-        window.addEventListener("online", () => {
+        };
+        this._onOnlineHandler = () => {
             this.set("state", "online");
-        });
+        };
+
+        window.addEventListener("offline", this._onOfflineHandler);
+        window.addEventListener("online", this._onOnlineHandler);
+    },
+
+    destroy() {
+        window.removeEventListener("offline", this._onOfflineHandler);
+        window.removeEventListener("online", this._onOnlineHandler);
+        this._super(...arguments);
     },
 });
