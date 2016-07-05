@@ -4,8 +4,8 @@ const { service } = Ember.inject;
 const { debug } = Ember.Logger;
 
 export default Ember.Service.extend({
-    offlineStore: service(),
     store: service(),
+    onlineStore: service(),
     connection: service(),
     syncQueue: service(),
 
@@ -16,13 +16,14 @@ export default Ember.Service.extend({
     },
 
     syncEvents() {
-        this.get("offlineStore")
+        debug("Syncing Online Events");
+        this.get("store")
             .findAll("event")
             .then((offlineEvents) => offlineEvents.forEach(this.syncEvent.bind(this)));
     },
 
     syncEvent(offlineEvent) {
-        this.get("store").findRecord("event", offlineEvent.get("id"), { reload: true }).then((onlineEvent) => {
+        this.get("onlineStore").findRecord("event", offlineEvent.get("id"), { reload: true }).then((onlineEvent) => {
             const snapshot = onlineEvent._createSnapshot();
             this.pushToOfflineStore(snapshot);
         }).catch(() => {
@@ -34,13 +35,13 @@ export default Ember.Service.extend({
 
     pushToOfflineStore(snapshot) {
         debug(`Syncing online event ${snapshot.record.get("name")} into offline store`);
-        const offlineStore = this.get("offlineStore");
+        const offlineStore = this.get("store");
         const type = snapshot.modelName;
-        const serializer = this.get("offlineStore").serializerFor(type);
+        const serializer = this.get("store").serializerFor(type);
         const serialized = serializer.serialize(snapshot, { includeId: true });
         const normalized = offlineStore.normalize(type, serialized);
 
         const model = offlineStore.push(normalized);
-        model.save();
+        return model.save();
     },
 });

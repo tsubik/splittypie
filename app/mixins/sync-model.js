@@ -1,10 +1,9 @@
 import Ember from "ember";
 import DS from "ember-data";
 
-export default Ember.Mixin.create({
-    modifiedAt: DS.attr("date"),
-    isDeleted: DS.attr("boolean"),
+const { service } = Ember.inject;
 
+export default Ember.Mixin.create({
     save() {
         this.set("modifiedAt", new Date());
         return this._super(...arguments);

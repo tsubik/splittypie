@@ -4,7 +4,6 @@ const { service } = Ember.inject;
 
 export default Ember.Route.extend({
     modal: service(),
-    offlineStore: service(),
 
     init() {
         this._super(...arguments);
@@ -15,7 +14,7 @@ export default Ember.Route.extend({
     model() {
         return Ember.RSVP.hash({
             currencies: this.store.findAll("currency"),
-            previousEvents: this.get("offlineStore").findAll("event"),
+            previousEvents: this.store.findAll("event"),
         });
     },
 

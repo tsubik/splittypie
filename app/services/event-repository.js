@@ -1,11 +1,10 @@
 import Ember from "ember";
-import SyncRepositoryMixin from "splittypie/mixins/sync-repository";
 
 const { service } = Ember.inject;
 
-export default Ember.Service.extend(SyncRepositoryMixin, {
-    offlineStore: service(),
+export default Ember.Service.extend({
     store: service(),
+    onlineStore: service(),
     syncer: service(),
     syncQueue: service(),
     connection: service(),
@@ -13,35 +12,41 @@ export default Ember.Service.extend(SyncRepositoryMixin, {
     isOnline: Ember.computed.alias("connection.isOnline"),
 
     find(id) {
-        const record = this.get("store").findRecord("event", id);
-
-        if (this.get("isOnline")) {
-            const offlineRecord = this.get("offlineStore")
+        return new Ember.RSVP.Promise((resolve, reject) => {
+            const offlineRecord = this.get("store")
+                      .findRecord("event", id)
+                      .then(resolve)
+                      .catch(() => false);
+            const onlineRecord = this.get("onlineStore")
                       .findRecord("event", id)
                       .catch(() => false);
 
             Ember.RSVP.hash({
                 offlineRecord,
-                record,
-            }).then(({ offlineRecord: offline, record: online }) => {
+                onlineRecord,
+            }).then(({ offlineRecord: offline, onlineRecord: online }) => {
                 if (!offline && online) {
-                    this.get("syncer").pushToOfflineStore(online._createSnapshot());
+                    resolve(
+                        this.get("syncer").pushToOfflineStore(online._createSnapshot())
+                    );
+                } else if (!offline && !online) {
+                    reject("not-found");
                 }
             });
-        }
-
-        return record;
+        });
     },
 
     save(event) {
         const operation = event.get("isNew") ? "createEvent" : "updateEvent";
 
         return event.save().then((record) => {
-            if (this.get("isOffline")) {
-                const payload = record.serialize({ includeId: true });
+            // const serializer = this.get("store").serializerFor("event");
+            // const payload = serializer.serialize(record._createSnapshot(), { includeId: true });
+            const payload = record.serialize({ includeId: true });
 
-                this.get("syncQueue").enqueue(operation, payload);
-            }
+            delete payload.transactions;
+
+            this.get("syncQueue").enqueue(operation, payload);
 
             return record;
         });
@@ -51,9 +56,7 @@ export default Ember.Service.extend(SyncRepositoryMixin, {
         const id = event.get("id");
 
         return event.destroyRecord().then((result) => {
-            if (this.get("isOffline")) {
-                this.get("syncQueue").enqueue("removeEvent", { id });
-            }
+            this.get("syncQueue").enqueue("removeEvent", { id });
 
             return result;
         });

@@ -1,28 +1,15 @@
 import DS from "ember-data";
 import Ember from "ember";
 
-const { service } = Ember.inject;
-
 export default DS.Store.extend({
-    offlineStore: service(),
-    syncer: service(),
-    syncQueue: service(),
-    connection: service(),
-    isOnline: Ember.computed.alias("connection.isOnline"),
-    isOffline: Ember.computed.alias("connection.isOffline"),
-
-    adapter: Ember.computed("connection.state", function () {
-        return `${this.get("connection.state")}/application`;
-    }),
+    adapter: "offline/application",
 
     serializerFor(modelName) {
-        const state = this.get("connection.state");
-        return this._super(`${state}/${modelName}`);
+        return this._super(`offline/${modelName}`);
     },
 
     adapterFor(modelName) {
-        const state = this.get("connection.state");
-        return this._super(`${state}/${modelName}`);
+        return this._super(`offline/${modelName}`);
     },
 
     // dataWasUpdated(type, internalModel) {
@@ -38,10 +25,11 @@ export default DS.Store.extend({
     // },
 
     // to mirror save into online and offlineStore
-    scheduleSave() {
-        this._super(...arguments);
-        if (this.get("isOnline")) {
-            this.get("offlineStore").scheduleSave(...arguments);
-        }
-    },
+    // scheduleSave() {
+    //     this._super(...arguments);
+    //     if (this.get("isOnline")) {
+    //         Ember.Logger.debug("Scheduling save into offline store");
+    //         this.get("offlineStore").scheduleSave(...arguments);
+    //     }
+    // },
 });

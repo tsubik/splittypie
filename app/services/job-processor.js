@@ -5,7 +5,6 @@ const { debug } = Ember.Logger;
 
 export default Ember.Service.extend({
     onlineStore: service(),
-    offlineStore: service(),
     store: service(),
 
     process(job) {
@@ -20,34 +19,31 @@ export default Ember.Service.extend({
     },
 
     createEvent(properties) {
-        const onlineStore = this.get("onlineStore");
-        const offlineStore = this.get("offlineStore");
-        const modelClass = offlineStore.modelFor("event");
-        const serializer = offlineStore.serializerFor("event");
-        const normalized = serializer.normalize(modelClass, properties);
-
-        return onlineStore.push(normalized).save();
+        return this._createModel("event", properties);
     },
 
     updateEvent(properties) {
         const onlineStore = this.get("onlineStore");
         const id = properties.id;
 
-        return onlineStore.findRecord("event", id).then((event) => {
-            event.updateAttributes(properties);
+        return Ember.RSVP.hash({
+            currencies: onlineStore.findAll("currency"),
+            event: onlineStore.findRecord("event", id),
+        }).then(({ event }) => {
+            event.updateModel(properties);
             return event.save();
         });
     },
 
     removeEvent(properties) {
-        const onlineStore = this.get("store");
+        const onlineStore = this.get("onlineStore");
         const id = properties.id;
 
         return onlineStore.findRecord("event", id).then((event) => event.destroyRecord());
     },
 
     updateTransaction(properties) {
-        const onlineStore = this.get("store");
+        const onlineStore = this.get("onlineStore");
         const id = properties.id;
         const eventId = properties.event;
 
@@ -64,13 +60,7 @@ export default Ember.Service.extend({
     },
 
     createTransaction(properties) {
-        const onlineStore = this.get("onlineStore");
-        const offlineStore = this.get("offlineStore");
-        const modelClass = offlineStore.modelFor("transaction");
-        const serializer = offlineStore.serializerFor("transaction");
-        const normalized = serializer.normalize(modelClass, properties);
-
-        return onlineStore.push(normalized).save();
+        return this._createModel("transaction", properties);
     },
 
     removeTransaction(properties) {
@@ -83,5 +73,15 @@ export default Ember.Service.extend({
 
             return event.save();
         });
+    },
+
+    _createModel(modelName, properties) {
+        const onlineStore = this.get("onlineStore");
+        const offlineStore = this.get("store");
+        const modelClass = offlineStore.modelFor(modelName);
+        const serializer = offlineStore.serializerFor(modelName);
+        const normalized = serializer.normalize(modelClass, properties);
+
+        return onlineStore.push(normalized).save();
     },
 });

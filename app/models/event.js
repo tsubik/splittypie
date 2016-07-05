@@ -1,7 +1,8 @@
 import DS from "ember-data";
 import Ember from "ember";
+import ModelMixin from "splittypie/mixins/model-mixin";
 
-export default DS.Model.extend({
+export default DS.Model.extend(ModelMixin, {
     name: DS.attr("string"),
     currency: DS.belongsTo("currency", { async: true }),
     users: DS.hasMany("user", { async: false }),
@@ -9,12 +10,4 @@ export default DS.Model.extend({
     url: Ember.computed("id", function () {
         return `https://splittypie.com/${this.get("id")}`;
     }),
-
-    updateAttributes(json) {
-        this.eachAttribute((name) => {
-            if (json.hasOwnProperty(name)) {
-                this.set(name, json[name]);
-            }
-        });
-    },
 });

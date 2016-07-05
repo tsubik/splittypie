@@ -4,24 +4,24 @@ const { service } = Ember.inject;
 
 export default Ember.Service.extend({
     syncQueue: service(),
-    connection: service(),
-    isOffline: Ember.computed.alias("connection.isOffline"),
+    onlineStore: service(),
 
     save(event, transaction) {
+        let operation = "updateTransaction";
+
         if (transaction.get("isNew")) {
+            operation = "createTransaction";
             event.get("transactions").pushObject(transaction);
         }
 
-        return transaction.save().then((record) => {
-            if (this.get("isOffline")) {
-                const operation = transaction.get("isNew") ?
-                          "createTransaction" : "updateTransaction";
-                const payload = transaction.serialize({ includeId: true });
+        return event.save().then(() => {
+            const serializer = this.get("onlineStore").serializerFor("transaction");
+            const snapshot = transaction._createSnapshot();
+            const payload = serializer.serialize(snapshot, { includeId: true });
 
-                this.get("syncQueue").enqueue(operation, payload);
-            }
+            this.get("syncQueue").enqueue(operation, payload);
 
-            return record;
+            return transaction;
         });
     },
 
@@ -32,9 +32,7 @@ export default Ember.Service.extend({
 
         event.get("transactions").removeObject(transaction);
         return event.save().then((res) => {
-            if (this.get("isOffline")) {
-                this.get("syncQueue").enqueue("removeTransaction", { eventId, id });
-            }
+            this.get("syncQueue").enqueue("removeTransaction", { eventId, id });
 
             return res;
         });
