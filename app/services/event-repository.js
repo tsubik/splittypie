@@ -4,7 +4,6 @@ import SyncRepositoryMixin from "splittypie/mixins/sync-repository";
 const { service } = Ember.inject;
 
 export default Ember.Service.extend(SyncRepositoryMixin, {
-    onlineStore: service(),
     offlineStore: service(),
     store: service(),
     syncer: service(),

@@ -1,8 +1,10 @@
 import Ember from "ember";
 
+const { service } = Ember.inject;
+
 export default Ember.Route.extend({
-    modal: Ember.inject.service(),
-    localStorage: Ember.inject.service(),
+    modal: service(),
+    offlineStore: service(),
 
     init() {
         this._super(...arguments);
@@ -13,7 +15,7 @@ export default Ember.Route.extend({
     model() {
         return Ember.RSVP.hash({
             currencies: this.store.findAll("currency"),
-            previousEvents: this.get("localStorage").findAll("events"),
+            previousEvents: this.get("offlineStore").findAll("event"),
         });
     },
 

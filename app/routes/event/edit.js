@@ -33,7 +33,6 @@ export default Ember.Route.extend({
                 .remove(event)
                 .then(() => {
                     const storage = this.get("localStorage");
-                    storage.remove("events", event.id);
                     storage.removeItem("lastEventId");
                     this.transitionTo("index");
                     this.get("notify").success("Event has been deleted.");
@@ -42,10 +41,6 @@ export default Ember.Route.extend({
 
         modelUpdated(event) {
             this.get("eventRepository").save(event)
-                .then(() => this.get("localStorage").push(
-                    "events",
-                    Ember.Object.create(event.getProperties("id", "name"))
-                ))
                 .then(() => {
                     this.transitionTo("event");
                     this.get("notify").success("Event has been changed");

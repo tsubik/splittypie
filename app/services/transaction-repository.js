@@ -3,10 +3,8 @@ import Ember from "ember";
 const { service } = Ember.inject;
 
 export default Ember.Service.extend({
-    store: service(),
     syncQueue: service(),
     connection: service(),
-    onlineStore: service(),
     isOffline: Ember.computed.alias("connection.isOffline"),
 
     save(event, transaction) {

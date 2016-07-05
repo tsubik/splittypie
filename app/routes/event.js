@@ -16,20 +16,17 @@ export default Ember.Route.extend({
         return this.get("eventRepository").find(params.event_id);
     },
 
-    redirect(model) {
+    afterModel(model) {
         const storage = this.get("localStorage");
-        const eventLS = storage.find("events", model.id);
-
         storage.setItem("lastEventId", model.id);
+    },
 
-        if (!(eventLS && eventLS.userId)) {
+    redirect(model) {
+        const currentUser = this.get("userContext").load(model);
+
+        if (!currentUser) {
             this.transitionTo("event.who-are-you");
-        } else {
-            const currentUser = model.get("users").findBy("id", eventLS.userId);
-            this.get("userContext").set("currentUser", currentUser);
         }
-
-        return null;
     },
 
     setupController(controller) {
@@ -61,7 +58,7 @@ export default Ember.Route.extend({
         switchUser(user) {
             const event = this.modelFor("event");
 
-            this.get("userContext").changeUserContext(event, user);
+            this.get("userContext").change(event, user);
             this.get("notify").success(`Now you are watching this event as ${user.get("name")}`);
         },
 
@@ -80,6 +77,7 @@ export default Ember.Route.extend({
             const storage = this.get("localStorage");
             const lastEventId = storage.getItem("lastEventId");
 
+            // FIXME: Do this better
             if (error.message &&
                 error.message.indexOf("no record was found") > -1
                 && eventId === lastEventId) {

@@ -40,8 +40,10 @@ export default Ember.Service.extend({
     },
 
     removeEvent(properties) {
+        const onlineStore = this.get("store");
         const id = properties.id;
-        return this.get("onlineStore").findRecord("event", id).then((event) => event.destroyRecord());
+
+        return onlineStore.findRecord("event", id).then((event) => event.destroyRecord());
     },
 
     updateTransaction(properties) {
