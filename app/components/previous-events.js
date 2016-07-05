@@ -14,11 +14,13 @@ export default Ember.Component.extend({
 
     anyEvents: Ember.computed.notEmpty("events"),
 
-    _removeEventFromLocalStorage(event) {
+    _removeEventFromOfflineStore(event) {
         const storage = this.get("localStorage");
         const lastEventId = storage.getItem("lastEventId");
 
-        storage.remove("events", event.id);
+        // remove only from offline store
+        event.destroyRecord();
+
         if (lastEventId === event.id) {
             storage.removeItem("lastEventId");
         }
@@ -31,7 +33,7 @@ export default Ember.Component.extend({
 
             if (showModal) {
                 const yes = () => {
-                    this._removeEventFromLocalStorage(event);
+                    this._removeEventFromOfflineStore(event);
                     this.get("modal").trigger("hide");
                 };
 
@@ -47,7 +49,7 @@ export default Ember.Component.extend({
                     event,
                 });
             } else {
-                this._removeEventFromLocalStorage(event);
+                this._removeEventFromOfflineStore(event);
             }
         },
     },
