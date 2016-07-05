@@ -34,7 +34,7 @@ export default Ember.Service.extend(Ember.Evented, {
             this.get("store")
                 .findAll("sync-job")
                 .then((jobs) => {
-                    const arrayJobs = jobs.toArray();
+                    const arrayJobs = jobs.sortBy("createdAt").toArray();
 
                     if (arrayJobs.length === 0) {
                         debug("no jobs to flush");
@@ -58,7 +58,7 @@ export default Ember.Service.extend(Ember.Evented, {
     processNext() {
         const jobProcessor = this.get("jobProcessor");
         const pendingJobs = this.get("pendingJobs");
-        const job = pendingJobs.popObject();
+        const job = pendingJobs.objectAt(0);
 
         if (!job) {
             return;
@@ -68,14 +68,19 @@ export default Ember.Service.extend(Ember.Evented, {
         jobProcessor
             .process(job)
             .then(() => {
+                this.get("pendingJobs").removeAt(0);
+                const anyNextJobs = this.get("pendingJobs.length") > 0;
                 job.destroyRecord();
-                this.set("isProcessing", false);
-                if (pendingJobs.length === 0) {
+                if (anyNextJobs) {
+                    this.processNext();
+                } else {
+                    this.set("isProcessing", false);
                     debug("FLUSHED");
                     this.trigger("flushed");
-                } else {
-                    this.processNext();
                 }
+            })
+            .catch((error) => {
+                debug("ERROR", error);
             });
     },
 });

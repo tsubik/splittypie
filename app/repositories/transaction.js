@@ -19,7 +19,7 @@ export default Ember.Service.extend({
 
             this.get("syncQueue").enqueue(operation, payload);
 
-            return transaction;
+            return transaction.save();
         });
     },
 
