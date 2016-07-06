@@ -8,6 +8,7 @@ export default Ember.Service.extend(Ember.Evented, {
     jobProcessor: service(),
     connection: service(),
     pendingJobs: null,
+    isProcessing: false,
 
     init() {
         this._super(...arguments);

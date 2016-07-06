@@ -35,6 +35,8 @@ export default Ember.Service.extend({
         const serializer = offlineStore.serializerFor(modelName);
         const normalized = serializer.normalize(modelClass, properties);
 
+        debugger;
+
         return onlineStore.push(normalized).save();
     },
 

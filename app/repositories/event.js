@@ -30,7 +30,7 @@ export default Ember.Service.extend({
             }).then(({ offlineRecord: offline, onlineRecord: online }) => {
                 if (!offline && online) {
                     resolve(
-                        this.get("syncer").pushToOfflineStore(online._createSnapshot())
+                        this.get("syncer").pushEventOffline(online)
                     );
                 } else if (!online && !offline) {
                     reject(new Ember.Error("no record was found"));

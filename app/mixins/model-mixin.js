@@ -1,6 +1,11 @@
 import Ember from "ember";
 
 export default Ember.Mixin.create({
+    updateModel(json) {
+        this.updateAttributes(json);
+        this.updateRelationships(json);
+    },
+
     updateAttributes(json) {
         this.eachAttribute((name) => {
             if (json.hasOwnProperty(name)) {
@@ -37,7 +42,7 @@ export default Ember.Mixin.create({
         });
     },
 
-    synchronizeWithNewArray(modelName, name, newArray) {
+    _synchronizeWithNewArray(modelName, name, newArray) {
         const currentArray = this.get(name);
 
         return newArray
@@ -52,10 +57,5 @@ export default Ember.Mixin.create({
 
                 return record;
             });
-    },
-
-    updateModel(json) {
-        this.updateAttributes(json);
-        this.updateRelationships(json);
     },
 });

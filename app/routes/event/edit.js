@@ -6,6 +6,7 @@ export default Ember.Route.extend({
     localStorage: service(),
     notify: service(),
     eventRepository: service(),
+    syncer: service(),
 
     model() {
         return Ember.RSVP.hash({
@@ -45,6 +46,12 @@ export default Ember.Route.extend({
                     this.transitionTo("event");
                     this.get("notify").success("Event has been changed");
                 });
+        },
+
+        syncOnline(event) {
+            this.get("syncer").pushEventOnline(event).then(() => {
+                this.get("notify").success("Event was successfully synced");
+            });
         },
     },
 });

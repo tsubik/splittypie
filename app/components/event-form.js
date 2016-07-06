@@ -16,5 +16,9 @@ export default Ember.Component.extend(FormComponent, {
 
             event.addUser();
         },
+
+        syncOnline() {
+            this.sendAction("syncOnline", this.get("event.model"));
+        },
     },
 });

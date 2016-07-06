@@ -8,7 +8,7 @@ const {
     on,
 } = Ember;
 
-export default Ember.Service.extend({
+export default Ember.Service.extend(Ember.Evented, {
     store: service(),
     onlineStore: service(),
     connection: service(),
@@ -23,7 +23,7 @@ export default Ember.Service.extend({
         if (isOnline) {
             this.syncOnline();
         } else {
-            this.removeAllListeners();
+            this._removeAllListeners();
         }
     })),
 
@@ -37,51 +37,87 @@ export default Ember.Service.extend({
         this.set("isSyncing", true);
         this.get("syncQueue")
             .flush()
-            .then(() => this.syncEvents())
-            .then(() => {
+            .then(this.syncEvents.bind(this))
+            .finally(() => {
                 this.set("isSyncing", false);
             });
     },
 
     syncEvents() {
-        debug("Syncing Online Events");
+        debug("Syncing Offline Events");
         return this.get("store")
             .findAll("event")
-            .then((offlineEvents) => offlineEvents.map(this.syncEvent.bind(this)))
-            .then((syncs) => Ember.RSVP.allSettled(syncs));
+            .then(offlineEvents =>
+                  offlineEvents.rejectBy("isOffline", true).map(this.syncEvent.bind(this))
+            )
+            .then(syncs => Ember.RSVP.allSettled(syncs));
     },
 
     syncEvent(offlineEvent) {
-        return this.get("onlineStore").findRecord("event", offlineEvent.get("id"), { reload: true })
+        // have to unload due to strange errors caused by emberfire adapter
+        this._unloadOnlineEvent(offlineEvent.get("id"));
+        return this.get("onlineStore").findRecord("event", offlineEvent.get("id"))
             .then((onlineEvent) => {
-                const snapshot = onlineEvent._createSnapshot();
-
-                this.pushToOfflineStore(snapshot);
-                this.listenForChanges(onlineEvent);
+                this.pushEventOffline(onlineEvent);
+                this._listenForChanges(onlineEvent);
             })
             .catch(() => {
-                // FIXME: Better tell the user about this situation
                 debug(`Event ${offlineEvent.get("name")} not found online`);
-                debug("Removing from offline store...");
-                this.removeListener(offlineEvent.get("id"));
-                return offlineEvent.destroyRecord();
+                debug("Setting event as offline - it will be available to sync it manually");
+                offlineEvent.set("isOffline", true);
+                this._removeListenerFor(offlineEvent.get("id"));
+                this.trigger("conflict", {
+                    modelName: "event",
+                    type: "not-found-online",
+                    model: {
+                        id: offlineEvent.get("id"),
+                        name: offlineEvent.get("name"),
+                    },
+                });
+                return offlineEvent.save();
             });
     },
 
-    pushToOfflineStore(snapshot) {
-        debug(`Syncing online event ${snapshot.record.get("name")} into offline store`);
-        const offlineStore = this.get("store");
-        const type = snapshot.modelName;
-        const serializer = this.get("store").serializerFor(type);
-        const serialized = serializer.serialize(snapshot, { includeId: true });
-        const normalized = offlineStore.normalize(type, serialized);
+    pushEventOffline(onlineEvent) {
+        debug(`Syncing online event ${onlineEvent.get("name")} into offline store`);
 
-        const model = offlineStore.push(normalized);
-        return model.save();
+        return this._pushToStore(this.get("store"), onlineEvent);
+    },
+
+    pushEventOnline(offlineEvent) {
+        return this._pushToStore(this.get("onlineStore"), offlineEvent).then((onlineEvent) => {
+            offlineEvent.set("isOffline", false);
+            this._listenForChanges(onlineEvent);
+            return offlineEvent.save();
+        });
+    },
+
+    _pushToStore(store, model) {
+        const normalized = this._normalizeModel(model);
+
+        return store.push(normalized).save();
+    },
+
+    _normalizeModel(model) {
+        const store = this.get("store");
+        const snapshot = model._createSnapshot();
+        const serializer = store.serializerFor(snapshot.modelName);
+        const serialized = serializer.serialize(snapshot, { includeId: true });
+
+        return store.normalize(snapshot.modelName, serialized);
+    },
+
+    _unloadOnlineEvent(id) {
+        const event = this.get("onlineStore").peekRecord("event", id);
+
+        if (event) {
+            this.get("onlineStore").unloadRecord(event);
+            this._removeListenerFor(id);
+        }
     },
 
     // workaround to keep firebase realtime function
-    listenForChanges(onlineEvent) {
+    _listenForChanges(onlineEvent) {
         const eventListeners = this.get("eventListeners");
         const eventId = onlineEvent.get("id");
         let isInitial = true;
@@ -90,23 +126,25 @@ export default Ember.Service.extend({
             const ref = onlineEvent.ref();
 
             onlineEvent.ref().on("value", (snapshot) => {
-                // don't listen for initial on value
-                if (isInitial) {
-                    isInitial = false;
-                    return;
-                }
-                if (this.get("isSyncing") || this.get("syncQueue.isProcessing")) {
-                    return;
-                }
+                Ember.run(() => {
+                    // don't listen for initial on value
+                    if (isInitial) {
+                        isInitial = false;
+                        return;
+                    }
+                    if (this.get("isSyncing") || this.get("syncQueue.isProcessing")) {
+                        return;
+                    }
 
-                const onlineEventId = snapshot.key;
+                    const onlineEventId = snapshot.key;
 
-                // some changes in firebase not coming from this application instance
-                // schedule sync
-                Ember.run.once(() => {
-                    this.get("store").findRecord("event", onlineEventId).then(
-                        (offlineEvent) => this.syncEvent(offlineEvent)
-                    );
+                    // some changes in firebase not coming from this application instance
+                    // schedule sync
+                    Ember.run.scheduleOnce("actions", () => {
+                        this.get("store").findRecord("event", onlineEventId).then(
+                            (offlineEvent) => this.syncEvent(offlineEvent)
+                        );
+                    });
                 });
             });
             eventListeners[eventId] = ref;
@@ -114,7 +152,7 @@ export default Ember.Service.extend({
         }
     },
 
-    removeAllListeners() {
+    _removeAllListeners() {
         const eventListeners = this.get("eventListeners");
         Object.keys(eventListeners).forEach((key) => {
             eventListeners[key].off("value");
@@ -122,11 +160,12 @@ export default Ember.Service.extend({
         });
     },
 
-    removeListener(eventId) {
+    _removeListenerFor(eventId) {
         const eventListeners = this.get("eventListeners");
         const ref = eventListeners[eventId];
-        ref.off("value");
-        delete eventListeners[eventId];
-        this.set("eventListeners", eventListeners);
+        if (ref) {
+            ref.off("value");
+            delete eventListeners[eventId];
+        }
     },
 });
