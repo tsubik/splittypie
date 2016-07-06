@@ -52,8 +52,9 @@ export default Ember.Service.extend({
         const id = properties.id;
         const eventId = properties.event;
 
-        return onlineStore.findRecord("event", eventId).then((event) => {
-            const transaction = event.get("transactions").findBy("id", id);
+        // return onlineStore.findRecord("event", eventId).then((event) => {
+        return onlineStore.findRecord("transaction", id).then((transaction) => {
+            // const transaction = event.get("transactions").findBy("id", id);
 
             if (transaction) {
                 transaction.updateModel(properties);
