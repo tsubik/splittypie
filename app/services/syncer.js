@@ -22,6 +22,8 @@ export default Ember.Service.extend({
 
         if (isOnline) {
             this.syncOnline();
+        } else {
+            this.removeAllListeners();
         }
     })),
 
@@ -83,10 +85,11 @@ export default Ember.Service.extend({
         const eventListeners = this.get("eventListeners");
         const eventId = onlineEvent.get("id");
         let isInitial = true;
-        let listener = eventListeners[eventId];
 
-        if (!listener) {
-            listener = onlineEvent.ref().on("value", (snapshot) => {
+        if (!eventListeners[eventId]) {
+            const ref = onlineEvent.ref();
+
+            onlineEvent.ref().on("value", (snapshot) => {
                 // don't listen for initial on value
                 if (isInitial) {
                     isInitial = false;
@@ -106,16 +109,24 @@ export default Ember.Service.extend({
                     );
                 });
             });
-            eventListeners[eventId] = listener;
+            eventListeners[eventId] = ref;
             this.set("eventListeners", eventListeners);
         }
     },
 
+    removeAllListeners() {
+        const eventListeners = this.get("eventListeners");
+        Object.keys(eventListeners).forEach((key) => {
+            eventListeners[key].off("value");
+            delete eventListeners[key];
+        });
+    },
+
     removeListener(eventId) {
         const eventListeners = this.get("eventListeners");
-
+        const ref = eventListeners[eventId];
+        ref.off("value");
         delete eventListeners[eventId];
-
         this.set("eventListeners", eventListeners);
     },
 });

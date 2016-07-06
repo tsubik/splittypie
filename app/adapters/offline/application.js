@@ -1,8 +1,8 @@
 import LFAdapter from "ember-localforage-adapter/adapters/localforage";
-import generateBase58 from "splittypie/utils/generate-base-58";
+import generateUniqueId from "splittypie/utils/generate-unique-id";
 
 export default LFAdapter.extend({
     generateIdForRecord() {
-        return generateBase58(5);
+        return generateUniqueId();
     },
 });
