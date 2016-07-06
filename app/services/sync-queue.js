@@ -75,7 +75,7 @@ export default Ember.Service.extend(Ember.Evented, {
                     this.processNext();
                 } else {
                     this.set("isProcessing", false);
-                    debug("FLUSHED");
+                    debug("Sync queue is flushed");
                     this.trigger("flushed");
                 }
             })

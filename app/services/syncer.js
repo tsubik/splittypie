@@ -87,6 +87,7 @@ export default Ember.Service.extend({
 
         if (!listener) {
             listener = onlineEvent.ref().on("value", (snapshot) => {
+                // don't listen for initial on value
                 if (isInitial) {
                     isInitial = false;
                     return;
@@ -97,7 +98,7 @@ export default Ember.Service.extend({
 
                 const onlineEventId = snapshot.key;
 
-                // some changes in firebase not coming from this application
+                // some changes in firebase not coming from this application instance
                 // schedule sync
                 Ember.run.once(() => {
                     this.get("store").findRecord("event", onlineEventId).then(
