@@ -52,7 +52,7 @@ export default Ember.Service.extend({
     },
 
     syncEvent(offlineEvent) {
-        return this.get("onlineStore").findRecord("event", offlineEvent.get("id"))
+        return this.get("onlineStore").findRecord("event", offlineEvent.get("id"), { reload: true })
             .then((onlineEvent) => {
                 const snapshot = onlineEvent._createSnapshot();
 
