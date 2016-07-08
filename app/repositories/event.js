@@ -7,9 +7,6 @@ export default Ember.Service.extend({
     onlineStore: service(),
     syncer: service(),
     syncQueue: service(),
-    connection: service(),
-    isOffline: Ember.computed.alias("connection.isOffline"),
-    isOnline: Ember.computed.alias("connection.isOnline"),
 
     find(id) {
         return new Ember.RSVP.Promise((resolve, reject) => {
@@ -53,11 +50,11 @@ export default Ember.Service.extend({
         });
     },
 
-    remove(event) {
+    destroy(event) {
         const id = event.get("id");
 
         return event.destroyRecord().then((result) => {
-            this.get("syncQueue").enqueue("removeEvent", { id });
+            this.get("syncQueue").enqueue("destroyEvent", { id });
 
             return result;
         });

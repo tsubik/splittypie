@@ -27,7 +27,7 @@ export default Ember.Route.extend({
     actions: {
         delete(transaction) {
             this.get("transactionRepository")
-                .remove(transaction)
+                .destroy(transaction)
                 .then(() => {
                     this.transitionTo("event.transactions");
                     this.get("notify").success("Transaction has been deleted.");

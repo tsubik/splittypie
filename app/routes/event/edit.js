@@ -31,7 +31,7 @@ export default Ember.Route.extend({
     actions: {
         delete(event) {
             this.get("eventRepository")
-                .remove(event)
+                .destroy(event)
                 .then(() => {
                     const storage = this.get("localStorage");
                     storage.removeItem("lastEventId");

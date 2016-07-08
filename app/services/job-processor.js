@@ -1,7 +1,10 @@
 import Ember from "ember";
 
-const { service } = Ember.inject;
-const { debug } = Ember.Logger;
+const {
+    assert,
+    inject: { service },
+    Logger: { debug },
+} = Ember;
 
 export default Ember.Service.extend({
     onlineStore: service(),
@@ -14,8 +17,7 @@ export default Ember.Service.extend({
         const method = this[jobType];
 
         debug(`processing job ${name} with payload: ${payload}`);
-
-        Ember.assert(`Job ${name} doesn't exists`, method);
+        assert(`Job ${name} doesn't exists`, method);
 
         return method.call(this, modelName, payload)
             .then((result) => {
@@ -23,7 +25,7 @@ export default Ember.Service.extend({
                 return result;
             })
             .catch((error) => {
-                debug("ERROR", error);
+                debug("Job processing error", error);
                 return error;
             });
     },
@@ -36,7 +38,6 @@ export default Ember.Service.extend({
         const normalized = serializer.normalize(modelClass, properties);
 
         debugger;
-
         return onlineStore.push(normalized).save();
     },
 
@@ -50,7 +51,7 @@ export default Ember.Service.extend({
         });
     },
 
-    remove(modelName, properties) {
+    destroy(modelName, properties) {
         const onlineStore = this.get("onlineStore");
         const id = properties.id;
 
