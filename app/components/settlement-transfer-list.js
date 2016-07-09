@@ -49,4 +49,10 @@ export default Ember.Component.extend({
 
         return transfers;
     }),
+
+    actions: {
+        settleUp(transfer) {
+            this.sendAction("settleUp", transfer);
+        },
+    },
 });

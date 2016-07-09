@@ -10,9 +10,10 @@ test("creating event", function (assert) {
     click("a:contains('Create New Event')");
     andThen(() => {
         // default values
-        assert.ok(find(".event-name option:selected").val() !== "", "currency default");
+        assert.ok(find(".event-currency option:selected").val() !== "", "currency default");
+        find(".event-currency").val("").trigger("change");
     });
-    fillIn(".event-currency", "");
+    // fillIn(".event-currency", "");
     click("button:contains('Create')");
     // validations
     andThen(() => {
@@ -23,7 +24,11 @@ test("creating event", function (assert) {
     });
 
     fillIn(".event-name", "Gift for John's Birthday");
-    fillIn(".event-currency", "USD");
+    // FIXME: temporary fix, fillIn doesn't work properly with select elements
+    andThen(() => {
+        find(".event-currency").val("USD").trigger("change");
+    });
+    // fillIn(".event-currency", "USD");
     fillIn(".user-name:eq(0)", "Billy");
     fillIn(".user-name:eq(1)", "Alice");
     click("button:contains('Create')");

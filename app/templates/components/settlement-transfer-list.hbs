@@ -9,6 +9,9 @@
           <span class="text-nowrap">
             {{transfer.amount}} {{transfer.currency.code}}
           </span>
+          <button class="btn btn-sm btn-success" {{action "settleUp" transfer}}>
+            Settle Up!
+          </button>
         </li>
       {{/each}}
     </div>

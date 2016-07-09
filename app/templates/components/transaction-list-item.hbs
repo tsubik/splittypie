@@ -2,11 +2,15 @@
   {{calendar-page date=transaction.date}}
 {{/if}}
 <div class="transaction-list-item-description">
-  <strong>{{transaction.payer.name}}</strong> paid for <em>{{transaction.name}}</em><br>
-  {{inline-svg "user" class="icon"}} <small>{{participants}}</small>
+  {{#if transaction.isTransfer}}
+    <strong>{{transaction.payer.name}}</strong> settled up with <strong>{{transaction.participants.firstObject.name}}</strong>
+  {{else}}
+    <strong>{{transaction.payer.name}}</strong> paid for <em>{{transaction.name}}</em><br>
+    {{inline-svg "user" class="icon"}} <small>{{participants}}</small>
+  {{/if}}
 </div>
 <div class="transaction-list-item-amount">
-  <h5>
+  <strong>
     {{transaction.amount}} {{transaction.event.currency.code}}
-  </h5>
+  </strong>
 </div>

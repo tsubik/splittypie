@@ -4,6 +4,9 @@ import Form from "splittypie/mixins/form";
 export default Ember.Object.extend(Form, {
     modelName: "event",
     innerForms: ["users"],
+
+    isOffline: Ember.computed.oneWay("model.isOffline"),
+
     validations: {
         name: {
             presence: true,

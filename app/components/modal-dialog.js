@@ -13,6 +13,10 @@ export default Ember.Component.extend({
         this.get("modal").one("hide", this, "onHide");
     },
 
+    willDestroyElement() {
+        this.onHide();
+    },
+
     onHide() {
         const $modal = this.$(".modal");
 

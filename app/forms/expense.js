@@ -27,7 +27,9 @@ export default Ember.Object.extend(Form, {
         this._super(...arguments);
         const model = this.get("model");
 
-        this.setProperties(model.getProperties("name", "date", "amount", "payer", "participants"));
+        this.setProperties(
+            model.getProperties("name", "isTransfer", "date", "amount", "payer", "participants")
+        );
         this.set("participants", model.getWithDefault("participants", []).toArray());
     },
 

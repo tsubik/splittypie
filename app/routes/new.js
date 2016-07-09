@@ -1,11 +1,15 @@
 import Ember from "ember";
 import countryToCurrencyCode from "splittypie/utils/country-to-currency-code";
 
+const { service } = Ember.inject;
+
 export default Ember.Route.extend({
-    userCountryCode: Ember.inject.service(),
-    localStorage: Ember.inject.service(),
+    userCountryCode: service(),
+    userContext: service(),
+    eventRepository: service(),
 
     model() {
+        // FIXME: Don't like this model building
         return Ember.RSVP.hash({
             defaultCurrency: this._getDefaultCurrency(),
             event: Ember.Object.create({
@@ -24,7 +28,7 @@ export default Ember.Route.extend({
             .then((countryCode) => {
                 const currencyCode = countryToCurrencyCode(countryCode) || "USD";
 
-                return this.store.find("currency", currencyCode);
+                return this.store.findRecord("currency", currencyCode);
             });
     },
 
@@ -40,15 +44,12 @@ export default Ember.Route.extend({
 
     actions: {
         modelUpdated(event) {
-            event.save()
+            this.get("eventRepository")
+                .save(event)
                 .then(() => {
-                    this.get("localStorage").push(
-                        "events",
-                        Ember.Object.create({
-                            id: event.id,
-                            name: event.get("name"),
-                            userId: event.get("users.firstObject.id"),
-                        })
+                    this.get("userContext").save(
+                        event.get("id"),
+                        event.get("users.firstObject.id")
                     );
                     this.transitionTo("event.index", event);
                 });

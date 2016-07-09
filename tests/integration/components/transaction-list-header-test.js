@@ -1,6 +1,7 @@
 import { moduleForComponent, test } from "ember-qunit";
 import hbs from "htmlbars-inline-precompile";
 import Ember from "ember";
+import extraTrim from "../../helpers/extra-trim";
 
 moduleForComponent("transaction-list-header", "Integration | Component | transaction list header", {
     integration: true,
@@ -31,5 +32,5 @@ test("it renders", function (assert) {
 
     this.render(hbs`{{transaction-list-header transactions=transactions currentUser=currentUser}}`);
 
-    assert.equal(this.$().text().trim(), "You've paid 200 USD of Total 500 USD");
+    assert.equal(extraTrim(this.$().text()), "Showing 2 expenses Total of 500 USD");
 });

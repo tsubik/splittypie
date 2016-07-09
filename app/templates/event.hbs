@@ -1,6 +1,13 @@
-{{#mobile-toolbar}}
+{{#mobile-toolbar class="no-borders"}}
   {{side-menu-toggle-custom}}
   <span class="navbar-brand">{{model.name}}</span>
+  <button {{action "toggleConnection"}} class="navbar-btn btn btn-link">
+    {{#if connection.isOffline}}
+      On
+    {{else}}
+      Off
+    {{/if}}
+  </button>
   <button {{action "share"}} class="navbar-btn btn btn-link">
     {{inline-svg "share" class="icon"}}
   </button>
@@ -39,6 +46,12 @@
   {{#nav-link-to "event.transactions"}}Transactions{{/nav-link-to}}
 </ul>
 
-{{liquid-outlet}}
+{{#if isMobile}}
+  <div class="event-container">
+    {{outlet}}
+  </div>
+{{else}}
+  {{liquid-outlet class="event-container"}}
+{{/if}}
 
 {{add-transaction-button event=model}}

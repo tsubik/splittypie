@@ -1,9 +1,11 @@
 import DS from "ember-data";
 import Ember from "ember";
+import ModelMixin from "splittypie/mixins/model-mixin";
 
-export default DS.Model.extend({
+export default DS.Model.extend(ModelMixin, {
     name: DS.attr("string"),
-    currency: DS.belongsTo("currency", { async: false }),
+    isOffline: DS.attr("boolean"),
+    currency: DS.belongsTo("currency", { async: true }),
     users: DS.hasMany("user", { async: false }),
     transactions: DS.hasMany("transaction", { async: false }),
     url: Ember.computed("id", function () {

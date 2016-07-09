@@ -1,7 +1,6 @@
 /* eslint-disable global-require */
 
 import Ember from "ember";
-import Firebase from "firebase";
 
 const toArray = function (firebaseObject) {
     const results = [];
@@ -21,8 +20,7 @@ const toArray = function (firebaseObject) {
 export default Ember.Test.registerAsyncHelper(
     "runWithTestData",
     function (app, dumpName, functionToRun) {
-        const firebaseRef = app.testFirebase;
-        const eventsRef = new Firebase(`${firebaseRef}/events`);
+        const eventsRef = app.__container__.lookup("service:firebaseApp").database().ref("events");
         const dump = require(`splittypie/tests/fixtures/${dumpName}`).default;
         const events = toArray(dump.events);
 

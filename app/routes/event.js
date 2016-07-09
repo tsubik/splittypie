@@ -1,4 +1,5 @@
 import Ember from "ember";
+import isMobile from "splittypie/utils/is-mobile";
 
 const { service } = Ember.inject;
 
@@ -7,26 +8,25 @@ export default Ember.Route.extend({
     userContext: service(),
     modal: service(),
     notify: service(),
+    eventRepository: service(),
+    connection: service(),
+    syncer: service(),
 
     model(params) {
-        return this.store.find("event", params.event_id);
+        return this.get("eventRepository").find(params.event_id);
     },
 
     afterModel(model) {
         const storage = this.get("localStorage");
-        const eventLS = storage.find("events", model.id);
-
         storage.setItem("lastEventId", model.id);
+    },
 
-        if (!(eventLS && eventLS.userId)) {
+    redirect(model) {
+        const currentUser = this.get("userContext").load(model);
+
+        if (!currentUser) {
             this.transitionTo("event.who-are-you");
-        } else {
-            return this.store.find("user", eventLS.userId).then((currentUser) => {
-                this.get("userContext").set("currentUser", currentUser);
-            });
         }
-
-        return null;
     },
 
     setupController(controller) {
@@ -35,6 +35,7 @@ export default Ember.Route.extend({
 
         controller.setProperties({
             events,
+            isMobile: isMobile(),
         });
     },
 
@@ -57,8 +58,17 @@ export default Ember.Route.extend({
         switchUser(user) {
             const event = this.modelFor("event");
 
-            this.get("userContext").changeUserContext(event, user);
+            this.get("userContext").change(event, user);
             this.get("notify").success(`Now you are watching this event as ${user.get("name")}`);
+        },
+
+        // FIXME: REMOVE THIS, ONLY FOR TESTING
+        toggleConnection() {
+            if (this.get("connection.isOffline")) {
+                this.set("connection.state", "online");
+            } else {
+                this.set("connection.state", "offline");
+            }
         },
 
         error(error, transition) {
@@ -66,6 +76,7 @@ export default Ember.Route.extend({
             const storage = this.get("localStorage");
             const lastEventId = storage.getItem("lastEventId");
 
+            // FIXME: Do this better
             if (error.message &&
                 error.message.indexOf("no record was found") > -1
                 && eventId === lastEventId) {

@@ -1,11 +1,14 @@
 import Ember from "ember";
 
+const { computed } = Ember;
+
 export default Ember.Component.extend({
     tagName: "div",
     classNames: ["list-group"],
 
-    anyTransactions: Ember.computed.notEmpty("transactions"),
-    transactionsByMonth: Ember.computed("transactions.[]", function () {
+    expenses: computed.filterBy("transactions", "typeOrDefault", "expense"),
+    anyTransactions: computed.notEmpty("transactions"),
+    transactionsByMonth: computed("transactions.[]", function () {
         const result = [];
         const transactions = this.get("transactions").sortBy("date").reverse();
 
@@ -24,7 +27,7 @@ export default Ember.Component.extend({
 
         return result;
     }),
-    anyTransactionWithDate: Ember.computed("transactions.[]", function () {
+    anyTransactionWithDate: computed("transactions.[]", function () {
         const transactions = this.get("transactions");
 
         return transactions.any(transaction => !!transaction.get("date"));

@@ -1,0 +1,27 @@
+import Ember from "ember";
+
+export default Ember.Service.extend({
+    state: "offline",
+    isOnline: Ember.computed.equal("state", "online"),
+    isOffline: Ember.computed.equal("state", "offline"),
+
+    init() {
+        this._super(...arguments);
+        this.set("state", navigator.onLine ? "online" : "offline");
+        this._onOfflineHandler = () => {
+            this.set("state", "offline");
+        };
+        this._onOnlineHandler = () => {
+            this.set("state", "online");
+        };
+
+        window.addEventListener("offline", this._onOfflineHandler);
+        window.addEventListener("online", this._onOnlineHandler);
+    },
+
+    destroy() {
+        window.removeEventListener("offline", this._onOfflineHandler);
+        window.removeEventListener("online", this._onOnlineHandler);
+        this._super(...arguments);
+    },
+});

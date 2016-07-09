@@ -13,7 +13,7 @@ export default Ember.Route.extend({
         chooseUser(user) {
             const event = this.modelFor("event");
 
-            this.get("userContext").changeUserContext(event, user);
+            this.get("userContext").change(event, user);
             this.transitionTo("event.index", event);
         },
     },

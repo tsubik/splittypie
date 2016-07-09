@@ -4,16 +4,18 @@ const { service } = Ember.inject;
 
 export default Ember.Route.extend({
     notify: service(),
+    transactionRepository: service(),
 
     model(params) {
-        return this.store.find("transaction", params.transaction_id);
+        return this.store.findRecord("transaction", params.transaction_id);
     },
 
     setupController(controller, model) {
         this._super(controller, model);
-        const transactionForm = this.get("formFactory").createForm("transaction", model);
+        const type = model.get("type") || "expense";
+        const form = this.get("formFactory").createForm(type, model);
         controller.setProperties({
-            transaction: transactionForm,
+            form,
             users: this.modelFor("event").get("users"),
         });
     },
@@ -24,22 +26,23 @@ export default Ember.Route.extend({
 
     actions: {
         delete(transaction) {
-            const event = this.modelFor("event");
-
-            event.get("transactions").removeObject(transaction);
-            event.save().then(() => {
-                this.transitionTo("event.transactions");
-                this.get("notify").success("Transaction has been deleted.");
-            });
+            this.get("transactionRepository")
+                .destroy(transaction)
+                .then(() => {
+                    this.transitionTo("event.transactions");
+                    this.get("notify").success("Transaction has been deleted.");
+                });
         },
 
-        modelUpdated() {
+        modelUpdated(transaction) {
             const event = this.modelFor("event");
 
-            event.save().then(() => {
-                this.transitionTo("event.transactions");
-                this.get("notify").success("Transaction has been changed.");
-            });
+            this.get("transactionRepository")
+                .save(event, transaction)
+                .then(() => {
+                    this.transitionTo("event.transactions");
+                    this.get("notify").success("Transaction has been changed.");
+                });
         },
     },
 });

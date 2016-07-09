@@ -6,18 +6,23 @@ export default Ember.Service.extend({
     localStorage: service(),
     currentUser: null,
 
-    changeUserContext(event, user) {
-        const localStorage = this.get("localStorage");
+    save(eventId, userId) {
+        this.get("localStorage").setItem(`event-${eventId}-current-user`, userId);
+    },
 
-        localStorage.push(
-            "events",
-            Ember.Object.create({
-                id: event.get("id"),
-                name: event.get("name"),
-                userId: user.get("id"),
-            })
-        );
+    load(event) {
+        const userId = this.get("localStorage").getItem(`event-${event.get("id")}-current-user`);
+        const user = event.get("users").findBy("id", userId);
 
+        if (user) {
+            this.set("currentUser", user);
+        }
+
+        return user;
+    },
+
+    change(event, user) {
+        this.save(event.get("id"), user.get("id"));
         this.set("currentUser", user);
     },
 });
