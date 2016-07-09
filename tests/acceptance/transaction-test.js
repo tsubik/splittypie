@@ -7,7 +7,7 @@ test("adding new transaction", function (assert) {
     runWithTestData("without-transactions", (events) => {
         const event = events[0];
 
-        setEventAsViewed(event, "Alice");
+        identifyUserAs(event, "Alice");
 
         visit(`/${event.id}/transactions`);
         andThen(() => {
@@ -62,7 +62,7 @@ test("editing/removing transaction", function (assert) {
     runWithTestData("default", (events) => {
         const event = events[0];
 
-        setEventAsViewed(event, "Alice");
+        identifyUserAs(event, "Alice");
 
         visit(`/${event.id}/transactions`);
         andThen(() => {

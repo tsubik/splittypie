@@ -46,8 +46,6 @@ test("creating event", function (assert) {
 });
 
 test("identifying user on first visit", function (assert) {
-    window.localStorage.removeItem("events");
-
     runWithTestData("default", (events) => {
         const event = events[0];
 
@@ -71,7 +69,7 @@ test("changing user context", function (assert) {
     runWithTestData("default", (events) => {
         const event = events[0];
 
-        setEventAsViewed(event, "Alice");
+        identifyUserAs(event, "Alice");
         visit(`/${event.id}`);
 
         andThen(() => {
@@ -102,8 +100,8 @@ test("changing event context", function (assert) {
         const event = events[0];
         const event2 = events[1];
 
-        setEventAsViewed(event, "Alice");
-        setEventAsViewed(event2, "Tomasz");
+        identifyUserAs(event, "Alice");
+        identifyUserAs(event2, "Tomasz");
 
         visit(`/${event.id}`);
 
@@ -128,7 +126,7 @@ test("editing event", function (assert) {
     runWithTestData("default", (events) => {
         const event = events[0];
 
-        setEventAsViewed(event, "Alice");
+        identifyUserAs(event, "Alice");
         visit(`/${event.id}/edit`);
 
         fillIn(".event-currency", "EUR");

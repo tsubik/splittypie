@@ -7,7 +7,10 @@ export default function (name, options = {}) {
         beforeEach() {
             this.application = startApp({});
             this.store = this.application.__container__.lookup("service:store");
+            const adapter = this.application.__container__.lookup("adapter:offline/application");
+            adapter.get("cache").clear();
             window.localStorage.clear();
+            window.localforage.clear();
 
             if (options.beforeEach) {
                 options.beforeEach.apply(this, arguments);
@@ -17,6 +20,7 @@ export default function (name, options = {}) {
         afterEach() {
             destroyApp(this.application);
             window.localStorage.clear();
+            window.localforage.clear();
 
             if (options.afterEach) {
                 options.afterEach.apply(this, arguments);

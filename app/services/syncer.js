@@ -37,7 +37,7 @@ export default Ember.Service.extend(Ember.Evented, {
         this.set("isSyncing", true);
         this._reloadOnlineStore()
             .then(this._flushSyncQueue.bind(this))
-            .then(this._replaceOfflineEvents.bind(this))
+            .then(this._updateOfflineStore.bind(this))
             .finally(() => {
                 this.set("isSyncing", false);
             });
@@ -57,8 +57,8 @@ export default Ember.Service.extend(Ember.Evented, {
         return this.get("syncQueue").flush();
     },
 
-    _replaceOfflineEvents() {
-        debug("Replacing Offline Events");
+    _updateOfflineStore() {
+        debug("Updating Offline Store");
 
         return this.get("store")
             .findAll("event")

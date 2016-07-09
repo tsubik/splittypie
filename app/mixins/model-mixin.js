@@ -30,7 +30,7 @@ export default Ember.Mixin.create({
                     if (array.length === 0) {
                         result = null;
                     } else if (typeof array[0] === "object") {
-                        result = this.synchronizeWithNewArray(modelName, name, array);
+                        result = this._synchronizeWithNewArray(modelName, name, array);
                     } else {
                         result = this.store.peekAll(modelName).filter(
                             (item) => array.indexOf(item.get("id")) > -1
