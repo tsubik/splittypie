@@ -19,12 +19,12 @@ module.exports = function (environment) {
             output: "app.html",
             content: [{
                 key: "index-preload",
-                file: "index-preload.html",
+                file: "preloaders/index-preload.html",
                 includeInIndexHtml: true,
                 includeInOutput: false,
             }, {
                 key: "app-preload",
-                file: "app-preload.html",
+                file: "preloaders/app-preload.html",
                 includeInIndexHtml: false,
                 includeInOutput: true,
             }],
