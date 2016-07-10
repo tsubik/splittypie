@@ -17,11 +17,7 @@ export default Ember.Service.extend(Ember.Evented, {
 
     enqueue(name, payload) {
         debug(`creating offline job for ${name}: ${payload}`);
-        const job = this.get("store").createRecord("sync-job", {
-            name,
-            payload: JSON.stringify(payload),
-        });
-        job.save();
+        const job = this._createJob(name, payload);
 
         if (this.get("connection.isOnline")) {
             this.get("pendingJobs").addObject(job);
@@ -52,11 +48,11 @@ export default Ember.Service.extend(Ember.Evented, {
         const isProcessing = this.get("isProcessing");
 
         if (!isProcessing) {
-            this.processNext();
+            this._processNext();
         }
     }),
 
-    processNext() {
+    _processNext() {
         const jobProcessor = this.get("jobProcessor");
         const pendingJobs = this.get("pendingJobs");
         const job = pendingJobs.objectAt(0);
@@ -73,7 +69,7 @@ export default Ember.Service.extend(Ember.Evented, {
                 const anyNextJobs = this.get("pendingJobs.length") > 0;
                 job.destroyRecord();
                 if (anyNextJobs) {
-                    this.processNext();
+                    this._processNext();
                 } else {
                     this.set("isProcessing", false);
                     debug("Sync queue is flushed");
@@ -83,5 +79,15 @@ export default Ember.Service.extend(Ember.Evented, {
             .catch((error) => {
                 debug("ERROR", error);
             });
+    },
+
+    _createJob(name, payload) {
+        const job = this.get("store").createRecord("sync-job", {
+            name,
+            payload: JSON.stringify(payload),
+        });
+        job.save();
+
+        return job;
     },
 });

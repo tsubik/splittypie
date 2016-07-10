@@ -61,6 +61,8 @@
     "ember-pikaday": "1.1.0",
     "ember-resolver": "2.0.3",
     "ember-side-menu": "0.0.3",
+    "ember-sinon": "0.5.1",
+    "ember-sinon-qunit": "1.3.3",
     "ember-validations": "2.0.0-alpha.4",
     "ember-wormhole": "0.4.0",
     "emberfire": "git://github.com/firebase/emberfire.git#master",

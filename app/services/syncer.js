@@ -35,7 +35,7 @@ export default Ember.Service.extend(Ember.Evented, {
     syncOnline() {
         debug("Starting online full sync");
         this.set("isSyncing", true);
-        this._reloadOnlineStore()
+        return this._reloadOnlineStore()
             .then(this._flushSyncQueue.bind(this))
             .then(this._updateOfflineStore.bind(this))
             .finally(() => {

@@ -14,7 +14,7 @@ export default Ember.Service.extend({
         const name = job.get("name");
         const payload = JSON.parse(job.get("payload"));
         const [jobType, modelName] = name.split(/(?=[A-Z])/);
-        const method = this[jobType];
+        const method = this.commands[jobType];
 
         debug(`processing job ${name} with payload: ${payload}`);
         assert(`Job ${name} doesn't exists`, method);
@@ -30,30 +30,32 @@ export default Ember.Service.extend({
             });
     },
 
-    create(modelName, properties) {
-        const onlineStore = this.get("onlineStore");
-        const offlineStore = this.get("store");
-        const modelClass = offlineStore.modelFor(modelName);
-        const serializer = offlineStore.serializerFor(modelName);
-        const normalized = serializer.normalize(modelClass, properties);
+    commands: {
+        create(modelName, properties) {
+            const onlineStore = this.get("onlineStore");
+            const offlineStore = this.get("store");
+            const modelClass = offlineStore.modelFor(modelName);
+            const serializer = offlineStore.serializerFor(modelName);
+            const normalized = serializer.normalize(modelClass, properties);
 
-        return onlineStore.push(normalized).save();
-    },
+            return onlineStore.push(normalized).save();
+        },
 
-    update(modelName, properties) {
-        const onlineStore = this.get("onlineStore");
-        const id = properties.id;
+        update(modelName, properties) {
+            const onlineStore = this.get("onlineStore");
+            const id = properties.id;
 
-        return onlineStore.findRecord(modelName, id).then((record) => {
-            record.updateModel(properties);
-            return record.save();
-        });
-    },
+            return onlineStore.findRecord(modelName, id).then((record) => {
+                record.updateModel(properties);
+                return record.save();
+            });
+        },
 
-    destroy(modelName, properties) {
-        const onlineStore = this.get("onlineStore");
-        const id = properties.id;
+        destroy(modelName, properties) {
+            const onlineStore = this.get("onlineStore");
+            const id = properties.id;
 
-        return onlineStore.findRecord(modelName, id).then((record) => record.destroyRecord());
+            return onlineStore.findRecord(modelName, id).then((record) => record.destroyRecord());
+        },
     },
 });

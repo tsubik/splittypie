@@ -7,7 +7,7 @@ export default Ember.Service.extend({
 
     init() {
         this._super(...arguments);
-        this.set("state", navigator.onLine ? "online" : "offline");
+        this.set("state", window.navigator.onLine ? "online" : "offline");
         this._onOfflineHandler = () => {
             this.set("state", "offline");
         };
