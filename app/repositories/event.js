@@ -50,7 +50,7 @@ export default Ember.Service.extend({
         });
     },
 
-    destroy(event) {
+    remove(event) {
         const id = event.get("id");
 
         return event.destroyRecord().then((result) => {

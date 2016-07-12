@@ -20,6 +20,7 @@ export default Ember.Service.extend(Ember.Evented, {
         const job = this._createJob(name, payload);
 
         if (this.get("connection.isOnline")) {
+            debug(`adding job ${name} to pendingJobs array`);
             this.get("pendingJobs").addObject(job);
         }
     },

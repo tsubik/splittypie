@@ -3,13 +3,8 @@ import { moduleFor, test } from "ember-qunit";
 moduleFor("service:connection", "Unit | Service | connection", {
 });
 
-function fakeOffline() {
-    const event = new window.Event("offline");
-    window.dispatchEvent(event);
-}
-
-function fakeOnline() {
-    const event = new window.Event("online");
+function changeConnectionStateTo(state) {
+    const event = new window.Event(state);
     window.dispatchEvent(event);
 }
 
@@ -24,11 +19,11 @@ test("it has current navigator status", function (assert) {
 
 test("it changes state to online if connection state online", function (assert) {
     const service = this.subject();
-    fakeOffline();
+    changeConnectionStateTo("offline");
 
     assert.equal(service.get("state"), "offline");
 
-    fakeOnline();
+    changeConnectionStateTo("online");
 
     assert.equal(service.get("state"), "online");
 });

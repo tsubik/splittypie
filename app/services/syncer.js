@@ -39,7 +39,9 @@ export default Ember.Service.extend(Ember.Evented, {
             .then(this._flushSyncQueue.bind(this))
             .then(this._updateOfflineStore.bind(this))
             .finally(() => {
+                debug("Full sync has been completed");
                 this.set("isSyncing", false);
+                this.trigger("syncCompleted");
             });
     },
 
