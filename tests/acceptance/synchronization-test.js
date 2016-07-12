@@ -37,11 +37,11 @@ function createEvent(store) {
 
 function simulateDelay(miliseconds) {
     return new Promise((resolve) => {
-        run.later(() => resolve(), miliseconds);
+        run.later(resolve, miliseconds);
     });
 }
 
-function waitForSyncQueueFlushed() {
+function waitForSyncQueueToFlush() {
     return new Promise((resolve) => {
         this.syncQueue.one("flushed", resolve);
     });
@@ -51,13 +51,12 @@ function syncOnline() {
     this.connection.set("state", "online");
 
     return new Promise((resolve) => {
-        this.syncer.one("syncCompleted", () => {
-            resolve();
-        });
+        this.syncer.one("syncCompleted", resolve);
     });
 }
 
 test("creates event in both stores when online", function (assert) {
+    assert.expect(2);
     let event;
 
     andThen(() => {
@@ -74,6 +73,7 @@ test("creates event in both stores when online", function (assert) {
 });
 
 test("creates event in offline store first and then moves to online", function (assert) {
+    assert.expect(3);
     let event;
 
     this.connection.set("state", "offline");
@@ -92,7 +92,7 @@ test("creates event in offline store first and then moves to online", function (
         );
         this.connection.set("state", "online");
     });
-    andThen(waitForSyncQueueFlushed.bind(this));
+    andThen(waitForSyncQueueToFlush.bind(this));
     andThen(() => {
         assert.ok(!!this.onlineStore.peekRecord("event", event.get("id")), "event in online store");
     });
@@ -112,9 +112,7 @@ test("store event in offline store if not present and fetching from online", fun
                     assert.notOk(found, "no event found in offline store");
                 });
         });
-        andThen(() => {
-            return this.eventRepository.find(event.id);
-        });
+        andThen(() => this.eventRepository.find(event.id));
         andThen(() => {
             return this.offlineStore.findRecord("event", event.id)
                 .then(() => true)
@@ -125,6 +123,8 @@ test("store event in offline store if not present and fetching from online", fun
 });
 
 test("deletes event from both stores when online", function (assert) {
+    assert.expect(4);
+
     runWithTestData("default", (events) => {
         const eventId = events[0].id;
         let event;
@@ -141,7 +141,7 @@ test("deletes event from both stores when online", function (assert) {
             assert.ok(!!this.offlineStore.peekRecord("event", eventId), "exists offline");
         });
         andThen(() => this.eventRepository.remove(event));
-        andThen(waitForSyncQueueFlushed.bind(this));
+        andThen(waitForSyncQueueToFlush.bind(this));
         andThen(() => {
             assert.notOk(
                 !!this.onlineStore.peekRecord("event", eventId), "doesn't exist online"
@@ -182,7 +182,7 @@ test("removes event from offline store first and from online when online", funct
             );
             this.connection.set("state", "online");
         });
-        andThen(waitForSyncQueueFlushed.bind(this));
+        andThen(waitForSyncQueueToFlush.bind(this));
         andThen(() => {
             assert.notOk(
                 !!this.onlineStore.peekRecord("event", eventId),
@@ -224,7 +224,7 @@ test("synchronize event local changes to online store", function (assert) {
             );
             this.connection.set("state", "online");
         });
-        andThen(waitForSyncQueueFlushed.bind(this));
+        andThen(waitForSyncQueueToFlush.bind(this));
         andThen(() => {
             const offEvent = this.offlineStore.peekRecord("event", eventId);
             const onEvent = this.onlineStore.peekRecord("event", eventId);
@@ -265,6 +265,7 @@ test("synchronize event online changes to offline store", function (assert) {
 // Transactions
 
 test("creates transaction in offline store first and then moves to online", function (assert) {
+    assert.expect(4);
     let transaction;
 
     andThen(() => {
@@ -354,6 +355,8 @@ test("removes transaction from offline store first and online when online", func
 });
 
 test("synchronize transaction local changes to online store", function (assert) {
+    assert.expect(4);
+
     runWithTestData("default", (events) => {
         const eventId = events[0].id;
         let transaction;
@@ -400,6 +403,8 @@ test("synchronize transaction local changes to online store", function (assert) 
 });
 
 test("synchronize transaction online changes to offline store", function (assert) {
+    assert.expect(2);
+
     runWithTestData("default", (events) => {
         const eventId = events[0].id;
         let transactionId;
