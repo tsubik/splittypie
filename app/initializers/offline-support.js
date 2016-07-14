@@ -1,4 +1,4 @@
-/* eslint-disable no-param-reassign */
+/* eslint-disable no-param-reassign, max-len */
 import Ember from "ember";
 
 const { log } = Ember.Logger;
@@ -20,7 +20,10 @@ export default {
                             log("Service Worker Installed.");
 
                             if (isUpdate) {
-                                notify.info("App updated. Restart for the new version.");
+                                notify.info(
+                                    "Application has been updated. Please reload page for the new version.",
+                                    { closeAfter: null }
+                                );
                             } else {
                                 notify.success("App ready for offline use.");
                             }
