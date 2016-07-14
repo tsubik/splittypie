@@ -62,15 +62,6 @@ export default Ember.Route.extend({
             this.get("notify").success(`Now you are watching this event as ${user.get("name")}`);
         },
 
-        // FIXME: REMOVE THIS, ONLY FOR TESTING
-        toggleConnection() {
-            if (this.get("connection.isOffline")) {
-                this.set("connection.state", "online");
-            } else {
-                this.set("connection.state", "offline");
-            }
-        },
-
         error(error, transition) {
             const eventId = transition.params.event.event_id;
             const storage = this.get("localStorage");
