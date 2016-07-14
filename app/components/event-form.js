@@ -7,7 +7,9 @@ export default Ember.Component.extend(FormComponent, {
     isSubmitted: Ember.computed.oneWay("event.isSubmitted"),
 
     didInsertElement() {
-        this.$(".event-name").focus();
+        if (this.get("formObject.isNew")) {
+            this.$(".event-name").focus();
+        }
     },
 
     actions: {
