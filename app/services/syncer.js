@@ -6,9 +6,10 @@ const {
     computed: { alias },
     observer,
     on,
+    Service,
 } = Ember;
 
-export default Ember.Service.extend(Ember.Evented, {
+export default Service.extend(Ember.Evented, {
     store: service(),
     onlineStore: service(),
     connection: service(),

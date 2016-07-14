@@ -1,9 +1,14 @@
 import Ember from "ember";
 
-export default Ember.Service.extend({
+const {
+    computed: { equal },
+    Service,
+} = Ember;
+
+export default Service.extend({
     state: "offline",
-    isOnline: Ember.computed.equal("state", "online"),
-    isOffline: Ember.computed.equal("state", "offline"),
+    isOnline: equal("state", "online"),
+    isOffline: equal("state", "offline"),
 
     init() {
         this._super(...arguments);

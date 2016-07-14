@@ -1,6 +1,8 @@
 import DS from "ember-data";
 
-export default DS.Store.extend({
+const { Store } = DS;
+
+export default Store.extend({
     adapter: "offline/application",
 
     serializerFor(modelName) {

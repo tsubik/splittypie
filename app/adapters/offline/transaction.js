@@ -7,9 +7,7 @@ const {
 } = Ember;
 
 export default LFAdapter.extend({
-    generateIdForRecord() {
-        return generateUniqueId();
-    },
+    generateIdForRecord: generateUniqueId,
 
     updateRecord() {
         return resolve();
