@@ -8,6 +8,7 @@ module.exports = function (environment) {
         environment,
         contentSecurityPolicy: {
             "default-src": "'self'",
+            "frame-src": "'self' https://*.firebaseio.com",
             "connect-src": "'self' https://geoip.nekudo.com https://auth.firebase.com wss://*.firebaseio.com",
             "script-src": "'self' 'unsafe-inline' https://*.rollbar.com https://*.firebaseio.com https://www.google-analytics.com",
             "style-src": "'self' 'unsafe-inline' https://fonts.googleapis.com",

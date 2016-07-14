@@ -17,12 +17,12 @@ export default Ember.Service.extend(Ember.Evented, {
 
     enqueue(name, payload) {
         debug(`creating offline job for ${name}: ${payload}`);
-        const job = this._createJob(name, payload);
-
-        if (this.get("connection.isOnline")) {
-            debug(`adding job ${name} to pendingJobs array`);
-            this.get("pendingJobs").addObject(job);
-        }
+        this._createAndSaveJob(name, payload).then((job) => {
+            if (this.get("connection.isOnline")) {
+                debug(`adding job ${name} to pendingJobs array`);
+                this.get("pendingJobs").addObject(job);
+            }
+        });
     },
 
     flush() {
@@ -82,13 +82,12 @@ export default Ember.Service.extend(Ember.Evented, {
             });
     },
 
-    _createJob(name, payload) {
+    _createAndSaveJob(name, payload) {
         const job = this.get("store").createRecord("sync-job", {
             name,
             payload: JSON.stringify(payload),
         });
-        job.save();
 
-        return job;
+        return job.save();
     },
 });
