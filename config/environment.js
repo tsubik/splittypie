@@ -36,7 +36,7 @@ module.exports = function (environment) {
         serviceWorker: {
             enabled: true,
             debug: true,
-            serviceWorkerFile: "offline-support.js",
+            serviceWorkerFile: "offline_support.js",
             includeRegistration: false, // registering in app/initializers/offline-support
             precacheURLs: [
                 "/app.html",
