@@ -61,6 +61,7 @@ test("adding new transaction", function (assert) {
 test("editing/removing transaction", function (assert) {
     runWithTestData("default", (events) => {
         const event = events[0];
+        const BobId = "-KC0KtcY5FmUSrGOMHkE";
 
         identifyUserAs(event, "Alice");
 
@@ -78,14 +79,10 @@ test("editing/removing transaction", function (assert) {
         });
 
         click(".transaction-list-item");
-        andThen(() => {
-            const BobId = find(".transaction-payer select option:contains('Bob')").val();
-
-            fillIn(".transaction-payer", BobId);
-            fillIn(".transaction-name", "special");
-            fillIn(".transaction-amount", "50");
-            click("button:contains('Save')");
-        });
+        fillIn(".transaction-payer", BobId);
+        fillIn(".transaction-name", "special");
+        fillIn(".transaction-amount", "50");
+        click("button:contains(Save)");
 
         reloadPage();
         andThen(() => {

@@ -17,7 +17,7 @@ export default Ember.Service.extend(Ember.Evented, {
 
     enqueue(name, payload) {
         debug(`creating offline job for ${name}: ${payload}`);
-        this._createAndSaveJob(name, payload).then((job) => {
+        return this._createAndSaveJob(name, payload).then((job) => {
             if (this.get("connection.isOnline")) {
                 debug(`adding job ${name} to pendingJobs array`);
                 this.get("pendingJobs").addObject(job);

@@ -62,9 +62,9 @@ sinonTest("enqueue creates new job and saves to offline store", function (assert
     this.stub(service.store, "createRecord").returns(model);
 
     run(() => {
-        service.enqueue("jobname", {});
-
-        assert.ok(modelSaveSpy.calledOnce);
+        service.enqueue("jobname", {}).then(() => {
+            assert.ok(modelSaveSpy.calledOnce);
+        });
     });
 });
 
@@ -73,12 +73,13 @@ sinonTest("enqueue add to pendingJobs if connection online", function (assert) {
 
     const service = this.subject();
     const pendingJobsDidChangeSpy = this.spy(service, "pendingJobsDidChange");
+    const processNextSpy = this.spy(service, "_processNext");
 
     run(() => {
-        service.enqueue("testjob", {});
-
-        assert.equal(service.get("pendingJobs.length"), 1);
-        assert.ok(pendingJobsDidChangeSpy.calledOnce);
+        service.enqueue("testjob", {}).then(() => {
+            assert.ok(pendingJobsDidChangeSpy.calledTwice);
+            assert.ok(processNextSpy.calledOnce);
+        });
     });
 });
 
@@ -88,12 +89,13 @@ sinonTest("enqueue doesn't add to pendingJobs if connection offline", function (
     const service = this.subject();
     service.get("connection").set("state", "offline");
     const pendingJobsDidChangeSpy = this.spy(service, "pendingJobsDidChange");
+    const processNextSpy = this.spy(service, "_processNext");
 
     run(() => {
-        service.enqueue("testjob", {});
-
-        assert.equal(service.get("pendingJobs.length"), 0);
-        assert.equal(pendingJobsDidChangeSpy.callCount, 0);
+        service.enqueue("testjob", {}).then(() => {
+            assert.equal(pendingJobsDidChangeSpy.callCount, 0);
+            assert.equal(processNextSpy.callCount, 0);
+        });
     });
 });
 
