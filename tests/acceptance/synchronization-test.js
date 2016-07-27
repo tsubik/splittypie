@@ -5,8 +5,7 @@ import { test } from "qunit";
 import moduleForAcceptance from "splittypie/tests/helpers/module-for-acceptance";
 
 const {
-    debug,
-    run,
+    run: { later },
     RSVP: { Promise },
 } = Ember;
 
@@ -37,13 +36,7 @@ function createEvent(store) {
 
 function simulateDelay(miliseconds) {
     return new Promise((resolve) => {
-        run.later(resolve, miliseconds);
-    });
-}
-
-function waitForSyncQueueToFlush() {
-    return new Promise((resolve) => {
-        this.syncQueue.one("flushed", resolve);
+        later(resolve, miliseconds);
     });
 }
 
@@ -90,9 +83,8 @@ test("creates event in offline store first and then moves to online", function (
         assert.notOk(
             !!this.onlineStore.peekRecord("event", event.get("id")), "event not in online store"
         );
-        this.connection.set("state", "online");
     });
-    andThen(waitForSyncQueueToFlush.bind(this));
+    runAndWaitForSyncQueueToFlush(() => this.connection.set("state", "online"));
     andThen(() => {
         assert.ok(!!this.onlineStore.peekRecord("event", event.get("id")), "event in online store");
     });
@@ -140,8 +132,7 @@ test("deletes event from both stores when online", function (assert) {
             assert.ok(!!this.onlineStore.peekRecord("event", eventId), "exists online");
             assert.ok(!!this.offlineStore.peekRecord("event", eventId), "exists offline");
         });
-        andThen(() => this.eventRepository.remove(event));
-        andThen(waitForSyncQueueToFlush.bind(this));
+        runAndWaitForSyncQueueToFlush(() => this.eventRepository.remove(event));
         andThen(() => {
             assert.notOk(
                 !!this.onlineStore.peekRecord("event", eventId), "doesn't exist online"
@@ -180,9 +171,8 @@ test("removes event from offline store first and from online when online", funct
                 !!this.offlineStore.peekRecord("event", eventId),
                 "doesn't exist offline"
             );
-            this.connection.set("state", "online");
         });
-        andThen(waitForSyncQueueToFlush.bind(this));
+        runAndWaitForSyncQueueToFlush(() => this.connection.set("state", "online"));
         andThen(() => {
             assert.notOk(
                 !!this.onlineStore.peekRecord("event", eventId),
@@ -222,9 +212,8 @@ test("synchronize event local changes to online store", function (assert) {
             assert.equal(
                 onEvent.get("name"), "Trip to Barcelona", "online event not changed"
             );
-            this.connection.set("state", "online");
         });
-        andThen(waitForSyncQueueToFlush.bind(this));
+        runAndWaitForSyncQueueToFlush(() => this.connection.set("state", "online"));
         andThen(() => {
             const offEvent = this.offlineStore.peekRecord("event", eventId);
             const onEvent = this.onlineStore.peekRecord("event", eventId);
@@ -341,7 +330,6 @@ test("removes transaction from offline store first and online when online", func
         });
         andThen(syncOnline.bind(this));
         andThen(() => {
-            debug("LAST ASSE");
             assert.notOk(
                 !!this.offlineStore.peekRecord("transaction", transactionToRemoveId),
                 "doesn't exist offline"

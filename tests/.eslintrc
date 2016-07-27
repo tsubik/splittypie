@@ -9,6 +9,7 @@
     "exist": true,
     "identifyUserAs": true,
     "runWithTestData": true,
-    "setEventAsViewed": true
+    "setEventAsViewed": true,
+    "runAndWaitForSyncQueueToFlush": true
   }
 }

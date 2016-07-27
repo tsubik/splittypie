@@ -7,6 +7,7 @@ import "./exist";
 import "./identify-user-as";
 import "./run-with-test-data";
 import "./set-event-as-viewed";
+import "./run-and-wait-for-sync-queue-to-flush";
 
 export default function startApp(attrs) {
     let application;
