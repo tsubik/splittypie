@@ -11,7 +11,7 @@
       "destination": "/app.html"
     }],
     "headers": [{
-      "source" : "offline_support.js",
+      "source" : "offline-support.js",
       "headers" : [ {
         "key" : "Cache-Control",
         "value" : "private, max-age=0, no-cache"
