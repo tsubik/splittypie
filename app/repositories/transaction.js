@@ -1,3 +1,5 @@
+/* eslint-disable arrow-body-style */
+
 import Ember from "ember";
 
 const { service } = Ember.inject;
@@ -16,13 +18,13 @@ export default Ember.Service.extend({
         return event.save().then(() => {
             const payload = transaction.serialize({ includeId: true });
 
-            this.get("syncQueue").enqueue(operation, payload);
-
             // workaround, if I don't save here model will remain in isNew or dirty state
             // offline adapter for transaction is overridden to prevent from
             // saving second time on "transactions" node to indexedDB
             // localforage adapter should deal with it but it doesn't
-            return transaction.save();
+            return this.get("syncQueue")
+                .enqueue(operation, payload)
+                .then(() => transaction.save());
         });
     },
 
@@ -33,11 +35,11 @@ export default Ember.Service.extend({
 
         event.get("transactions").removeObject(transaction);
         return event.save().then(() => {
-            this.get("syncQueue").enqueue("destroyTransaction", { eventId, id });
-
             // workaround, localforage adapter should deal with it
             // but it doesn't unload record from store
-            return transaction.destroyRecord();
+            return this.get("syncQueue")
+                .enqueue("destroyTransaction", { eventId, id })
+                .then(() => transaction.destroyRecord());
         });
     },
 });

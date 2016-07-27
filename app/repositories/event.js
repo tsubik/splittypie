@@ -44,19 +44,20 @@ export default Ember.Service.extend({
 
             delete payload.transactions;
 
-            this.get("syncQueue").enqueue(operation, payload);
-
-            return record;
+            return this.get("syncQueue")
+                .enqueue(operation, payload)
+                .then(() => record);
         });
     },
 
     remove(event) {
         const id = event.get("id");
 
-        return event.destroyRecord().then((result) => {
-            this.get("syncQueue").enqueue("destroyEvent", { id });
-
-            return result;
-        });
+        return event
+            .destroyRecord()
+            .then((result) => this.get("syncQueue")
+                  .enqueue("destroyEvent", { id })
+                  .then(() => result)
+                 );
     },
 });
