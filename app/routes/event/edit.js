@@ -5,6 +5,8 @@ const { service } = Ember.inject;
 export default Ember.Route.extend({
     localStorage: service(),
     notify: service(),
+    eventRepository: service(),
+    syncer: service(),
 
     model() {
         return Ember.RSVP.hash({
@@ -28,25 +30,28 @@ export default Ember.Route.extend({
 
     actions: {
         delete(event) {
-            event.destroyRecord().then(() => {
-                const storage = this.get("localStorage");
-                storage.remove("events", event.id);
-                storage.removeItem("lastEventId");
-                this.transitionTo("index");
-                this.get("notify").success("Event has been deleted.");
-            });
+            this.get("eventRepository")
+                .remove(event)
+                .then(() => {
+                    const storage = this.get("localStorage");
+                    storage.removeItem("lastEventId");
+                    this.transitionTo("index");
+                    this.get("notify").success("Event has been deleted.");
+                });
         },
 
         modelUpdated(event) {
-            event.save()
-                .then(() => this.get("localStorage").push(
-                    "events",
-                    Ember.Object.create(event.getProperties("id", "name"))
-                ))
+            this.get("eventRepository").save(event)
                 .then(() => {
                     this.transitionTo("event");
                     this.get("notify").success("Event has been changed");
                 });
+        },
+
+        syncOnline(event) {
+            this.get("syncer").pushEventOnline(event).then(() => {
+                this.get("notify").success("Event was successfully synced");
+            });
         },
     },
 });

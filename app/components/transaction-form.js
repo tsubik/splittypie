@@ -5,7 +5,9 @@ export default Ember.Component.extend(FormComponent, {
     formObject: Ember.computed.alias("transaction"),
 
     didInsertElement() {
-        this.$(".transaction-name").focus();
+        if (this.get("formObject.isNew")) {
+            this.$(".transaction-name").focus();
+        }
     },
 
     maxDate: function () {

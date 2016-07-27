@@ -1,7 +1,9 @@
 /* eslint "no-extend-native": 0 */
 import Ember from "ember";
 
-export function initialize(/* application */) {
+export function initialize(application) {
+    window.App = application;
+
     Array.prototype.flatten = function () {
         const result = [];
 

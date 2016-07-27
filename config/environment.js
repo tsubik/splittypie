@@ -7,6 +7,8 @@ module.exports = function (environment) {
         modulePrefix: "splittypie",
         environment,
         contentSecurityPolicy: {
+            "default-src": "'self'",
+            "frame-src": "'self' https://*.firebaseio.com",
             "connect-src": "'self' https://geoip.nekudo.com https://auth.firebase.com wss://*.firebaseio.com",
             "script-src": "'self' 'unsafe-inline' https://*.rollbar.com https://*.firebaseio.com https://www.google-analytics.com",
             "style-src": "'self' 'unsafe-inline' https://fonts.googleapis.com",
@@ -18,12 +20,12 @@ module.exports = function (environment) {
             output: "app.html",
             content: [{
                 key: "index-preload",
-                file: "index-preload.html",
+                file: "preloaders/index-preload.html",
                 includeInIndexHtml: true,
                 includeInOutput: false,
             }, {
                 key: "app-preload",
-                file: "app-preload.html",
+                file: "preloaders/app-preload.html",
                 includeInIndexHtml: false,
                 includeInOutput: true,
             }],
@@ -31,6 +33,22 @@ module.exports = function (environment) {
         firebase: {
             apiKey: process.env.FIREBASE_API_KEY,
             databaseURL: `https://${process.env.FIREBASE_APP_NAME}.firebaseio.com`,
+        },
+        serviceWorker: {
+            enabled: true,
+            debug: true,
+            serviceWorkerFile: "offline-support.js",
+            includeRegistration: false, // registering in app/initializers/offline-support
+            precacheURLs: [
+                "/app.html",
+            ],
+            fastestURLs: [
+                { route: "/(.*)", method: "get", options: { origin: "https://fonts.gstatic.com" } },
+                { route: "/css", method: "get", options: { origin: "https://fonts.googleapis.com" } },
+            ],
+            fallback: [
+                "/(.*) /app.html",
+            ],
         },
         rollbar: {
             accessToken: process.env.ROLLBAR_ACCESS_TOKEN,
@@ -67,7 +85,7 @@ module.exports = function (environment) {
     if (environment === "development") {
         // ENV.APP.LOG_RESOLVER = true;
         // ENV.APP.LOG_ACTIVE_GENERATION = true;
-        ENV.APP.LOG_TRANSITIONS = true;
+        // ENV.APP.LOG_TRANSITIONS = true;
         // ENV.APP.LOG_TRANSITIONS_INTERNAL = true;
         // ENV.APP.LOG_VIEW_LOOKUPS = true;
     }
@@ -79,6 +97,9 @@ module.exports = function (environment) {
 
         // remove ember-index preloader in test env
         delete ENV["ember-index"];
+
+        // sinon uses eval to stub
+        ENV.contentSecurityPolicy["script-src"] += " 'unsafe-eval'";
 
         // keep test console output quieter
         ENV.APP.LOG_ACTIVE_GENERATION = false;

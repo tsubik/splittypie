@@ -3,8 +3,8 @@
 [![Build Status](https://travis-ci.org/cowbell/splittypie.svg?branch=master)](https://travis-ci.org/cowbell/splittypie)
 [![Code Climate](https://codeclimate.com/github/cowbell/splittypie/badges/gpa.svg)](https://codeclimate.com/github/cowbell/splittypie)
 
-This README outlines the details of collaborating on this Ember application.
-A short introduction of this app could easily go here.
+SplittyPie is an offline-first Ember application. It's mobile friendly and
+follows [Progressive Web App concept.](https://developers.google.com/web/progressive-web-apps/)
 
 ## Prerequisites
 

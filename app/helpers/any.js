@@ -4,7 +4,7 @@ export default Ember.Helper.extend({
     compute([array]) {
         this.set("array", array);
 
-        return Ember.isArray(array) && array.length > 0;
+        return Ember.isArray(array) && array.get("length") > 0;
     },
 
     arrayContentDidChange: Ember.observer("array.[]", function () {

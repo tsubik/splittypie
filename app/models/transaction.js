@@ -1,7 +1,8 @@
 import DS from "ember-data";
 import Ember from "ember";
+import ModelMixin from "splittypie/mixins/model-mixin";
 
-export default DS.Model.extend({
+export default DS.Model.extend(ModelMixin, {
     name: DS.attr("string"),
     amount: DS.attr("number"),
     date: DS.attr("string"),

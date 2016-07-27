@@ -8,6 +8,20 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="icon" type="image/png" href="assets/icons/icon.png">
 
+    <!-- Web Application Manifest -->
+    <link rel="manifest" href="/manifest.json">
+
+    <link rel="apple-touch-icon" href="assets/icons/ios/icon-60x60.png">
+    <link rel="apple-touch-icon" sizes="76x76" href="assets/icons/ios/icon-76x76.png">
+    <link rel="apple-touch-icon" sizes="120x120" href="assets/icons/ios/icon-120x120.png">
+    <link rel="apple-touch-iconca" sizes="152x152" href="assets/icons/ios/icon-152x152.png">
+
+    <!-- Unfortunately this doesn't work on iOs9 ugh, wtf apple? -->
+    <link rel="apple-touch-startup-image" href="assets/icons/ios/startup.png">
+
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+
     {{content-for "last-event"}}
     {{content-for "head"}}
 

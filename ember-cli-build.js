@@ -14,7 +14,8 @@ module.exports = function (defaults) {
             includePolyfill: true,
         },
         fingerprint: {
-            enabled: (env === "production" || env === "staging"),
+            exclude: ["assets/icons/", "offline-support.js", "sw-toolbox.js"],
+            enabled: (env === "production" || env === "staging" || env === "offline"),
         },
         sassOptions: {
             includePaths: [
