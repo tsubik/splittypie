@@ -1,9 +1,14 @@
 import Ember from "ember";
 import isMobile from "splittypie/utils/is-mobile";
 
-const { service } = Ember.inject;
+const {
+    inject: { service },
+    get,
+    setProperties,
+    Route,
+} = Ember;
 
-export default Ember.Route.extend({
+export default Route.extend({
     localStorage: service(),
     userContext: service(),
     modal: service(),
@@ -13,16 +18,16 @@ export default Ember.Route.extend({
     syncer: service(),
 
     model(params) {
-        return this.get("eventRepository").find(params.event_id);
+        return get(this, "eventRepository").find(params.event_id);
     },
 
     afterModel(model) {
-        const storage = this.get("localStorage");
+        const storage = get(this, "localStorage");
         storage.setItem("lastEventId", model.id);
     },
 
     redirect(model) {
-        const currentUser = this.get("userContext").load(model);
+        const currentUser = get(this, "userContext").load(model);
 
         if (!currentUser) {
             this.transitionTo("event.who-are-you");
@@ -33,7 +38,7 @@ export default Ember.Route.extend({
         this._super(...arguments);
         const events = this.modelFor("application").previousEvents;
 
-        controller.setProperties({
+        setProperties(controller, {
             events,
             isMobile: isMobile(),
         });
@@ -43,7 +48,7 @@ export default Ember.Route.extend({
         share() {
             const event = this.modelFor("event");
 
-            this.get("modal").trigger("show", {
+            get(this, "modal").trigger("show", {
                 name: "share",
                 event,
             });
@@ -58,13 +63,13 @@ export default Ember.Route.extend({
         switchUser(user) {
             const event = this.modelFor("event");
 
-            this.get("userContext").change(event, user);
-            this.get("notify").success(`Now you are watching this event as ${user.get("name")}`);
+            get(this, "userContext").change(event, user);
+            get(this, "notify").success(`Now you are watching this event as ${user.get("name")}`);
         },
 
         error(error, transition) {
             const eventId = transition.params.event.event_id;
-            const storage = this.get("localStorage");
+            const storage = get(this, "localStorage");
             const lastEventId = storage.getItem("lastEventId");
 
             // FIXME: Do this better

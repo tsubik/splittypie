@@ -1,11 +1,21 @@
 import Ember from "ember";
 import Form from "splittypie/mixins/form";
 
-export default Ember.Object.extend(Form, {
+const {
+    computed: { oneWay },
+    get,
+    set,
+    getProperties,
+    setProperties,
+    getWithDefault,
+    Object: EmberObject,
+} = Ember;
+
+export default EmberObject.extend(Form, {
     modelName: "event",
     innerForms: ["users"],
 
-    isOffline: Ember.computed.oneWay("model.isOffline"),
+    isOffline: oneWay("model.isOffline"),
 
     validations: {
         name: {
@@ -22,25 +32,25 @@ export default Ember.Object.extend(Form, {
 
     init() {
         this._super(...arguments);
-        const model = this.get("model");
+        const model = get(this, "model");
 
-        this.setProperties(model.getProperties("name", "currency"));
+        setProperties(this, getProperties(model, "name", "currency"));
 
-        const users = model.getWithDefault("users", [])
+        const users = getWithDefault(model, "users", [])
                   .map(user => this.createInnerForm("user", user));
-        this.set("users", users);
+        set(this, "users", users);
     },
 
     addUser() {
-        const emptyUserForm = this.createInnerForm("user", Ember.Object.create());
+        const emptyUserForm = this.createInnerForm("user", EmberObject.create());
 
-        this.get("users").pushObject(emptyUserForm);
+        get(this, "users").pushObject(emptyUserForm);
     },
 
     updateModelAttributes() {
-        const model = this.get("model");
+        const model = get(this, "model");
 
-        model.setProperties(this.getProperties("name", "currency"));
-        model.set("users", this.get("users").getEach("model"));
+        setProperties(model, getProperties(this, "name", "currency"));
+        set(model, "users", get(this, "users").getEach("model"));
     },
 });

@@ -1,7 +1,17 @@
 import Ember from "ember";
 import Form from "splittypie/mixins/form";
 
-export default Ember.Object.extend(Form, {
+const {
+    computed: { oneWay },
+    get,
+    set,
+    getProperties,
+    setProperties,
+    getWithDefault,
+    Object: EmberObject,
+} = Ember;
+
+export default EmberObject.extend(Form, {
     modelName: "transaction",
     validations: {
         name: {
@@ -20,22 +30,26 @@ export default Ember.Object.extend(Form, {
         },
     },
 
-    event: Ember.computed.oneWay("model.event"),
-    isSaving: Ember.computed.oneWay("event.isSaving"),
+    event: oneWay("model.event"),
+    isSaving: oneWay("event.isSaving"),
 
     init() {
         this._super(...arguments);
-        const model = this.get("model");
+        const model = get(this, "model");
 
-        this.setProperties(
-            model.getProperties("name", "isTransfer", "date", "amount", "payer", "participants")
+        setProperties(
+            this,
+            getProperties(model, "name", "isTransfer", "date", "amount", "payer", "participants")
         );
-        this.set("participants", model.getWithDefault("participants", []).toArray());
+        set(this, "participants", getWithDefault(model, "participants", []).toArray());
     },
 
     updateModelAttributes() {
-        const model = this.get("model");
+        const model = get(this, "model");
 
-        model.setProperties(this.getProperties("name", "date", "amount", "payer", "participants"));
+        setProperties(
+            model,
+            getProperties(this, "name", "date", "amount", "payer", "participants")
+        );
     },
 });

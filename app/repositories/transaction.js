@@ -2,17 +2,21 @@
 
 import Ember from "ember";
 
-const { service } = Ember.inject;
+const {
+    inject: { service },
+    get,
+    Service,
+} = Ember;
 
-export default Ember.Service.extend({
+export default Service.extend({
     syncQueue: service(),
 
     save(event, transaction) {
         let operation = "updateTransaction";
 
-        if (transaction.get("isNew")) {
+        if (get(transaction, "isNew")) {
             operation = "createTransaction";
-            event.get("transactions").addObject(transaction);
+            get(event, "transactions").addObject(transaction);
         }
 
         return event.save().then(() => {
@@ -22,22 +26,22 @@ export default Ember.Service.extend({
             // offline adapter for transaction is overridden to prevent from
             // saving second time on "transactions" node to indexedDB
             // localforage adapter should deal with it but it doesn't
-            return this.get("syncQueue")
+            return get(this, "syncQueue")
                 .enqueue(operation, payload)
                 .then(() => transaction.save());
         });
     },
 
     remove(transaction) {
-        const event = transaction.get("event");
-        const eventId = event.get("id");
-        const id = transaction.get("id");
+        const event = get(transaction, "event");
+        const eventId = get(event, "id");
+        const id = get(transaction, "id");
 
-        event.get("transactions").removeObject(transaction);
+        get(event, "transactions").removeObject(transaction);
         return event.save().then(() => {
             // workaround, localforage adapter should deal with it
             // but it doesn't unload record from store
-            return this.get("syncQueue")
+            return get(this, "syncQueue")
                 .enqueue("destroyTransaction", { eventId, id })
                 .then(() => transaction.destroyRecord());
         });

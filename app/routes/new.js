@@ -1,29 +1,33 @@
 import Ember from "ember";
 import countryToCurrencyCode from "splittypie/utils/country-to-currency-code";
 
-const { service } = Ember.inject;
+const {
+    inject: { service },
+    get,
+    set,
+    setProperties,
+    RSVP,
+    Route,
+} = Ember;
 
-export default Ember.Route.extend({
+export default Route.extend({
     userCountryCode: service(),
     userContext: service(),
     eventRepository: service(),
 
     model() {
         // FIXME: Don't like this model building
-        return Ember.RSVP.hash({
+        return RSVP.hash({
             defaultCurrency: this._getDefaultCurrency(),
-            event: Ember.Object.create({
-                users: [
-                    Ember.Object.create({}),
-                    Ember.Object.create({}),
-                ],
-            }),
+            event: {
+                users: [{}, {}],
+            },
             currencies: this.store.findAll("currency"),
         });
     },
 
     _getDefaultCurrency() {
-        return this.get("userCountryCode")
+        return get(this, "userCountryCode")
             .getCountryCode()
             .then((countryCode) => {
                 const currencyCode = countryToCurrencyCode(countryCode) || "USD";
@@ -34,9 +38,9 @@ export default Ember.Route.extend({
 
     setupController(controller, models) {
         this._super(controller, models);
-        models.event.set("currency", models.defaultCurrency);
-        const eventForm = this.get("formFactory").createForm("event", models.event);
-        controller.setProperties({
+        set(models.event, "currency", models.defaultCurrency);
+        const eventForm = get(this, "formFactory").createForm("event", models.event);
+        setProperties(controller, {
             event: eventForm,
             currencies: models.currencies,
         });
@@ -44,12 +48,12 @@ export default Ember.Route.extend({
 
     actions: {
         modelUpdated(event) {
-            this.get("eventRepository")
+            get(this, "eventRepository")
                 .save(event)
                 .then(() => {
-                    this.get("userContext").save(
-                        event.get("id"),
-                        event.get("users.firstObject.id")
+                    get(this, "userContext").save(
+                        get(event, "id"),
+                        get(event, "users.firstObject.id")
                     );
                     this.transitionTo("event.index", event);
                 });

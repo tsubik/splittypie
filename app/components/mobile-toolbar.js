@@ -1,6 +1,8 @@
 import Ember from "ember";
 
-export default Ember.Component.extend({
+const { Component } = Ember;
+
+export default Component.extend({
     tagName: "nav",
     classNames: ["navbar", "navbar-default", "navbar-fixed-top", "visible-xs", "toolbar"],
 

@@ -1,6 +1,8 @@
 import Base from "ember-validations/validators/base";
 import Ember from "ember";
 
+const { isArray, get } = Ember;
+
 export default Base.extend({
     init() {
         // this call is necessary, don't forget it!
@@ -10,13 +12,13 @@ export default Base.extend({
     },
 
     call() {
-        const arrayToValidate = this.model.get(this.property);
+        const arrayToValidate = get(this.model, this.property);
 
         if (!arrayToValidate) {
             return;
         }
 
-        if (!Ember.isArray(arrayToValidate)) {
+        if (!isArray(arrayToValidate)) {
             throw new Error(
                 `property ${this.property} is not an array, but array validator is used`
             );

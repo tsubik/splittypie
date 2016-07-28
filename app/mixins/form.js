@@ -2,37 +2,49 @@ import Ember from "ember";
 import Validations from "ember-validations";
 import DS from "ember-data";
 
-export default Ember.Mixin.create(Validations, {
-    store: Ember.inject.service(),
-    formFactory: Ember.inject.service(),
+const {
+    inject: { service },
+    computed: { oneWay },
+    computed,
+    get,
+    set,
+    getWithDefault,
+    observer,
+    on,
+    Mixin,
+} = Ember;
+
+export default Mixin.create(Validations, {
+    store: service(),
+    formFactory: service(),
     parent: null,
     model: null,
     isSubmitted: false,
 
-    isModelEmberDataModel: function () {
+    isModelEmberDataModel: computed("model", function () {
         return DS.Model.detectInstance(this.get("model"));
-    }.property(),
-    isSaving: Ember.computed.oneWay("model.isSaving"),
-    isNew: function () {
-        return this.get("isModelEmberDataModel") ? this.get("model.isNew") : true;
-    }.property(),
+    }),
+    isSaving: oneWay("model.isSaving"),
+    isNew: computed("isModelEmberDataModel", "model.isNew", function () {
+        return get(this, "isModelEmberDataModel") ? get(this, "model.isNew") : true;
+    }),
 
-    parentSubmittedChanged: Ember.on("init", Ember.observer("parent.isSubmitted", function () {
-        this.set("isSubmitted", this.get("parent.isSubmitted"));
+    parentSubmittedChanged: on("init", observer("parent.isSubmitted", function () {
+        set(this, "isSubmitted", get(this, "parent.isSubmitted"));
     })),
 
-    formErrors: Ember.computed("isSubmitted", function () {
-        return this.get("isSubmitted") ? this.errors : {};
+    formErrors: computed("isSubmitted", function () {
+        return get(this, "isSubmitted") ? this.errors : {};
     }),
 
     createInnerForm(name, model) {
-        return this.get("formFactory").createForm(name, model, { parent: this });
+        return get(this, "formFactory").createForm(name, model, { parent: this });
     },
 
     updateModel() {
-        this.set("isSubmitted", true);
+        set(this, "isSubmitted", true);
 
-        if (this.get("isValid")) {
+        if (get(this, "isValid")) {
             this.applyChangesToModel();
             return true;
         }
@@ -47,8 +59,8 @@ export default Ember.Mixin.create(Validations, {
     },
 
     createModelIfNotEmberDataModel() {
-        if (!this.get("isModelEmberDataModel")) {
-            this.set("model", this.get("store").createRecord(this.get("modelName")));
+        if (!get(this, "isModelEmberDataModel")) {
+            set(this, "model", get(this, "store").createRecord(get(this, "modelName")));
         }
     },
 
@@ -59,10 +71,10 @@ export default Ember.Mixin.create(Validations, {
     updateModelAttributes() {},
 
     _getInnerForms() {
-        const innerForms = this.getWithDefault("innerForms", []);
+        const innerForms = getWithDefault(this, "innerForms", []);
 
         return innerForms
-            .map((attribute) => this.get(attribute))
+            .map((attribute) => get(this, attribute))
             .flatten();
     },
 });

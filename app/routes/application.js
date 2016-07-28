@@ -1,21 +1,29 @@
 import Ember from "ember";
 
-const { service } = Ember.inject;
+const {
+    $,
+    inject: { service },
+    run: { schedule },
+    assign,
+    get,
+    RSVP,
+    Route,
+} = Ember;
 
-export default Ember.Route.extend({
+export default Route.extend({
     modal: service(),
     syncer: service(),
     notify: service(),
 
     init() {
         this._super(...arguments);
-        this.get("modal").on("show", this, "showModal");
-        this.get("modal").on("remove", this, "removeModal");
-        this.get("syncer").on("conflict", this, "synchronizationConflict");
+        get(this, "modal").on("show", this, "showModal");
+        get(this, "modal").on("remove", this, "removeModal");
+        get(this, "syncer").on("conflict", this, "synchronizationConflict");
     },
 
     model() {
-        return Ember.RSVP.hash({
+        return RSVP.hash({
             currencies: this.store.findAll("currency"),
             previousEvents: this.store.findAll("event"),
         });
@@ -29,7 +37,7 @@ export default Ember.Route.extend({
     showModal(options) {
         const model = this.modelFor("application");
 
-        Object.assign(model, options);
+        assign(model, options);
 
         this.render(`modals/${options.name}`, {
             into: "application",
@@ -52,13 +60,13 @@ Looks like event ${conflict.model.name} was removed from the online storage.
 We are marking it as "Offline", you could synchronize it back to online store
 in event's details view.
 `;
-            this.get("notify").error(message, { closeAfter: null });
+            get(this, "notify").error(message, { closeAfter: null });
         }
     },
 
     removePreloader() {
-        Ember.run.schedule("afterRender", this, function () {
-            Ember.$("#preloader").remove();
+        schedule("afterRender", this, function () {
+            $("#preloader").remove();
         });
     },
 

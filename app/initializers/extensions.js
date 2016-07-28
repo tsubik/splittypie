@@ -1,6 +1,8 @@
 /* eslint "no-extend-native": 0 */
 import Ember from "ember";
 
+const { isArray } = Ember;
+
 export function initialize(application) {
     window.App = application;
 
@@ -8,7 +10,7 @@ export function initialize(application) {
         const result = [];
 
         this.forEach((element) => {
-            result.push.apply(result, Ember.isArray(element) ? element.flatten() : [element]);
+            result.push.apply(result, isArray(element) ? element.flatten() : [element]);
         });
 
         return result;

@@ -1,23 +1,30 @@
 import Ember from "ember";
 
-export default Ember.Component.extend({
+const {
+    get,
+    set,
+    K,
+    Component,
+} = Ember;
+
+export default Component.extend({
     // possible passed-in values with their defaults:
     content: null,
     optionValuePath: "id",
     optionLabelPath: "title",
-    action: Ember.K, // action to fire on change
+    action: K, // action to fire on change
 
     init() {
         this._super(...arguments);
-        if (!this.get("content")) {
-            this.set("content", []);
+        if (!get(this, "content")) {
+            set(this, "content", []);
         }
     },
 
     actions: {
         change() {
             const inputs = this.$("input");
-            const content = this.get("content");
+            const content = get(this, "content");
 
             const selection = [];
 
@@ -27,10 +34,7 @@ export default Ember.Component.extend({
                 }
             });
 
-            this.set("selection", selection);
-
-            // const changeCallback = this.get("action");
-            // changeCallback(selection);
+            set(this, "selection", selection);
         },
     },
 });

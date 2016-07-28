@@ -1,6 +1,15 @@
 import Ember from "ember";
 
-export default Ember.Component.extend({
+const {
+    $,
+    run: { schedule },
+    computed,
+    get,
+    set,
+    Component,
+} = Ember;
+
+export default Component.extend({
     tagName: "li",
     classNameBindings: ["active"],
 
@@ -10,31 +19,31 @@ export default Ember.Component.extend({
     offset: 200,
     label: null,
 
-    referenceElement: Ember.computed("href", function () {
-        const href = this.get("href");
+    referenceElement: computed("href", function () {
+        const href = get(this, "href");
 
-        return Ember.$(href);
+        return $(href);
     }),
 
     click(event) {
         event.stopPropagation();
         event.preventDefault();
 
-        const referenceElement = this.get("referenceElement");
-        const offset = this.get("offset");
-        const duration = this.get("duration");
-        const easing = this.get("easing");
+        const referenceElement = get(this, "referenceElement");
+        const offset = get(this, "offset");
+        const duration = get(this, "duration");
+        const easing = get(this, "easing");
 
-        Ember.$("html, body").animate({
+        $("html, body").animate({
             scrollTop: referenceElement.offset().top - offset,
         }, duration, easing);
     },
 
     didInsertElement() {
         this._super(...arguments);
-        Ember.$(window).on("scroll", this.checkPosition.bind(this));
+        $(window).on("scroll", this.checkPosition.bind(this));
 
-        Ember.run.schedule("afterRender", () => {
+        schedule("afterRender", () => {
             this.checkPosition();
         });
     },
@@ -44,16 +53,16 @@ export default Ember.Component.extend({
     },
 
     checkPosition() {
-        const referenceElement = this.get("referenceElement");
-        const offset = this.get("offset") + 100; // FIXME: fix this value
-        const position = Ember.$(window).scrollTop();
+        const referenceElement = get(this, "referenceElement");
+        const offset = get(this, "offset") + 100; // FIXME: fix this value
+        const position = $(window).scrollTop();
         const top = referenceElement.offset().top - offset;
         const bottom = top + referenceElement.outerHeight();
 
         if (position >= top && position <= bottom) {
-            this.set("active", true);
+            set(this, "active", true);
         } else {
-            this.set("active", false);
+            set(this, "active", false);
         }
     },
 });

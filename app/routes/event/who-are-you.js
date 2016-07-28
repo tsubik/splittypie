@@ -1,8 +1,12 @@
 import Ember from "ember";
 
-const { service } = Ember.inject;
+const {
+    inject: { service },
+    get,
+    Route,
+} = Ember;
 
-export default Ember.Route.extend({
+export default Route.extend({
     userContext: service(),
 
     renderTemplate() {
@@ -13,7 +17,7 @@ export default Ember.Route.extend({
         chooseUser(user) {
             const event = this.modelFor("event");
 
-            this.get("userContext").change(event, user);
+            get(this, "userContext").change(event, user);
             this.transitionTo("event.index", event);
         },
     },

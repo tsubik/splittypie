@@ -1,10 +1,15 @@
 import Ember from "ember";
 
-export default Ember.Route.extend({
+const {
+    set,
+    Route,
+} = Ember;
+
+export default Route.extend({
     setupController(controller, model) {
         const errorName = this.getErrorName(model);
 
-        controller.set("partialName", `shared/errors/${errorName}`);
+        set(controller, "partialName", `shared/errors/${errorName}`);
     },
 
     getErrorName(error) {

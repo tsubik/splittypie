@@ -1,36 +1,45 @@
 import Ember from "ember";
 import isMobile from "splittypie/utils/is-mobile";
 
-export default Ember.Component.extend({
+const {
+    computed,
+    observer,
+    on,
+    get,
+    set,
+    Component,
+} = Ember;
+
+export default Component.extend({
     value: null,
     min: null,
     max: null,
 
     isMobile: isMobile.property(),
 
-    pikadayMin: Ember.computed("min", function () {
-        return new Date(this.get("min"));
+    pikadayMin: computed("min", function () {
+        return new Date(get(this, "min"));
     }),
-    pikadayMax: Ember.computed("max", function () {
-        return new Date(this.get("max"));
+    pikadayMax: computed("max", function () {
+        return new Date(get(this, "max"));
     }),
-    pikadayValue: Ember.computed("value", function () {
-        const value = this.get("value");
+    pikadayValue: computed("value", function () {
+        const value = get(this, "value");
 
         return new Date(value);
     }),
-    pikadayValueDidChange: Ember.observer("pikadayValue", function () {
-        const pikadayValue = this.get("pikadayValue");
+    pikadayValueDidChange: observer("pikadayValue", function () {
+        const pikadayValue = get(this, "pikadayValue");
 
         if (pikadayValue) {
-            this.set("value", pikadayValue.toISOString().substring(0, 10));
+            set(this, "value", pikadayValue.toISOString().substring(0, 10));
         } else {
-            this.set("value", null);
+            set(this, "value", null);
         }
     }),
 
-    dateInputClasses: Ember.on("init", Ember.computed("className", function () {
-        const className = this.get("className");
+    dateInputClasses: on("init", computed("className", function () {
+        const className = get(this, "className");
 
         return `${className} form-control`;
     })),

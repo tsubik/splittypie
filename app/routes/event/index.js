@@ -1,23 +1,27 @@
 import Ember from "ember";
 
-const { service } = Ember.inject;
+const {
+    inject: { service },
+    get,
+    Route,
+} = Ember;
 
-export default Ember.Route.extend({
+export default Route.extend({
     modal: service(),
     notify: service(),
     transactionRepository: service(),
 
     actions: {
         settleUp(transfer) {
-            this.get("modal").trigger("show", {
+            get(this, "modal").trigger("show", {
                 name: "settle-up",
                 actions: {
                     yes: () => {
                         const event = this.modelFor("event");
                         const transaction = this.store.createRecord("transaction", {
-                            payer: transfer.get("sender"),
-                            participants: [transfer.get("recipient")],
-                            amount: transfer.get("amount"),
+                            payer: get(transfer, "sender"),
+                            participants: [get(transfer, "recipient")],
+                            amount: get(transfer, "amount"),
                             type: "transfer",
                             date: new Date().toISOString().substring(0, 10),
                         });
@@ -25,14 +29,14 @@ export default Ember.Route.extend({
                         this.get("transactionRepository")
                             .save(event, transaction)
                             .then(() => {
-                                this.get("modal").trigger("hide");
-                                this.get("notify").success(
+                                get(this, "modal").trigger("hide");
+                                get(this, "notify").success(
                                     "Everything settled"
                                 );
                             })
                             .catch(() => {
-                                this.get("modal").trigger("hide");
-                                this.get("notify").error(
+                                get(this, "modal").trigger("hide");
+                                get(this, "notify").error(
                                     "An error occured"
                                 );
                             });

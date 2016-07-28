@@ -1,61 +1,68 @@
 import Ember from "ember";
 
-const { service } = Ember.inject;
+const {
+    RSVP: { Promise },
+    RSVP,
+    inject: { service },
+    get,
+    Error,
+    Service,
+} = Ember;
 
-export default Ember.Service.extend({
+export default Service.extend({
     store: service(),
     onlineStore: service(),
     syncer: service(),
     syncQueue: service(),
 
     find(id) {
-        return new Ember.RSVP.Promise((resolve, reject) => {
-            const offlineRecord = this.get("store")
+        return new Promise((resolve, reject) => {
+            const offlineRecord = get(this, "store")
                       .findRecord("event", id)
                       .then((event) => {
                           resolve(event);
                           return event;
                       })
                       .catch(() => false);
-            const onlineRecord = this.get("onlineStore")
+            const onlineRecord = get(this, "onlineStore")
                       .findRecord("event", id)
                       .catch(() => false);
 
-            Ember.RSVP.hash({
+            RSVP.hash({
                 offlineRecord,
                 onlineRecord,
             }).then(({ offlineRecord: offline, onlineRecord: online }) => {
                 if (!offline && online) {
                     resolve(
-                        this.get("syncer").pushEventOffline(online)
+                        get(this, "syncer").pushEventOffline(online)
                     );
                 } else if (!online && !offline) {
-                    reject(new Ember.Error("no record was found"));
+                    reject(new Error("no record was found"));
                 }
             });
         });
     },
 
     save(event) {
-        const operation = event.get("isNew") ? "createEvent" : "updateEvent";
+        const operation = get(event, "isNew") ? "createEvent" : "updateEvent";
 
         return event.save().then((record) => {
             const payload = record.serialize({ includeId: true });
 
             delete payload.transactions;
 
-            return this.get("syncQueue")
+            return get(this, "syncQueue")
                 .enqueue(operation, payload)
                 .then(() => record);
         });
     },
 
     remove(event) {
-        const id = event.get("id");
+        const id = get(event, "id");
 
         return event
             .destroyRecord()
-            .then((result) => this.get("syncQueue")
+            .then((result) => get(this, "syncQueue")
                   .enqueue("destroyEvent", { id })
                   .then(() => result)
                  );

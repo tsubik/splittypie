@@ -1,8 +1,10 @@
 import Ember from "ember";
 import RemeberScrollMixin from "splittypie/mixins/remember-scroll";
 
+const { Route } = Ember;
+
 export function initialize() {
-    Ember.Route.reopen(RemeberScrollMixin);
+    Route.reopen(RemeberScrollMixin);
 }
 
 export default {

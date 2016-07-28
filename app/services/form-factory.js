@@ -1,8 +1,12 @@
 import Ember from "ember";
 
-const { getOwner } = Ember;
+const {
+    getOwner,
+    merge,
+    Service,
+} = Ember;
 
-export default Ember.Service.extend({
+export default Service.extend({
     createForm(name, model, properties) {
         const formFactory = getOwner(this).lookup(`forms:${name}`);
 
@@ -10,6 +14,6 @@ export default Ember.Service.extend({
             throw new Error(`There is no factory for ${name} form registered in application`);
         }
 
-        return formFactory.create(Ember.merge({ model, formType: name }, properties));
+        return formFactory.create(merge({ model, formType: name }, properties));
     },
 });

@@ -1,14 +1,22 @@
 import Ember from "ember";
 
-export default Ember.Service.extend({
-    ajax: Ember.inject.service(),
+const {
+    inject: { service },
+    Logger: { error },
+    get,
+    set,
+    Service,
+} = Ember;
+
+export default Service.extend({
+    ajax: service(),
     countryCode: null,
 
     getCountryCode() {
-        let countryCode = this.get("countryCode");
+        let countryCode = get(this, "countryCode");
 
         if (countryCode === null) {
-            countryCode = this.get("ajax")
+            countryCode = get(this, "ajax")
                 .request("https://geoip.nekudo.com/api")
                 .then((data) => {
                     if (data.country && data.country.code) {
@@ -17,10 +25,10 @@ export default Ember.Service.extend({
 
                     return undefined;
                 })
-                .catch((error) => {
-                    Ember.Logger.error(error);
+                .catch((e) => {
+                    error(e);
                 });
-            this.set("countryCode", countryCode);
+            set(this, "countryCode", countryCode);
         }
 
         return countryCode;

@@ -1,6 +1,13 @@
 import Ember from "ember";
 
-export default Ember.Service.extend({
+const {
+    assert,
+    warn,
+    get,
+    Service,
+} = Ember;
+
+export default Service.extend({
     isLocalStorageSupported: function () {
         if (localStorage) {
             try {
@@ -8,7 +15,7 @@ export default Ember.Service.extend({
                 localStorage.removeItem("localStorageTest");
                 return true;
             } catch (e) {
-                Ember.warn("Browser does not support localstorage");
+                warn("Browser does not support localstorage");
             }
         }
 
@@ -16,39 +23,33 @@ export default Ember.Service.extend({
     }.property(),
 
     setItem(key, value) {
-        if (!this.get("isLocalStorageSupported")) {
-            return;
+        if (get(this, "isLocalStorageSupported")) {
+            localStorage.setItem(key, value);
         }
-
-        localStorage.setItem(key, value);
     },
 
     getItem(key) {
-        if (!this.get("isLocalStorageSupported")) {
-            return null;
+        if (get(this, "isLocalStorageSupported")) {
+            return localStorage.getItem(key);
         }
 
-        return localStorage.getItem(key);
+        return null;
     },
 
     removeItem(key) {
-        if (!this.get("isLocalStorageSupported")) {
-            return;
+        if (get(this, "isLocalStorageSupported")) {
+            localStorage.removeItem(key);
         }
-
-        localStorage.removeItem(key);
     },
 
     remove(entryName, id) {
-        Ember.assert("First argument entryName must be present", entryName);
+        assert("First argument entryName must be present", entryName);
 
-        if (!this.get("isLocalStorageSupported")) {
-            return;
+        if (get(this, "isLocalStorageSupported")) {
+            const items = this.findAll(entryName);
+
+            items.removeObject(items.findBy("id", id));
+            localStorage.setItem(entryName, JSON.stringify(items));
         }
-
-        const items = this.findAll(entryName);
-
-        items.removeObject(items.findBy("id", id));
-        localStorage.setItem(entryName, JSON.stringify(items));
     },
 });

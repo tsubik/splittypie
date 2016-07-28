@@ -1,18 +1,25 @@
 import Ember from "ember";
 
-const { service } = Ember.inject;
+const {
+    inject: { service },
+    get,
+    set,
+    setProperties,
+    Object: EmberObject,
+    Route,
+} = Ember;
 
-export default Ember.Route.extend({
+export default Route.extend({
     notify: service(),
     transactionRepository: service(),
     userContext: service(),
 
     model() {
         const event = this.modelFor("event");
-        const participants = event.get("users");
-        const payer = this.get("userContext.currentUser");
+        const participants = get(event, "users");
+        const payer = get(this, "userContext.currentUser");
 
-        return Ember.Object.create({
+        return EmberObject.create({
             payer,
             participants,
             date: new Date().toISOString().substring(0, 10),
@@ -20,14 +27,14 @@ export default Ember.Route.extend({
     },
 
     afterModel(model) {
-        model.set("event", this.modelFor("event"));
+        set(model, "event", this.modelFor("event"));
     },
 
     setupController(controller, model) {
         this._super(controller, model);
-        const users = this.modelFor("event").get("users");
-        const form = this.get("formFactory").createForm("expense", model);
-        controller.setProperties({
+        const users = get(this.modelFor("event"), "users");
+        const form = get(this, "formFactory").createForm("expense", model);
+        setProperties(controller, {
             form,
             users,
         });
@@ -41,11 +48,11 @@ export default Ember.Route.extend({
         modelUpdated(transaction) {
             const event = this.modelFor("event");
 
-            this.get("transactionRepository")
+            get(this, "transactionRepository")
                 .save(event, transaction)
                 .then(() => {
                     this.transitionTo("event.transactions");
-                    this.get("notify").success("New transaction has been added");
+                    get(this, "notify").success("New transaction has been added");
                 });
         },
     },

@@ -1,10 +1,16 @@
 import Ember from "ember";
 
-export default Ember.Component.extend({
+const {
+    computed,
+    get,
+    Component,
+} = Ember;
+
+export default Component.extend({
     tagName: "li",
     classNames: ["user-form"],
-    placeholder: Ember.computed("index", function () {
-        const index = this.get("index");
+    placeholder: computed("index", function () {
+        const index = get(this, "index");
 
         return index === 0 ? "Your name" : "Your friend's name";
     }),

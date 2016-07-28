@@ -1,8 +1,13 @@
 import Ember from "ember";
 
-const { service } = Ember.inject;
+const {
+    inject: { service },
+    get,
+    setProperties,
+    Route,
+} = Ember;
 
-export default Ember.Route.extend({
+export default Route.extend({
     notify: service(),
     transactionRepository: service(),
 
@@ -12,11 +17,11 @@ export default Ember.Route.extend({
 
     setupController(controller, model) {
         this._super(controller, model);
-        const type = model.get("type") || "expense";
-        const form = this.get("formFactory").createForm(type, model);
-        controller.setProperties({
+        const type = get(model, "typeOrDefault");
+        const form = get(this, "formFactory").createForm(type, model);
+        setProperties(controller, {
             form,
-            users: this.modelFor("event").get("users"),
+            users: get(this.modelFor("event"), "users"),
         });
     },
 
@@ -26,22 +31,22 @@ export default Ember.Route.extend({
 
     actions: {
         delete(transaction) {
-            this.get("transactionRepository")
+            get(this, "transactionRepository")
                 .remove(transaction)
                 .then(() => {
                     this.transitionTo("event.transactions");
-                    this.get("notify").success("Transaction has been deleted.");
+                    get(this, "notify").success("Transaction has been deleted.");
                 });
         },
 
         modelUpdated(transaction) {
             const event = this.modelFor("event");
 
-            this.get("transactionRepository")
+            get(this, "transactionRepository")
                 .save(event, transaction)
                 .then(() => {
                     this.transitionTo("event.transactions");
-                    this.get("notify").success("Transaction has been changed.");
+                    get(this, "notify").success("Transaction has been changed.");
                 });
         },
     },

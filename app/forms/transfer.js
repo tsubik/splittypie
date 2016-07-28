@@ -1,18 +1,27 @@
 import Ember from "ember";
 import Form from "splittypie/mixins/form";
 
-export default Ember.Object.extend(Form, {
+const {
+    computed: { oneWay },
+    get,
+    set,
+    getProperties,
+    setProperties,
+    Object: EmberObject,
+} = Ember;
+
+export default EmberObject.extend(Form, {
     modelName: "transaction",
 
-    event: Ember.computed.oneWay("model.event"),
+    event: oneWay("model.event"),
 
     init() {
         this._super(...arguments);
-        const model = this.get("model");
+        const model = get(this, "model");
 
-        this.setProperties(model.getProperties("name", "date", "amount"));
-        this.set("sender", model.get("payer"));
-        this.set("recipient", model.get("participants.firstObject"));
+        setProperties(this, getProperties(model, "name", "date", "amount"));
+        set(this, "sender", get(model, "payer"));
+        set(this, "recipient", get(model, "participants.firstObject"));
     },
 
     updateModelAttributes() {

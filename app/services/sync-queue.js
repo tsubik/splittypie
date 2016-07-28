@@ -1,9 +1,17 @@
 import Ember from "ember";
 
-const { service } = Ember.inject;
-const { debug } = Ember.Logger;
+const {
+    inject: { service },
+    Logger: { debug },
+    RSVP: { Promise },
+    get,
+    set,
+    observer,
+    Evented,
+    Service,
+} = Ember;
 
-export default Ember.Service.extend(Ember.Evented, {
+export default Service.extend(Evented, {
     store: service(),
     jobProcessor: service(),
     connection: service(),
@@ -12,15 +20,15 @@ export default Ember.Service.extend(Ember.Evented, {
 
     init() {
         this._super(...arguments);
-        this.set("pendingJobs", []);
+        set(this, "pendingJobs", []);
     },
 
     enqueue(name, payload) {
         debug(`creating offline job for ${name}: ${payload}`);
         return this._createAndSaveJob(name, payload).then((job) => {
-            if (this.get("connection.isOnline")) {
+            if (get(this, "connection.isOnline")) {
                 debug(`adding job ${name} to pendingJobs array`);
-                this.get("pendingJobs").addObject(job);
+                get(this, "pendingJobs").addObject(job);
             }
         });
     },
@@ -28,8 +36,8 @@ export default Ember.Service.extend(Ember.Evented, {
     flush() {
         debug("flushing offline jobs");
 
-        return new Ember.RSVP.Promise((resolve) => {
-            this.get("store")
+        return new Promise((resolve) => {
+            get(this, "store")
                 .findAll("sync-job")
                 .then((jobs) => {
                     const arrayJobs = jobs.sortBy("createdAt").toArray();
@@ -39,14 +47,14 @@ export default Ember.Service.extend(Ember.Evented, {
                         resolve();
                     } else {
                         this.one("flushed", resolve);
-                        this.get("pendingJobs").pushObjects(arrayJobs);
+                        get(this, "pendingJobs").pushObjects(arrayJobs);
                     }
                 });
         });
     },
 
-    pendingJobsDidChange: Ember.observer("pendingJobs.[]", function () {
-        const isProcessing = this.get("isProcessing");
+    pendingJobsDidChange: observer("pendingJobs.[]", function () {
+        const isProcessing = get(this, "isProcessing");
 
         if (!isProcessing) {
             this._processNext();
@@ -54,8 +62,8 @@ export default Ember.Service.extend(Ember.Evented, {
     }),
 
     _processNext() {
-        const jobProcessor = this.get("jobProcessor");
-        const pendingJobs = this.get("pendingJobs");
+        const jobProcessor = get(this, "jobProcessor");
+        const pendingJobs = get(this, "pendingJobs");
         const job = pendingJobs.objectAt(0);
 
         if (!job) {
@@ -66,13 +74,13 @@ export default Ember.Service.extend(Ember.Evented, {
         jobProcessor
             .process(job)
             .then(() => {
-                this.get("pendingJobs").removeAt(0);
-                const anyNextJobs = this.get("pendingJobs.length") > 0;
+                get(this, "pendingJobs").removeAt(0);
+                const anyNextJobs = get(this, "pendingJobs.length") > 0;
                 job.destroyRecord();
                 if (anyNextJobs) {
                     this._processNext();
                 } else {
-                    this.set("isProcessing", false);
+                    set(this, "isProcessing", false);
                     debug("Sync queue is flushed");
                     this.trigger("flushed");
                 }
@@ -83,7 +91,7 @@ export default Ember.Service.extend(Ember.Evented, {
     },
 
     _createAndSaveJob(name, payload) {
-        const job = this.get("store").createRecord("sync-job", {
+        const job = get(this, "store").createRecord("sync-job", {
             name,
             payload: JSON.stringify(payload),
         });

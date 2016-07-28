@@ -1,15 +1,21 @@
 import Ember from "ember";
 
-const { service } = Ember.inject;
+const {
+    inject: { service },
+    get,
+    setProperties,
+    RSVP,
+    Route,
+} = Ember;
 
-export default Ember.Route.extend({
+export default Route.extend({
     localStorage: service(),
     notify: service(),
     eventRepository: service(),
     syncer: service(),
 
     model() {
-        return Ember.RSVP.hash({
+        return RSVP.hash({
             event: this.modelFor("event"),
             currencies: this.store.findAll("currency"),
         });
@@ -17,8 +23,8 @@ export default Ember.Route.extend({
 
     setupController(controller, models) {
         this._super(controller, models);
-        const eventForm = this.get("formFactory").createForm("event", models.event);
-        controller.setProperties({
+        const eventForm = get(this, "formFactory").createForm("event", models.event);
+        setProperties(controller, {
             event: eventForm,
             currencies: models.currencies,
         });
@@ -30,27 +36,27 @@ export default Ember.Route.extend({
 
     actions: {
         delete(event) {
-            this.get("eventRepository")
+            get(this, "eventRepository")
                 .remove(event)
                 .then(() => {
-                    const storage = this.get("localStorage");
+                    const storage = get(this, "localStorage");
                     storage.removeItem("lastEventId");
                     this.transitionTo("index");
-                    this.get("notify").success("Event has been deleted.");
+                    get(this, "notify").success("Event has been deleted.");
                 });
         },
 
         modelUpdated(event) {
-            this.get("eventRepository").save(event)
+            get(this, "eventRepository").save(event)
                 .then(() => {
                     this.transitionTo("event");
-                    this.get("notify").success("Event has been changed");
+                    get(this, "notify").success("Event has been changed");
                 });
         },
 
         syncOnline(event) {
-            this.get("syncer").pushEventOnline(event).then(() => {
-                this.get("notify").success("Event was successfully synced");
+            get(this, "syncer").pushEventOnline(event).then(() => {
+                get(this, "notify").success("Event was successfully synced");
             });
         },
     },

@@ -1,23 +1,32 @@
 import Ember from "ember";
 
-export default Ember.Component.extend({
+const {
+    computed: { notEmpty },
+    computed,
+    get,
+    set,
+    Object: EmberObject,
+    Component,
+} = Ember;
+
+export default Component.extend({
     tagName: "ul",
     classNames: ["list-unstyled"],
 
-    anyTransfers: Ember.computed.notEmpty("transfers"),
+    anyTransfers: notEmpty("transfers"),
 
-    transfers: Ember.computed("users.@each.balance", function () {
-        const users = this.get("users");
-        const currency = this.get("users.firstObject.event.currency");
+    transfers: computed("users.@each.balance", function () {
+        const users = get(this, "users");
+        const currency = get(this, "users.firstObject.event.currency");
 
-        const owed = users.filter(u => u.get("balance") < 0).map(convertToUserAmount);
-        const paid = users.filter(u => u.get("balance") > 0).map(convertToUserAmount);
+        const owed = users.filter(u => get(u, "balance") < 0).map(convertToUserAmount);
+        const paid = users.filter(u => get(u, "balance") > 0).map(convertToUserAmount);
         const transfers = [];
 
         function convertToUserAmount(user) {
-            return Ember.Object.create({
+            return EmberObject.create({
                 user,
-                amount: Math.abs(user.get("balance")),
+                amount: Math.abs(get(user, "balance")),
             });
         }
 
@@ -25,23 +34,23 @@ export default Ember.Component.extend({
             const sender = owed.objectAt(0);
             const recipient = paid.objectAt(0);
 
-            const canGive = sender.get("amount");
-            const demand = recipient.get("amount");
+            const canGive = get(sender, "amount");
+            const demand = get(recipient, "amount");
             const possibleTransfer = Math.min(canGive, demand);
 
-            sender.set("amount", canGive - possibleTransfer);
-            if (sender.get("amount") === 0) {
+            set(sender, "amount", canGive - possibleTransfer);
+            if (get(sender, "amount") === 0) {
                 owed.removeObject(sender);
             }
 
-            recipient.set("amount", demand - possibleTransfer);
-            if (recipient.get("amount") === 0) {
+            set(recipient, "amount", demand - possibleTransfer);
+            if (get(recipient, "amount") === 0) {
                 paid.removeObject(recipient);
             }
 
-            transfers.pushObject(Ember.Object.create({
-                sender: sender.get("user"),
-                recipient: recipient.get("user"),
+            transfers.pushObject(EmberObject.create({
+                sender: get(sender, "user"),
+                recipient: get(recipient, "user"),
                 amount: possibleTransfer.toFixed(2),
                 currency,
             }));

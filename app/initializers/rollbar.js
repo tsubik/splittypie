@@ -1,6 +1,8 @@
 /* eslint-disable no-console */
 import Ember from "ember";
 
+const { RSVP } = Ember;
+
 function shouldReportError(error) {
     if (error.message && error.message.indexOf("no record was found") > -1) {
         return false;
@@ -27,7 +29,7 @@ export function initialize(/* application */) {
     };
 
     Ember.onerror = reportError;
-    Ember.RSVP.on("error", reportError);
+    RSVP.on("error", reportError);
     window.onerror = reportError;
 }
 

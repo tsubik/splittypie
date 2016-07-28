@@ -1,6 +1,8 @@
 import Ember from "ember";
 
-export default Ember.LinkComponent.extend({
+const { LinkComponent } = Ember;
+
+export default LinkComponent.extend({
     tagName: "li",
     ariaRole: "presentation",
 });

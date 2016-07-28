@@ -1,7 +1,15 @@
 import Ember from "ember";
 import Form from "splittypie/mixins/form";
 
-export default Ember.Object.extend(Form, {
+const {
+    get,
+    set,
+    getProperties,
+    setProperties,
+    Object: EmberObject,
+} = Ember;
+
+export default EmberObject.extend(Form, {
     modelName: "user",
     validations: {
         name: {
@@ -12,14 +20,14 @@ export default Ember.Object.extend(Form, {
 
     init() {
         this._super(...arguments);
-        const model = this.get("model");
+        const model = get(this, "model");
 
-        this.set("name", model.get("name"));
+        set(this, "name", get(model, "name"));
     },
 
     updateModelAttributes() {
-        const model = this.get("model");
+        const model = get(this, "model");
 
-        model.setProperties(this.getProperties("name"));
+        setProperties(model, getProperties(this, "name"));
     },
 });

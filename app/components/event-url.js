@@ -1,14 +1,20 @@
 import Ember from "ember";
 
-export default Ember.TextField.extend({
-    classNames: ["event-url"],
+const {
+    run: { later },
+    TextField,
+} = Ember;
+
+export default TextField.extend({
     readonly: true,
+
+    classNames: ["event-url"],
 
     didInsertElement() {
         this._super(...arguments);
 
         // workaround select after animations
-        Ember.run.later(() => {
+        later(() => {
             this.$().focus().select();
         }, 500);
     },

@@ -1,8 +1,13 @@
 import Ember from "ember";
 
-export default Ember.Component.extend({
-    anyUsers: Ember.computed.notEmpty("users"),
+const {
+    computed: { notEmpty, sort },
+    Component,
+} = Ember;
+
+export default Component.extend({
+    anyUsers: notEmpty("users"),
 
     usersSorting: ["balance:desc"],
-    sortedUsers: Ember.computed.sort("users", "usersSorting"),
+    sortedUsers: sort("users", "usersSorting"),
 });

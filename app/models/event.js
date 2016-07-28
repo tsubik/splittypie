@@ -1,14 +1,18 @@
-import DS from "ember-data";
 import Ember from "ember";
 import ModelMixin from "splittypie/mixins/model-mixin";
+import Model from "ember-data/model";
+import attr from "ember-data/attr";
+import { belongsTo, hasMany } from "ember-data/relationships";
 
-export default DS.Model.extend(ModelMixin, {
-    name: DS.attr("string"),
-    isOffline: DS.attr("boolean"),
-    currency: DS.belongsTo("currency", { async: true }),
-    users: DS.hasMany("user", { async: false }),
-    transactions: DS.hasMany("transaction", { async: false }),
-    url: Ember.computed("id", function () {
-        return `https://splittypie.com/${this.get("id")}`;
+const { computed, get } = Ember;
+
+export default Model.extend(ModelMixin, {
+    name: attr("string"),
+    isOffline: attr("boolean"),
+    currency: belongsTo("currency", { async: true }),
+    users: hasMany("user", { async: false }),
+    transactions: hasMany("transaction", { async: false }),
+    url: computed("id", function () {
+        return `https://splittypie.com/${get(this, "id")}`;
     }),
 });

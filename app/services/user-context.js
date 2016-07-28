@@ -1,28 +1,33 @@
 import Ember from "ember";
 
-const { service } = Ember.inject;
+const {
+    inject: { service },
+    get,
+    set,
+    Service,
+} = Ember;
 
-export default Ember.Service.extend({
+export default Service.extend({
     localStorage: service(),
     currentUser: null,
 
     save(eventId, userId) {
-        this.get("localStorage").setItem(`event-${eventId}-current-user`, userId);
+        get(this, "localStorage").setItem(`event-${eventId}-current-user`, userId);
     },
 
     load(event) {
-        const userId = this.get("localStorage").getItem(`event-${event.get("id")}-current-user`);
-        const user = event.get("users").findBy("id", userId);
+        const userId = get(this, "localStorage").getItem(`event-${get(event, "id")}-current-user`);
+        const user = get(event, "users").findBy("id", userId);
 
         if (user) {
-            this.set("currentUser", user);
+            set(this, "currentUser", user);
         }
 
         return user;
     },
 
     change(event, user) {
-        this.save(event.get("id"), user.get("id"));
-        this.set("currentUser", user);
+        this.save(get(event, "id"), get(user, "id"));
+        set(this, "currentUser", user);
     },
 });

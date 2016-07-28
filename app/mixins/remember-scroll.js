@@ -1,23 +1,31 @@
 import Ember from "ember";
 
-export default Ember.Mixin.create({
+const {
+    $,
+    run: { next },
+    get,
+    set,
+    Mixin,
+} = Ember;
+
+export default Mixin.create({
     scrollSelector: window,
 
     activate() {
         this._super(...arguments);
-        const lastScroll = this.get("lastScroll");
+        const lastScroll = get(this, "lastScroll");
 
         if (lastScroll) {
-            Ember.run.next(() => {
-                Ember.$(this.scrollSelector).scrollTop(lastScroll);
+            next(() => {
+                $(this.scrollSelector).scrollTop(lastScroll);
             });
         } else {
-            Ember.$(this.scrollSelector).scrollTop(0);
+            $(this.scrollSelector).scrollTop(0);
         }
     },
 
     deactivate() {
         this._super(...arguments);
-        this.set("lastScroll", Ember.$(this.scrollSelector).scrollTop());
+        set(this, "lastScroll", $(this.scrollSelector).scrollTop());
     },
 });

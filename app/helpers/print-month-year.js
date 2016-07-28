@@ -1,5 +1,7 @@
 import Ember from "ember";
 
+const { Helper } = Ember;
+
 export function printMonthYear([date]) {
     const months = [
         "January", "February", "March", "April", "May", "June",
@@ -17,4 +19,4 @@ export function printMonthYear([date]) {
     return null;
 }
 
-export default Ember.Helper.helper(printMonthYear);
+export default Helper.helper(printMonthYear);

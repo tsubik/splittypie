@@ -1,12 +1,19 @@
 import Ember from "ember";
 
-export default Ember.Mixin.create({
-    formObject: null,
-    modal: Ember.inject.service(),
+const {
+    inject: { service },
+    computed,
+    get,
+    Mixin,
+} = Ember;
 
-    saveButtonText: Ember.computed("formObject.isNew", "formObject.isSaving", function () {
-        const isNew = this.get("formObject.isNew");
-        const isSaving = this.get("formObject.isSaving");
+export default Mixin.create({
+    formObject: null,
+    modal: service(),
+
+    saveButtonText: computed("formObject.{isNew,isSaving}", function () {
+        const isNew = get(this, "formObject.isNew");
+        const isSaving = get(this, "formObject.isSaving");
 
         if (isSaving) {
             return "Saving...";
@@ -17,17 +24,17 @@ export default Ember.Mixin.create({
 
     actions: {
         save() {
-            const formObject = this.get("formObject");
+            const formObject = get(this, "formObject");
 
             if (formObject.updateModel()) {
-                this.sendAction("modelUpdated", formObject.get("model"));
+                this.sendAction("modelUpdated", get(formObject, "model"));
             }
         },
 
         delete() {
-            const model = this.get("formObject.model");
+            const model = get(this, "formObject.model");
 
-            this.get("modal").onConfirm(() => this.sendAction("delete", model));
+            get(this, "modal").onConfirm(() => this.sendAction("delete", model));
         },
     },
 });

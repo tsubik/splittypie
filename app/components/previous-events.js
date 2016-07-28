@@ -1,43 +1,35 @@
 import Ember from "ember";
 
-const { service } = Ember.inject;
+const {
+    computed: { notEmpty },
+    inject: { service },
+    get,
+    Component,
+} = Ember;
 
-export default Ember.Component.extend({
+export default Component.extend({
     localStorage: service(),
     modal: service(),
 
     classNames: ["previous-events-container"],
     attributeBindings: ["id"],
-
     tagName: "section",
     id: "events",
 
-    anyEvents: Ember.computed.notEmpty("events"),
-
-    _removeEventFromOfflineStore(event) {
-        const storage = this.get("localStorage");
-        const lastEventId = storage.getItem("lastEventId");
-
-        // remove only from offline store
-        event.destroyRecord();
-
-        if (lastEventId === event.id) {
-            storage.removeItem("lastEventId");
-        }
-    },
+    anyEvents: notEmpty("events"),
 
     actions: {
         remove(event) {
-            const storage = this.get("localStorage");
+            const storage = get(this, "localStorage");
             const showModal = storage.getItem("remove-prev-events-got-it") !== "true";
 
             if (showModal) {
                 const yes = () => {
                     this._removeEventFromOfflineStore(event);
-                    this.get("modal").trigger("hide");
+                    get(this, "modal").trigger("hide");
                 };
 
-                this.get("modal").trigger("show", {
+                get(this, "modal").trigger("show", {
                     name: "remove-previous-event",
                     actions: {
                         yes,
@@ -52,5 +44,17 @@ export default Ember.Component.extend({
                 this._removeEventFromOfflineStore(event);
             }
         },
+    },
+
+    _removeEventFromOfflineStore(event) {
+        const storage = get(this, "localStorage");
+        const lastEventId = storage.getItem("lastEventId");
+
+        // remove only from offline store
+        event.destroyRecord();
+
+        if (lastEventId === event.id) {
+            storage.removeItem("lastEventId");
+        }
     },
 });

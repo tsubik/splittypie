@@ -1,20 +1,27 @@
-import DS from "ember-data";
 import Ember from "ember";
 import ModelMixin from "splittypie/mixins/model-mixin";
+import Model from "ember-data/model";
+import attr from "ember-data/attr";
+import { belongsTo } from "ember-data/relationships";
 
-export default DS.Model.extend(ModelMixin, {
-    name: DS.attr("string"),
-    event: DS.belongsTo("event", { async: false }),
-    balance: Ember.computed("event.transactions.[]", function () {
-        const transactions = this.get("event.transactions");
+const {
+    computed,
+    get,
+} = Ember;
+
+export default Model.extend(ModelMixin, {
+    name: attr("string"),
+    event: belongsTo("event", { async: false }),
+    balance: computed("event.transactions.[]", function () {
+        const transactions = get(this, "event.transactions");
         const paidTransactions = transactions.filterBy("payer", this);
-        const owedTransactions = transactions.filter((t) => t.get("participants").contains(this));
+        const owedTransactions = transactions.filter((t) => get(t, "participants").contains(this));
         const paidMoney = paidTransactions.reduce(
-            (prev, curr) => prev + parseFloat(curr.get("amount")),
+            (acc, curr) => acc + parseFloat(get(curr, "amount")),
             0
         );
         const owedMoney = owedTransactions.reduce(
-            (prev, curr) => prev + parseFloat(curr.get("amount")) / curr.get("participants").length,
+            (acc, curr) => acc + parseFloat(get(curr, "amount")) / get(curr, "participants").length,
             0
         );
 

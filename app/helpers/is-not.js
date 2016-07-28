@@ -1,7 +1,9 @@
 import Ember from "ember";
 
+const { Helper } = Ember;
+
 export function isNot([value]) {
     return !value;
 }
 
-export default Ember.Helper.helper(isNot);
+export default Helper.helper(isNot);

@@ -1,13 +1,21 @@
 import Ember from "ember";
 
-export default Ember.Helper.extend({
-    compute([array]) {
-        this.set("array", array);
+const {
+    observer,
+    get,
+    set,
+    isArray,
+    Helper,
+} = Ember;
 
-        return Ember.isArray(array) && array.get("length") > 0;
+export default Helper.extend({
+    compute([array]) {
+        set(this, "array", array);
+
+        return isArray(array) && get(array, "length") > 0;
     },
 
-    arrayContentDidChange: Ember.observer("array.[]", function () {
+    arrayContentDidChange: observer("array.[]", function () {
         this.recompute();
     }),
 });

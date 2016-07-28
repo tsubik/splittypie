@@ -1,16 +1,23 @@
 import Ember from "ember";
 
-export default Ember.Component.extend({
-    modal: Ember.inject.service(),
+const {
+    inject: { service },
+    get,
+    run,
+    Component,
+} = Ember;
+
+export default Component.extend({
+    modal: service(),
 
     didInsertElement() {
         this._super(...arguments);
         this.$(".modal").modal().on("hidden.bs.modal", () => {
-            Ember.run(() => {
-                this.get("modal").trigger("remove");
+            run(() => {
+                get(this, "modal").trigger("remove");
             });
         });
-        this.get("modal").one("hide", this, "onHide");
+        get(this, "modal").one("hide", this, "onHide");
     },
 
     willDestroyElement() {

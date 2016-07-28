@@ -1,18 +1,23 @@
 import Ember from "ember";
 
-const { computed } = Ember;
+const {
+    computed: { alias },
+    computed,
+    get,
+    Component,
+} = Ember;
 
-export default Ember.Component.extend({
+export default Component.extend({
     classNames: ["transaction-list-header"],
 
-    currency: computed.alias("transactions.firstObject.event.currency.code"),
-    count: computed.alias("transactions.length"),
+    currency: alias("transactions.firstObject.event.currency.code"),
+    count: alias("transactions.length"),
 
     total: computed("transactions.[]", function () {
-        const transactions = this.get("transactions");
+        const transactions = get(this, "transactions");
 
         return transactions.reduce(
-            (prev, curr) => prev + parseFloat(curr.get("amount")),
+            (prev, curr) => prev + parseFloat(get(curr, "amount")),
             0
         );
     }),

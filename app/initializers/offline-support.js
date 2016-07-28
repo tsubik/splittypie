@@ -1,7 +1,7 @@
 /* eslint-disable no-param-reassign, max-len */
 import Ember from "ember";
 
-const { log } = Ember.Logger;
+const { Logger: { log } } = Ember;
 
 export default {
     name: "offline-support",

@@ -1,6 +1,8 @@
 import Ember from "ember";
 
-export default Ember.Service.extend(Ember.Evented, {
+const { Evented, Service } = Ember;
+
+export default Service.extend(Evented, {
     onConfirm(action) {
         this.trigger("show", {
             name: "confirm",

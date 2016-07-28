@@ -1,6 +1,8 @@
 import Ember from "ember";
 
-export default Ember.Mixin.create({
+const { Mixin } = Ember;
+
+export default Mixin.create({
     activate() {
         this._super(...arguments);
         window.scrollTo(0, 0);

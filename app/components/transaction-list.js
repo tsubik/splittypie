@@ -1,36 +1,42 @@
 import Ember from "ember";
 
-const { computed } = Ember;
+const {
+    computed: { filterBy, notEmpty },
+    computed,
+    get,
+    Object: EmberObject,
+    Component,
+} = Ember;
 
-export default Ember.Component.extend({
+export default Component.extend({
     tagName: "div",
     classNames: ["list-group"],
 
-    expenses: computed.filterBy("transactions", "typeOrDefault", "expense"),
-    anyTransactions: computed.notEmpty("transactions"),
+    expenses: filterBy("transactions", "typeOrDefault", "expense"),
+    anyTransactions: notEmpty("transactions"),
     transactionsByMonth: computed("transactions.[]", function () {
         const result = [];
-        const transactions = this.get("transactions").sortBy("date").reverse();
+        const transactions = get(this, "transactions").sortBy("date").reverse();
 
         transactions.forEach((transaction) => {
-            const month = transaction.get("month");
+            const month = get(transaction, "month");
             const group = result.findBy("month", month);
 
             if (!group) {
                 result.pushObject(
-                    Ember.Object.create({ month, transactions: [transaction] })
+                    EmberObject.create({ month, transactions: [transaction] })
                 );
             } else {
-                group.get("transactions").pushObject(transaction);
+                get(group, "transactions").pushObject(transaction);
             }
         });
 
         return result;
     }),
     anyTransactionWithDate: computed("transactions.[]", function () {
-        const transactions = this.get("transactions");
+        const transactions = get(this, "transactions");
 
-        return transactions.any(transaction => !!transaction.get("date"));
+        return transactions.any(transaction => !!get(transaction, "date"));
     }),
 
     actions: {

@@ -1,12 +1,19 @@
-import DS from "ember-data";
 import Ember from "ember";
+import Model from "ember-data/model";
+import attr from "ember-data/attr";
 
-const Currency = DS.Model.extend({
-    code: Ember.computed.alias("id"),
-    symbol: DS.attr("string"),
-    name: DS.attr("string"),
-    nameWithCode: Ember.computed("code", "name", function () {
-        return `${this.get("name")} (${this.get("code")})`;
+const {
+    computed: { alias },
+    computed,
+    get,
+} = Ember;
+
+const Currency = Model.extend({
+    code: alias("id"),
+    symbol: attr("string"),
+    name: attr("string"),
+    nameWithCode: computed("code", "name", function () {
+        return `${get(this, "name")} (${get(this, "code")})`;
     }),
 });
 

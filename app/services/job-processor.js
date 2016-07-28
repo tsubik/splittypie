@@ -2,16 +2,18 @@ import Ember from "ember";
 
 const {
     assert,
+    get,
     inject: { service },
     Logger: { debug },
+    Service,
 } = Ember;
 
-export default Ember.Service.extend({
+export default Service.extend({
     onlineStore: service(),
     store: service(),
 
     process(job) {
-        const name = job.get("name");
+        const name = get(job, "name");
         const payload = JSON.parse(job.get("payload"));
         const [jobType, modelName] = name.split(/(?=[A-Z])/);
         const method = this.commands[jobType];
@@ -32,8 +34,8 @@ export default Ember.Service.extend({
 
     commands: {
         create(modelName, properties) {
-            const onlineStore = this.get("onlineStore");
-            const offlineStore = this.get("store");
+            const onlineStore = get(this, "onlineStore");
+            const offlineStore = get(this, "store");
             const modelClass = offlineStore.modelFor(modelName);
             const serializer = offlineStore.serializerFor(modelName);
             const normalized = serializer.normalize(modelClass, properties);
@@ -42,7 +44,7 @@ export default Ember.Service.extend({
         },
 
         update(modelName, properties) {
-            const onlineStore = this.get("onlineStore");
+            const onlineStore = get(this, "onlineStore");
             const id = properties.id;
 
             return onlineStore.findRecord(modelName, id).then((record) => {
@@ -52,7 +54,7 @@ export default Ember.Service.extend({
         },
 
         destroy(modelName, properties) {
-            const onlineStore = this.get("onlineStore");
+            const onlineStore = get(this, "onlineStore");
             const id = properties.id;
 
             return onlineStore.findRecord(modelName, id).then((record) => record.destroyRecord());

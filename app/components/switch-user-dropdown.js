@@ -1,14 +1,20 @@
 import Ember from "ember";
 
-export default Ember.Component.extend({
+const {
+    computed,
+    get,
+    Component,
+} = Ember;
+
+export default Component.extend({
     tagName: "div",
     classNames: ["dropdown", "user-dropdown"],
 
-    otherUsers: Ember.computed("selected", "users", function () {
-        const users = this.get("users");
-        const currentUser = this.get("selected");
+    otherUsers: computed("selected", "users", function () {
+        const users = get(this, "users");
+        const currentUser = get(this, "selected");
 
-        return users.rejectBy("id", currentUser.get("id"));
+        return users.rejectBy("id", get(currentUser, "id"));
     }),
 
     actions: {

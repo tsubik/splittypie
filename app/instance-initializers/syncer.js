@@ -1,7 +1,9 @@
 import Ember from "ember";
 
+const { debug } = Ember;
+
 export function initialize(applicationInstance) {
-    Ember.debug("initialize syncer");
+    debug("initialize syncer");
     applicationInstance.lookup("service:syncer");
 }
 

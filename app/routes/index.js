@@ -1,6 +1,8 @@
 import Ember from "ember";
 
-export default Ember.Route.extend({
+const { Route } = Ember;
+
+export default Route.extend({
     renderTemplate() {
         this._super(...arguments);
         this.render("shared/footer", { into: "application", outlet: "footer" });

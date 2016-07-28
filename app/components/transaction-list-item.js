@@ -1,14 +1,20 @@
 import Ember from "ember";
 
-export default Ember.Component.extend({
+const {
+    computed,
+    get,
+    Component,
+} = Ember;
+
+export default Component.extend({
     classNames: ["list-group-item", "btn", "btn-default", "transaction-list-item"],
 
-    participants: Ember.computed("transaction.participants", function () {
-        return this.get("transaction.participants").getEach("name").join(", ");
+    participants: computed("transaction.participants", function () {
+        return get(this, "transaction.participants").getEach("name").join(", ");
     }),
 
     click() {
-        const onClick = this.get("onClick");
+        const onClick = get(this, "onClick");
 
         if (typeof onClick === "function") {
             onClick();

@@ -2,6 +2,7 @@ import Ember from "ember";
 
 const {
     computed: { equal },
+    set,
     Service,
 } = Ember;
 
@@ -12,12 +13,12 @@ export default Service.extend({
 
     init() {
         this._super(...arguments);
-        this.set("state", window.navigator.onLine ? "online" : "offline");
+        set(this, "state", window.navigator.onLine ? "online" : "offline");
         this._onOfflineHandler = () => {
-            this.set("state", "offline");
+            set(this, "state", "offline");
         };
         this._onOnlineHandler = () => {
-            this.set("state", "online");
+            set(this, "state", "online");
         };
 
         window.addEventListener("offline", this._onOfflineHandler);

@@ -1,6 +1,13 @@
 import Ember from "ember";
 
-export default Ember.Mixin.create({
+const {
+    get,
+    set,
+    isArray,
+    Mixin,
+} = Ember;
+
+export default Mixin.create({
     updateModel(json) {
         this.updateAttributes(json);
         this.updateRelationships(json);
@@ -9,7 +16,7 @@ export default Ember.Mixin.create({
     updateAttributes(json) {
         this.eachAttribute((name) => {
             if (json.hasOwnProperty(name)) {
-                this.set(name, json[name]);
+                set(this, name, json[name]);
             }
         });
     },
@@ -22,8 +29,8 @@ export default Ember.Mixin.create({
                 if (descriptor.kind === "belongsTo") {
                     const id = json[name];
                     const model = this.store.peekRecord(modelName, id);
-                    this.set(name, model);
-                } else if (descriptor.kind === "hasMany" && Ember.isArray(json[name])) {
+                    set(this, name, model);
+                } else if (descriptor.kind === "hasMany" && isArray(json[name])) {
                     const array = json[name];
                     let result = [];
 
@@ -36,14 +43,14 @@ export default Ember.Mixin.create({
                             (item) => array.indexOf(item.get("id")) > -1
                         );
                     }
-                    this.set(name, result);
+                    set(this, name, result);
                 }
             }
         });
     },
 
     _synchronizeWithNewArray(modelName, name, newArray) {
-        const currentArray = this.get(name);
+        const currentArray = get(this, name);
 
         return newArray
             .map(newRecord => {
