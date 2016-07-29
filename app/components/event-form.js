@@ -1,14 +1,13 @@
 import Ember from "ember";
-import FormComponent from "splittypie/mixins/form-component";
+import BaseForm from "splittypie/components/base-form";
 
 const {
     computed: { alias, oneWay },
     inject: { service },
     get,
-    Component,
 } = Ember;
 
-export default Component.extend(FormComponent, {
+export default BaseForm.extend({
     store: service(),
 
     formObject: alias("event"),

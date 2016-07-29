@@ -1,5 +1,5 @@
 import Ember from "ember";
-import Form from "splittypie/mixins/form";
+import FormObject from "./form-object";
 
 const {
     computed: { oneWay },
@@ -8,10 +8,9 @@ const {
     getProperties,
     setProperties,
     getWithDefault,
-    Object: EmberObject,
 } = Ember;
 
-export default EmberObject.extend(Form, {
+export default FormObject.extend({
     modelName: "transaction",
     validations: {
         name: {

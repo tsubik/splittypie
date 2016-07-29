@@ -1,15 +1,14 @@
 import Ember from "ember";
-import Form from "splittypie/mixins/form";
+import FormObject from "./form-object";
 
 const {
     get,
     set,
     getProperties,
     setProperties,
-    Object: EmberObject,
 } = Ember;
 
-export default EmberObject.extend(Form, {
+export default FormObject.extend({
     modelName: "user",
     validations: {
         name: {

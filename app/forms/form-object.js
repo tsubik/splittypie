@@ -11,10 +11,10 @@ const {
     getWithDefault,
     observer,
     on,
-    Mixin,
+    Object: EmberObject,
 } = Ember;
 
-export default Mixin.create(Validations, {
+export default EmberObject.extend(Validations, {
     store: service(),
     formFactory: service(),
     parent: null,

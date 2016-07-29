@@ -1,14 +1,13 @@
 import Ember from "ember";
-import FormComponent from "splittypie/mixins/form-component";
+import BaseForm from "splittypie/components/base-form";
 
 const {
     computed: { alias },
     computed,
     get,
-    Component,
 } = Ember;
 
-export default Component.extend(FormComponent, {
+export default BaseForm.extend({
     formObject: alias("transaction"),
 
     didInsertElement() {
