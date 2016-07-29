@@ -24,17 +24,17 @@ export default Service.extend(Evented, {
     },
 
     enqueue(name, payload) {
-        debug(`creating offline job for ${name}: ${payload}`);
+        debug(`Sync-queue: Creating offline job for ${name}: ${payload}`);
         return this._createAndSaveJob(name, payload).then((job) => {
             if (get(this, "connection.isOnline")) {
-                debug(`adding job ${name} to pendingJobs array`);
+                debug(`Sync-queue: Adding job ${name} to pendingJobs array`);
                 get(this, "pendingJobs").addObject(job);
             }
         });
     },
 
     flush() {
-        debug("flushing offline jobs");
+        debug("Sync-queue: Flushing offline jobs");
 
         return new Promise((resolve) => {
             get(this, "store")
@@ -43,7 +43,7 @@ export default Service.extend(Evented, {
                     const arrayJobs = jobs.sortBy("createdAt").toArray();
 
                     if (arrayJobs.length === 0) {
-                        debug("no jobs to flush");
+                        debug("Sync-queue: No jobs to flush");
                         resolve();
                     } else {
                         this.one("flushed", resolve);
@@ -81,7 +81,7 @@ export default Service.extend(Evented, {
                     this._processNext();
                 } else {
                     set(this, "isProcessing", false);
-                    debug("Sync queue is flushed");
+                    debug("Sync-queue: Sync queue is flushed");
                     this.trigger("flushed");
                 }
             })

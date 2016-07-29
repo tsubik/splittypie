@@ -42,16 +42,31 @@ export default Service.extend(Evented, {
     },
 
     syncOnline() {
-        debug("Starting online full sync");
+        debug("Syncer: Starting online full sync");
         set(this, "isSyncing", true);
+        this.trigger("syncStarted");
         return this._reloadOnlineStore()
             .then(this._flushSyncQueue.bind(this))
             .then(this._updateOfflineStore.bind(this))
             .finally(() => {
-                debug("Full sync has been completed");
+                debug("Syncer: Full sync has been completed");
                 set(this, "isSyncing", false);
                 this.trigger("syncCompleted");
             });
+    },
+
+    pushEventOffline(onlineEvent) {
+        debug(`Syncer: Syncing online event ${get(onlineEvent, "name")} into offline store`);
+
+        return this._pushToStore(get(this, "store"), onlineEvent);
+    },
+
+    pushEventOnline(offlineEvent) {
+        return this._pushToStore(get(this, "onlineStore"), offlineEvent).then((onlineEvent) => {
+            set(offlineEvent, "isOffline", false);
+            this._listenForChanges(onlineEvent);
+            return offlineEvent.save();
+        });
     },
 
     _reloadOnlineStore() {
@@ -69,7 +84,7 @@ export default Service.extend(Evented, {
     },
 
     _updateOfflineStore() {
-        debug("Updating Offline Store");
+        debug("Syncer: Updating Offline Store");
 
         return get(this, "store")
             .findAll("event")
@@ -110,8 +125,8 @@ export default Service.extend(Evented, {
     _onlineEventNotFound(offlineEvent, error) {
         const { id, name } = getProperties(offlineEvent, "id", "name");
 
-        debug(`Event ${name} not found online`);
-        debug("Setting event as offline - it will be available to manual sync");
+        debug(`Syncer: Event ${name} not found online`);
+        debug("Syncer: Setting event as offline - it will be available to manual sync");
         set(offlineEvent, "isOffline", true);
         this._removeListenerFor(id);
         this.trigger("conflict", {
@@ -124,20 +139,6 @@ export default Service.extend(Evented, {
         });
 
         return offlineEvent.save().then(() => reject(error));
-    },
-
-    pushEventOffline(onlineEvent) {
-        debug(`Syncing online event ${get(onlineEvent, "name")} into offline store`);
-
-        return this._pushToStore(get(this, "store"), onlineEvent);
-    },
-
-    pushEventOnline(offlineEvent) {
-        return this._pushToStore(get(this, "onlineStore"), offlineEvent).then((onlineEvent) => {
-            set(offlineEvent, "isOffline", false);
-            this._listenForChanges(onlineEvent);
-            return offlineEvent.save();
-        });
     },
 
     _pushToStore(store, model) {

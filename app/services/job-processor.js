@@ -18,16 +18,16 @@ export default Service.extend({
         const [jobType, modelName] = name.split(/(?=[A-Z])/);
         const method = this.commands[jobType];
 
-        debug(`processing job ${name} with payload: ${payload}`);
+        debug(`Job-processor: Processing job ${name} with payload: ${payload}`);
         assert(`Job ${name} doesn't exists`, method);
 
         return method.call(this, modelName, payload)
             .then((result) => {
-                debug(`Job ${name} has successfully completed`);
+                debug(`Job-processor: Job ${name} has successfully completed`);
                 return result;
             })
             .catch((error) => {
-                debug("Job processing error", error);
+                debug("Job-processor: Job processing error", error);
                 return error;
             });
     },

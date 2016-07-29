@@ -4,6 +4,7 @@ import isMobile from "splittypie/utils/is-mobile";
 const {
     inject: { service },
     get,
+    set,
     setProperties,
     Route,
 } = Ember;
@@ -16,6 +17,16 @@ export default Route.extend({
     eventRepository: service(),
     connection: service(),
     syncer: service(),
+
+    init() {
+        this._super(...arguments);
+        const syncer = get(this, "syncer");
+        if (syncer.get("isSyncing")) {
+            this._onSyncStarted();
+        }
+        syncer.on("syncStarted", this._onSyncStarted.bind(this));
+        syncer.on("syncCompleted", this._onSyncCompleted.bind(this));
+    },
 
     model(params) {
         return get(this, "eventRepository").find(params.event_id);
@@ -84,5 +95,18 @@ export default Route.extend({
 
             return false;
         },
+    },
+
+    _onSyncStarted() {
+        const syncProgressIndicator = new window.Mprogress({ template: 3 });
+        syncProgressIndicator.start();
+        set(this, "syncProgressIndicator", syncProgressIndicator);
+    },
+
+    _onSyncCompleted() {
+        const syncProgressIndicator = get(this, "syncProgressIndicator");
+        if (syncProgressIndicator) {
+            syncProgressIndicator.end();
+        }
     },
 });

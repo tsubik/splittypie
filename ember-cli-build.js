@@ -54,6 +54,8 @@ module.exports = function (defaults) {
     });
 
     app.import("bower_components/bootstrap-sass/assets/javascripts/bootstrap.js");
+    app.import("bower_components/mprogress/build/css/mprogress.css");
+    app.import("bower_components/mprogress/build/js/mprogress.js");
 
     return app.toTree();
 };
