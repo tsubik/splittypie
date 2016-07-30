@@ -15,8 +15,8 @@
     "deploy:prod": "rm -rf dist/ && ember build --environment=production && firebase use prod && firebase deploy",
     "deploy:staging": "rm -rf dist/ && ember build --environment=staging && firebase use staging && firebase deploy",
     "deploy:offline": "rm -rf dist/ && ember build --environment=offline && firebase use offline && firebase deploy",
-    "seed": "firebase use dev && ./get-json.js default | firebase database:set / -y",
-    "seed:staging": "firebase use staging && ./get-json.js default | firebase database:set / -y"
+    "seed": "firebase use dev && ./get-seed-json.js default | firebase database:set / -y",
+    "seed:staging": "firebase use staging && ./get-seed-json.js default | firebase database:set / -y"
   },
   "repository": "",
   "engines": {
