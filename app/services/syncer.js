@@ -18,6 +18,11 @@ const {
 } = Ember;
 
 export default Service.extend(Evented, {
+    // Events
+    // syncStarted: synchronization started
+    // syncCompleted: synchronization completed
+    // conflict: conflict found
+
     store: service(),
     onlineStore: service(),
     connection: service(),
