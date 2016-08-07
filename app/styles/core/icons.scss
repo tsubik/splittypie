@@ -1,0 +1,28 @@
+$icon-size: 18px;
+$icon-md-size: 28px;
+
+.brand {
+  position: relative;
+  top: -8px;
+  height: 40px;
+  width: 150px;
+}
+
+.cowbell {
+  fill: none;
+  stroke: #000;
+  stroke-width: 5px;
+}
+
+.icon {
+  position: relative;
+  width: $icon-size;
+  height: $icon-size;
+  display: inline-block;
+  vertical-align: middle;
+}
+
+.icon.icon-md {
+  width: $icon-md-size;
+  height: $icon-md-size;
+}

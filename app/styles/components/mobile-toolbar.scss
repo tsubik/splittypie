@@ -1,0 +1,24 @@
+.toolbar {
+  .navbar-header {
+    display: flex;
+    align-items: center;
+  }
+
+  .navbar-brand {
+    padding-left: 0px;
+    padding-right: 0px;
+    font-size: 20px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    flex: 1;
+  }
+
+  .navbar-brand.text-center {
+    margin-left: -50px;
+  }
+
+  .user-dropdown {
+    padding: 0px;
+  }
+}

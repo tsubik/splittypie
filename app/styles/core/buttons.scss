@@ -1,0 +1,20 @@
+$btn-circle-size: 56px;
+
+/* fixing crappy outline on button focus */
+.btn:focus {
+  outline: none !important;
+}
+
+.btn-circle {
+  padding: 0;
+  border-radius: 50%;
+  width: $btn-circle-size;
+  height: $btn-circle-size;
+  min-width: $btn-circle-size;
+
+  .icon {
+    position: relative;
+    fill: #fff;
+    top: 15px;
+  }
+}

@@ -5,15 +5,40 @@
 @import "bootstrap";
 @import "vendor/bootstrap-paper/_bootswatch";
 @import "ember-side-menu";
-@import "_side-menu-custom";
-@import "_ember-notify-custom";
 
-$icon-size: 18px;
-$icon-md-size: 28px;
-$btn-circle-size: 56px;
+@import "core/buttons";
+@import "core/icons";
+
+// routes templates
+@import "templates/index";
+@import "templates/event";
+
+// components styles
+@import "components/calendar-page";
+@import "components/ember-notify";
+@import "components/event-url";
+@import "components/mobile-toolbar";
+@import "components/previous-events";
+@import "components/settlement-transfer-list";
+@import "components/side-menu";
+@import "components/switch-event-dropdown";
+@import "components/transaction-list";
+@import "components/transaction-list-header";
+@import "components/transaction-list-item";
+@import "components/user-balance-list";
+@import "components/user-balance-list-item";
 
 body, html {
   height: 100%;
+}
+
+main {
+  padding-bottom: 70px;
+}
+
+footer {
+  height: 50px;
+  margin-top: -50px;
 }
 
 .flex {
@@ -26,25 +51,6 @@ body, html {
 
 .no-borders {
   box-shadow: none;
-}
-
-/* fixing crappy outline on button focus */
-.btn:focus {
-  outline: none !important;
-}
-
-.btn-circle {
-  padding: 0;
-  border-radius: 50%;
-  width: $btn-circle-size;
-  height: $btn-circle-size;
-  min-width: $btn-circle-size;
-
-  .icon {
-    position: relative;
-    fill: #fff;
-    top: 15px;
-  }
 }
 
 table.no-border {
@@ -67,30 +73,6 @@ table.no-border {
   }
 }
 
-.index-sections {
-  section {
-    overflow: hidden;
-    margin: 10px 0px 10px 0px;
-  }
-}
-
-.small-border {
-  display: block;
-  width: 150px;
-  margin: 10px auto;
-  height: 1px;
-  background: #ececec;
-}
-
-.social-list {
-  text-align: center;
-  padding: 10px;
-
-  a {
-    margin: 0px 5px;
-  }
-}
-
 .navbar {
   .container {
     display: flex;
@@ -104,8 +86,6 @@ table.no-border {
   .btn, .navbar-btn {
     margin-top: 0px;
     margin-bottom: 0px;
-    padding-right: 10px;
-    padding-left: 10px;
   }
 
   ul.nav {
@@ -120,248 +100,5 @@ table.no-border {
     li.active {
       font-weight: bold;
     }
-  }
-}
-
-.toolbar {
-  .navbar-header {
-    display: flex;
-    align-items: center;
-  }
-
-  .navbar-brand {
-    padding-left: 0px;
-    padding-right: 0px;
-    font-size: 20px;
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    flex: 1;
-  }
-
-  .navbar-brand.text-center {
-    margin-left: -50px;
-  }
-
-  .user-dropdown {
-    padding: 0px;
-  }
-}
-
-.brand {
-  position: relative;
-  top: -8px;
-  height: 40px;
-  width: 150px;
-}
-
-.cowbell {
-  fill: none;
-  stroke: #000;
-  stroke-width: 5px;
-}
-
-.icon {
-  position: relative;
-  width: $icon-size;
-  height: $icon-size;
-  display: inline-block;
-  vertical-align: middle;
-}
-
-.icon.icon-md {
-  width: $icon-md-size;
-  height: $icon-md-size;
-}
-
-main {
-  padding-bottom: 70px;
-}
-
-footer {
-  height: 50px;
-  margin-top: -50px;
-}
-
-.previous-events {
-  text-align: center;
-
-  .btn-group {
-    margin: 10px 15px 10px 0px;
-  }
-}
-
-.feature-img-container {
-  height: 160px;
-  line-height: 160px;
-}
-
-.user-balance-list.table {
-  margin-bottom: 0px;
-}
-
-.user-balance-list-item {
-  font-size: 14px;
-
-  .label {
-    font-size: 14px;
-  }
-}
-
-.settlement-item {
-  font-size: 14px;
-  margin: 10px 0px;
-
-  .btn {
-    float: right;
-  }
-}
-
-.transaction-list-header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-
-  .calendar-page {
-    margin-right: 10px;
-  }
-
-  .total {
-    flex: 1;
-    text-align: right;
-    font-size: 18px;
-    font-weight: bold;
-  }
-}
-
-.transaction-list-item {
-  text-transform: none;
-  padding: 10px;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-
-  .transaction-list-item-amount {
-    text-align: right;
-  }
-
-  .transaction-list-item-description {
-    flex: 1;
-    text-align: left;
-    white-space: normal;
-    padding-left: 10px;
-    padding-right: 10px;
-  }
-}
-
-.calendar-page {
-  text-transform: uppercase;
-
-  .month {
-    font-size: 10px;
-  }
-
-  .day {
-    font-size: 18px;
-    line-height: 18px;
-  }
-}
-
-.transaction-list-date {
-  padding: 5px;
-}
-
-.main-promotion-text {
-  padding-top: 80px;
-
-  p {
-    line-height: 1.5;
-    font-weight: 300;
-    font-size: 19.5px;
-  }
-
-  @media (max-width: $screen-sm-min) {
-    padding-top: 10px;
-    text-align: center;
-  }
-}
-
-.main-promotion-image {
-  @media (max-width: $screen-md-min) {
-    text-align: center;
-  }
-}
-
-.previous-events-container {
-  margin-top: 100px;
-  margin-bottom: 100px;
-}
-
-/* event nav tabs */
-.nav-tabs {
-  @include box-shadow(inset 0 -1px 0 #ddd);
-  text-transform: uppercase;
-
-  @media (max-width: $screen-sm-min) {
-    position: fixed;
-    margin-left: -5px;
-    margin-right: -5px;
-    width: 100%;
-    top: 60px;
-    background: #fff;
-    z-index: 1000;
-  }
-}
-
-.nav-tabs li a {
-  box-shadow: none;
-}
-
-.event-container {
-  @media (max-width: $screen-sm-min) {
-    padding-top: 30px;
-  }
-}
-
-.add-transaction-button {
-  position: fixed;
-  display: flex;
-  align-items: center;
-  right: 20px;
-  bottom: 20px;
-}
-
-.onboarding-transaction-add {
-  display: flex;
-  align-items: center;
-
-  p {
-    font: 1.5em "Give You Glory", cursive;
-    margin: 0px;
-    text-align: right;
-  }
-
-  img {
-    width: 87px;
-    height: 30px;
-  }
-}
-
-.btn-change-event {
-  text-transform: none;
-  font-size: 24px;
-  margin-left: -16px;
-}
-
-input.event-url {
-  font-size: 26px;
-  width: 100%;
-
-  @media (max-width: $screen-sm-min) {
-    font-size: 20px;
-  }
-
-  @media (max-width: $screen-xs-min) {
-    font-size: 16px;
   }
 }

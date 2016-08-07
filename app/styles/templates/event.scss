@@ -1,0 +1,49 @@
+.event-container {
+  @media (max-width: $screen-sm-min) {
+    padding-top: 30px;
+  }
+}
+
+.add-transaction-button {
+  position: fixed;
+  display: flex;
+  align-items: center;
+  right: 20px;
+  bottom: 20px;
+}
+
+.onboarding-transaction-add {
+  display: flex;
+  align-items: center;
+
+  p {
+    font: 1.5em "Give You Glory", cursive;
+    margin: 0px;
+    text-align: right;
+  }
+
+  img {
+    width: 87px;
+    height: 30px;
+  }
+}
+
+/* event nav tabs */
+.nav-tabs {
+  @include box-shadow(inset 0 -1px 0 #ddd);
+  text-transform: uppercase;
+
+  @media (max-width: $screen-sm-min) {
+    position: fixed;
+    margin-left: -5px;
+    margin-right: -5px;
+    width: 100%;
+    top: 60px;
+    background: #fff;
+    z-index: 1000;
+  }
+}
+
+.nav-tabs li a {
+  box-shadow: none;
+}

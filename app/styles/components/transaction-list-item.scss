@@ -1,0 +1,19 @@
+.transaction-list-item {
+  text-transform: none;
+  padding: 10px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  .transaction-list-item-amount {
+    text-align: right;
+  }
+
+  .transaction-list-item-description {
+    flex: 1;
+    text-align: left;
+    white-space: normal;
+    padding-left: 10px;
+    padding-right: 10px;
+  }
+}

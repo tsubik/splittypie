@@ -1,0 +1,49 @@
+.index-sections {
+  section {
+    overflow: hidden;
+    margin: 10px 0px 10px 0px;
+  }
+}
+
+.small-border {
+  display: block;
+  width: 150px;
+  margin: 10px auto;
+  height: 1px;
+  background: #ececec;
+}
+
+.social-list {
+  text-align: center;
+  padding: 10px;
+
+  a {
+    margin: 0px 5px;
+  }
+}
+
+.main-promotion-text {
+  padding-top: 80px;
+
+  p {
+    line-height: 1.5;
+    font-weight: 300;
+    font-size: 19.5px;
+  }
+
+  @media (max-width: $screen-sm-min) {
+    padding-top: 10px;
+    text-align: center;
+  }
+}
+
+.main-promotion-image {
+  @media (max-width: $screen-md-min) {
+    text-align: center;
+  }
+}
+
+.feature-img-container {
+  height: 160px;
+  line-height: 160px;
+}

@@ -1,0 +1,12 @@
+input.event-url {
+  font-size: 26px;
+  width: 100%;
+
+  @media (max-width: $screen-sm-min) {
+    font-size: 20px;
+  }
+
+  @media (max-width: $screen-xs-min) {
+    font-size: 16px;
+  }
+}
