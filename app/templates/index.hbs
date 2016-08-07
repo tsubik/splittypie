@@ -25,7 +25,7 @@
   </ul>
 {{/ember-wormhole}}
 
-<div style="overflow: hidden;">
+<div class="index-sections">
   <section id="about">
     <div class="row main">
       <div class="col-sm-7 main-promotion-text">
@@ -42,7 +42,9 @@
     </div>
   </section>
 
-  {{previous-events events=model.previousEvents}}
+  {{#if (any model.previousEvents)}}
+    {{previous-events events=model.previousEvents}}
+  {{/if}}
 
   <section id="features">
     <h3 class="text-center">Find more about Splittypie</h3>
@@ -115,6 +117,7 @@
   </section>
 
   <div class="small-border"></div>
+
   <section class="social-list">
     <a href="https://github.com/cowbell/splittypie">
       {{inline-svg "github" class="icon icon-md"}}

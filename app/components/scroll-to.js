@@ -41,25 +41,27 @@ export default Component.extend({
 
     didInsertElement() {
         this._super(...arguments);
-        $(window).on("scroll", this.checkPosition.bind(this));
+        this._onWindowScroll = this._determineIfActive.bind(this);
+        $(window).on("scroll", this._onWindowScroll);
 
         schedule("afterRender", () => {
-            this.checkPosition();
+            this._determineIfActive();
         });
     },
 
     willDestroyElement() {
         this._super(...arguments);
+        $(window).off("scroll", this._onWindowScroll);
     },
 
-    checkPosition() {
+    _determineIfActive() {
         const referenceElement = get(this, "referenceElement");
-        const offset = get(this, "offset") + 100; // FIXME: fix this value
-        const position = $(window).scrollTop();
-        const top = referenceElement.offset().top - offset;
-        const bottom = top + referenceElement.outerHeight();
+        const offset = get(this, "offset");
+        const scrollTop = $(window).scrollTop();
+        const elementTop = referenceElement.offset().top;
+        const elementBottom = elementTop + referenceElement.outerHeight(true);
 
-        if (position >= top && position <= bottom) {
+        if (scrollTop + offset >= elementTop && scrollTop + offset < elementBottom) {
             set(this, "active", true);
         } else {
             set(this, "active", false);

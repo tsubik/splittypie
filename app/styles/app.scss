@@ -66,6 +66,13 @@ table.no-border {
   }
 }
 
+.index-sections {
+  section {
+    overflow: hidden;
+    margin: 10px 0px 10px 0px;
+  }
+}
+
 .small-border {
   display: block;
   width: 150px;
