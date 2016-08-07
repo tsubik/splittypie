@@ -75,9 +75,9 @@ export default Service.extend(Evented, {
             .process(job)
             .then(() => {
                 get(this, "pendingJobs").removeAt(0);
-                const anyNextJobs = get(this, "pendingJobs.length") > 0;
+                const moreJobsToProcess = get(this, "pendingJobs.length") > 0;
                 job.destroyRecord();
-                if (anyNextJobs) {
+                if (moreJobsToProcess) {
                     this._processNext();
                 } else {
                     set(this, "isProcessing", false);
@@ -87,6 +87,7 @@ export default Service.extend(Evented, {
             })
             .catch((error) => {
                 debug("ERROR", error);
+                this.trigger("error", error);
             });
     },
 

@@ -15,22 +15,25 @@ function shouldReportError(error) {
     return true;
 }
 
-export function initialize(/* application */) {
-    const reportError = (error) => {
-        if (error.stack) {
-            console.error(error.stack);
-        }
+function reportError(error) {
+    if (error.stack) {
+        console.error(error.stack);
+    }
 
-        if (window.Rollbar && shouldReportError(error)) {
-            window.Rollbar.error(error);
-        }
+    if (window.Rollbar && shouldReportError(error)) {
+        window.Rollbar.error(error);
+    }
 
-        return true;
-    };
+    return true;
+}
 
+export function initialize(application) {
+    const syncQueue = application.__container__.lookup("service:syncQueue");
+
+    syncQueue.on("error", reportError);
     Ember.onerror = reportError;
-    RSVP.on("error", reportError);
     window.onerror = reportError;
+    RSVP.on("error", reportError);
 }
 
 export default {
