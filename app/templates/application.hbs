@@ -6,36 +6,41 @@
       {{/side-menu-link-to}}
     </div>
   </header>
-  <ul class="nav">
-    <li class="header">Events</li>
-    {{#each model.previousEvents as |event|}}
+  <div class="content">
+    <ul class="nav">
+      <li class="header">Events</li>
+      {{#each model.previousEvents as |event|}}
+        <li>
+          {{#side-menu-link-to "event" event.id}}
+            {{inline-svg "calendar" class="icon"}}
+            {{event.name}}
+          {{/side-menu-link-to}}
+        </li>
+      {{/each}}
       <li>
-        {{#side-menu-link-to "event" event.id}}
-          {{inline-svg "calendar" class="icon"}}
-          {{event.name}}
+        {{#side-menu-link-to "new"}}
+          {{inline-svg "plus" class="icon"}}
+          New Event
         {{/side-menu-link-to}}
       </li>
-    {{/each}}
-    <li>
-      {{#side-menu-link-to "new"}}
-        {{inline-svg "plus" class="icon"}}
-        New Event
-      {{/side-menu-link-to}}
-    </li>
-    <li class="divider"></li>
-    <li>
-      <a href="https://github.com/cowbell/splittypie" target="_blank">
-        {{inline-svg "github" class="icon"}}
-        Source Code
-      </a>
-    </li>
-    <li>
-      <a href="https://cowbell-labs.com/" target="_blank">
-        {{inline-svg "cowbell" class="icon cowbell"}}
-        Cowbell Labs
-      </a>
-    </li>
-  </ul>
+      <li class="divider"></li>
+      <li>
+        <a href="https://github.com/cowbell/splittypie" target="_blank">
+          {{inline-svg "github" class="icon"}}
+          Source Code
+        </a>
+      </li>
+      <li>
+        <a href="https://cowbell-labs.com/" target="_blank">
+          {{inline-svg "cowbell" class="icon cowbell"}}
+          Cowbell Labs
+        </a>
+      </li>
+    </ul>
+    <div class="version">
+      <p>ver. {{appVersion}}</p>
+    </div>
+  </div>
 {{/side-menu}}
 {{content-backdrop}}
 <div class="page-content">

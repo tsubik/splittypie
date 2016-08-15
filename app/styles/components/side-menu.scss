@@ -36,4 +36,19 @@
       }
     }
   }
+
+  .content {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    top: 80px;
+    bottom: 0px;
+    position: absolute;
+    width: 100%;
+  }
+
+  .version {
+    text-align: left;
+    padding-left: 10px;
+  }
 }
