@@ -28,7 +28,7 @@ export default Service.extend({
             })
             .catch((error) => {
                 debug("Job-processor: Job processing error", error);
-                return error;
+                throw error;
             });
     },
 
