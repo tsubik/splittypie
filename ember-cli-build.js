@@ -23,6 +23,11 @@ module.exports = function (defaults) {
                 "vendor/bootstrap-paper",
             ],
         },
+        minifyJS: {
+            options: {
+                exclude: ["sw-toolbox.js"]
+            }
+        },
         sourcemaps: {
             enabled: true,
         },
