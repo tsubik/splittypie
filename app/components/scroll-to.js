@@ -5,13 +5,12 @@ const {
     run: { schedule },
     computed,
     get,
-    set,
     Component,
 } = Ember;
 
 export default Component.extend({
     tagName: "li",
-    classNameBindings: ["active"],
+    classNames: ["scroll-to"],
 
     href: null,
     duration: 700,
@@ -58,13 +57,11 @@ export default Component.extend({
         const referenceElement = get(this, "referenceElement");
         const offset = get(this, "offset");
         const scrollTop = $(window).scrollTop();
-        const elementTop = referenceElement.offset().top;
-        const elementBottom = elementTop + referenceElement.outerHeight(true);
+        const elementTop = Math.floor(referenceElement.offset().top);
 
-        if (scrollTop + offset >= elementTop && scrollTop + offset < elementBottom) {
-            set(this, "active", true);
-        } else {
-            set(this, "active", false);
+        if (scrollTop + offset >= elementTop) {
+            $(".scroll-to").removeClass("active");
+            this.$().addClass("active");
         }
     },
 });
