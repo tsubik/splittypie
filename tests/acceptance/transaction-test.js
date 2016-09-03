@@ -45,7 +45,7 @@ test("adding new transaction", function (assert) {
         andThen(() => {
             const expectedMessage = "Alice paid for special bottle of vodka";
 
-            assert.ok(exist(".transaction-list-item:contains('50 EUR')"), "transaction amount");
+            assert.ok(exist(".transaction-list-item:contains('50.00 EUR')"), "transaction amount");
             assert.ok(
                 exist(`.transaction-list-item:contains('${expectedMessage}')`),
                 "transaction item"
@@ -67,7 +67,9 @@ test("editing/removing transaction", function (assert) {
 
         visit(`/${event.id}/transactions`);
         andThen(() => {
-            assert.ok(exist(".transaction-list-item:contains('1250 EUR')"), "transaction amount");
+            assert.ok(
+                exist(".transaction-list-item:contains('1,250.00 EUR')"), "transaction amount"
+            );
             assert.ok(
                 exist(".transaction-list-item:contains('John paid for Plane tickets')"),
                 "transaction item"
@@ -86,14 +88,16 @@ test("editing/removing transaction", function (assert) {
 
         reloadPage();
         andThen(() => {
-            assert.ok(exist(".transaction-list-item:contains('50 EUR')"), "transaction amount");
+            assert.ok(
+                exist(".transaction-list-item:contains('50.00 EUR')"), "changed transaction amount"
+            );
             assert.ok(
                 exist(".transaction-list-item:contains('Bob paid for special')"),
-                "transaction item"
+                "changed transaction item"
             );
             assert.ok(
                 exist(".transaction-list-item:contains('Alice, John, Daria, Bob')"),
-                "transaction item participants"
+                "changed transaction item participants"
             );
         });
 

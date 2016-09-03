@@ -7,7 +7,7 @@
         <li class="settlement-item">
           <strong>{{transfer.sender.name}}</strong> owes <strong>{{transfer.recipient.name}}</strong>
           <span class="text-nowrap">
-            {{transfer.amount}} {{transfer.currency.code}}
+            {{format-money transfer.amount symbol=transfer.currency.code format="%v %s"}}
           </span>
           <button class="btn btn-sm btn-success" {{action "settleUp" transfer}}>
             Settle Up!

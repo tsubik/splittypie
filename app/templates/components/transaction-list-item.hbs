@@ -11,6 +11,6 @@
 </div>
 <div class="transaction-list-item-amount">
   <strong>
-    {{transaction.amount}} {{transaction.event.currency.code}}
+    {{format-money transaction.amount symbol=transaction.event.currency.code format="%v %s"}}
   </strong>
 </div>
