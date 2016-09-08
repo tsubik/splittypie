@@ -84,6 +84,7 @@ test("editing/removing transaction", function (assert) {
         fillIn(".transaction-payer", BobId);
         fillIn(".transaction-name", "special");
         fillIn(".transaction-amount", "50");
+        fillIn(".transaction-date", "2016-07-07");
         click("button:contains(Save)");
 
         reloadPage();
@@ -98,6 +99,14 @@ test("editing/removing transaction", function (assert) {
             assert.ok(
                 exist(".transaction-list-item:contains('Alice, John, Daria, Bob')"),
                 "changed transaction item participants"
+            );
+            assert.ok(
+                exist(".transaction-list-date:contains('July 2016')"),
+                "transaction in July 2016 as date was changed to"
+            );
+            assert.ok(
+                exist(".month:contains(Jul) + .day:contains(07)"),
+                "transaction exists on Jul 07"
             );
         });
 

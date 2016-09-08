@@ -1,5 +1,13 @@
 {{#if isMobile}}
   {{input type="date" value=value class=dateInputClasses min=min max=max}}
 {{else}}
-  {{pikaday-input class=dateInputClasses value=pikadayValue minDate=pikadayMin maxDate=pikadayMax format="YYYY-MM-DD" useUTC=true}}
+  {{pikaday-input
+      class=dateInputClasses
+      value=pikadayValue
+      minDate=pikadayMin
+      maxDate=pikadayMax
+      format="YYYY-MM-DD"
+      useUTC=true
+      onSelection=(action (mut pikadayValue))
+  }}
 {{/if}}
