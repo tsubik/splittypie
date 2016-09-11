@@ -7,7 +7,7 @@ export function isIncluded([item, array]) {
         return false;
     }
 
-    return array.contains(item);
+    return array.includes(item);
 }
 
 export default Helper.helper(isIncluded);
