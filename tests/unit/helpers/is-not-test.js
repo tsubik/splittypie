@@ -1,5 +1,5 @@
-import { isNot } from "../../../helpers/is-not";
 import { module, test } from "qunit";
+import { isNot } from "../../../helpers/is-not";
 
 module("Unit | Helper | is not");
 

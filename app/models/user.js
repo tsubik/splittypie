@@ -17,11 +17,11 @@ export default Model.extend(ModelMixin, {
         const paidTransactions = transactions.filterBy("payer", this);
         const owedTransactions = transactions.filter((t) => get(t, "participants").contains(this));
         const paidMoney = paidTransactions.reduce(
-            (acc, curr) => acc + parseFloat(get(curr, "amount")),
+            (acc, t) => acc + parseFloat(get(t, "amount")),
             0
         );
         const owedMoney = owedTransactions.reduce(
-            (acc, curr) => acc + parseFloat(get(curr, "amount")) / get(curr, "participants").length,
+            (acc, t) => acc + (parseFloat(get(t, "amount")) / get(t, "participants").length),
             0
         );
 

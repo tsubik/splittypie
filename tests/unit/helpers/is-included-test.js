@@ -1,5 +1,5 @@
-import { isIncluded } from "../../../helpers/is-included";
 import { module, test } from "qunit";
+import { isIncluded } from "../../../helpers/is-included";
 
 module("Unit | Helper | is included");
 

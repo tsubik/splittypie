@@ -10,7 +10,8 @@ export function initialize(application) {
         const result = [];
 
         this.forEach((element) => {
-            result.push.apply(result, isArray(element) ? element.flatten() : [element]);
+            const array = isArray(element) ? element.flatten() : [element];
+            result.push(...array);
         });
 
         return result;
