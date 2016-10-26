@@ -74,7 +74,7 @@ export default EmberObject.extend(Validations, {
         const innerForms = getWithDefault(this, "innerForms", []);
 
         return innerForms
-            .map((attribute) => get(this, attribute))
+            .map(attribute => get(this, attribute))
             .flatten();
     },
 });

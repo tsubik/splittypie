@@ -109,7 +109,7 @@ test("store event in offline store if not present and fetching from online", fun
             return this.offlineStore.findRecord("event", event.id)
                 .then(() => true)
                 .catch(() => false)
-                .then((found) => assert.ok(found, "event found in offline store"));
+                .then(found => assert.ok(found, "event found in offline store"));
         });
     });
 });

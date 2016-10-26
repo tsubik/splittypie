@@ -62,7 +62,7 @@ export default Service.extend({
 
         return event
             .destroyRecord()
-            .then((result) => get(this, "syncQueue")
+            .then(result => get(this, "syncQueue")
                   .enqueue("destroyEvent", { id })
                   .then(() => result)
                  );

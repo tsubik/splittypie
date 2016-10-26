@@ -40,7 +40,7 @@ export default Mixin.create({
                         result = this._synchronizeWithNewArray(modelName, name, array);
                     } else {
                         result = this.store.peekAll(modelName).filter(
-                            (item) => array.indexOf(item.get("id")) > -1
+                            item => array.indexOf(item.get("id")) > -1
                         );
                     }
                     set(this, name, result);
@@ -53,7 +53,7 @@ export default Mixin.create({
         const currentArray = get(this, name);
 
         return newArray
-            .map(newRecord => {
+            .map((newRecord) => {
                 let record = currentArray.findBy("id", newRecord.id);
 
                 if (record) {

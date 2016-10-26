@@ -25,13 +25,13 @@ export default Ember.Test.registerAsyncHelper(
         const events = toArray(dump.events);
 
         return new Ember.RSVP.Promise((resolve, reject) => {
-            const loadData = Ember.RSVP.all(events.map((e) => eventsRef.child(e.id).set(e)));
+            const loadData = Ember.RSVP.all(events.map(e => eventsRef.child(e.id).set(e)));
 
             loadData.then(function () {
                 functionToRun(events);
                 return andThen(function () {
                     Ember.debug("Clearing TEST DATA");
-                    return Ember.RSVP.all(events.map((e) => eventsRef.child(e.id).remove()));
+                    return Ember.RSVP.all(events.map(e => eventsRef.child(e.id).remove()));
                 });
             }).then(resolve).catch(reject);
         });

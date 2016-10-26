@@ -57,7 +57,7 @@ export default Service.extend({
             const onlineStore = get(this, "onlineStore");
             const id = properties.id;
 
-            return onlineStore.findRecord(modelName, id).then((record) => record.destroyRecord());
+            return onlineStore.findRecord(modelName, id).then(record => record.destroyRecord());
         },
     },
 });

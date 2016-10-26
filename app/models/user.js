@@ -15,7 +15,7 @@ export default Model.extend(ModelMixin, {
     balance: computed("event.transactions.[]", function () {
         const transactions = get(this, "event.transactions");
         const paidTransactions = transactions.filterBy("payer", this);
-        const owedTransactions = transactions.filter((t) => get(t, "participants").contains(this));
+        const owedTransactions = transactions.filter(t => get(t, "participants").contains(this));
         const paidMoney = paidTransactions.reduce(
             (acc, t) => acc + parseFloat(get(t, "amount")),
             0
