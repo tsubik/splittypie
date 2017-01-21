@@ -1,4 +1,6 @@
 import Ember from "ember";
+import { validator, buildValidations } from "ember-cp-validations";
+
 import FormObject from "./form-object";
 
 const {
@@ -10,24 +12,25 @@ const {
     getWithDefault,
 } = Ember;
 
-export default FormObject.extend({
-    modelName: "transaction",
-    validations: {
-        name: {
-            presence: true,
-            length: { maximum: 50 },
-        },
-        amount: {
-            presence: true,
-            numericality: true,
-        },
-        payer: {
-            presence: true,
-        },
-        participants: {
-            presence: true,
-        },
+const Validations = buildValidations({
+    name: {
+        validators: [
+            validator("presence", true),
+            validator("length", { max: 50 }),
+        ],
     },
+    amount: {
+        validators: [
+            validator("presence", true),
+            validator("number", { allowString: true }),
+        ],
+    },
+    payer: validator("presence", true),
+    participants: validator("presence", true),
+});
+
+export default FormObject.extend(Validations, {
+    modelName: "transaction",
 
     event: oneWay("model.event"),
     isSaving: oneWay("event.isSaving"),

@@ -1,5 +1,4 @@
 import Ember from "ember";
-import Validations from "ember-validations";
 import DS from "ember-data";
 
 const {
@@ -14,7 +13,7 @@ const {
     Object: EmberObject,
 } = Ember;
 
-export default EmberObject.extend(Validations, {
+export default EmberObject.extend({
     store: service(),
     formFactory: service(),
     parent: null,
@@ -34,7 +33,7 @@ export default EmberObject.extend(Validations, {
     })),
 
     formErrors: computed("isSubmitted", function () {
-        return get(this, "isSubmitted") ? this.errors : {};
+        return get(this, "isSubmitted") ? get(this, "validations.attrs") : {};
     }),
 
     createInnerForm(name, model) {
@@ -44,7 +43,7 @@ export default EmberObject.extend(Validations, {
     updateModel() {
         set(this, "isSubmitted", true);
 
-        if (get(this, "isValid")) {
+        if (get(this, "validations.isValid")) {
             this.applyChangesToModel();
             return true;
         }

@@ -17,10 +17,10 @@ test("creating event", function (assert) {
     click("button:contains('Create')");
     // validations
     andThen(() => {
-        assert.equal(errorAt(".event-name"), "can't be blank", "event name validation");
-        assert.equal(errorAt(".event-currency"), "can't be blank", "event currency validation");
-        assert.equal(errorAt(".user-name:eq(0)"), "can't be blank", "event user 1 validation");
-        assert.equal(errorAt(".user-name:eq(1)"), "can't be blank", "event user 2 validation");
+        assert.equal(errorAt(".event-name"), "This field can't be blank", "event name validation");
+        assert.equal(errorAt(".event-currency"), "This field can't be blank", "event currency validation");
+        assert.equal(errorAt(".user-name:eq(0)"), "This field can't be blank", "event user 1 validation");
+        assert.equal(errorAt(".user-name:eq(1)"), "This field can't be blank", "event user 2 validation");
     });
 
     fillIn(".event-name", "Gift for John's Birthday");

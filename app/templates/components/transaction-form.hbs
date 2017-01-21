@@ -11,7 +11,7 @@
 <form>
   <div class="panel panel-default">
     <div class="panel-body">
-      <div class="form-group {{if transaction.formErrors.payer "has-error"}}">
+      <div class="form-group {{if transaction.formErrors.payer.message "has-error"}}">
         <label class="control-label">Who paid?</label>
         {{my-select
           class="transaction-payer"
@@ -22,38 +22,38 @@
           optionLabelPath="name"
         }}
         <div class="help-block with-errors">
-          {{transaction.formErrors.payer}}
+          {{transaction.formErrors.payer.message}}
         </div>
       </div>
 
-      <div class="form-group {{if transaction.formErrors.name "has-error"}}">
+      <div class="form-group {{if transaction.formErrors.name.message "has-error"}}">
         <label class="control-label">For what?</label>
         {{input value=transaction.name class="form-control transaction-name" placeholder="Example: Tickets to museum"}}
         <div class="help-block with-errors">
-          {{transaction.formErrors.name}}
+          {{transaction.formErrors.name.message}}
         </div>
       </div>
 
-      <div class="form-group {{if transaction.formErrors.amount "has-error"}}">
+      <div class="form-group {{if transaction.formErrors.amount.message "has-error"}}">
         <label class="control-label">How much?</label>
         <div class="input-group">
           <span class="input-group-addon">{{transaction.event.currency.code}}</span>
           {{input value=transaction.amount type="number" class="form-control transaction-amount" placeholder="Amount"}}
         </div>
         <div class="help-block with-errors">
-          {{transaction.formErrors.amount}}
+          {{transaction.formErrors.amount.message}}
         </div>
       </div>
 
-      <div class="form-group {{if transaction.formErrors.date "has-error"}}">
+      <div class="form-group {{if transaction.formErrors.date.message "has-error"}}">
         <label class="control-label">When? (this is optional)</label>
         {{date-picker value=transaction.date className="transaction-date" min="2000-01-01" max=maxDate}}
         <div class="help-block with-errors">
-          {{transaction.formErrors.date}}
+          {{transaction.formErrors.date.message}}
         </div>
       </div>
 
-      <div class="form-group {{if transaction.formErrors.participants "has-error"}}">
+      <div class="form-group {{if transaction.formErrors.participants.message "has-error"}}">
         <label class="control-label">Divide the cost among:</label>
         {{my-checkbox-list
           class="transaction-participants"
@@ -63,7 +63,7 @@
           optionLabelPath="name"
         }}
         <div class="help-block with-errors">
-          {{transaction.formErrors.participants}}
+          {{transaction.formErrors.participants.message}}
         </div>
       </div>
 

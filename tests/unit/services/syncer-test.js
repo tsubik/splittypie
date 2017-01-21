@@ -1,5 +1,5 @@
 import { moduleFor } from "ember-qunit";
-import sinonTest from "splittypie/tests/ember-sinon-qunit/test";
+import sinonTest from "ember-sinon-qunit/test-support/test";
 import Ember from "ember";
 import sinon from "sinon";
 

@@ -1,4 +1,4 @@
-<div class="form-group {{if user.formErrors.name "has-error"}}">
+<div class="form-group {{if user.formErrors.name.messages "has-error"}}">
   <div class="input-group">
     {{input value=user.name class="user-name form-control" placeholder=placeholder}}
     <span class="input-group-btn">
@@ -6,6 +6,6 @@
     </span>
   </div>
   <div class="help-block with-errors">
-    {{user.formErrors.name}}
+    {{user.formErrors.name.message}}
   </div>
 </div>

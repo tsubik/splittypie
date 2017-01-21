@@ -1,4 +1,6 @@
 import Ember from "ember";
+import { validator, buildValidations } from "ember-cp-validations";
+
 import FormObject from "./form-object";
 
 const {
@@ -8,14 +10,17 @@ const {
     setProperties,
 } = Ember;
 
-export default FormObject.extend({
-    modelName: "user",
-    validations: {
-        name: {
-            presence: true,
-            length: { maximum: 50 },
-        },
+const Validations = buildValidations({
+    name: {
+        validators: [
+            validator("presence", true),
+            validator("length", { max: 50 }),
+        ],
     },
+});
+
+export default FormObject.extend(Validations, {
+    modelName: "user",
 
     init() {
         this._super(...arguments);

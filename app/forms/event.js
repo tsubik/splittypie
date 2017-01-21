@@ -1,4 +1,6 @@
 import Ember from "ember";
+import { validator, buildValidations } from "ember-cp-validations";
+
 import FormObject from "./form-object";
 
 const {
@@ -11,24 +13,22 @@ const {
     Object: EmberObject,
 } = Ember;
 
-export default FormObject.extend({
+const Validations = buildValidations({
+    name: {
+        validators: [
+            validator("presence", true),
+            validator("length", { max: 50 }),
+        ],
+    },
+    currency: validator("presence", true),
+    users: validator("has-many"),
+});
+
+export default FormObject.extend(Validations, {
     modelName: "event",
     innerForms: ["users"],
 
     isOffline: oneWay("model.isOffline"),
-
-    validations: {
-        name: {
-            presence: true,
-            length: { maximum: 50 },
-        },
-        currency: {
-            presence: true,
-        },
-        users: {
-            array: true,
-        },
-    },
 
     init() {
         this._super(...arguments);
