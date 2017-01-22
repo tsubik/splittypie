@@ -10,7 +10,9 @@
   "scripts": {
     "build": "ember build",
     "start": "ember server",
+    "pretest": "node ./node_modules/.bin/firebase-server -p 5005 &",
     "test": "ember test",
+    "posttest": "pkill -f 'node ./node_modules/.bin/firebase-server' &",
     "deploy": "rm -rf dist/ && ember build && firebase use dev && firebase deploy",
     "deploy:prod": "rm -rf dist/ && ember build --environment=production && firebase use prod && firebase deploy",
     "deploy:staging": "rm -rf dist/ && ember build --environment=staging && firebase use staging && firebase deploy",
@@ -71,6 +73,7 @@
     "eslint": "^3.5.0",
     "eslint-config-airbnb-base": "^7.0.1",
     "eslint-plugin-import": "^1.8.0",
+    "firebase-server": "^0.7.1",
     "firebase-tools": "^3.0.0",
     "form-data": "^2.1.2",
     "liquid-fire": "0.27.0",

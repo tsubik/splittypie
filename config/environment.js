@@ -9,7 +9,7 @@ module.exports = function (environment) {
         contentSecurityPolicy: {
             "default-src": "'self'",
             "frame-src": "'self' https://*.firebaseio.com",
-            "connect-src": "'self' https://*.rollbar.com https://geoip.nekudo.com https://auth.firebase.com wss://*.firebaseio.com",
+            "connect-src": "'self' https://*.rollbar.com https://geoip.nekudo.com https://auth.firebase.com wss://*.firebaseio.com ws://*.firebaseio.test:5005",
             "script-src": "'self' 'unsafe-inline' https://*.rollbar.com https://*.firebaseio.com https://www.google-analytics.com",
             "style-src": "'self' 'unsafe-inline' https://fonts.googleapis.com",
             "font-src": "'self' data: https://fonts.gstatic.com",
@@ -105,7 +105,7 @@ module.exports = function (environment) {
         ENV.APP.LOG_VIEW_LOOKUPS = false;
 
         ENV.APP.rootElement = "#ember-testing";
-        ENV.APP.testFirebase = ENV.firebase;
+        ENV.firebase.databaseURL = "ws://localhost.firebaseio.test:5005";
     }
 
     return ENV;

@@ -12,6 +12,8 @@ addons:
     - google-chrome
     packages:
     - google-chrome-stable
+  hosts:
+    - localhost.firebaseio.test
 
 cache:
   directories:
@@ -29,4 +31,4 @@ install:
   - bower install
 
 script:
-  - ember test
+  - npm test
