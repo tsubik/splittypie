@@ -21,6 +21,7 @@ export default Ember.Test.registerAsyncHelper(
     "runWithTestData",
     function (app, dumpName, functionToRun) {
         const eventsRef = app.__container__.lookup("service:firebaseApp").database().ref("events");
+        // eslint-disable-next-line import/no-dynamic-require
         const dump = require(`splittypie/tests/fixtures/${dumpName}`).default;
         const events = toArray(dump.events);
 
