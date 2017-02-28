@@ -10,7 +10,7 @@ const config = require("./config/environment")(env);
 
 module.exports = function (defaults) {
     const app = new EmberApp(defaults, {
-        babel: {
+        "ember-cli-babel": {
             includePolyfill: true,
         },
         fingerprint: {
