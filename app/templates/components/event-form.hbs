@@ -21,7 +21,7 @@
       <div class="form-group {{if event.formErrors.currency.message "has-error"}}">
         <label class="control-label">Currency</label>
         {{my-select
-          class="event-currency"
+          selectClass="event-currency"
           options=currencies
           selected=event.currency
           prompt="Select currency..."
