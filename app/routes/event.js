@@ -78,6 +78,16 @@ export default Route.extend({
             get(this, "notify").success(`Now you are watching this event as ${user.get("name")}`);
         },
 
+        quickAdd() {
+            this.transitionTo("event.transactions.new");
+            // const event = this.modelFor("event");
+
+            // get(this, "modal").trigger("show", {
+            //     name: "quickAdd",
+            //     event,
+            // });
+        },
+
         error(error, transition) {
             const eventId = transition.params.event.event_id;
             const storage = get(this, "localStorage");

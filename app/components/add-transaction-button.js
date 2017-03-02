@@ -8,5 +8,5 @@ const {
 export default Component.extend({
     classNames: ["add-transaction-button"],
 
-    anyTransactions: notEmpty("event.transactions"),
+    anyTransactions: notEmpty("event.transactions")
 });

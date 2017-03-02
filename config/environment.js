@@ -67,6 +67,9 @@ module.exports = function (environment) {
             rollbarJsUrl: "https://cdn.rollbar.com/js/v1.8/rollbar.min.js",
         },
         GOOGLE_ANALYTICS_ID: process.env.GOOGLE_ANALYTICS_ID,
+        "ember-qunit-nice-errors": {
+            showFileInfo: true
+        },
         rootURL: "/",
         locationType: "auto",
         EmberENV: {

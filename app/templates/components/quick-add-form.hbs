@@ -1,0 +1,19 @@
+{{#modal-dialog}}
+  <div class="modal-header">
+    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+    <h4 class="modal-title">Quick Add!</h4>
+  </div>
+  <div class="modal-body">
+    <div class="form-group {{if transaction.formErrors.name.message "has-error"}}">
+      {{input value=transactionToParse class="form-control transaction-parse" placeholder="Example: 10 tickets"}}
+      <div class="help-block with-errors">
+        {{transaction.formErrors.name.message}}
+      </div>
+    </div>
+  </div>
+  <div class="modal-footer">
+    <button type="button" class="btn btn-primary" {{action "add"}}>Add</button>
+    <button type="button" class="btn btn-default" data-dismiss="modal">Add With Details</button>
+    <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+  </div>
+{{/modal-dialog}}
