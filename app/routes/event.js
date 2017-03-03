@@ -10,13 +10,14 @@ const {
 } = Ember;
 
 export default Route.extend({
+    connection: service(),
+    eventRepository: service(),
     localStorage: service(),
-    userContext: service(),
     modal: service(),
     notify: service(),
-    eventRepository: service(),
-    connection: service(),
     syncer: service(),
+    transactionRepository: service(),
+    userContext: service(),
 
     init() {
         this._super(...arguments);
@@ -78,14 +79,30 @@ export default Route.extend({
             get(this, "notify").success(`Now you are watching this event as ${user.get("name")}`);
         },
 
-        quickAdd() {
-            this.transitionTo("event.transactions.new");
-            // const event = this.modelFor("event");
+        showQuickAdd() {
+            get(this, "modal").trigger("show", {
+                name: "quickAdd"
+            });
+        },
 
-            // get(this, "modal").trigger("show", {
-            //     name: "quickAdd",
-            //     event,
-            // });
+        quickAdd(transactionProps) {
+            const event = this.modelFor("event");
+            const repository = get(this, "transactionRepository");
+            const payer = get(this, "userContext.currentUser");
+            const participants = get(event, "users");
+            const store = get(this, "store");
+
+            const transaction = store.createRecord("transaction", {
+                ...transactionProps,
+                payer,
+                participants
+            });
+
+            repository
+                .save(event, transaction)
+                .then(() => {
+                    get(this, "notify").success("Transaction has been saved.");
+                });
         },
 
         error(error, transition) {

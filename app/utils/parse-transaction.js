@@ -8,20 +8,20 @@ const parseAmount = (text) => {
 
 const parseMomentDate = (text) => {
     if (text.length > 5) {
-        return moment(text, "YYYYMMDD").utc();
+        return moment(text, "YYYYMMDD");
     } else if (text.length > 2) {
-        return moment(text, "MMDD").utc();
+        return moment(text, "MMDD");
     }
-    return moment(text, "DD").utc();
+    return moment(text, "DD");
 };
 
-const parseDate = date => date.toISOString().substring(0, 10);
+const parseDate = date => date.format("YYYY-MM-DD");
 
 export default function parseTransaction(transactionText) {
     if (!transactionText || !transactionText.trim()) return null;
 
     const parts = transactionText.trim().split(" ");
-    let date = moment();
+    let date = moment().utc();
     let name = null;
     let amount = null;
     if (parts.length <= 2) {

@@ -4,7 +4,7 @@ import moment from "moment";
 
 module("Unit | Utility | parsing transaction for quick add");
 
-const parseDate = date => date.toISOString().substring(0, 10);
+const parseDate = date => moment(date).format("YYYY-MM-DD");
 
 test("returns null if empty string provided", function (assert) {
     const text = "    ";
@@ -21,7 +21,7 @@ test("'[amount] [name]' pattern set current date", function (assert) {
     const transactionProps = parseTransaction(text);
     assert.equal(transactionProps.amount, 40);
     assert.equal(transactionProps.name, "shopping mall");
-    assert.equal(transactionProps.date, parseDate(new Date()));
+    assert.equal(transactionProps.date, parseDate(moment()));
 });
 
 test("'[day] [amount] [name]' pattern set day of current month", function (assert) {
@@ -69,7 +69,7 @@ test("returns amount null if not found", function (assert) {
     const transactionProps = parseTransaction(text);
     assert.equal(transactionProps.amount, null);
     assert.equal(transactionProps.name, "shopping mall");
-    assert.equal(transactionProps.date, parseDate(new Date()));
+    assert.equal(transactionProps.date, parseDate(moment()));
 });
 
 test("returns name null if not found", function (assert) {
@@ -77,7 +77,7 @@ test("returns name null if not found", function (assert) {
     const transactionProps = parseTransaction(text);
     assert.equal(transactionProps.amount, 2);
     assert.equal(transactionProps.name, null);
-    assert.equal(transactionProps.date, parseDate(new Date()));
+    assert.equal(transactionProps.date, parseDate(moment()));
 });
 
 test("amount could be a decimal", function (assert) {
