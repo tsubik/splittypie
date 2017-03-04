@@ -4,11 +4,11 @@
       <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
       <h4 class="modal-title">Quick Add!</h4>
     </div>
-    <div class="modal-body">
+    <div class="modal-body pull-up-30">
       <div class="form-group {{if isFormInvalid "has-error"}}">
         {{input value=transactionToParse class="form-control transaction-parse" placeholder="Example: 10 tickets"}}
         <div class="help-block">
-          More examples: 03/24 40 Museum Tickets | 20 shopping | 12 20 shopping
+          More examples: 03/24 40 Museum Tickets | 12 20 shopping
         </div>
         <div>
           {{#if transaction}}
