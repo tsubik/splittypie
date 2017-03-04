@@ -34,15 +34,28 @@ const Validations = buildValidations({
 export default Component.extend(Validations, {
     userContext: service(),
 
-    currency: oneWay("userContext.currentUser.event.currency"),
-    transactionToParse: null,
-    isFormInvalid: not("validations.isValid"),
-    invalidName: not("validations.attrs.transaction.name.isValid"),
+    currency: oneWay("event.currency"),
+    event: oneWay("payer.event"),
     invalidAmount: not("validations.attrs.transaction.amount.isValid"),
+    invalidName: not("validations.attrs.transaction.name.isValid"),
+    isFormInvalid: not("validations.isValid"),
+    participants: oneWay("event.users"),
+    payer: oneWay("userContext.currentUser"),
+    transactionToParse: null,
 
     transaction: computed("transactionToParse", function () {
+        const event = get(this, "event");
         const transactionToParse = get(this, "transactionToParse");
-        return parseTransaction(transactionToParse);
+        const transactionProps = parseTransaction(transactionToParse);
+        const payer = get(this, "payer");
+        const participants = get(this, "participants");
+
+        return Ember.Object.create({
+            ...transactionProps,
+            event,
+            payer,
+            participants
+        });
     }),
 
     didInsertElement() {

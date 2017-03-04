@@ -128,6 +128,16 @@ test("editing/removing transaction", function (assert) {
 });
 
 test("quick transaction add", function (assert) {
+    const expectTransactionListItem = () => {
+        const expectedMessage = "Alice paid for Dinner and coffee";
+
+        assert.ok(exist(".transaction-list-item:contains('40.50 EUR')"), "transaction amount");
+        assert.ok(
+            exist(`.transaction-list-item:contains('${expectedMessage}')`),
+            "transaction item"
+        );
+    };
+
     runWithTestData("without-transactions", (events) => {
         const event = events[0];
 
@@ -137,18 +147,13 @@ test("quick transaction add", function (assert) {
 
         click(".btn-add-transaction");
         fillIn(".transaction-parse", "06/20 40.50 Dinner and coffee");
+
+        // transaction list item as a preview of added transaction
+        andThen(expectTransactionListItem);
         click(".btn-add");
 
         reloadPage();
-        // check for transaction
-        andThen(() => {
-            const expectedMessage = "Alice paid for Dinner and coffee";
 
-            assert.ok(exist(".transaction-list-item:contains('40.50 EUR')"), "transaction amount");
-            assert.ok(
-                exist(`.transaction-list-item:contains('${expectedMessage}')`),
-                "transaction item"
-            );
-        });
+        andThen(expectTransactionListItem);
     });
 });

@@ -88,14 +88,10 @@ export default Route.extend({
         quickAdd(transactionProps) {
             const event = this.modelFor("event");
             const repository = get(this, "transactionRepository");
-            const payer = get(this, "userContext.currentUser");
-            const participants = get(event, "users");
             const store = get(this, "store");
 
             const transaction = store.createRecord("transaction", {
-                ...transactionProps,
-                payer,
-                participants
+                ...transactionProps
             });
 
             repository
