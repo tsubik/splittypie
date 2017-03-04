@@ -80,11 +80,12 @@ test("changing user context", function (assert) {
         });
 
         click(".btn-add-transaction");
+        click(".btn-add-with-details");
 
         andThen(() => {
             assert.ok(
                 exist(".transaction-payer option:selected:contains(Daria)"),
-                "Daria is default"
+                "Daria is a new default"
             );
         });
     });

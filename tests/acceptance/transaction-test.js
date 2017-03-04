@@ -22,6 +22,7 @@ test("adding new transaction", function (assert) {
         });
 
         click(".btn-add-transaction");
+        click(".btn-add-with-details");
         // defaults
         andThen(() => {
             assert.equal(

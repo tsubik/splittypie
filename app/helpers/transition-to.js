@@ -1,4 +1,5 @@
 import Ember from "ember";
+
 const { Helper, assert, computed, getOwner, get } = Ember;
 
 export default Helper.extend({
@@ -14,7 +15,7 @@ export default Helper.extend({
             const args = params.concat(invocationArgs);
             const transitionArgs = params.length ? [routeName, ...params] : [routeName];
 
-            router.transitionTo.apply(router, transitionArgs);
+            router.transitionTo(...transitionArgs);
 
             return args;
         };
