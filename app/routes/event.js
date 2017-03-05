@@ -4,6 +4,7 @@ import isMobile from "splittypie/utils/is-mobile";
 const {
     inject: { service },
     get,
+    getProperties,
     set,
     setProperties,
     Route,
@@ -104,16 +105,8 @@ export default Route.extend({
         },
 
         quickAddWithDetails(transactionProps) {
-            const queryParams = {
-                amount: get(transactionProps, "amount"),
-                date: get(transactionProps, "date"),
-                name: get(transactionProps, "name"),
-            };
-
-            console.log("queryPar", queryParams);
-
             this.transitionTo("event.transactions.new", {
-                queryParams
+                queryParams: getProperties(transactionProps, "amount", "date", "name")
             });
         },
 
