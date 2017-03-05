@@ -39,6 +39,8 @@ export default Route.extend({
     },
 
     redirect(model) {
+        if (model.constructor.modelName !== "event") return;
+
         const currentUser = get(this, "userContext").load(model);
 
         if (!currentUser) {
@@ -99,6 +101,20 @@ export default Route.extend({
                 .then(() => {
                     get(this, "notify").success("Transaction has been saved.");
                 });
+        },
+
+        quickAddWithDetails(transactionProps) {
+            const queryParams = {
+                amount: get(transactionProps, "amount"),
+                date: get(transactionProps, "date"),
+                name: get(transactionProps, "name"),
+            };
+
+            console.log("queryPar", queryParams);
+
+            this.transitionTo("event.transactions.new", {
+                queryParams
+            });
         },
 
         error(error, transition) {

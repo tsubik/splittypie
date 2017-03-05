@@ -79,10 +79,11 @@ export default Component.extend(Validations, {
 
         addWithDetails() {
             const onAddWithDetails = get(this, "onAddWithDetails");
+            const transactionProps = get(this, "transaction");
 
             if (typeof onAddWithDetails !== "function") return;
 
-            onAddWithDetails();
+            onAddWithDetails(transactionProps);
         }
     }
 });
