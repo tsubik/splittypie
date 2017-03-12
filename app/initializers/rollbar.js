@@ -18,6 +18,7 @@ function shouldReportError(error) {
 function reportError(error) {
     if (error.stack) {
         console.error(error);
+        console.error(error.stack);
     }
 
     if (window.Rollbar && shouldReportError(error)) {

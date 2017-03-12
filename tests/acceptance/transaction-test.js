@@ -1,7 +1,15 @@
+import moment from "moment";
 import { test } from "qunit";
 import moduleForAcceptance from "splittypie/tests/helpers/module-for-acceptance";
 
 moduleForAcceptance("Acceptance | transaction");
+
+const expectTransactionListItem = (assert) => {
+    const expectedMessage = "Alice paid for Dinner and coffee";
+
+    assert.ok(exist(".transaction-list-item:contains('40.50 EUR')"));
+    assert.ok(exist(`.transaction-list-item:contains('${expectedMessage}')`));
+};
 
 test("adding new transaction", function (assert) {
     runWithTestData("without-transactions", (events) => {
@@ -11,17 +19,12 @@ test("adding new transaction", function (assert) {
 
         visit(`/${event.id}/transactions`);
         andThen(() => {
-            assert.ok(
-                exist("div:contains('There are no transactions yet')"),
-                "No transactions text"
-            );
-            assert.ok(
-                exist("div:contains('Add your first transaction')"),
-                "Transaction onboarding"
-            );
+            assert.ok(exist("div:contains('There are no transactions yet')"));
+            assert.ok(exist("div:contains('Add your first transaction')"));
         });
 
-        click("a.btn-add-transaction");
+        click(".btn-add-transaction");
+        click(".btn-add-with-details");
         // defaults
         andThen(() => {
             assert.equal(
@@ -45,15 +48,9 @@ test("adding new transaction", function (assert) {
         andThen(() => {
             const expectedMessage = "Alice paid for special bottle of vodka";
 
-            assert.ok(exist(".transaction-list-item:contains('50.00 EUR')"), "transaction amount");
-            assert.ok(
-                exist(`.transaction-list-item:contains('${expectedMessage}')`),
-                "transaction item"
-            );
-            assert.notOk(
-                exist("div:contains('Add your first transaction')"),
-                "No Transaction onboarding text"
-            );
+            assert.ok(exist(".transaction-list-item:contains('50.00 EUR')"));
+            assert.ok(exist(`.transaction-list-item:contains('${expectedMessage}')`));
+            assert.notOk(exist("div:contains('Add your first transaction')"));
         });
     });
 });
@@ -67,17 +64,9 @@ test("editing/removing transaction", function (assert) {
 
         visit(`/${event.id}/transactions`);
         andThen(() => {
-            assert.ok(
-                exist(".transaction-list-item:contains('1,250.00 EUR')"), "transaction amount"
-            );
-            assert.ok(
-                exist(".transaction-list-item:contains('John paid for Plane tickets')"),
-                "transaction item"
-            );
-            assert.ok(
-                exist(".transaction-list-item:contains('Alice, John, Daria, Bob')"),
-                "transaction item participants"
-            );
+            assert.ok(exist(".transaction-list-item:contains('1,250.00 EUR')"));
+            assert.ok(exist(".transaction-list-item:contains('John paid for Plane tickets')"));
+            assert.ok(exist(".transaction-list-item:contains('Alice, John, Daria, Bob')"));
         });
 
         click(".transaction-list-item");
@@ -123,5 +112,60 @@ test("editing/removing transaction", function (assert) {
                 "deleted transaction item"
             );
         });
+    });
+});
+
+test("quick transaction add", function (assert) {
+    runWithTestData("without-transactions", (events) => {
+        const event = events[0];
+
+        identifyUserAs(event, "Alice");
+
+        visit(`/${event.id}/transactions`);
+
+        click(".btn-add-transaction");
+        fillIn(".transaction-parse", "06/20 40.50 Dinner and coffee");
+
+        // transaction list item as a preview of added transaction
+        andThen(expectTransactionListItem.bind(this, assert));
+        click(".btn-add");
+
+        reloadPage();
+
+        andThen(expectTransactionListItem.bind(this, assert));
+    });
+});
+
+test("quick transaction add with details", function (assert) {
+    runWithTestData("without-transactions", (events) => {
+        const event = events[0];
+
+        identifyUserAs(event, "Alice");
+
+        visit(`/${event.id}/transactions`);
+
+        click(".btn-add-transaction");
+        fillIn(".transaction-parse", "06/20 40.50 Dinner and coffee");
+
+        // transaction list item as a preview of added transaction
+        andThen(expectTransactionListItem.bind(this, assert));
+        click(".btn-add-with-details");
+
+        andThen(() => {
+            assert.equal(
+                find(".transaction-participants input:checked").length,
+                4,
+                "Everyone selected by default"
+            );
+            assert.equal(find(".transaction-name").val(), "Dinner and coffee");
+            assert.equal(find(".transaction-amount").val(), "40.5");
+            assert.equal(find(".transaction-date").val(), moment("06/20", "MM/DD").format("YYYY-MM-DD"));
+        });
+
+        click("button:contains('Create')");
+
+        reloadPage();
+
+        andThen(expectTransactionListItem.bind(this, assert));
     });
 });

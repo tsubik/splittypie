@@ -4,19 +4,21 @@ import isMobile from "splittypie/utils/is-mobile";
 const {
     inject: { service },
     get,
+    getProperties,
     set,
     setProperties,
     Route,
 } = Ember;
 
 export default Route.extend({
+    connection: service(),
+    eventRepository: service(),
     localStorage: service(),
-    userContext: service(),
     modal: service(),
     notify: service(),
-    eventRepository: service(),
-    connection: service(),
     syncer: service(),
+    transactionRepository: service(),
+    userContext: service(),
 
     init() {
         this._super(...arguments);
@@ -38,6 +40,8 @@ export default Route.extend({
     },
 
     redirect(model) {
+        if (model.constructor.modelName !== "event") return;
+
         const currentUser = get(this, "userContext").load(model);
 
         if (!currentUser) {
@@ -76,6 +80,34 @@ export default Route.extend({
 
             get(this, "userContext").change(event, user);
             get(this, "notify").success(`Now you are watching this event as ${user.get("name")}`);
+        },
+
+        showQuickAdd() {
+            get(this, "modal").trigger("show", {
+                name: "quickAdd"
+            });
+        },
+
+        quickAdd(transactionProps) {
+            const event = this.modelFor("event");
+            const repository = get(this, "transactionRepository");
+            const store = get(this, "store");
+
+            const transaction = store.createRecord("transaction", {
+                ...transactionProps
+            });
+
+            repository
+                .save(event, transaction)
+                .then(() => {
+                    get(this, "notify").success("Transaction has been saved.");
+                });
+        },
+
+        quickAddWithDetails(transactionProps) {
+            this.transitionTo("event.transactions.new", {
+                queryParams: getProperties(transactionProps, "amount", "date", "name")
+            });
         },
 
         error(error, transition) {

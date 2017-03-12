@@ -4,10 +4,10 @@ const {
     $,
     inject: { service },
     run: { schedule },
-    assign,
-    get,
     RSVP,
     Route,
+    get,
+    setProperties,
 } = Ember;
 
 export default Route.extend({
@@ -38,7 +38,7 @@ export default Route.extend({
     showModal(options) {
         const model = this.modelFor("application");
 
-        assign(model, options);
+        setProperties(model, options);
 
         this.render(`modals/${options.name}`, {
             into: "application",

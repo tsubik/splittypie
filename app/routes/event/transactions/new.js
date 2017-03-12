@@ -1,8 +1,10 @@
 import Ember from "ember";
+import moment from "moment";
 
 const {
     inject: { service },
     get,
+    getWithDefault,
     set,
     setProperties,
     Object: EmberObject,
@@ -14,15 +16,20 @@ export default Route.extend({
     transactionRepository: service(),
     userContext: service(),
 
-    model() {
+    model(params) {
+        const amount = getWithDefault(params, "amount", null);
+        const date = getWithDefault(params, "date", moment().format("YYYY-MM-DD"));
         const event = this.modelFor("event");
+        const name = getWithDefault(params, "name", null);
         const participants = get(event, "users");
         const payer = get(this, "userContext.currentUser");
 
         return EmberObject.create({
-            payer,
+            amount,
+            date,
+            name,
             participants,
-            date: new Date().toISOString().substring(0, 10),
+            payer,
         });
     },
 
