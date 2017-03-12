@@ -48,7 +48,11 @@ export default Component.extend(Validations, {
         const transactionToParse = get(this, "transactionToParse");
         const transactionProps = parseTransaction(transactionToParse);
         const payer = get(this, "payer");
-        const participants = get(this, "participants");
+        let participants = get(this, "participants");
+
+        if (transactionProps && get(transactionProps, "onlyMe")) {
+            participants = [payer];
+        }
 
         return Ember.Object.create({
             ...transactionProps,

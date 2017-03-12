@@ -21,9 +21,11 @@ export default function parseTransaction(transactionText) {
     if (!transactionText || !transactionText.trim()) return null;
 
     const parts = transactionText.trim().split(" ");
+    const onlyMePattern = /\.\s*me\s*$/;
     let date = moment().utc();
     let name = null;
     let amount = null;
+    let onlyMe = false;
     if (parts.length <= 2) {
         amount = parseAmount(parts[0]);
         name = amount ? parts[1] : parts.join(" ");
@@ -37,10 +39,15 @@ export default function parseTransaction(transactionText) {
     }
 
     if (!date.isValid()) date = moment();
+    if (name && onlyMePattern.test(name)) {
+        name = name.replace(onlyMePattern, "");
+        onlyMe = true;
+    }
 
     return {
         amount,
         date: parseDate(date),
-        name: name || null
+        name: name || null,
+        onlyMe
     };
 }
