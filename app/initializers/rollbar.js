@@ -16,13 +16,15 @@ function shouldReportError(error) {
 }
 
 function reportError(error) {
-    if (error.stack) {
-        console.error(error);
-        console.error(error.stack);
-    }
+    if (shouldReportError(error)) {
+        if (error.stack) {
+            console.error(error);
+            console.error(error.stack);
+        }
 
-    if (window.Rollbar && shouldReportError(error)) {
-        window.Rollbar.error(error);
+        if (window.Rollbar) {
+            window.Rollbar.error(error);
+        }
     }
 
     return true;

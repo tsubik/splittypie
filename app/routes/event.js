@@ -116,7 +116,7 @@ export default Route.extend({
             const lastEventId = storage.getItem("lastEventId");
 
             // FIXME: Do this better
-            if (error.message &&
+            if (error && error.message &&
                 error.message.indexOf("no record was found") > -1
                 && eventId === lastEventId) {
                 storage.removeItem("lastEventId");
