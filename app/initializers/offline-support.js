@@ -1,7 +1,7 @@
 /* eslint-disable no-param-reassign, max-len */
 import Ember from "ember";
 
-const { Logger: { error, info } } = Ember;
+const { Logger: { error, debug } } = Ember;
 
 export default {
     name: "offline-support",
@@ -13,11 +13,11 @@ export default {
                 const isUpdate = !!registration.active;
 
                 registration.onupdatefound = function () {
-                    info("A new Service Worker version has been found...");
+                    debug("A new Service Worker version has been found...");
 
                     registration.installing.onstatechange = function () {
                         if (this.state === "installed") {
-                            info("Service Worker Installed.");
+                            debug("Service Worker Installed.");
 
                             if (isUpdate) {
                                 notify.info(
@@ -28,7 +28,7 @@ export default {
                                 notify.success("App ready for offline use.");
                             }
                         } else {
-                            info("New Service Worker state: ", this.state);
+                            debug("New Service Worker state: ", this.state);
                         }
                     };
                 };
