@@ -73,7 +73,7 @@
     "ember-sinon-qunit": "1.4.1",
     "ember-source": "~2.11.0",
     "ember-wormhole": "0.5.1",
-    "emberfire": "git://github.com/tsubik/emberfire.git#ts/embedded-hasmany-delete-fix",
+    "emberfire": "git://github.com/firebase/emberfire.git#master",
     "eslint": "^3.5.0",
     "eslint-config-airbnb-base": "^11.1.0",
     "eslint-plugin-import": "^2.2.0",
