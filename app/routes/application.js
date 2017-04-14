@@ -20,7 +20,6 @@ export default Route.extend({
         get(this, "modal").on("show", this, "showModal");
         get(this, "modal").on("remove", this, "removeModal");
         get(this, "syncer").on("conflict", this, "synchronizationConflict");
-        get(this, "syncer").on("syncCompleted", this, "synchronizationCompleted");
     },
 
     model() {
@@ -67,10 +66,6 @@ in event's details view.
 `;
             get(this, "notify").error(message, { closeAfter: null });
         }
-    },
-
-    synchronizationCompleted() {
-        get(this, "notify").info("Synchronization with online database has been completed.");
     },
 
     removePreloader() {
