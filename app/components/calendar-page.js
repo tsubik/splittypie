@@ -9,7 +9,7 @@ export default Component.extend({
     day: computed("date", function () {
         const date = get(this, "date");
 
-        return leftPad("00", new Date(date).getDate().toString());
+        return leftPad("00", new Date(date).getUTCDate().toString());
     }),
 
     month: computed("date", function () {
@@ -18,6 +18,6 @@ export default Component.extend({
             "Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec",
         ];
 
-        return months[new Date(date).getMonth()];
+        return months[new Date(date).getUTCMonth()];
     }),
 });
