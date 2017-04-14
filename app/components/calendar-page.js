@@ -18,6 +18,6 @@ export default Component.extend({
             "Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec",
         ];
 
-        return months[new Date(date).getMonth()];
+        return months[new Date(date).getUTCMonth()];
     }),
 });
