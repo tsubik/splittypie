@@ -1,7 +1,7 @@
 {{#side-menu}}
   <header class="navbar navbar-default">
     <div class="navbar-header">
-      {{#side-menu-link-to "index" class="navbar-brand"}}
+      {{#side-menu-link-to "index" class="navbar-brand" title="SplittyPie Home Page"}}
         {{partial "shared/brand"}}
       {{/side-menu-link-to}}
     </div>
@@ -25,13 +25,13 @@
       </li>
       <li class="divider"></li>
       <li>
-        <a href="https://github.com/cowbell/splittypie" target="_blank">
+        <a href="https://github.com/cowbell/splittypie" target="_blank" rel="noopener">
           {{inline-svg "github" class="icon"}}
           Source Code
         </a>
       </li>
       <li>
-        <a href="https://cowbell-labs.com/" target="_blank">
+        <a href="https://cowbell-labs.com/" target="_blank" rel="noopener">
           {{inline-svg "cowbell" class="icon cowbell"}}
           Cowbell Labs
         </a>

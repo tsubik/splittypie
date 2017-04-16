@@ -1,10 +1,10 @@
 {{#mobile-toolbar class="no-borders"}}
   {{side-menu-toggle-custom}}
   <span class="navbar-brand">{{model.name}}</span>
-  <button {{action "share"}} class="navbar-btn btn btn-link">
+  <button {{action "share"}} class="navbar-btn btn btn-link" aria-label="Share With Others">
     {{inline-svg "share" class="icon"}}
   </button>
-  {{#link-to "event.edit" class="navbar-btn btn btn-link"}}
+  {{#link-to "event.edit" class="navbar-btn btn btn-link" title="Edit Event"}}
     {{inline-svg "edit" class="icon"}}
   {{/link-to}}
   {{switch-user-dropdown selected=userContext.currentUser users=model.users action="switchUser" iconOnly=true class="navbar-btn btn btn-link"}}
@@ -35,8 +35,8 @@
 </div>
 
 <ul class="nav nav-tabs">
-  {{#nav-link-to "event.index"}}Overview{{/nav-link-to}}
-  {{#nav-link-to "event.transactions"}}Transactions{{/nav-link-to}}
+  {{#nav-link-to "event.index" title="Overview"}}Overview{{/nav-link-to}}
+  {{#nav-link-to "event.transactions" title="Transactions"}}Transactions{{/nav-link-to}}
 </ul>
 
 {{#if isMobile}}
