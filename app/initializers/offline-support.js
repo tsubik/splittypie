@@ -11,6 +11,7 @@ export default {
         if ("serviceWorker" in window.navigator) {
             window.navigator.serviceWorker.register("/offline-support.js").then((registration) => {
                 const isUpdate = !!registration.active;
+                debug("Offline Support Registered", registration);
 
                 registration.onupdatefound = function () {
                     debug("A new Service Worker version has been found...");

@@ -1494,9 +1494,9 @@ broccoli-sass-source-maps@^2.0.0:
     object-assign "^2.0.0"
     rsvp "^3.0.6"
 
-"broccoli-serviceworker@git://github.com/jkleinsc/broccoli-serviceworker#master":
+broccoli-serviceworker@~0.1.6:
   version "0.1.6"
-  resolved "git://github.com/jkleinsc/broccoli-serviceworker#9508c8274bff2682a9fe9150db5c441403b918ea"
+  resolved "https://registry.yarnpkg.com/broccoli-serviceworker/-/broccoli-serviceworker-0.1.6.tgz#112ff8a4d12ce02dfb9b81bfa21df7825f34632c"
   dependencies:
     broccoli-funnel "~1.0.1"
     broccoli-kitchen-sink-helpers "~0.3.1"

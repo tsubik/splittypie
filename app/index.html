@@ -8,6 +8,7 @@
     <meta name="description" content="SplittyPie is a free app that helps you with sharing expenses with your friends. It's offline enable and mobile friendly, you can use it everywhere.">
     <meta name="keywords" content="expense, expenses, tracking, track, share, offline, mobile, friends, events, trip, trips">
     <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="theme-color" content="#ffffff">
     <link rel="icon" type="image/png" href="{{rootURL}}assets/icons/icon.png">
 
     <!-- Web Application Manifest -->
@@ -35,6 +36,10 @@
     {{content-for "head-footer"}}
   </head>
   <body>
+    <noscript>
+      SplittyPie requires JavaScript to be enabled.
+    </noscript>
+
     {{content-for "ember-index-index-preload"}}
     {{content-for "ember-index-app-preload"}}
 

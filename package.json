@@ -29,7 +29,7 @@
   "devDependencies": {
     "bower": "^1.7.1",
     "broccoli-asset-rev": "^2.4.5",
-    "broccoli-serviceworker": "git://github.com/jkleinsc/broccoli-serviceworker#master",
+    "broccoli-serviceworker": "~0.1.6",
     "dotenv": "^4.0.0",
     "ember-ajax": "2.5.6",
     "ember-cli": "2.11.1",
