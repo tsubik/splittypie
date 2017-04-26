@@ -73,7 +73,7 @@
     "ember-sinon-qunit": "1.4.1",
     "ember-source": "~2.11.0",
     "ember-wormhole": "0.5.1",
-    "emberfire": "git://github.com/tsubik/emberfire#fix-acceptance-test-fails",
+    "emberfire": "2.x",
     "eslint": "^3.5.0",
     "eslint-config-airbnb-base": "^11.1.0",
     "eslint-plugin-import": "^2.2.0",
