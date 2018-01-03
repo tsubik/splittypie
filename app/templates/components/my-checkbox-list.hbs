@@ -1,6 +1,18 @@
+<div class="btn-group">
+  <button type="button" {{action "setAll" on "change"}} class="btn btn-info btn-xs">
+	Check everybody
+  </button>
+  <button type="button" {{action "unsetAll" on "change"}} class="btn btn-info btn-xs">
+	Uncheck everybody
+  </button>
+</div>
+
+
 {{#each content key="@identity" as |item|}}
-    <label>
-        <input type="checkbox" checked={{is-included item selection}} {{action "change" on="change"}}/>
-        {{read-path item optionLabelPath}}
-    </label>
+<div class="checkbox">
+  <label>
+    <input type="checkbox" checked={{is-included item selection}} {{action "change" on="change"}}/>
+    {{read-path item optionLabelPath}}
+  </label>
+</div>
 {{/each}}
