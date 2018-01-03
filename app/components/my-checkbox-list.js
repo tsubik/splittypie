@@ -36,5 +36,26 @@ export default Component.extend({
 
             set(this, "selection", selection);
         },
+        setAll() {
+            const inputs = this.$("input");
+            const content = get(this, "content");
+
+            const selection = [];
+
+            inputs.each((index) => {
+                selection.pushObject(content.objectAt(index));
+                $(this).prop("checked", true);
+            });
+
+            set(this, "selection", selection);
+        },
+        unsetAll() {
+            const inputs = this.$("input");
+
+            inputs.each(() => {
+                $(this).prop("checked", false);
+            });
+            set(this, "selection", []);
+        }
     },
 });
