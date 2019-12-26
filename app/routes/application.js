@@ -50,7 +50,7 @@ export default Route.extend({
         // Not sure why tests are failing removing outlet, below guards prevents tests from failing
         // FIXME: try to figure out this one day, it's related to adding quick add feature
         if (!this.connections) return;
-        if (!this.router.router.currentHandlerInfos) return;
+        if (!this.router.currentHandlerInfos) return;
         this.disconnectOutlet({
             outlet: "modal",
             parentView: "application",
