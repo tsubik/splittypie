@@ -19,7 +19,7 @@ module.exports = function (defaults) {
         },
         sassOptions: {
             includePaths: [
-                "bower_components/bootstrap-sass/assets/stylesheets",
+                "node_modules/bootstrap-sass/assets/stylesheets",
                 "vendor/bootstrap-paper",
             ],
         },
@@ -58,9 +58,9 @@ module.exports = function (defaults) {
         },
     });
 
-    app.import("bower_components/bootstrap-sass/assets/javascripts/bootstrap.js");
-    app.import("bower_components/mprogress/build/css/mprogress.css");
-    app.import("bower_components/mprogress/build/js/mprogress.js");
+    app.import("node_modules/bootstrap-sass/assets/javascripts/bootstrap.js");
+    app.import("node_modules/mprogress/build/css/mprogress.css");
+    app.import("node_modules/mprogress/build/js/mprogress.js");
 
     return app.toTree();
 };

@@ -1,4 +1,5 @@
 /* jshint node: true */
+'use strict';
 
 const codeVersion = require("../utils/code-version");
 
