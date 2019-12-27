@@ -1,14 +1,9 @@
-import Ember from "ember";
+import { oneWay, not } from '@ember/object/computed';
+import EmberObject, { get, computed } from '@ember/object';
+import { inject as service } from '@ember/service';
+import Component from '@ember/component';
 import { validator, buildValidations } from "ember-cp-validations";
 import parseTransaction from "splittypie/utils/parse-transaction";
-
-const {
-    computed,
-    computed: { not, oneWay },
-    get,
-    inject: { service },
-    Component,
-} = Ember;
 
 const Validations = buildValidations({
     transactionToParse: {
@@ -54,7 +49,7 @@ export default Component.extend(Validations, {
             participants = [payer];
         }
 
-        return Ember.Object.create({
+        return EmberObject.create({
             ...transactionProps,
             event,
             payer,

@@ -1,14 +1,7 @@
-import Ember from "ember";
+import { on } from '@ember/object/evented';
+import { set, get, observer, computed } from '@ember/object';
+import Component from '@ember/component';
 import isMobile from "splittypie/utils/is-mobile";
-
-const {
-    computed,
-    observer,
-    on,
-    get,
-    set,
-    Component,
-} = Ember;
 
 export default Component.extend({
     value: null,

@@ -1,6 +1,6 @@
+import EmberObject from '@ember/object';
 import { moduleForComponent, test } from "ember-qunit";
 import hbs from "htmlbars-inline-precompile";
-import Ember from "ember";
 import extraTrim from "../../helpers/extra-trim";
 
 moduleForComponent("user-balance-list", "Integration | Component | user balance list", {
@@ -8,15 +8,15 @@ moduleForComponent("user-balance-list", "Integration | Component | user balance 
 });
 
 test("it renders", function (assert) {
-    const event = Ember.Object.create({
-        currency: Ember.Object.create({
+    const event = EmberObject.create({
+        currency: EmberObject.create({
             code: "PLN",
         }),
     });
 
     const users = [
-        Ember.Object.create({ name: "Bob", balance: 100, event }),
-        Ember.Object.create({ name: "Alice", balance: -100, event }),
+        EmberObject.create({ name: "Bob", balance: 100, event }),
+        EmberObject.create({ name: "Alice", balance: -100, event }),
     ];
 
     this.set("users", users);

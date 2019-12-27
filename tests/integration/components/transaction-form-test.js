@@ -1,8 +1,8 @@
 /* eslint-disable newline-per-chained-call */
 
+import EmberObject from '@ember/object';
 import { moduleForComponent, test } from "ember-qunit";
 import hbs from "htmlbars-inline-precompile";
-import Ember from "ember";
 
 moduleForComponent("transaction-form", "Integration | Component | transaction form", {
     integration: true,
@@ -28,7 +28,7 @@ test("it renders with transaction model", function (assert) {
         { id: 3, name: "Billy" },
     ];
 
-    const transaction = Ember.Object.create({
+    const transaction = EmberObject.create({
         payer: users[1],
         name: "Gift for Alice",
         amount: "200",

@@ -1,7 +1,6 @@
+import { isArray } from '@ember/array';
+import { get } from '@ember/object';
 import Base from "ember-validations/validators/base";
-import Ember from "ember";
-
-const { isArray, get } = Ember;
 
 export default Base.extend({
     init() {

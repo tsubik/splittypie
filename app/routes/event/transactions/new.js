@@ -1,15 +1,12 @@
-import Ember from "ember";
+import { inject as service } from '@ember/service';
+import EmberObject, {
+  setProperties,
+  set,
+  getWithDefault,
+  get
+} from '@ember/object';
+import Route from '@ember/routing/route';
 import moment from "moment";
-
-const {
-    inject: { service },
-    get,
-    getWithDefault,
-    set,
-    setProperties,
-    Object: EmberObject,
-    Route,
-} = Ember;
 
 export default Route.extend({
     notify: service(),

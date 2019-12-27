@@ -1,12 +1,7 @@
-import Ember from "ember";
-
-const {
-    $,
-    run: { schedule },
-    computed,
-    get,
-    Component,
-} = Ember;
+import $ from 'jquery';
+import { schedule } from '@ember/runloop';
+import { get, computed } from '@ember/object';
+import Component from '@ember/component';
 
 export default Component.extend({
     tagName: "li",

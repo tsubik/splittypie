@@ -1,10 +1,6 @@
-import Ember from "ember";
+import { resolve } from 'rsvp';
 import LFAdapter from "ember-localforage-adapter/adapters/localforage";
 import generateUniqueId from "splittypie/utils/generate-unique-id";
-
-const {
-    RSVP: { resolve },
-} = Ember;
 
 export default LFAdapter.extend({
     generateIdForRecord: generateUniqueId,

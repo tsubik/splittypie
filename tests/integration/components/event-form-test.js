@@ -1,6 +1,6 @@
+import EmberObject from '@ember/object';
 import { moduleForComponent, test } from "ember-qunit";
 import hbs from "htmlbars-inline-precompile";
-import Ember from "ember";
 
 moduleForComponent("event-form", "Integration | Component | event form", {
     integration: true,
@@ -25,7 +25,7 @@ test("it renders with model properties", function (assert) {
         { id: "CAD", code: "CAD", name: "Dolar kanadyjski" },
         { id: "EUR", code: "EUR", name: "Euro" },
     ];
-    const event = Ember.Object.create({
+    const event = EmberObject.create({
         name: "Test event",
         currency: currencies[0],
         users: [

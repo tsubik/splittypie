@@ -1,12 +1,7 @@
-import Ember from "ember";
+import { alias } from '@ember/object/computed';
+import { get, computed } from '@ember/object';
 import Model from "ember-data/model";
 import attr from "ember-data/attr";
-
-const {
-    computed: { alias },
-    computed,
-    get,
-} = Ember;
 
 const Currency = Model.extend({
     code: alias("id"),

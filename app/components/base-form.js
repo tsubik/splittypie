@@ -1,11 +1,6 @@
-import Ember from "ember";
-
-const {
-    inject: { service },
-    computed,
-    get,
-    Component,
-} = Ember;
+import { inject as service } from '@ember/service';
+import { get, computed } from '@ember/object';
+import Component from '@ember/component';
 
 export default Component.extend({
     formObject: null,

@@ -1,6 +1,4 @@
-import Ember from "ember";
-
-const { debug } = Ember;
+import { debug } from '@ember/debug';
 
 export function initialize(applicationInstance) {
     debug("initialize syncer");

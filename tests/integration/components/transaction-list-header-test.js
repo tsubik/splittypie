@@ -1,6 +1,6 @@
+import EmberObject from '@ember/object';
 import { moduleForComponent, test } from "ember-qunit";
 import hbs from "htmlbars-inline-precompile";
-import Ember from "ember";
 import extraTrim from "../../helpers/extra-trim";
 
 moduleForComponent("transaction-list-header", "Integration | Component | transaction list header", {
@@ -19,10 +19,10 @@ test("it renders", function (assert) {
         },
     };
     const transactions = [
-        Ember.Object.create({
+        EmberObject.create({
             payer: users[0], event, name: "Transaction 1", amount: "200", participants: users,
         }),
-        Ember.Object.create({
+        EmberObject.create({
             payer: users[1], event, name: "Transaction 2", amount: "300", participants: users,
         }),
     ];

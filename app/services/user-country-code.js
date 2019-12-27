@@ -1,11 +1,9 @@
+import { set, get } from '@ember/object';
+import Service, { inject as service } from '@ember/service';
 import Ember from "ember";
 
 const {
-    inject: { service },
-    Logger: { error },
-    get,
-    set,
-    Service,
+    Logger: { error }
 } = Ember;
 
 export default Service.extend({

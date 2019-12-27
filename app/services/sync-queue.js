@@ -1,14 +1,11 @@
+import { Promise } from 'rsvp';
+import { observer, set, get } from '@ember/object';
+import Evented from '@ember/object/evented';
+import Service, { inject as service } from '@ember/service';
 import Ember from "ember";
 
 const {
-    inject: { service },
-    Logger: { debug },
-    RSVP: { Promise },
-    get,
-    set,
-    observer,
-    Evented,
-    Service,
+    Logger: { debug }
 } = Ember;
 
 export default Service.extend(Evented, {

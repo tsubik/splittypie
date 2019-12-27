@@ -1,12 +1,7 @@
-import Ember from "ember";
-
-const {
-    inject: { service },
-    get,
-    setProperties,
-    RSVP,
-    Route,
-} = Ember;
+import { inject as service } from '@ember/service';
+import { setProperties, get } from '@ember/object';
+import RSVP from 'rsvp';
+import Route from '@ember/routing/route';
 
 export default Route.extend({
     localStorage: service(),

@@ -1,7 +1,7 @@
 /* eslint-disable no-console */
-import Ember from "ember";
+import RSVP from 'rsvp';
 
-const { RSVP } = Ember;
+import Ember from "ember";
 
 function shouldReportError(error) {
     if (error.message && error.message.indexOf("no record was found") > -1) {

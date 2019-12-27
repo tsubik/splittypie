@@ -1,13 +1,10 @@
 /* eslint "arrow-body-style": 0 */
 
-import Ember from "ember";
+import { later } from '@ember/runloop';
+
+import { Promise } from 'rsvp';
 import { test } from "qunit";
 import moduleForAcceptance from "splittypie/tests/helpers/module-for-acceptance";
-
-const {
-    run: { later },
-    RSVP: { Promise },
-} = Ember;
 
 moduleForAcceptance("Acceptance | synchronization", {
     beforeEach() {

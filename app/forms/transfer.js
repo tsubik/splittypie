@@ -1,13 +1,11 @@
-import Ember from "ember";
+import { oneWay } from '@ember/object/computed';
+import {
+  setProperties,
+  getProperties,
+  set,
+  get
+} from '@ember/object';
 import FormObject from "./form-object";
-
-const {
-    computed: { oneWay },
-    get,
-    set,
-    getProperties,
-    setProperties,
-} = Ember;
 
 export default FormObject.extend({
     modelName: "transaction",

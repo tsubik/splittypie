@@ -1,24 +1,21 @@
+import EmberObject from '@ember/object';
+import { run } from '@ember/runloop';
+import { equal } from '@ember/object/computed';
+import { resolve } from 'rsvp';
 import { moduleFor, test } from "ember-qunit";
-import Ember from "ember";
 import sinonTest from "ember-sinon-qunit/test-support/test";
 
-const {
-    run,
-    computed: { equal },
-    RSVP: { resolve },
-} = Ember;
-
-const ConnectionMock = Ember.Object.extend({
+const ConnectionMock = EmberObject.extend({
     state: "online",
     isOnline: equal("state", "online"),
     isOffline: equal("state", "offline"),
 });
-const JobProcessorMock = Ember.Object.extend({
+const JobProcessorMock = EmberObject.extend({
     process() {
         return resolve(true);
     },
 });
-const SyncJobModelMock = Ember.Object.extend({
+const SyncJobModelMock = EmberObject.extend({
     save() {
         return resolve(this);
     },
@@ -27,7 +24,7 @@ const SyncJobModelMock = Ember.Object.extend({
         return resolve(true);
     },
 });
-const StoreMock = Ember.Object.extend({
+const StoreMock = EmberObject.extend({
     createRecord(modelName, properties) {
         return SyncJobModelMock.create(properties);
     },
@@ -135,7 +132,7 @@ sinonTest("flush process all saved jobs", function (assert) {
     assert.expect(1);
 
     const service = this.subject();
-    service.store = Ember.Object.create({
+    service.store = EmberObject.create({
         findAll() {
             return resolve([
                 SyncJobModelMock.create(),

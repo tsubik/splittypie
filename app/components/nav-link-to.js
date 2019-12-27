@@ -1,6 +1,4 @@
-import Ember from "ember";
-
-const { LinkComponent } = Ember;
+import LinkComponent from '@ember/routing/link-component';
 
 export default LinkComponent.extend({
     tagName: "li",

@@ -1,4 +1,5 @@
-import Ember from "ember";
+import { run } from '@ember/runloop';
+import { merge } from '@ember/polyfills';
 import Application from "../../app";
 import config from "../../config/environment";
 import "./wait-for-promise";
@@ -12,10 +13,10 @@ import "./run-and-wait-for-sync-queue-to-flush";
 export default function startApp(attrs) {
     let application;
 
-    let attributes = Ember.merge({}, config.APP);
-    attributes = Ember.merge(attributes, attrs); // use defaults, but you can override;
+    let attributes = merge({}, config.APP);
+    attributes = merge(attributes, attrs); // use defaults, but you can override;
 
-    Ember.run(() => {
+    run(() => {
         application = Application.create(attributes);
         application.setupForTesting();
         application.injectTestHelpers();

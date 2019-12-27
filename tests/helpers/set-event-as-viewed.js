@@ -1,6 +1,7 @@
-import Ember from "ember";
+import EmberObject from '@ember/object';
+import { registerAsyncHelper } from '@ember/test';
 
-export default Ember.Test.registerAsyncHelper("setEventAsViewed", function (app, event, userName) {
+export default registerAsyncHelper("setEventAsViewed", function (app, event, userName) {
     const localStorage = app.__container__.lookup("service:localStorage");
     const store = app.__container__.lookup("service:store");
 
@@ -8,7 +9,7 @@ export default Ember.Test.registerAsyncHelper("setEventAsViewed", function (app,
         const user = e.get("users").findBy("name", userName);
 
         if (user) {
-            const eventToSave = Ember.Object.create({
+            const eventToSave = EmberObject.create({
                 id: event.id,
                 name: event.name,
                 userId: user.get("id"),

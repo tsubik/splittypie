@@ -1,17 +1,14 @@
-import Ember from "ember";
+import { oneWay } from '@ember/object/computed';
+import EmberObject, {
+  getWithDefault,
+  setProperties,
+  getProperties,
+  set,
+  get
+} from '@ember/object';
 import { validator, buildValidations } from "ember-cp-validations";
 
 import FormObject from "./form-object";
-
-const {
-    computed: { oneWay },
-    get,
-    set,
-    getProperties,
-    setProperties,
-    getWithDefault,
-    Object: EmberObject,
-} = Ember;
 
 const Validations = buildValidations({
     name: {

@@ -1,11 +1,6 @@
-import Ember from "ember";
-
-const {
-    assert,
-    warn,
-    get,
-    Service,
-} = Ember;
+import { warn, assert } from '@ember/debug';
+import { get } from '@ember/object';
+import Service from '@ember/service';
 
 export default Service.extend({
     isLocalStorageSupported: function () {

@@ -1,10 +1,6 @@
-import Ember from "ember";
-
-const {
-    getOwner,
-    merge,
-    Service,
-} = Ember;
+import { getOwner } from '@ember/application';
+import { merge } from '@ember/polyfills';
+import Service from '@ember/service';
 
 export default Service.extend({
     createForm(name, model, properties) {

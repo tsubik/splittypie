@@ -1,12 +1,10 @@
+import { on } from '@ember/object/evented';
+import { observer, set, get } from '@ember/object';
+import Component from '@ember/component';
 import Ember from "ember";
 
 const {
-    get,
-    set,
-    on,
-    observer,
-    K,
-    Component,
+    K
 } = Ember;
 
 export default Component.extend({

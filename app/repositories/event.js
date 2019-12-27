@@ -1,13 +1,7 @@
-import Ember from "ember";
-
-const {
-    RSVP: { Promise },
-    RSVP,
-    inject: { service },
-    get,
-    Error,
-    Service,
-} = Ember;
+import RSVP, { Promise } from 'rsvp';
+import { get } from '@ember/object';
+import Error from '@ember/error';
+import Service, { inject as service } from '@ember/service';
 
 export default Service.extend({
     store: service(),

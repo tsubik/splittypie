@@ -1,9 +1,5 @@
-import Ember from "ember";
-
-const {
-    run: { later },
-    TextField,
-} = Ember;
+import { later } from '@ember/runloop';
+import TextField from '@ember/component/text-field';
 
 export default TextField.extend({
     readonly: true,

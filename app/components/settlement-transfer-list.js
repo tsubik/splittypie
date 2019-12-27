@@ -1,13 +1,6 @@
-import Ember from "ember";
-
-const {
-    computed: { notEmpty },
-    computed,
-    get,
-    set,
-    Object: EmberObject,
-    Component,
-} = Ember;
+import { notEmpty } from '@ember/object/computed';
+import EmberObject, { set, get, computed } from '@ember/object';
+import Component from '@ember/component';
 
 export default Component.extend({
     tagName: "ul",

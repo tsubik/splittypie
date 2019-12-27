@@ -1,27 +1,24 @@
+import EmberObject from '@ember/object';
+import { run } from '@ember/runloop';
+import { equal } from '@ember/object/computed';
+import { resolve } from 'rsvp';
 import { moduleFor } from "ember-qunit";
 import sinonTest from "ember-sinon-qunit/test-support/test";
-import Ember from "ember";
 import sinon from "sinon";
 
-const {
-    run,
-    computed: { equal },
-    RSVP: { resolve },
-} = Ember;
-
-const ConnectionMock = Ember.Object.extend({
+const ConnectionMock = EmberObject.extend({
     state: "offline",
     isOnline: equal("state", "online"),
     isOffline: equal("state", "offline"),
 });
-const StoreMock = Ember.Object.extend({
+const StoreMock = EmberObject.extend({
     unloadAll() {},
 
     findAll() {
         return resolve([]);
     },
 });
-const SyncQueueMock = Ember.Object.extend({
+const SyncQueueMock = EmberObject.extend({
     flush() {
         return resolve(true);
     },

@@ -1,6 +1,6 @@
+import EmberObject from '@ember/object';
 import { moduleForComponent, test } from "ember-qunit";
 import hbs from "htmlbars-inline-precompile";
-import Ember from "ember";
 
 moduleForComponent("transfer-form", "Integration | Component | transfer form", {
     integration: true,
@@ -12,7 +12,7 @@ test("it renders with transfer model", function (assert) {
     const sender = { id: 1, name: "Bob" };
     const recipient = { id: 2, name: "Alice" };
 
-    const transfer = Ember.Object.create({
+    const transfer = EmberObject.create({
         sender,
         recipient,
         amount: "200",

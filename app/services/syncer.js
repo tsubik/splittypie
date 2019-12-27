@@ -1,20 +1,18 @@
+import { alias } from '@ember/object/computed';
+import { run, scheduleOnce } from '@ember/runloop';
+import { reject, resolve, allSettled } from 'rsvp';
+import EmberObject, {
+  getProperties,
+  set,
+  get,
+  observer
+} from '@ember/object';
+import Service, { inject as service } from '@ember/service';
+import Evented, { on } from '@ember/object/evented';
 import Ember from "ember";
 
 const {
-    inject: { service },
-    Logger: { debug },
-    computed: { alias },
-    run: { scheduleOnce },
-    run,
-    observer,
-    on,
-    get,
-    set,
-    getProperties,
-    RSVP: { allSettled, resolve, reject },
-    Object: EmberObject,
-    Service,
-    Evented,
+    Logger: { debug }
 } = Ember;
 
 export default Service.extend(Evented, {

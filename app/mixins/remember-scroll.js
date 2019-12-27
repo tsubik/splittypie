@@ -1,12 +1,7 @@
-import Ember from "ember";
-
-const {
-    $,
-    run: { next },
-    get,
-    set,
-    Mixin,
-} = Ember;
+import $ from 'jquery';
+import { next } from '@ember/runloop';
+import { set, get } from '@ember/object';
+import Mixin from '@ember/object/mixin';
 
 export default Mixin.create({
     scrollSelector: window,

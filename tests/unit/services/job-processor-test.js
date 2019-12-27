@@ -1,7 +1,7 @@
+import EmberObject from '@ember/object';
 import { moduleFor, test } from "ember-qunit";
-import Ember from "ember";
 
-const StoreMock = Ember.Object.extend({
+const StoreMock = EmberObject.extend({
 });
 
 moduleFor("service:job-processor", "Unit | Service | job processor", {
@@ -17,7 +17,7 @@ test("process throw an Exception when given job doesn't exist", function (assert
     assert.expect(1);
 
     const service = this.subject();
-    const nonExistentJob = Ember.Object.create({
+    const nonExistentJob = EmberObject.create({
         name: "dummy",
         payload: '{ "id": 1 }',
     });

@@ -1,12 +1,6 @@
-import Ember from "ember";
-// import Form from "splittypie/mixins/form";
-
-const {
-    computed: { lte },
-    // RSVP: { Promise },
-    get,
-    Component,
-} = Ember;
+import { lte } from '@ember/object/computed';
+import { get } from '@ember/object';
+import Component from '@ember/component';
 
 export default Component.extend({
     tagName: "ul",

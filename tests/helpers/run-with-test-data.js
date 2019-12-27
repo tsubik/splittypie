@@ -1,6 +1,9 @@
 /* eslint-disable global-require */
 
-import Ember from "ember";
+import { debug } from '@ember/debug';
+
+import { Promise, all } from 'rsvp';
+import { registerAsyncHelper } from '@ember/test';
 
 const toArray = function (firebaseObject) {
     const results = [];
@@ -17,7 +20,7 @@ const toArray = function (firebaseObject) {
     return results;
 };
 
-export default Ember.Test.registerAsyncHelper(
+export default registerAsyncHelper(
     "runWithTestData",
     function (app, dumpName, functionToRun) {
         const eventsRef = app.__container__.lookup("service:firebaseApp").database().ref("events");
@@ -25,14 +28,14 @@ export default Ember.Test.registerAsyncHelper(
         const dump = require(`splittypie/tests/fixtures/${dumpName}`).default;
         const events = toArray(dump.events);
 
-        return new Ember.RSVP.Promise((resolve, reject) => {
-            const loadData = Ember.RSVP.all(events.map(e => eventsRef.child(e.id).set(e)));
+        return new Promise((resolve, reject) => {
+            const loadData = all(events.map(e => eventsRef.child(e.id).set(e)));
 
             loadData.then(function () {
                 functionToRun(events);
                 return andThen(function () {
-                    Ember.debug("Clearing TEST DATA");
-                    return Ember.RSVP.all(events.map(e => eventsRef.child(e.id).remove()));
+                    debug("Clearing TEST DATA");
+                    return all(events.map(e => eventsRef.child(e.id).remove()));
                 });
             }).then(resolve).catch(reject);
         });
