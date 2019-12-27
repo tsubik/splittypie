@@ -23,7 +23,7 @@ const Validations = buildValidations({
 
 export default FormObject.extend(Validations, {
     modelName: "event",
-    innerForms: ["users"],
+    innerForms: ["users"], // eslint-disable-line
 
     isOffline: oneWay("model.isOffline"),
 

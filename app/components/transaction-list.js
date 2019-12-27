@@ -35,7 +35,7 @@ export default Component.extend({
 
     actions: {
         edit(transaction) {
-            this.sendAction("edit", transaction);
+            this.onEdit(transaction);
         },
     },
 });

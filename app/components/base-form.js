@@ -22,14 +22,16 @@ export default Component.extend({
             const formObject = get(this, "formObject");
 
             if (formObject.updateModel()) {
-                this.sendAction("modelUpdated", get(formObject, "model"));
+                this.onModelUpdated(get(formObject, "model"));
             }
         },
 
         delete() {
             const model = get(this, "formObject.model");
 
-            get(this, "modal").onConfirm(() => this.sendAction("delete", model));
+            get(this, "modal").onConfirm(
+                () => this.onDelete(model)
+            );
         },
     },
 });

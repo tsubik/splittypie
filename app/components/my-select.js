@@ -17,6 +17,7 @@ export default Component.extend({
         }
     },
 
+    // eslint-disable-next-line
     valueDidChanged: on("init", observer("value", function () {
         const options = get(this, "options");
         const value = get(this, "value");

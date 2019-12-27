@@ -23,7 +23,7 @@ export default BaseForm.extend({
         },
 
         syncOnline() {
-            this.sendAction("syncOnline", get(this, "event.model"));
+            this.onSyncOnline(get(this, "event.model"));
         },
     },
 });

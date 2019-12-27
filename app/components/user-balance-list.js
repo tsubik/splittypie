@@ -4,6 +4,6 @@ import Component from "@ember/component";
 export default Component.extend({
     anyUsers: notEmpty("users"),
 
-    usersSorting: ["balance:desc"],
+    usersSorting: ["balance:desc"], // eslint-disable-line
     sortedUsers: sort("users", "usersSorting"),
 });

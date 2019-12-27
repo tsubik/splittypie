@@ -31,7 +31,8 @@ export default Component.extend({
         }
     }),
 
-    dateInputClasses: on("init", computed("className", function () {
+    // eslint-disable-next-line
+    dateInputClasses: on("init", observer("className", function () {
         const className = get(this, "className");
 
         return `${className} form-control`;

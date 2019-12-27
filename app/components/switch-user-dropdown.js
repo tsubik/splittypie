@@ -10,11 +10,5 @@ export default Component.extend({
         const currentUser = get(this, "selected");
 
         return users.rejectBy("id", get(currentUser, "id"));
-    }),
-
-    actions: {
-        switchUser(user) {
-            this.sendAction("action", user);
-        },
-    },
+    })
 });

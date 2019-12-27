@@ -1,9 +1,9 @@
 import { warn, assert } from "@ember/debug";
-import { get } from "@ember/object";
+import { computed, get } from "@ember/object";
 import Service from "@ember/service";
 
 export default Service.extend({
-    isLocalStorageSupported: function () {
+    isLocalStorageSupported: computed(function () {
         if (localStorage) {
             try {
                 localStorage.setItem("localStorageTest", 1);
@@ -15,7 +15,7 @@ export default Service.extend({
         }
 
         return false;
-    }.property(),
+    }),
 
     setItem(key, value) {
         if (get(this, "isLocalStorageSupported")) {

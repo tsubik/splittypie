@@ -31,7 +31,7 @@ export default Service.extend({
             });
     },
 
-    commands: {
+    commands: { // eslint-disable-line
         create(modelName, properties) {
             const onlineStore = get(this, "onlineStore");
             const offlineStore = get(this, "store");

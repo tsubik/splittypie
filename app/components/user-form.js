@@ -12,7 +12,7 @@ export default Component.extend({
 
     actions: {
         delete(user) {
-            this.sendAction("delete", user);
+            this.onDelete(user);
         },
     },
 });
