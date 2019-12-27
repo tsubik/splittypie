@@ -1,6 +1,6 @@
-import { inject as service } from '@ember/service';
-import { get, computed } from '@ember/object';
-import Component from '@ember/component';
+import { inject as service } from "@ember/service";
+import { get, computed } from "@ember/object";
+import Component from "@ember/component";
 
 export default Component.extend({
     formObject: null,

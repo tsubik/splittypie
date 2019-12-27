@@ -1,6 +1,6 @@
 /* eslint array-callback-return:0 */
 
-import EmberRouter from '@ember/routing/router';
+import EmberRouter from "@ember/routing/router";
 import config from "./config/environment";
 
 const Router = EmberRouter.extend({

@@ -1,4 +1,4 @@
-import { registerHelper } from '@ember/test';
+import { registerHelper } from "@ember/test";
 
 export const exist = function (selector) {
     return !!find(selector).length;

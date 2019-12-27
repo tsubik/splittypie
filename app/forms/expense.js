@@ -1,11 +1,11 @@
-import { oneWay } from '@ember/object/computed';
+import { oneWay } from "@ember/object/computed";
 import {
   getWithDefault,
   setProperties,
   getProperties,
   set,
   get
-} from '@ember/object';
+} from "@ember/object";
 import { validator, buildValidations } from "ember-cp-validations";
 
 import FormObject from "./form-object";

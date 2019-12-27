@@ -1,6 +1,6 @@
 /* eslint-disable newline-per-chained-call */
 
-import EmberObject from '@ember/object';
+import EmberObject from "@ember/object";
 import { moduleForComponent, test } from "ember-qunit";
 import hbs from "htmlbars-inline-precompile";
 

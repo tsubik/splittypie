@@ -1,6 +1,6 @@
-import { set, get } from '@ember/object';
-import { isArray } from '@ember/array';
-import Mixin from '@ember/object/mixin';
+import { set, get } from "@ember/object";
+import { isArray } from "@ember/array";
+import Mixin from "@ember/object/mixin";
 
 export default Mixin.create({
     updateModel(json) {

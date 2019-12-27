@@ -1,7 +1,7 @@
-import { oneWay, not } from '@ember/object/computed';
-import EmberObject, { get, computed } from '@ember/object';
-import { inject as service } from '@ember/service';
-import Component from '@ember/component';
+import { oneWay, not } from "@ember/object/computed";
+import EmberObject, { get, computed } from "@ember/object";
+import { inject as service } from "@ember/service";
+import Component from "@ember/component";
 import { validator, buildValidations } from "ember-cp-validations";
 import parseTransaction from "splittypie/utils/parse-transaction";
 

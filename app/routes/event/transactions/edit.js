@@ -1,6 +1,6 @@
-import { inject as service } from '@ember/service';
-import { setProperties, get } from '@ember/object';
-import Route from '@ember/routing/route';
+import { inject as service } from "@ember/service";
+import { setProperties, get } from "@ember/object";
+import Route from "@ember/routing/route";
 
 export default Route.extend({
     notify: service(),

@@ -1,6 +1,6 @@
-import { notEmpty, filterBy } from '@ember/object/computed';
-import EmberObject, { get, computed } from '@ember/object';
-import Component from '@ember/component';
+import { notEmpty, filterBy } from "@ember/object/computed";
+import EmberObject, { get, computed } from "@ember/object";
+import Component from "@ember/component";
 
 export default Component.extend({
     tagName: "div",

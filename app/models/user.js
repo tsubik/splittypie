@@ -1,4 +1,4 @@
-import { get, computed } from '@ember/object';
+import { get, computed } from "@ember/object";
 import ModelMixin from "splittypie/mixins/model-mixin";
 import Model from "ember-data/model";
 import attr from "ember-data/attr";

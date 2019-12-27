@@ -1,6 +1,6 @@
-import { oneWay, alias } from '@ember/object/computed';
-import { inject as service } from '@ember/service';
-import { get } from '@ember/object';
+import { oneWay, alias } from "@ember/object/computed";
+import { inject as service } from "@ember/service";
+import { get } from "@ember/object";
 import BaseForm from "splittypie/components/base-form";
 
 export default BaseForm.extend({

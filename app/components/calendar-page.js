@@ -1,5 +1,5 @@
-import { computed, get } from '@ember/object';
-import Component from '@ember/component';
+import { computed, get } from "@ember/object";
+import Component from "@ember/component";
 import leftPad from "splittypie/utils/left-pad";
 
 export default Component.extend({

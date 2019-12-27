@@ -3,7 +3,7 @@ import {
   getProperties,
   set,
   get
-} from '@ember/object';
+} from "@ember/object";
 import { validator, buildValidations } from "ember-cp-validations";
 
 import FormObject from "./form-object";

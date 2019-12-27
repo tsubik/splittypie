@@ -1,8 +1,8 @@
 /* eslint "arrow-body-style": 0 */
 
-import { later } from '@ember/runloop';
+import { later } from "@ember/runloop";
 
-import { Promise } from 'rsvp';
+import { Promise } from "rsvp";
 import { test } from "qunit";
 import moduleForAcceptance from "splittypie/tests/helpers/module-for-acceptance";
 

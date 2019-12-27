@@ -1,4 +1,4 @@
-import { registerAsyncHelper } from '@ember/test';
+import { registerAsyncHelper } from "@ember/test";
 
 export default registerAsyncHelper("reloadPage", function (app) {
     const url = currentURL();

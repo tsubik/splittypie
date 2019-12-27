@@ -1,5 +1,5 @@
-import { isArray } from '@ember/array';
-import { get } from '@ember/object';
+import { isArray } from "@ember/array";
+import { get } from "@ember/object";
 import Base from "ember-validations/validators/base";
 
 export default Base.extend({

@@ -1,6 +1,6 @@
-import { assert } from '@ember/debug';
-import { get } from '@ember/object';
-import Service, { inject as service } from '@ember/service';
+import { assert } from "@ember/debug";
+import { get } from "@ember/object";
+import Service, { inject as service } from "@ember/service";
 import Ember from "ember";
 
 const {

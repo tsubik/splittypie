@@ -1,6 +1,6 @@
-import { notEmpty } from '@ember/object/computed';
-import { get, computed } from '@ember/object';
-import Component from '@ember/component';
+import { notEmpty } from "@ember/object/computed";
+import { get, computed } from "@ember/object";
+import Component from "@ember/component";
 
 export default Component.extend({
     tagName: "div",

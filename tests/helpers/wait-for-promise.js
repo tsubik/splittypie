@@ -1,4 +1,4 @@
-import { registerAsyncHelper } from '@ember/test';
+import { registerAsyncHelper } from "@ember/test";
 import Ember from "ember";
 
 export default registerAsyncHelper("waitForPromise", function (app, promise) {

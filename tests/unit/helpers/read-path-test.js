@@ -1,4 +1,4 @@
-import EmberObject from '@ember/object';
+import EmberObject from "@ember/object";
 import { readPath } from "splittypie/helpers/read-path";
 import { module, test } from "qunit";
 

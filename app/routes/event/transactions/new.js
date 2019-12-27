@@ -1,11 +1,11 @@
-import { inject as service } from '@ember/service';
+import { inject as service } from "@ember/service";
 import EmberObject, {
   setProperties,
   set,
   getWithDefault,
   get
-} from '@ember/object';
-import Route from '@ember/routing/route';
+} from "@ember/object";
+import Route from "@ember/routing/route";
 import moment from "moment";
 
 export default Route.extend({

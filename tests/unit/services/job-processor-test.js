@@ -1,4 +1,4 @@
-import EmberObject from '@ember/object';
+import EmberObject from "@ember/object";
 import { moduleFor, test } from "ember-qunit";
 
 const StoreMock = EmberObject.extend({

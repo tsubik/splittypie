@@ -1,7 +1,7 @@
-import { Promise } from 'rsvp';
-import { observer, set, get } from '@ember/object';
-import Evented from '@ember/object/evented';
-import Service, { inject as service } from '@ember/service';
+import { Promise } from "rsvp";
+import { observer, set, get } from "@ember/object";
+import Evented from "@ember/object/evented";
+import Service, { inject as service } from "@ember/service";
 import Ember from "ember";
 
 const {

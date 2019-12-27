@@ -1,5 +1,5 @@
-import { set, get } from '@ember/object';
-import Service, { inject as service } from '@ember/service';
+import { set, get } from "@ember/object";
+import Service, { inject as service } from "@ember/service";
 
 export default Service.extend({
     localStorage: service(),

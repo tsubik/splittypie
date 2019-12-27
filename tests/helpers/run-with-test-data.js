@@ -1,9 +1,9 @@
 /* eslint-disable global-require */
 
-import { debug } from '@ember/debug';
+import { debug } from "@ember/debug";
 
-import { Promise, all } from 'rsvp';
-import { registerAsyncHelper } from '@ember/test';
+import { Promise, all } from "rsvp";
+import { registerAsyncHelper } from "@ember/test";
 
 const toArray = function (firebaseObject) {
     const results = [];

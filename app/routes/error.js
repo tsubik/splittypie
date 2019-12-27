@@ -1,5 +1,5 @@
-import { set } from '@ember/object';
-import Route from '@ember/routing/route';
+import { set } from "@ember/object";
+import Route from "@ember/routing/route";
 
 export default Route.extend({
     setupController(controller, model) {

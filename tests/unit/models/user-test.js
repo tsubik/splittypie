@@ -1,4 +1,4 @@
-import { run } from '@ember/runloop';
+import { run } from "@ember/runloop";
 import { moduleForModel, test } from "ember-qunit";
 
 moduleForModel("user", "Unit | Model | user", {

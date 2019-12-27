@@ -1,6 +1,6 @@
-import { warn, assert } from '@ember/debug';
-import { get } from '@ember/object';
-import Service from '@ember/service';
+import { warn, assert } from "@ember/debug";
+import { get } from "@ember/object";
+import Service from "@ember/service";
 
 export default Service.extend({
     isLocalStorageSupported: function () {

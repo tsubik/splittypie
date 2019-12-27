@@ -1,5 +1,5 @@
-import { get, computed } from '@ember/object';
-import Component from '@ember/component';
+import { get, computed } from "@ember/object";
+import Component from "@ember/component";
 
 export default Component.extend({
     classNames: ["list-group-item", "btn", "btn-default", "transaction-list-item"],

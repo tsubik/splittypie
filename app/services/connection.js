@@ -1,6 +1,6 @@
-import { equal } from '@ember/object/computed';
-import { set } from '@ember/object';
-import Service from '@ember/service';
+import { equal } from "@ember/object/computed";
+import { set } from "@ember/object";
+import Service from "@ember/service";
 import Ember from "ember";
 
 const {

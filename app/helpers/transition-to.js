@@ -1,7 +1,7 @@
-import Helper from '@ember/component/helper';
-import { assert } from '@ember/debug';
-import { getOwner } from '@ember/application';
-import { get, computed } from '@ember/object';
+import Helper from "@ember/component/helper";
+import { assert } from "@ember/debug";
+import { getOwner } from "@ember/application";
+import { get, computed } from "@ember/object";
 
 export default Helper.extend({
     router: computed(function () {

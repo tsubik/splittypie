@@ -1,5 +1,5 @@
-import { get } from '@ember/object';
-import Helper from '@ember/component/helper';
+import { get } from "@ember/object";
+import Helper from "@ember/component/helper";
 
 export function readPath([object, path]) {
     if (object) {

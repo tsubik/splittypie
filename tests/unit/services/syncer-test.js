@@ -1,7 +1,7 @@
-import EmberObject from '@ember/object';
-import { run } from '@ember/runloop';
-import { equal } from '@ember/object/computed';
-import { resolve } from 'rsvp';
+import EmberObject from "@ember/object";
+import { run } from "@ember/runloop";
+import { equal } from "@ember/object/computed";
+import { resolve } from "rsvp";
 import { moduleFor } from "ember-qunit";
 import sinonTest from "ember-sinon-qunit/test-support/test";
 import sinon from "sinon";

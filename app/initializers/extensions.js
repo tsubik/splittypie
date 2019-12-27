@@ -1,5 +1,5 @@
 /* eslint "no-extend-native": 0 */
-import { isArray } from '@ember/array';
+import { isArray } from "@ember/array";
 
 export function initialize(application) {
     window.App = application;

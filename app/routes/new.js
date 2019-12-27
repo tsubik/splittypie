@@ -1,7 +1,7 @@
-import { inject as service } from '@ember/service';
-import { setProperties, set, get } from '@ember/object';
-import RSVP from 'rsvp';
-import Route from '@ember/routing/route';
+import { inject as service } from "@ember/service";
+import { setProperties, set, get } from "@ember/object";
+import RSVP from "rsvp";
+import Route from "@ember/routing/route";
 import countryToCurrencyCode from "splittypie/utils/country-to-currency-code";
 
 export default Route.extend({

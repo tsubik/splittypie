@@ -1,10 +1,10 @@
-import { oneWay } from '@ember/object/computed';
+import { oneWay } from "@ember/object/computed";
 import {
   setProperties,
   getProperties,
   set,
   get
-} from '@ember/object';
+} from "@ember/object";
 import FormObject from "./form-object";
 
 export default FormObject.extend({

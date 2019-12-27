@@ -1,4 +1,4 @@
-import Route from '@ember/routing/route';
+import Route from "@ember/routing/route";
 import RemeberScrollMixin from "splittypie/mixins/remember-scroll";
 
 export function initialize() {

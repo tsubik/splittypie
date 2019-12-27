@@ -1,5 +1,5 @@
-import { alias } from '@ember/object/computed';
-import { get, computed } from '@ember/object';
+import { alias } from "@ember/object/computed";
+import { get, computed } from "@ember/object";
 import Model from "ember-data/model";
 import attr from "ember-data/attr";
 

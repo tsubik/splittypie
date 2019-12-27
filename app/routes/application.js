@@ -1,9 +1,9 @@
-import $ from 'jquery';
-import { inject as service } from '@ember/service';
-import { schedule } from '@ember/runloop';
-import RSVP from 'rsvp';
-import Route from '@ember/routing/route';
-import { setProperties, get } from '@ember/object';
+import $ from "jquery";
+import { inject as service } from "@ember/service";
+import { schedule } from "@ember/runloop";
+import RSVP from "rsvp";
+import Route from "@ember/routing/route";
+import { setProperties, get } from "@ember/object";
 
 export default Route.extend({
     modal: service(),

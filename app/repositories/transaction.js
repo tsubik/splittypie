@@ -1,8 +1,8 @@
 /* eslint-disable arrow-body-style */
 
-import { get } from '@ember/object';
+import { get } from "@ember/object";
 
-import Service, { inject as service } from '@ember/service';
+import Service, { inject as service } from "@ember/service";
 
 export default Service.extend({
     syncQueue: service(),

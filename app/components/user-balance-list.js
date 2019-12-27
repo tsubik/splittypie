@@ -1,5 +1,5 @@
-import { sort, notEmpty } from '@ember/object/computed';
-import Component from '@ember/component';
+import { sort, notEmpty } from "@ember/object/computed";
+import Component from "@ember/component";
 
 export default Component.extend({
     anyUsers: notEmpty("users"),

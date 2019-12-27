@@ -1,7 +1,7 @@
-import RSVP, { Promise } from 'rsvp';
-import { get } from '@ember/object';
-import Error from '@ember/error';
-import Service, { inject as service } from '@ember/service';
+import RSVP, { Promise } from "rsvp";
+import { get } from "@ember/object";
+import Error from "@ember/error";
+import Service, { inject as service } from "@ember/service";
 
 export default Service.extend({
     store: service(),

@@ -1,14 +1,14 @@
-import { alias } from '@ember/object/computed';
-import { run, scheduleOnce } from '@ember/runloop';
-import { reject, resolve, allSettled } from 'rsvp';
+import { alias } from "@ember/object/computed";
+import { run, scheduleOnce } from "@ember/runloop";
+import { reject, resolve, allSettled } from "rsvp";
 import EmberObject, {
   getProperties,
   set,
   get,
   observer
-} from '@ember/object';
-import Service, { inject as service } from '@ember/service';
-import Evented, { on } from '@ember/object/evented';
+} from "@ember/object";
+import Service, { inject as service } from "@ember/service";
+import Evented, { on } from "@ember/object/evented";
 import Ember from "ember";
 
 const {

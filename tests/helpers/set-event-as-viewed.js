@@ -1,5 +1,5 @@
-import EmberObject from '@ember/object';
-import { registerAsyncHelper } from '@ember/test';
+import EmberObject from "@ember/object";
+import { registerAsyncHelper } from "@ember/test";
 
 export default registerAsyncHelper("setEventAsViewed", function (app, event, userName) {
     const localStorage = app.__container__.lookup("service:localStorage");

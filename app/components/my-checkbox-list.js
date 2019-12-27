@@ -1,17 +1,12 @@
-import { set, get } from '@ember/object';
-import Component from '@ember/component';
-import Ember from "ember";
-
-const {
-    K
-} = Ember;
+import { set, get } from "@ember/object";
+import Component from "@ember/component";
 
 export default Component.extend({
     // possible passed-in values with their defaults:
     content: null,
     optionValuePath: "id",
     optionLabelPath: "title",
-    action: K, // action to fire on change
+    action() {}, // action to fire on change
 
     init() {
         this._super(...arguments);

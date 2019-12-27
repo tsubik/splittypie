@@ -1,5 +1,5 @@
 /* eslint-disable no-console */
-import RSVP from 'rsvp';
+import RSVP from "rsvp";
 
 import Ember from "ember";
 

@@ -1,4 +1,4 @@
-import { debug } from '@ember/debug';
+import { debug } from "@ember/debug";
 
 export function initialize(applicationInstance) {
     debug("initialize syncer");

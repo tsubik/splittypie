@@ -1,4 +1,4 @@
-import { resolve } from 'rsvp';
+import { resolve } from "rsvp";
 import LFAdapter from "ember-localforage-adapter/adapters/localforage";
 import generateUniqueId from "splittypie/utils/generate-unique-id";
 
