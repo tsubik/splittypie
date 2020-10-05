@@ -6,6 +6,8 @@ import errorAt from "splittypie/tests/helpers/error-at";
 moduleForAcceptance("Acceptance | event");
 
 test("creating event", function (assert) {
+    assert.expect(9);
+
     visit("/");
     click("a:contains('Create New Event')");
     andThen(() => {
@@ -42,6 +44,8 @@ test("creating event", function (assert) {
 
 test("identifying user on first visit", function (assert) {
     runWithTestData("default", (events) => {
+        assert.expect(2);
+
         const event = events[0];
 
         // screen tell us who you are
@@ -120,6 +124,8 @@ test("changing event context", function (assert) {
 
 test("editing event", function (assert) {
     runWithTestData("default", (events) => {
+        assert.expect(6);
+
         const event = events[0];
 
         identifyUserAs(event, "Alice");

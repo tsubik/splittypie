@@ -1,15 +1,14 @@
+import Service from "@ember/service";
 import EmberObject from "@ember/object";
 import { moduleFor, test } from "ember-qunit";
 
-const StoreMock = EmberObject.extend({
+const StoreMock = Service.extend({
 });
 
 moduleFor("service:job-processor", "Unit | Service | job processor", {
     beforeEach() {
-        this.subject({
-            store: StoreMock.create(),
-            onlineStore: StoreMock.create(),
-        });
+        this.register("service:store", StoreMock);
+        this.register("service:online-store", StoreMock);
     },
 });
 

@@ -15,14 +15,8 @@ export default Service.extend({
 
         if (countryCode === null) {
             countryCode = get(this, "ajax")
-                .request("https://geoip.nekudo.com/api")
-                .then((data) => {
-                    if (data.country && data.country.code) {
-                        return data.country.code;
-                    }
-
-                    return undefined;
-                })
+                .request("http://ip-api.com/json")
+                .then((data) => data && data.countryCode)
                 .catch((e) => {
                     error(e);
                 });

@@ -1,6 +1,6 @@
 /* eslint-disable */
 
-exports["default"] = {
+export default {
     "events": {
         "testId": {
             "currency": "EUR",

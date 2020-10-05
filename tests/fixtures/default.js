@@ -1,6 +1,6 @@
 /* eslint-disable */
 
-exports["default"] = {
+export default {
     "events" : {
         "-KC0KtcPc6PXVx46Mza7" : {
             "currency" : "EUR",

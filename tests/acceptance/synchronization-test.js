@@ -126,17 +126,17 @@ test("deletes event from both stores when online", function (assert) {
                 });
         });
         andThen(() => {
-            assert.ok(!!this.onlineStore.peekRecord("event", eventId), "exists online");
-            assert.ok(!!this.offlineStore.peekRecord("event", eventId), "exists offline");
+            assert.ok(Boolean(this.onlineStore.peekRecord("event", eventId)), "exists online");
+            assert.ok(Boolean(this.offlineStore.peekRecord("event", eventId)), "exists offline");
         });
         runAndWaitForSyncQueueToFlush(() => this.eventRepository.remove(event));
         andThen(() => {
             assert.notOk(
-                !!this.onlineStore.peekRecord("event", eventId), "doesn't exist online"
+                Boolean(this.offlineStore.peekRecord("event", eventId)),
+                "doesn't exist offline"
             );
             assert.notOk(
-                !!this.offlineStore.peekRecord("event", eventId),
-                "doesn't exist offline"
+                Boolean(this.onlineStore.peekRecord("event", eventId), "doesn't exist online")
             );
         });
     });

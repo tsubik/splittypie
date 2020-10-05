@@ -10,7 +10,7 @@ module.exports = function (environment) {
         contentSecurityPolicy: {
             "default-src": "'self'",
             "frame-src": "'self' https://*.firebaseio.com",
-            "connect-src": "'self' https://*.rollbar.com https://geoip.nekudo.com https://auth.firebase.com wss://*.firebaseio.com ws://*.firebaseio.test:5005 https://fonts.gstatic.com https://fonts.googleapis.com",
+            "connect-src": "'self' https://*.rollbar.com http://ip-api.com https://auth.firebase.com wss://*.firebaseio.com ws://*.firebaseio.test:5005 https://fonts.gstatic.com https://fonts.googleapis.com",
             "script-src": "'self' 'unsafe-inline' https://*.rollbar.com https://*.firebaseio.com https://www.google-analytics.com",
             "style-src": "'self' 'unsafe-inline' https://fonts.googleapis.com",
             "font-src": "'self' data: https://fonts.gstatic.com",
@@ -110,6 +110,7 @@ module.exports = function (environment) {
 
         ENV.APP.rootElement = "#ember-testing";
         ENV.firebase.databaseURL = "ws://localhost.firebaseio.test:5005";
+        ENV.APP.autoboot = false;
     }
 
     return ENV;

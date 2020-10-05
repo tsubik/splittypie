@@ -17,7 +17,7 @@ export default Service.extend({
         const [jobType, modelName] = name.split(/(?=[A-Z])/);
         const method = this.commands[jobType];
 
-        debug(`Job-processor: Processing job ${name} with payload: ${payload}`);
+        debug(`Job-processor: Processing job ${name} with payload`, payload);
         assert(`Job ${name} doesn't exists`, method);
 
         return method.call(this, modelName, payload)
@@ -56,7 +56,11 @@ export default Service.extend({
             const onlineStore = get(this, "onlineStore");
             const id = properties.id;
 
-            return onlineStore.findRecord(modelName, id).then(record => record.destroyRecord());
+            return onlineStore
+                .findRecord(modelName, id)
+                .then(
+                    record => record.destroyRecord()
+                );
         },
     },
 });

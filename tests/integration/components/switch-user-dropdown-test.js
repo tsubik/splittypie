@@ -15,8 +15,9 @@ test("it renders", function (assert) {
 
     this.set("users", users);
     this.set("selected", users[0]);
+    this.set("onChange", () => {});
 
-    this.render(hbs`{{switch-user-dropdown selected=selected users=users}}`);
+    this.render(hbs`{{switch-user-dropdown selected=selected users=users onChange=(action onChange)}}`);
 
     assert.equal(extraTrim(this.$().text()), "Viewing as Tomasz Switch user to Bob");
 });

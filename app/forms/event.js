@@ -34,7 +34,7 @@ export default FormObject.extend(Validations, {
         setProperties(this, getProperties(model, "name", "currency"));
 
         const users = getWithDefault(model, "users", [])
-                  .map(user => this.createInnerForm("user", user));
+            .map(user => this.createInnerForm("user", user));
         set(this, "users", users);
     },
 

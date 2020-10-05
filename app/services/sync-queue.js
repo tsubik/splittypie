@@ -21,7 +21,7 @@ export default Service.extend(Evented, {
     },
 
     enqueue(name, payload) {
-        debug(`Sync-queue: Creating offline job for ${name}: ${payload}`);
+        debug(`Sync-queue: Creating offline job for ${name}: `, payload);
         return this._createAndSaveJob(name, payload).then((job) => {
             if (get(this, "connection.isOnline")) {
                 debug(`Sync-queue: Adding job ${name} to pendingJobs array`);

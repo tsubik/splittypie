@@ -16,6 +16,10 @@ function shouldReportError(error) {
 }
 
 function reportError(error) {
+    if (Ember.testing) {
+        throw error;
+    }
+
     if (shouldReportError(error)) {
         if (error.stack) {
             console.error(error);

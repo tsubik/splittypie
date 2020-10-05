@@ -20,7 +20,7 @@ const toArray = function (firebaseObject) {
     return results;
 };
 
-export default registerAsyncHelper(
+registerAsyncHelper(
     "runWithTestData",
     function (app, dumpName, functionToRun) {
         const eventsRef = app.__container__.lookup("service:firebaseApp").database().ref("events");

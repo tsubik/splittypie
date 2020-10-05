@@ -32,11 +32,9 @@ const StoreMock = EmberObject.extend({
 
 moduleFor("service:sync-queue", "Unit | Service | sync queue", {
     beforeEach() {
-        this.subject({
-            connection: ConnectionMock.create(),
-            jobProcessor: JobProcessorMock.create(),
-            store: StoreMock.create(),
-        });
+        this.register('service:job-processor', JobProcessorMock);
+        this.register('service:connection', ConnectionMock);
+        this.register('service:store', StoreMock);
     },
 });
 
@@ -56,7 +54,7 @@ sinonTest("enqueue creates new job and saves to offline store", function (assert
     const model = SyncJobModelMock.create();
     const modelSaveSpy = this.spy(model, "save");
 
-    this.stub(service.store, "createRecord").returns(model);
+    this.stub(service.get('store'), "createRecord").returns(model);
 
     run(() => {
         service.enqueue("jobname", {}).then(() => {
@@ -102,7 +100,7 @@ sinonTest("new pendingJob execute processNext if not already processing", functi
     const service = this.subject();
     const job = SyncJobModelMock.create();
     const processNextSpy = this.spy(service, "_processNext");
-    const jobProcessorSpy = this.spy(service.jobProcessor, "process");
+    const jobProcessorSpy = this.spy(service.get('jobProcessor'), "process");
 
     run(() => {
         service.get("pendingJobs").addObject(job);
@@ -131,8 +129,7 @@ sinonTest("new pendingJob doesn't processNext if already processing", function (
 sinonTest("flush process all saved jobs", function (assert) {
     assert.expect(1);
 
-    const service = this.subject();
-    service.store = EmberObject.create({
+    this.register('service:store', EmberObject.extend({
         findAll() {
             return resolve([
                 SyncJobModelMock.create(),
@@ -140,8 +137,9 @@ sinonTest("flush process all saved jobs", function (assert) {
                 SyncJobModelMock.create(),
             ]);
         },
-    });
-    const jobProcessorSpy = this.spy(service.jobProcessor, "process");
+    }));
+    const service = this.subject();
+    const jobProcessorSpy = this.spy(service.get('jobProcessor'), "process");
 
     run(() => {
         service.flush()

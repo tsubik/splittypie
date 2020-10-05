@@ -1,5 +1,4 @@
 import { getOwner } from "@ember/application";
-import { merge } from "@ember/polyfills";
 import Service from "@ember/service";
 
 export default Service.extend({
@@ -11,8 +10,11 @@ export default Service.extend({
             throw new Error(`There is no factory for ${name} form registered in application`);
         }
 
-        return formFactory.create(
-            merge({ model, formType: name }, owner.ownerInjection(), properties)
-        );
+        return formFactory.create({
+            model,
+            formType: name,
+            ...owner.ownerInjection(),
+            ...properties
+        });
     },
 });

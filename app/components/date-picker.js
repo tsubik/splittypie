@@ -1,4 +1,3 @@
-import { on } from "@ember/object/evented";
 import { set, get, observer, computed } from "@ember/object";
 import Component from "@ember/component";
 import isMobile from "splittypie/utils/is-mobile";
@@ -32,9 +31,9 @@ export default Component.extend({
     }),
 
     // eslint-disable-next-line
-    dateInputClasses: on("init", observer("className", function () {
+    dateInputClasses: computed("className", function () {
         const className = get(this, "className");
 
         return `${className} form-control`;
-    })),
+    })
 });

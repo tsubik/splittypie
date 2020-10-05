@@ -26,12 +26,10 @@ const SyncQueueMock = EmberObject.extend({
 
 moduleFor("service:syncer", "Unit | Service | syncer", {
     beforeEach() {
-        this.subject({
-            store: StoreMock.create(),
-            onlineStore: StoreMock.create(),
-            connection: ConnectionMock.create(),
-            syncQueue: SyncQueueMock.create(),
-        });
+        this.register("service:online-store", StoreMock);
+        this.register("service:store", StoreMock);
+        this.register("service:connection", ConnectionMock);
+        this.register("service:sync-queue", SyncQueueMock);
     },
 });
 
