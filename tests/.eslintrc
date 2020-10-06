@@ -3,6 +3,7 @@
     "embertest": true
   },
 
+<<<<<<< HEAD
   "globals": {
     "waitForPromise": true,
     "reloadPage": true,
@@ -13,4 +14,7 @@
     "runAndWaitForSyncQueueToFlush": true,
     "simulateDelay": true
   }
+=======
+  "globals": {}
+>>>>>>> 3eb173d... upgrade to ember 3.0
 }

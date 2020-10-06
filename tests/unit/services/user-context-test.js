@@ -1,15 +1,12 @@
-import { moduleFor, test } from "ember-qunit";
+import { module, test } from 'qunit';
+import { setupTest } from "ember-qunit";
 
-moduleFor("service:user-context", "Unit | Service | user context", {
-    // Specify the other units that are required for this test.
-    needs: ["service:local-storage"]
-    /* beforeEach() {
-     *     this.register('service:local-storage', LocalStorageMock);
-     * } */
-});
+module("Unit | Service | user context", function(hooks) {
+  setupTest(hooks);
 
-// Replace this with your real tests.
-test("it exists", function (assert) {
-    const service = this.subject();
-    assert.ok(service);
+  // Replace this with your real tests.
+  test("it exists", function (assert) {
+      const service = this.owner.lookup("service:user-context");
+      assert.ok(service);
+  });
 });

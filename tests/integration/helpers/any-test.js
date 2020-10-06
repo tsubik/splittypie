@@ -1,54 +1,56 @@
-import { moduleForComponent, test } from "ember-qunit";
+import { module, test } from 'qunit';
+import { setupRenderingTest } from "ember-qunit";
+import { render, find } from '@ember/test-helpers';
 import hbs from "htmlbars-inline-precompile";
 
-moduleForComponent("any", "Integration | Helper | any", {
-    integration: true,
-});
+module("Integration | Helper | any", function(hooks) {
+  setupRenderingTest(hooks);
 
-test("not empty array", function (assert) {
-    this.set("array", [20, 30]);
+  test("not empty array", async function(assert) {
+      this.set("array", [20, 30]);
 
-    this.render(hbs`
-{{#if (any array)}}
-true
-{{/if}}
-`);
+      await render(hbs`
+  {{#if (any array)}}
+  true
+  {{/if}}
+  `);
 
-    assert.equal(this.$().text().trim(), "true");
-});
+      assert.equal(find('*').textContent.trim(), "true");
+  });
 
-test("empty array", function (assert) {
-    this.set("array", []);
+  test("empty array", async function(assert) {
+      this.set("array", []);
 
-    this.render(hbs`
-{{#if (any array)}}
-true
-{{/if}}
-`);
+      await render(hbs`
+  {{#if (any array)}}
+  true
+  {{/if}}
+  `);
 
-    assert.equal(this.$().text().trim(), "");
-});
+      assert.equal(find('*').textContent.trim(), "");
+  });
 
-test("undefined", function (assert) {
-    this.set("array", undefined);
+  test("undefined", async function(assert) {
+      this.set("array", undefined);
 
-    this.render(hbs`
-{{#if (any array)}}
-true
-{{/if}}
-`);
+      await render(hbs`
+  {{#if (any array)}}
+  true
+  {{/if}}
+  `);
 
-    assert.equal(this.$().text().trim(), "");
-});
+      assert.equal(find('*').textContent.trim(), "");
+  });
 
-test("not array", function (assert) {
-    this.set("array", {});
+  test("not array", async function(assert) {
+      this.set("array", {});
 
-    this.render(hbs`
-{{#if (any array)}}
-true
-{{/if}}
-`);
+      await render(hbs`
+  {{#if (any array)}}
+  true
+  {{/if}}
+  `);
 
-    assert.equal(this.$().text().trim(), "");
+      assert.equal(find('*').textContent.trim(), "");
+  });
 });

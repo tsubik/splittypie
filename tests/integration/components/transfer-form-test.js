@@ -1,28 +1,30 @@
 import EmberObject from "@ember/object";
-import { moduleForComponent, test } from "ember-qunit";
+import { module, test } from 'qunit';
+import { setupRenderingTest } from "ember-qunit";
+import { render, find } from '@ember/test-helpers';
 import hbs from "htmlbars-inline-precompile";
 
-moduleForComponent("transfer-form", "Integration | Component | transfer form", {
-    integration: true,
-});
+module("Integration | Component | transfer form", function(hooks) {
+  setupRenderingTest(hooks);
 
-test("it renders with transfer model", function (assert) {
-    assert.expect(3);
+  test("it renders with transfer model", async function(assert) {
+      assert.expect(3);
 
-    const sender = { id: 1, name: "Bob" };
-    const recipient = { id: 2, name: "Alice" };
+      const sender = { id: 1, name: "Bob" };
+      const recipient = { id: 2, name: "Alice" };
 
-    const transfer = EmberObject.create({
-        sender,
-        recipient,
-        amount: "200",
-        type: "transfer",
-    });
+      const transfer = EmberObject.create({
+          sender,
+          recipient,
+          amount: "200",
+          type: "transfer",
+      });
 
-    this.set("transfer", transfer);
-    this.render(hbs`{{transfer-form transfer=transfer}}`);
+      this.set("transfer", transfer);
+      await render(hbs`{{transfer-form transfer=transfer}}`);
 
-    assert.equal(this.$(".transfer-sender").text().trim(), "Bob", "sender");
-    assert.equal(this.$(".transfer-recipient").text().trim(), "Alice", "recipient");
-    assert.equal(this.$(".transfer-amount").text().trim(), "200", "amount");
+      assert.equal(find(".transfer-sender").textContent.trim(), "Bob", "sender");
+      assert.equal(find(".transfer-recipient").textContent.trim(), "Alice", "recipient");
+      assert.equal(find(".transfer-amount").textContent.trim(), "200", "amount");
+  });
 });

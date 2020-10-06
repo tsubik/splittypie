@@ -5,8 +5,9 @@ const { Logger: { error, debug } } = Ember;
 
 export default {
     name: "offline-support",
-    initialize(application) {
-        const notify = application.__container__.lookup("service:notify");
+    initialize(applicationInstance) {
+        debug("initialize offline support");
+        const notify = applicationInstance.lookup("service:notify");
 
         if ("serviceWorker" in window.navigator) {
             window.navigator.serviceWorker.register("/offline-support.js").then((registration) => {

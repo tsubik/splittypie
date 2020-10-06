@@ -1,19 +1,22 @@
-import { moduleFor, test } from "ember-qunit";
+import { module, test } from 'qunit';
+import { setupTest } from "ember-qunit";
 
 const TESTENTRY = "testentry";
 
-moduleFor("service:local-storage", "Unit | Service | local storage", {
-    beforeEach() {
-        window.localStorage.removeItem(TESTENTRY);
-    },
+module("Unit | Service | local storage", function(hooks) {
+  setupTest(hooks);
 
-    afterEach() {
-        window.localStorage.removeItem(TESTENTRY);
-    },
-});
+  hooks.beforeEach(function() {
+      window.localStorage.removeItem(TESTENTRY);
+  });
 
-// Replace this with your real tests.
-test("it exists", function (assert) {
-    const service = this.subject();
-    assert.ok(service);
+  hooks.afterEach(function() {
+      window.localStorage.removeItem(TESTENTRY);
+  });
+
+  // Replace this with your real tests.
+  test("it exists", function (assert) {
+      const service = this.owner.lookup("service:local-storage");
+      assert.ok(service);
+  });
 });

@@ -1,16 +1,18 @@
-import { moduleForComponent, test } from "ember-qunit";
+import { module, test } from 'qunit';
+import { setupRenderingTest } from "ember-qunit";
+import { render, find } from '@ember/test-helpers';
 import hbs from "htmlbars-inline-precompile";
 import extraTrim from "../../helpers/extra-trim";
 
-moduleForComponent("calendar-page", "Integration | Component | calendar page", {
-    integration: true,
-});
+module("Integration | Component | calendar page", function(hooks) {
+  setupRenderingTest(hooks);
 
-test("it renders", function (assert) {
-    const date = "2015-03-01";
+  test("it renders", async function(assert) {
+      const date = "2015-03-01";
 
-    this.set("date", date);
-    this.render(hbs`{{calendar-page date=date}}`);
+      this.set("date", date);
+      await render(hbs`{{calendar-page date=date}}`);
 
-    assert.equal(extraTrim(this.$().text()), "Mar 01");
+      assert.equal(extraTrim(find('*').textContent), "Mar 01");
+  });
 });

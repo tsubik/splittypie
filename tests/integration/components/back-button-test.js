@@ -1,15 +1,17 @@
-import { moduleForComponent, test } from "ember-qunit";
+import { module, test } from 'qunit';
+import { setupRenderingTest } from "ember-qunit";
+import { render, find } from '@ember/test-helpers';
 import hbs from "htmlbars-inline-precompile";
 
-moduleForComponent("back-button", "Integration | Component | back button", {
-    integration: true,
-});
+module("Integration | Component | back button", function(hooks) {
+  setupRenderingTest(hooks);
 
-test("it renders", function (assert) {
-    // Set any properties with this.set("myProperty", "value");
-    // Handle any actions with this.on("myAction", function(val) { ... });"
+  test("it renders", async function(assert) {
+      // Set any properties with this.set("myProperty", "value");
+      // Handle any actions with this.on("myAction", function(val) { ... });"
 
-    this.render(hbs`{{back-button}}`);
+      await render(hbs`{{back-button}}`);
 
-    assert.equal(this.$().text().trim(), "");
+      assert.equal(find('*').textContent.trim(), "");
+  });
 });

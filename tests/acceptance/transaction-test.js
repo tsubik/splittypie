@@ -1,8 +1,12 @@
+import { click, fillIn, find, findAll, visit } from '@ember/test-helpers';
 import moment from "moment";
-import { test } from "qunit";
-import moduleForAcceptance from "splittypie/tests/helpers/module-for-acceptance";
+import { module, test } from "qunit";
 
-moduleForAcceptance("Acceptance | transaction");
+import exist from "splittypie/tests/helpers/exist";
+import setupApplicationTest from "splittypie/tests/helpers/setup-application-test";
+import runWithTestData from "splittypie/tests/helpers/run-with-test-data";
+import identifyUserAs from "splittypie/tests/helpers/identify-user-as";
+import reloadPage from "splittypie/tests/helpers/reload-page";
 
 const expectTransactionListItem = (assert) => {
     const expectedMessage = "Alice paid for Dinner and coffee";
@@ -11,41 +15,34 @@ const expectTransactionListItem = (assert) => {
     assert.ok(exist(`.transaction-list-item:contains('${expectedMessage}')`));
 };
 
-test("adding new transaction", function (assert) {
-    runWithTestData("without-transactions", (events) => {
-        const event = events[0];
+module("Acceptance | transaction", function (hooks) {
+    setupApplicationTest(hooks);
 
-        identifyUserAs(event, "Alice");
+    test("adding new transaction", function (assert) {
+        runWithTestData("without-transactions", async events => {
+            const event = events[0];
 
-        visit(`/${event.id}/transactions`);
-        andThen(() => {
+            identifyUserAs(event, "Alice");
+
+            await visit(`/${event.id}/transactions`);
             assert.ok(exist("div:contains('There are no transactions yet')"));
             assert.ok(exist("div:contains('Add your first transaction')"));
-        });
 
-        click(".btn-add-transaction");
-        click(".btn-add-with-details");
-        // defaults
-        andThen(() => {
+            await click(".btn-add-transaction");
+            await click(".btn-add-with-details");
             assert.equal(
-                find(".transaction-participants input:checked").length,
+                findAll(".transaction-participants input:checked").length,
                 4,
                 "Everyone selected by default"
             );
-        });
+            const AliceId = find(".transaction-payer select option:contains('Alice')").value;
 
-        andThen(() => {
-            const AliceId = find(".transaction-payer select option:contains('Alice')").val();
+            await fillIn(".transaction-payer", AliceId);
+            await fillIn(".transaction-name", "special bottle of vodka");
+            await fillIn(".transaction-amount", "50");
+            await click("button:contains('Create')");
 
-            fillIn(".transaction-payer", AliceId);
-            fillIn(".transaction-name", "special bottle of vodka");
-            fillIn(".transaction-amount", "50");
-            click("button:contains('Create')");
-        });
-
-        reloadPage();
-        // check for transaction
-        andThen(() => {
+            reloadPage();
             const expectedMessage = "Alice paid for special bottle of vodka";
 
             assert.ok(exist(".transaction-list-item:contains('50.00 EUR')"));
@@ -53,32 +50,28 @@ test("adding new transaction", function (assert) {
             assert.notOk(exist("div:contains('Add your first transaction')"));
         });
     });
-});
 
-test("editing/removing transaction", function (assert) {
-    runWithTestData("default", (events) => {
-        const event = events[0];
-        const BobId = "-KC0KtcY5FmUSrGOMHkE";
+    test("editing/removing transaction", function (assert) {
+        runWithTestData("default", async events => {
+            const event = events[0];
+            const BobId = "-KC0KtcY5FmUSrGOMHkE";
 
-        identifyUserAs(event, "Alice");
+            identifyUserAs(event, "Alice");
 
-        visit(`/${event.id}/transactions`);
-        andThen(() => {
+            await visit(`/${event.id}/transactions`);
             assert.ok(exist(".transaction-list-item:contains('1,250.00 EUR')"));
             assert.ok(exist(".transaction-list-item:contains('John paid for Plane tickets')"));
             assert.ok(exist(".transaction-list-item:contains('Alice, John, Daria, Bob')"));
-        });
 
-        click(".transaction-list-item");
-        fillIn(".transaction-payer", BobId);
-        fillIn(".transaction-name", "special");
-        fillIn(".transaction-amount", "50");
-        fillIn(".transaction-date", "2016-07-07");
-        click("button:contains(Save)");
+            await click(".transaction-list-item");
+            await fillIn(".transaction-payer", BobId);
+            await fillIn(".transaction-name", "special");
+            await fillIn(".transaction-amount", "50");
+            await fillIn(".transaction-date", "2016-07-07");
+            await click("button:contains(Save)");
 
-        simulateDelay(500);
+            // TODO: simulatedelay
 
-        andThen(() => {
             assert.ok(
                 exist(".transaction-list-item:contains('50.00 EUR')"), "changed transaction amount"
             );
@@ -98,75 +91,66 @@ test("editing/removing transaction", function (assert) {
                 exist(".month:contains(Jul) + .day:contains(07)"),
                 "transaction exists on Jul 07"
             );
-        });
 
-        click(".transaction-list-item:contains('Bob paid for special')");
-        click("button.delete-transaction");
+            await click(".transaction-list-item:contains('Bob paid for special')");
+            await click("button.delete-transaction");
 
-        andThen(() => {
             assert.ok(exist("div:contains('Are you sure?')"), "delete confirmation");
-        });
-        click("button:contains('Yes')");
-        andThen(() => {
+            await click("button:contains('Yes')");
             assert.notOk(
                 exist(".transaction-list-item:contains('Bob paid for special')"),
                 "deleted transaction item"
             );
         });
     });
-});
 
-test("quick transaction add", function (assert) {
-    runWithTestData("without-transactions", (events) => {
-        const event = events[0];
+    test("quick transaction add", function (assert) {
+        runWithTestData("without-transactions", async events => {
+            const event = events[0];
 
-        identifyUserAs(event, "Alice");
+            identifyUserAs(event, "Alice");
 
-        visit(`/${event.id}/transactions`);
+            await visit(`/${event.id}/transactions`);
 
-        click(".btn-add-transaction");
-        fillIn(".transaction-parse", "06/20 40.50 Dinner and coffee");
+            await click(".btn-add-transaction");
+            await fillIn(".transaction-parse", "06/20 40.50 Dinner and coffee");
 
-        // transaction list item as a preview of added transaction
-        andThen(expectTransactionListItem.bind(this, assert));
-        click(".btn-add");
+            expectTransactionListItem(assert);
+            await click(".btn-add");
 
-        reloadPage();
+            await reloadPage();
 
-        andThen(expectTransactionListItem.bind(this, assert));
+            expectTransactionListItem(assert);
+        });
     });
-});
 
-test("quick transaction add with details", function (assert) {
-    runWithTestData("without-transactions", (events) => {
-        const event = events[0];
+    test("quick transaction add with details", function (assert) {
+        runWithTestData("without-transactions", async events => {
+            const event = events[0];
 
-        identifyUserAs(event, "Alice");
+            identifyUserAs(event, "Alice");
 
-        visit(`/${event.id}/transactions`);
+            await visit(`/${event.id}/transactions`);
 
-        click(".btn-add-transaction");
-        fillIn(".transaction-parse", "06/20 40.50 Dinner and coffee");
+            await click(".btn-add-transaction");
+            await fillIn(".transaction-parse", "06/20 40.50 Dinner and coffee");
 
-        // transaction list item as a preview of added transaction
-        andThen(expectTransactionListItem.bind(this, assert));
-        click(".btn-add-with-details");
+            expectTransactionListItem(assert);
+            await click(".btn-add-with-details");
 
-        andThen(() => {
             assert.equal(
-                find(".transaction-participants input:checked").length,
+                findAll(".transaction-participants input:checked").length,
                 4,
                 "Everyone selected by default"
             );
-            assert.equal(find(".transaction-name").val(), "Dinner and coffee");
-            assert.equal(find(".transaction-amount").val(), "40.5");
-            assert.equal(find(".transaction-date").val(), moment("06/20", "MM/DD").format("YYYY-MM-DD"));
+            assert.equal(find(".transaction-name").value, "Dinner and coffee");
+            assert.equal(find(".transaction-amount").value, "40.5");
+            assert.equal(find(".transaction-date").value, moment("06/20", "MM/DD").format("YYYY-MM-DD"));
+
+            await click("button:contains('Create')");
+
+            await reloadPage();
+            expectTransactionListItem(assert);
         });
-
-        click("button:contains('Create')");
-
-        reloadPage();
-
-        andThen(expectTransactionListItem.bind(this, assert));
     });
 });

@@ -1,24 +1,26 @@
-import { moduleForComponent, test } from "ember-qunit";
+import { module, test } from 'qunit';
+import { setupRenderingTest } from "ember-qunit";
+import { render, findAll, find } from '@ember/test-helpers';
 import hbs from "htmlbars-inline-precompile";
 
-moduleForComponent("user-list", "Integration | Component | user list", {
-    integration: true,
-});
+module("Integration | Component | user list", function(hooks) {
+  setupRenderingTest(hooks);
 
-test("it renders", function (assert) {
-    this.render(hbs`{{user-list}}`);
+  test("it renders", async function(assert) {
+      await render(hbs`{{user-list}}`);
 
-    assert.equal(this.$().text().trim(), "");
-});
+      assert.equal(find('*').textContent.trim(), "");
+  });
 
-test("it renders user forms", function (assert) {
-    const users = [
-        { name: "Bob" },
-        { name: "Yuri" },
-    ];
+  test("it renders user forms", async function(assert) {
+      const users = [
+          { name: "Bob" },
+          { name: "Yuri" },
+      ];
 
-    this.set("users", users);
-    this.render(hbs`{{user-list users=users}}`);
+      this.set("users", users);
+      await render(hbs`{{user-list users=users}}`);
 
-    assert.equal(this.$(".user-form").length, 2);
+      assert.equal(findAll(".user-form").length, 2);
+  });
 });
