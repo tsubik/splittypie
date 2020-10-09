@@ -1,6 +1,6 @@
-import FirebaseSerializer from "emberfire/serializers/firebase";
+import RealtimeDatabaseSerializer from "emberfire/serializers/realtime-database";
 
-export default FirebaseSerializer.extend({
+export default RealtimeDatabaseSerializer.extend({
     attrs: {
         isOffline: {
             serialize: false,

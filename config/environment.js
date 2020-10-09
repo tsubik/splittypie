@@ -35,22 +35,22 @@ module.exports = function (environment) {
             apiKey: process.env.FIREBASE_API_KEY,
             databaseURL: `https://${process.env.FIREBASE_APP_NAME}.firebaseio.com`,
         },
-        serviceWorker: {
-            enabled: true,
-            debug: true,
-            serviceWorkerFile: "offline-support.js",
-            includeRegistration: false, // registering in app/initializers/offline-support
-            precacheURLs: [
-                "/app.html",
-            ],
-            fastestURLs: [
-                { route: "/(.*)", method: "get", options: { origin: "https://fonts.gstatic.com" } },
-                { route: "/css", method: "get", options: { origin: "https://fonts.googleapis.com" } },
-            ],
-            fallback: [
-                "/(.*) /app.html",
-            ],
-        },
+        /* serviceWorker: {
+         *     enabled: true,
+         *     debug: true,
+         *     serviceWorkerFile: "offline-support.js",
+         *     includeRegistration: false, // registering in app/initializers/offline-support
+         *     precacheURLs: [
+         *         "/app.html",
+         *     ],
+         *     fastestURLs: [
+         *         { route: "/(.*)", method: "get", options: { origin: "https://fonts.gstatic.com" } },
+         *         { route: "/css", method: "get", options: { origin: "https://fonts.googleapis.com" } },
+         *     ],
+         *     fallback: [
+         *         "/(.*) /app.html",
+         *     ],
+         * }, */
         rollbar: {
             accessToken: process.env.ROLLBAR_ACCESS_TOKEN,
             enabled: environment === "production" || environment === "staging",

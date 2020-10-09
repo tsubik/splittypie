@@ -4,9 +4,9 @@ import loadInitializers from 'ember-load-initializers';
 import config from 'splittypie/config/environment';
 
 export default class App extends Application {
-  modulePrefix = config.modulePrefix;
-  podModulePrefix = config.podModulePrefix;
-  Resolver = Resolver;
+    modulePrefix = config.modulePrefix;
+    podModulePrefix = config.podModulePrefix;
+    Resolver = Resolver;
 }
 
 loadInitializers(App, config.modulePrefix);
