@@ -56,9 +56,9 @@ test("creates event in both stores when online", function (assert) {
     });
     andThen(() => {
         assert.ok(
-            !!this.offlineStore.peekRecord("event", event.get("id")), "event in offline store"
+            !this.offlineStore.peekRecord("event", event.get("id")).isDeleted, "event in offline store"
         );
-        assert.ok(!!this.onlineStore.peekRecord("event", event.get("id")), "event in online store");
+        assert.ok(!this.onlineStore.peekRecord("event", event.get("id")).isDeleted, "event in online store");
     });
 });
 
@@ -75,7 +75,7 @@ test("creates event in offline store first and then moves to online", function (
     });
     andThen(() => {
         assert.ok(
-            !!this.offlineStore.peekRecord("event", event.get("id")), "event in offline store"
+            !this.offlineStore.peekRecord("event", event.get("id")).isDeleted, "event in offline store"
         );
         assert.notOk(
             !!this.onlineStore.peekRecord("event", event.get("id")), "event not in online store"
@@ -131,12 +131,12 @@ test("deletes event from both stores when online", function (assert) {
         });
         runAndWaitForSyncQueueToFlush(() => this.eventRepository.remove(event));
         andThen(() => {
-            assert.notOk(
-                Boolean(this.offlineStore.peekRecord("event", eventId)),
+            assert.ok(
+                Boolean(this.offlineStore.peekRecord("event", eventId).isDeleted),
                 "doesn't exist offline"
             );
-            assert.notOk(
-                Boolean(this.onlineStore.peekRecord("event", eventId), "doesn't exist online")
+            assert.ok(
+                Boolean(this.onlineStore.peekRecord("event", eventId).isDeleted, "doesn't exist online")
             );
         });
     });
@@ -164,20 +164,20 @@ test("removes event from offline store first and from online when online", funct
         andThen(() => this.eventRepository.remove(event));
         andThen(() => {
             assert.ok(!!this.onlineStore.peekRecord("event", eventId), "exists online");
-            assert.notOk(
-                !!this.offlineStore.peekRecord("event", eventId),
-                "doesn't exist offline"
+            assert.ok(
+                this.offlineStore.peekRecord("event", eventId).isDeleted,
+                "removed offline"
             );
         });
         runAndWaitForSyncQueueToFlush(() => this.connection.set("state", "online"));
         andThen(() => {
-            assert.notOk(
-                !!this.onlineStore.peekRecord("event", eventId),
-                "doesn't exist online"
+            assert.ok(
+                this.onlineStore.peekRecord("event", eventId).isDeleted,
+                "removed online"
             );
-            assert.notOk(
-                !!this.offlineStore.peekRecord("event", eventId),
-                "doesn't exist offline"
+            assert.ok(
+                this.offlineStore.peekRecord("event", eventId).isDeleted,
+                "removed offline"
             );
         });
     });
@@ -316,9 +316,9 @@ test("removes transaction from offline store first and online when online", func
         });
         andThen(simulateDelay.bind(this, 500));
         andThen(() => {
-            assert.notOk(
-                !!this.offlineStore.peekRecord("transaction", transactionToRemoveId),
-                "doesn't exist offline"
+            assert.ok(
+                this.offlineStore.peekRecord("transaction", transactionToRemoveId).isDeleted,
+                "removed from offline"
             );
             assert.ok(
                 !!this.onlineStore.peekRecord("transaction", transactionToRemoveId),
@@ -327,13 +327,13 @@ test("removes transaction from offline store first and online when online", func
         });
         andThen(syncOnline.bind(this));
         andThen(() => {
-            assert.notOk(
-                !!this.offlineStore.peekRecord("transaction", transactionToRemoveId),
-                "doesn't exist offline"
+            assert.ok(
+                this.offlineStore.peekRecord("transaction", transactionToRemoveId).isDeleted,
+                "still doesn't exist offline"
             );
-            assert.notOk(
-                !!this.onlineStore.peekRecord("transaction", transactionToRemoveId),
-                "doesn't exist online"
+            assert.ok(
+                this.onlineStore.peekRecord("transaction", transactionToRemoveId).isDeleted,
+                "removed from online"
             );
         });
     });
