@@ -9,6 +9,7 @@ import "./identify-user-as";
 import "./run-with-test-data";
 import "./set-event-as-viewed";
 import "./run-and-wait-for-sync-queue-to-flush";
+import "./simulate-delay";
 
 export default function startApp(attrs) {
     let attributes = merge({}, config.APP);

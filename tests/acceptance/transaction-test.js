@@ -76,7 +76,8 @@ test("editing/removing transaction", function (assert) {
         fillIn(".transaction-date", "2016-07-07");
         click("button:contains(Save)");
 
-        reloadPage();
+        simulateDelay(500);
+
         andThen(() => {
             assert.ok(
                 exist(".transaction-list-item:contains('50.00 EUR')"), "changed transaction amount"

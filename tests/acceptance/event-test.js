@@ -30,7 +30,7 @@ test("creating event", function (assert) {
     fillIn(".user-name:eq(1)", "Alice");
     click("button:contains('Create')");
 
-    reloadPage();
+    simulateDelay(500);
 
     // check for event
     click("a:contains('Edit')");
@@ -139,7 +139,8 @@ test("editing event", function (assert) {
         fillIn(".user-name:eq(4)", "Johnny");
         click("button:contains('Save')");
 
-        reloadPage();
+        simulateDelay(500);
+
         andThen(() => {
             assert.equal(currentRouteName(), "event.index", "after save transition to overview");
         });
