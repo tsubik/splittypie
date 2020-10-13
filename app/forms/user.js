@@ -22,13 +22,13 @@ export default FormObject.extend(Validations, {
 
     init() {
         this._super(...arguments);
-        const model = get(this, "model");
+        const model = this.model;
 
         set(this, "name", get(model, "name"));
     },
 
     updateModelAttributes() {
-        const model = get(this, "model");
+        const model = this.model;
 
         setProperties(model, getProperties(this, "name"));
     },

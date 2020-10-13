@@ -1,8 +1,1 @@
-{{event-form
-    title="Edit Event"
-    currencies=currencies
-    event=event
-    onDelete=(route-action "delete")
-    onModelUpdated=(route-action "modelUpdated")
-    onSyncOnline=(route-action "syncOnline")
-}}
+<EventForm @title="Edit Event" @currencies={{currencies}} @event={{event}} @onDelete={{route-action "delete"}} @onModelUpdated={{route-action "modelUpdated"}} @onSyncOnline={{route-action "syncOnline"}} />

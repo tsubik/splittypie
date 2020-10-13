@@ -1,4 +1,4 @@
-{{#modal-dialog}}
+<ModalDialog>
   <div class="modal-header">
     <button type="button" class="close" data-dismiss="modal" aria-hidden="true" aria-label="Close">&times;</button>
     <h4 class="modal-title">Share this event with your friends</h4>
@@ -8,6 +8,6 @@
       Now give the following link to your friend.
     </p>
 
-    {{event-url value=model.event.url}}
+    <EventUrl @value={{model.event.url}} />
   </div>
-{{/modal-dialog}}
+</ModalDialog>

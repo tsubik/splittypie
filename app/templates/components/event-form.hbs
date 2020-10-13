@@ -1,10 +1,10 @@
-{{#mobile-toolbar}}
-  {{back-button}}
+<MobileToolbar>
+  <BackButton />
   <span class="navbar-brand">{{title}}</span>
   <button type="submit" {{action "save"}} disabled={{event.isSaving}} class="btn btn-link save-event navbar-btn">
     {{saveButtonText}}
   </button>
-{{/mobile-toolbar}}
+</MobileToolbar>
 
 <h4 class="hidden-xs">{{title}}</h4>
 
@@ -13,28 +13,21 @@
     <div class="panel-body">
       <div class="form-group {{if event.formErrors.name.messages "has-error"}}">
         <label class="control-label">Event Name</label>
-        {{input value=event.name class="form-control event-name" placeholder="Example: Trip to Barcelona"}}
+        <Input @value={{event.name}} class="form-control event-name" placeholder="Example: Trip to Barcelona" />
         <div class="help-block with-errors">
           {{event.formErrors.name.message}}
         </div>
       </div>
       <div class="form-group {{if event.formErrors.currency.message "has-error"}}">
         <label class="control-label">Currency</label>
-        {{my-select
-          selectClass="event-currency"
-          options=currencies
-          selected=event.currency
-          prompt="Select currency..."
-          optionValuePath="code"
-          optionLabelPath="nameWithCode"
-        }}
+        <MySelect @selectClass="event-currency" @options={{currencies}} @selected={{event.currency}} @prompt="Select currency..." @optionValuePath="code" @optionLabelPath="nameWithCode" />
         <div class="help-block with-errors">
           {{event.formErrors.currency.message}}
         </div>
       </div>
       <div class="form-group">
         <label class="control-label">Participants</label>
-        {{user-list users=event.users}}
+        <UserList @users={{event.users}} />
         <button type="button" class="btn btn-primary add-user" {{action "addUser"}}>Add Participant</button>
       </div>
 
@@ -58,8 +51,8 @@
       {{saveButtonText}}
     </button>
     or
-    {{#back-button}}
+    <BackButton>
       Cancel
-    {{/back-button}}
+    </BackButton>
   </div>
 </form>

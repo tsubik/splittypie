@@ -10,10 +10,10 @@ export default Component.extend({
         this._super(...arguments);
         this.$(".modal").modal().on("hidden.bs.modal", () => {
             run(() => {
-                get(this, "modal").trigger("remove");
+                this.modal.trigger("remove");
             });
         });
-        get(this, "modal").one("hide", this, "onHide");
+        this.modal.one("hide", this, "onHide");
     },
 
     willDestroyElement() {

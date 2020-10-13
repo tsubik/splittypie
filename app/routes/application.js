@@ -12,9 +12,9 @@ export default Route.extend({
 
     init() {
         this._super(...arguments);
-        get(this, "modal").on("show", this, "showModal");
-        get(this, "modal").on("remove", this, "removeModal");
-        get(this, "syncer").on("conflict", this, "synchronizationConflict");
+        this.modal.on("show", this, "showModal");
+        this.modal.on("remove", this, "removeModal");
+        this.syncer.on("conflict", this, "synchronizationConflict");
     },
 
     model() {
@@ -59,7 +59,7 @@ Looks like event ${conflict.model.name} was removed from the online storage.
 We are marking it as "Offline", you could synchronize it back to online store
 in event's details view.
 `;
-            get(this, "notify").error(message, { closeAfter: null });
+            this.notify.error(message, { closeAfter: null });
         }
     },
 

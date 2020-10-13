@@ -22,7 +22,7 @@ export default Service.extend({
             // offline adapter for transaction is overridden to prevent from
             // saving second time on "transactions" node to indexedDB
             // localforage adapter should deal with it but it doesn't
-            return get(this, "syncQueue")
+            return this.syncQueue
                 .enqueue(operation, payload)
                 .then(() => transaction.save());
         });
@@ -37,7 +37,7 @@ export default Service.extend({
         return event.save().then(() => {
             // workaround, localforage adapter should deal with it
             // but it doesn't unload record from store
-            return get(this, "syncQueue")
+            return this.syncQueue
                 .enqueue("destroyTransaction", { eventId, id })
                 .then(() => transaction.destroyRecord());
         });

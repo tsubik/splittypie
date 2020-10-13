@@ -1,17 +1,17 @@
-{{#mobile-toolbar}}
-  {{side-menu-toggle-custom}}
+<MobileToolbar>
+  <SideMenuToggleCustom />
   <span class="navbar-brand text-center">
     {{partial "shared/brand"}}
   </span>
-{{/mobile-toolbar}}
+</MobileToolbar>
 
-{{#ember-wormhole to="navbar-right"}}
+<EmberWormhole @to="navbar-right">
   <ul class="nav navbar-nav navbar-right">
-    {{scroll-to href="#about" label="About"}}
+    <ScrollTo @href="#about" @label="About" />
     {{#if (any model.previousEvents)}}
-      {{scroll-to href="#events" label="Events"}}
+      <ScrollTo @href="#events" @label="Events" />
     {{/if}}
-    {{scroll-to href="#features" label="Features"}}
+    <ScrollTo @href="#features" @label="Features" />
     <li>
       <a href="https://github.com/cowbell/splittypie" target="_blank" rel="noopener" title="SplittyPie Source Code">
         {{inline-svg "github" class="icon"}}
@@ -23,7 +23,7 @@
       New Event
     {{/nav-link-to}}
   </ul>
-{{/ember-wormhole}}
+</EmberWormhole>
 
 <div class="index-sections">
   <section id="about">
@@ -34,7 +34,7 @@
           Create event, add users and their expenses. Splittypie will calculate who owes who and how much exactly.
           It's <strong>Free</strong> and with <strong class="text-nowrap">No Sign Up</strong>.
         </p>
-        <p>{{link-to "Create New Event" "new" class="btn btn-lg btn-success"}}</p>
+        <p><LinkTo @route="new" class="btn btn-lg btn-success">Create New Event</LinkTo></p>
       </div>
       <div class="col-sm-5 main-promotion-image">
         <img src="/assets/app_iphone.png" alt="App preview on iOS">
@@ -43,7 +43,7 @@
   </section>
 
   {{#if (any model.previousEvents)}}
-    {{previous-events events=model.previousEvents}}
+    <PreviousEvents @events={{model.previousEvents}} />
   {{/if}}
 
   <section id="features">

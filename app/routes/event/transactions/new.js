@@ -37,7 +37,7 @@ export default Route.extend({
     setupController(controller, model) {
         this._super(controller, model);
         const users = get(this.modelFor("event"), "users");
-        const form = get(this, "formFactory").createForm("expense", model);
+        const form = this.formFactory.createForm("expense", model);
         setProperties(controller, {
             form,
             users,
@@ -52,11 +52,11 @@ export default Route.extend({
         modelUpdated(transaction) {
             const event = this.modelFor("event");
 
-            get(this, "transactionRepository")
+            this.transactionRepository
                 .save(event, transaction)
                 .then(() => {
                     this.transitionTo("event.transactions");
-                    get(this, "notify").success("New transaction has been added");
+                    this.notify.success("New transaction has been added");
                 });
         },
     },

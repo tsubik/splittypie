@@ -1,6 +1,5 @@
 import { oneWay, alias } from "@ember/object/computed";
 import { inject as service } from "@ember/service";
-import { get } from "@ember/object";
 import BaseForm from "splittypie/components/base-form";
 
 export default BaseForm.extend({
@@ -10,20 +9,20 @@ export default BaseForm.extend({
     isSubmitted: oneWay("event.isSubmitted"),
 
     didInsertElement() {
-        if (get(this, "formObject.isNew")) {
+        if (this.formObject.isNew) {
             this.$(".event-name").focus();
         }
     },
 
     actions: {
         addUser() {
-            const event = get(this, "event");
+            const event = this.event;
 
             event.addUser();
         },
 
         syncOnline() {
-            this.onSyncOnline(get(this, "event.model"));
+            this.onSyncOnline(this.event.model);
         },
     },
 });

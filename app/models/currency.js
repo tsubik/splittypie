@@ -1,14 +1,13 @@
 import { alias } from "@ember/object/computed";
 import { get, computed } from "@ember/object";
-import Model from "ember-data/model";
-import attr from "ember-data/attr";
+import Model, { attr } from '@ember-data/model';
 
 const Currency = Model.extend({
     code: alias("id"),
     symbol: attr("string"),
     name: attr("string"),
     nameWithCode: computed("code", "name", function () {
-        return `${get(this, "name")} (${get(this, "code")})`;
+        return `${this.name} (${this.code})`;
     }),
 });
 

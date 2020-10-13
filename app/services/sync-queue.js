@@ -23,9 +23,9 @@ export default Service.extend(Evented, {
     enqueue(name, payload) {
         debug(`Sync-queue: Creating offline job for ${name}: `, payload);
         return this._createAndSaveJob(name, payload).then((job) => {
-            if (get(this, "connection.isOnline")) {
+            if (this.connection.isOnline) {
                 debug(`Sync-queue: Adding job ${name} to pendingJobs array`);
-                get(this, "pendingJobs").addObject(job);
+                this.pendingJobs.addObject(job);
             }
         });
     },
@@ -34,7 +34,7 @@ export default Service.extend(Evented, {
         debug("Sync-queue: Flushing offline jobs");
 
         return new Promise((resolve) => {
-            get(this, "store")
+            this.store
                 .findAll("sync-job")
                 .then((jobs) => {
                     const arrayJobs = jobs.sortBy("createdAt").toArray();
@@ -44,14 +44,14 @@ export default Service.extend(Evented, {
                         resolve();
                     } else {
                         this.one("flushed", resolve);
-                        get(this, "pendingJobs").pushObjects(arrayJobs);
+                        this.pendingJobs.pushObjects(arrayJobs);
                     }
                 });
         });
     },
 
     pendingJobsDidChange: observer("pendingJobs.[]", function () {
-        const isProcessing = get(this, "isProcessing");
+        const isProcessing = this.isProcessing;
 
         if (!isProcessing) {
             this._processNext();
@@ -59,8 +59,8 @@ export default Service.extend(Evented, {
     }),
 
     _processNext() {
-        const jobProcessor = get(this, "jobProcessor");
-        const pendingJobs = get(this, "pendingJobs");
+        const jobProcessor = this.jobProcessor;
+        const pendingJobs = this.pendingJobs;
         const job = pendingJobs.objectAt(0);
 
         if (!job) {
@@ -74,8 +74,8 @@ export default Service.extend(Evented, {
                 this.trigger("error", error);
             })
             .finally(() => {
-                get(this, "pendingJobs").removeAt(0);
-                const moreJobsToProcess = get(this, "pendingJobs.length") > 0;
+                this.pendingJobs.removeAt(0);
+                const moreJobsToProcess = this.pendingJobs.length > 0;
 
                 job.destroyRecord().then(() => {
                     if (moreJobsToProcess) {
@@ -90,7 +90,7 @@ export default Service.extend(Evented, {
     },
 
     _createAndSaveJob(name, payload) {
-        const job = get(this, "store").createRecord("sync-job", {
+        const job = this.store.createRecord("sync-job", {
             name,
             payload: JSON.stringify(payload),
         });

@@ -1,3 +1,4 @@
+import Model from '@ember-data/model';
 import { inject as service } from "@ember/service";
 import { oneWay } from "@ember/object/computed";
 import { on } from "@ember/object/evented";
@@ -8,7 +9,6 @@ import EmberObject, {
   get,
   computed
 } from "@ember/object";
-import DS from "ember-data";
 
 export default EmberObject.extend({
     store: service(),
@@ -18,11 +18,11 @@ export default EmberObject.extend({
     isSubmitted: false,
 
     isModelEmberDataModel: computed("model", function () {
-        return DS.Model.detectInstance(this.get("model"));
+        return Model.detectInstance(this.model);
     }),
     isSaving: oneWay("model.isSaving"),
     isNew: computed("isModelEmberDataModel", "model.isNew", function () {
-        return get(this, "isModelEmberDataModel") ? get(this, "model.isNew") : true;
+        return this.isModelEmberDataModel ? get(this, "model.isNew") : true;
     }),
 
     parentSubmittedChanged: on("init", observer("parent.isSubmitted", function () {
@@ -30,11 +30,11 @@ export default EmberObject.extend({
     })),
 
     formErrors: computed("isSubmitted", function () {
-        return get(this, "isSubmitted") ? get(this, "validations.attrs") : {};
+        return this.isSubmitted ? get(this, "validations.attrs") : {};
     }),
 
     createInnerForm(name, model) {
-        return get(this, "formFactory").createForm(name, model, { parent: this });
+        return this.formFactory.createForm(name, model, { parent: this });
     },
 
     updateModel() {
@@ -55,8 +55,8 @@ export default EmberObject.extend({
     },
 
     createModelIfNotEmberDataModel() {
-        if (!get(this, "isModelEmberDataModel")) {
-            set(this, "model", get(this, "store").createRecord(get(this, "modelName")));
+        if (!this.isModelEmberDataModel) {
+            set(this, "model", this.store.createRecord(this.modelName));
         }
     },
 

@@ -21,7 +21,7 @@ export default Route.extend({
     },
 
     _getDefaultCurrency() {
-        return get(this, "userCountryCode")
+        return this.userCountryCode
             .getCountryCode()
             .then((countryCode) => {
                 const currencyCode = countryToCurrencyCode(countryCode) || "USD";
@@ -33,7 +33,7 @@ export default Route.extend({
     setupController(controller, models) {
         this._super(controller, models);
         set(models.event, "currency", models.defaultCurrency);
-        const eventForm = get(this, "formFactory").createForm("event", models.event);
+        const eventForm = this.formFactory.createForm("event", models.event);
         setProperties(controller, {
             event: eventForm,
             currencies: models.currencies,
@@ -42,10 +42,10 @@ export default Route.extend({
 
     actions: {
         modelUpdated(event) {
-            get(this, "eventRepository")
+            this.eventRepository
                 .save(event)
                 .then(() => {
-                    get(this, "userContext").save(
+                    this.userContext.save(
                         get(event, "id"),
                         get(event, "users.firstObject.id")
                     );

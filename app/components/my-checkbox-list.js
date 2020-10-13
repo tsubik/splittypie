@@ -10,7 +10,7 @@ export default Component.extend({
 
     init() {
         this._super(...arguments);
-        if (!get(this, "content")) {
+        if (!this.content) {
             set(this, "content", []);
         }
     },
@@ -18,7 +18,7 @@ export default Component.extend({
     actions: {
         change() {
             const inputs = this.$("input");
-            const content = get(this, "content");
+            const content = this.content;
 
             const selection = [];
 

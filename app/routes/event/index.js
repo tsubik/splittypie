@@ -9,7 +9,7 @@ export default Route.extend({
 
     actions: {
         settleUp(transfer) {
-            get(this, "modal").trigger("show", {
+            this.modal.trigger("show", {
                 name: "settle-up",
                 actions: {
                     yes: () => {
@@ -22,17 +22,17 @@ export default Route.extend({
                             date: new Date().toISOString().substring(0, 10),
                         });
 
-                        this.get("transactionRepository")
+                        this.transactionRepository
                             .save(event, transaction)
                             .then(() => {
-                                get(this, "modal").trigger("hide");
-                                get(this, "notify").success(
+                                this.modal.trigger("hide");
+                                this.notify.success(
                                     "Everything settled"
                                 );
                             })
                             .catch(() => {
-                                get(this, "modal").trigger("hide");
-                                get(this, "notify").error(
+                                this.modal.trigger("hide");
+                                this.notify.error(
                                     "An error occured"
                                 );
                             });

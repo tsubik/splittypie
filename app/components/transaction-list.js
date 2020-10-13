@@ -10,7 +10,7 @@ export default Component.extend({
     anyTransactions: notEmpty("transactions"),
     transactionsByMonth: computed("transactions.[]", function () {
         const result = [];
-        const transactions = get(this, "transactions").sortBy("date").reverse();
+        const transactions = this.transactions.sortBy("date").reverse();
 
         transactions.forEach((transaction) => {
             const month = get(transaction, "month");
@@ -28,7 +28,7 @@ export default Component.extend({
         return result;
     }),
     anyTransactionWithDate: computed("transactions.[]", function () {
-        const transactions = get(this, "transactions");
+        const transactions = this.transactions;
 
         return transactions.any(transaction => !!get(transaction, "date"));
     }),

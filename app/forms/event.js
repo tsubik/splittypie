@@ -29,7 +29,7 @@ export default FormObject.extend(Validations, {
 
     init() {
         this._super(...arguments);
-        const model = get(this, "model");
+        const model = this.model;
 
         setProperties(this, getProperties(model, "name", "currency"));
 
@@ -41,13 +41,13 @@ export default FormObject.extend(Validations, {
     addUser() {
         const emptyUserForm = this.createInnerForm("user", EmberObject.create());
 
-        get(this, "users").pushObject(emptyUserForm);
+        this.users.pushObject(emptyUserForm);
     },
 
     updateModelAttributes() {
-        const model = get(this, "model");
+        const model = this.model;
 
         setProperties(model, getProperties(this, "name", "currency"));
-        set(model, "users", get(this, "users").getEach("model"));
+        set(model, "users", this.users.getEach("model"));
     },
 });

@@ -18,7 +18,7 @@ export default Route.extend({
 
     setupController(controller, models) {
         this._super(controller, models);
-        const eventForm = get(this, "formFactory").createForm("event", models.event);
+        const eventForm = this.formFactory.createForm("event", models.event);
         setProperties(controller, {
             event: eventForm,
             currencies: models.currencies,
@@ -31,27 +31,27 @@ export default Route.extend({
 
     actions: {
         delete(event) {
-            get(this, "eventRepository")
+            this.eventRepository
                 .remove(event)
                 .then(() => {
-                    const storage = get(this, "localStorage");
+                    const storage = this.localStorage;
                     storage.removeItem("lastEventId");
                     this.transitionTo("index");
-                    get(this, "notify").success("Event has been deleted.");
+                    this.notify.success("Event has been deleted.");
                 });
         },
 
         modelUpdated(event) {
-            get(this, "eventRepository").save(event)
+            this.eventRepository.save(event)
                 .then(() => {
                     this.transitionTo("event");
-                    get(this, "notify").success("Event has been changed");
+                    this.notify.success("Event has been changed");
                 });
         },
 
         syncOnline(event) {
-            get(this, "syncer").pushEventOnline(event).then(() => {
-                get(this, "notify").success("Event was successfully synced");
+            this.syncer.pushEventOnline(event).then(() => {
+                this.notify.success("Event was successfully synced");
             });
         },
     },

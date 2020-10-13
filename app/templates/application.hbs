@@ -1,4 +1,4 @@
-{{#side-menu}}
+<SideMenu>
   <header class="navbar navbar-default">
     <div class="navbar-header">
       {{#side-menu-link-to "index" class="navbar-brand" title="SplittyPie Home Page"}}
@@ -41,8 +41,8 @@
       <p>ver. {{app-version}}</p>
     </div>
   </div>
-{{/side-menu}}
-{{content-backdrop}}
+</SideMenu>
+<ContentBackdrop />
 <div class="page-content">
   {{partial "shared/navbar"}}
 
@@ -53,6 +53,6 @@
   </main>
 
   {{outlet "footer"}}
-  {{ember-notify messageStyle="bootstrap" }}
+  <EmberNotify @messageStyle="bootstrap" />
 </div>
 {{outlet "modal"}}

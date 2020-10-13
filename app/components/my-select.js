@@ -12,18 +12,18 @@ export default Component.extend({
 
     init() {
         this._super(...arguments);
-        if (!get(this, "options")) {
+        if (!this.options) {
             set(this, "options", []);
         }
     },
 
     // eslint-disable-next-line
     valueDidChanged: on("init", observer("value", function () {
-        const options = get(this, "options");
-        const value = get(this, "value");
+        const options = this.options;
+        const value = this.value;
 
         if (value) {
-            const key = get(this, "optionValuePath");
+            const key = this.optionValuePath;
             const selected = options.findBy(key, value);
 
             set(this, "selected", selected);
@@ -34,17 +34,17 @@ export default Component.extend({
         change() {
             const selectEl = this.$("select")[0];
             const selectedIndex = selectEl.selectedIndex;
-            const options = get(this, "options");
+            const options = this.options;
 
             // decrement index by 1 if we have a prompt
-            const hasPrompt = !!get(this, "prompt");
+            const hasPrompt = !!this.prompt;
             const contentIndex = hasPrompt ? selectedIndex - 1 : selectedIndex;
 
             const selected = options.objectAt(contentIndex);
 
             set(this, "selected", selected);
             if (selected) {
-                set(this, "value", get(selected, get(this, "optionValuePath")));
+                set(this, "value", get(selected, this.optionValuePath));
             } else {
                 set(this, "value", null);
             }

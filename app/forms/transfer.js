@@ -14,7 +14,7 @@ export default FormObject.extend({
 
     init() {
         this._super(...arguments);
-        const model = get(this, "model");
+        const model = this.model;
 
         setProperties(this, getProperties(model, "name", "date", "amount"));
         set(this, "sender", get(model, "payer"));

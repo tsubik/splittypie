@@ -20,7 +20,7 @@ export default Route.extend({
 
     init() {
         this._super(...arguments);
-        const syncer = get(this, "syncer");
+        const syncer = this.syncer;
         if (syncer.get("isSyncing")) {
             this._onSyncStarted();
         }
@@ -29,18 +29,18 @@ export default Route.extend({
     },
 
     model(params) {
-        return get(this, "eventRepository").find(params.event_id);
+        return this.eventRepository.find(params.event_id);
     },
 
     afterModel(model) {
-        const storage = get(this, "localStorage");
+        const storage = this.localStorage;
         storage.setItem("lastEventId", model.id);
     },
 
     redirect(model) {
         if (model.constructor.modelName !== "event") return;
 
-        const currentUser = get(this, "userContext").load(model);
+        const currentUser = this.userContext.load(model);
 
         if (!currentUser) {
             this.transitionTo("event.who-are-you");
@@ -61,7 +61,7 @@ export default Route.extend({
         share() {
             const event = this.modelFor("event");
 
-            get(this, "modal").trigger("show", {
+            this.modal.trigger("show", {
                 name: "share",
                 event,
             });
@@ -76,20 +76,20 @@ export default Route.extend({
         switchUser(user) {
             const event = this.modelFor("event");
 
-            get(this, "userContext").change(event, user);
-            get(this, "notify").success(`Now you are watching this event as ${user.get("name")}`);
+            this.userContext.change(event, user);
+            this.notify.success(`Now you are watching this event as ${user.get("name")}`);
         },
 
         showQuickAdd() {
-            get(this, "modal").trigger("show", {
+            this.modal.trigger("show", {
                 name: "quickAdd"
             });
         },
 
         quickAdd(transactionProps) {
             const event = this.modelFor("event");
-            const repository = get(this, "transactionRepository");
-            const store = get(this, "store");
+            const repository = this.transactionRepository;
+            const store = this.store;
 
             const transaction = store.createRecord("transaction", {
                 ...transactionProps
@@ -98,7 +98,7 @@ export default Route.extend({
             repository
                 .save(event, transaction)
                 .then(() => {
-                    get(this, "notify").success("Transaction has been saved.");
+                    this.notify.success("Transaction has been saved.");
                 });
         },
 
@@ -110,7 +110,7 @@ export default Route.extend({
 
         error(error, transition) {
             const eventId = transition.params.event.event_id;
-            const storage = get(this, "localStorage");
+            const storage = this.localStorage;
             const lastEventId = storage.getItem("lastEventId");
 
             // FIXME: Do this better
@@ -134,7 +134,7 @@ export default Route.extend({
     },
 
     _onSyncCompleted() {
-        const syncProgressIndicator = get(this, "syncProgressIndicator");
+        const syncProgressIndicator = this.syncProgressIndicator;
         if (syncProgressIndicator) {
             syncProgressIndicator.end();
         }

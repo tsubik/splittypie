@@ -6,12 +6,12 @@ export default Service.extend({
     currentUser: null,
 
     save(eventId, userId) {
-        get(this, "localStorage").setItem(`event-${eventId}-current-user`, userId);
+        this.localStorage.setItem(`event-${eventId}-current-user`, userId);
     },
 
     load(event) {
-        const userId = get(this, "localStorage").getItem(`event-${get(event, "id")}-current-user`);
-        const user = get(event, "users").findBy("id", userId);
+        const userId = this.localStorage.getItem(`event-${get(event, "id")}-current-user`);
+        const user = event.users.findBy("id", userId);
 
         if (user) {
             set(this, "currentUser", user);

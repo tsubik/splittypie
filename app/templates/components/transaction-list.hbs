@@ -1,5 +1,5 @@
 {{#if anyTransactions}}
-  {{transaction-list-header transactions=expenses}}
+  <TransactionListHeader @transactions={{expenses}} />
   {{#each transactionsByMonth as |transactionGroup|}}
     {{#if anyTransactionWithDate}}
       <div class="transaction-list-date">
@@ -13,7 +13,7 @@
     {{/if}}
 
     {{#each transactionGroup.transactions as |transaction|}}
-      {{transaction-list-item transaction=transaction onClick=(action "edit" transaction)}}
+      <TransactionListItem @transaction={{transaction}} @onClick={{action "edit" transaction}} />
     {{/each}}
   {{/each}}
 {{else}}

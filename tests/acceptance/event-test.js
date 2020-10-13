@@ -1,4 +1,12 @@
-import { click, fillIn, find, findAll, currentURL, currentRouteName, visit } from '@ember/test-helpers';
+import {
+  click,
+  fillIn,
+  find,
+  findAll,
+  currentURL,
+  currentRouteName,
+  visit
+} from '@ember/test-helpers';
 /* eslint "max-len": 0 */
 import { module, test } from "qunit";
 

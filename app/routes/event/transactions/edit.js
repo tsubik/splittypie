@@ -13,7 +13,7 @@ export default Route.extend({
     setupController(controller, model) {
         this._super(controller, model);
         const type = get(model, "typeOrDefault");
-        const form = get(this, "formFactory").createForm(type, model);
+        const form = this.formFactory.createForm(type, model);
         setProperties(controller, {
             form,
             users: get(this.modelFor("event"), "users"),
@@ -26,22 +26,22 @@ export default Route.extend({
 
     actions: {
         delete(transaction) {
-            get(this, "transactionRepository")
+            this.transactionRepository
                 .remove(transaction)
                 .then(() => {
                     this.transitionTo("event.transactions");
-                    get(this, "notify").success("Transaction has been deleted.");
+                    this.notify.success("Transaction has been deleted.");
                 });
         },
 
         modelUpdated(transaction) {
             const event = this.modelFor("event");
 
-            get(this, "transactionRepository")
+            this.transactionRepository
                 .save(event, transaction)
                 .then(() => {
                     this.transitionTo("event.transactions");
-                    get(this, "notify").success("Transaction has been changed.");
+                    this.notify.success("Transaction has been changed.");
                 });
         },
     },

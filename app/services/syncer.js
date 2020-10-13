@@ -2,9 +2,7 @@ import { alias } from "@ember/object/computed";
 import { run, scheduleOnce } from "@ember/runloop";
 import { reject, resolve, allSettled } from "rsvp";
 import EmberObject, {
-  getProperties,
   set,
-  get,
   observer
 } from "@ember/object";
 import Service, { inject as service } from "@ember/service";
@@ -30,7 +28,7 @@ export default Service.extend(Evented, {
 
     isOnline: alias("connection.isOnline"),
     isOnlineStateDidChange: on("init", observer("isOnline", function () {
-        const isOnline = get(this, "isOnline");
+        const isOnline = this.isOnline;
 
         if (isOnline) {
             this.syncOnline();
@@ -59,13 +57,13 @@ export default Service.extend(Evented, {
     },
 
     pushEventOffline(onlineEvent) {
-        debug(`Syncer: Syncing online event ${get(onlineEvent, "name")} into offline store`);
+        debug(`Syncer: Syncing online event ${onlineEvent.name} into offline store`);
 
-        return this._pushToStore(get(this, "store"), onlineEvent);
+        return this._pushToStore(this.store, onlineEvent);
     },
 
     pushEventOnline(offlineEvent) {
-        return this._pushToStore(get(this, "onlineStore"), offlineEvent).then((onlineEvent) => {
+        return this._pushToStore(this.onlineStore, offlineEvent).then((onlineEvent) => {
             set(offlineEvent, "isOffline", false);
             this._listenForChanges(onlineEvent);
             return offlineEvent.save();
@@ -73,23 +71,23 @@ export default Service.extend(Evented, {
     },
 
     _reloadOnlineStore() {
-        get(this, "onlineStore").unloadAll();
+        this.onlineStore.unloadAll();
         this._removeAllListeners();
 
-        return get(this, "store")
+        return this.store
             .findAll("event")
             .then(events => events.map(this._fetchOnlineEvent.bind(this)))
             .then(fetchOperations => allSettled(fetchOperations));
     },
 
     _flushSyncQueue() {
-        return get(this, "syncQueue").flush();
+        return this.syncQueue.flush();
     },
 
     _updateOfflineStore() {
         debug("Syncer: Updating Offline Store");
 
-        return get(this, "store")
+        return this.store
             .findAll("event")
             .then(events => events.rejectBy("isOffline", true))
             .then(events => events.map(this._replaceOfflineEvent.bind(this)))
@@ -97,7 +95,7 @@ export default Service.extend(Evented, {
     },
 
     _fetchOnlineEvent(offlineEvent) {
-        const { id, isOffline } = getProperties(offlineEvent, "id", "isOffline");
+        const { id, isOffline } = offlineEvent;
 
         if (isOffline) {
             return resolve();
@@ -105,14 +103,14 @@ export default Service.extend(Evented, {
 
         this._unloadOnlineEvent(id);
 
-        return get(this, "onlineStore")
+        return this.onlineStore
             .findRecord("event", id)
             .catch(this._onlineEventNotFound.bind(this, offlineEvent));
     },
 
     _replaceOfflineEvent(offlineEvent) {
-        return get(this, "onlineStore")
-            .findRecord("event", get(offlineEvent, "id"))
+        return this.onlineStore
+            .findRecord("event", offlineEvent.id)
             .then((onlineEvent) => {
                 this.pushEventOffline(onlineEvent);
                 this._listenForChanges(onlineEvent);
@@ -126,7 +124,7 @@ export default Service.extend(Evented, {
     },
 
     _onlineEventNotFound(offlineEvent, error) {
-        const { id, name } = getProperties(offlineEvent, "id", "name");
+        const { id, name } = offlineEvent;
 
         debug(`Syncer: Event ${name} not found online`);
         debug("Syncer: Setting event as offline - it will be available to manual sync");
@@ -151,7 +149,7 @@ export default Service.extend(Evented, {
     },
 
     _normalizeModel(model) {
-        const store = get(this, "store");
+        const store = this.store;
         const snapshot = model._createSnapshot();
         const serializer = store.serializerFor(snapshot.modelName);
         const serialized = serializer.serialize(snapshot, { includeId: true });
@@ -160,18 +158,18 @@ export default Service.extend(Evented, {
     },
 
     _unloadOnlineEvent(id) {
-        const event = get(this, "onlineStore").peekRecord("event", id);
+        const event = this.onlineStore.peekRecord("event", id);
 
         if (event) {
-            get(this, "onlineStore").unloadRecord(event);
+            this.onlineStore.unloadRecord(event);
             this._removeListenerFor(id);
         }
     },
 
     // workaround to keep firebase realtime function
     _listenForChanges(onlineEvent) {
-        const eventListeners = get(this, "eventListeners");
-        const eventId = get(onlineEvent, "id");
+        const eventListeners = this.eventListeners;
+        const eventId = onlineEvent.id;
         let isInitial = true;
 
         if (!eventListeners[eventId]) {
@@ -184,7 +182,7 @@ export default Service.extend(Evented, {
                         isInitial = false;
                         return;
                     }
-                    if (get(this, "isSyncing") || get(this, "syncQueue.isProcessing")) {
+                    if (this.isSyncing || this.syncQueue.isProcessing) {
                         return;
                     }
 
@@ -193,7 +191,7 @@ export default Service.extend(Evented, {
                     // some changes in firebase not coming from this application instance
                     // schedule sync
                     scheduleOnce("actions", () => {
-                        get(this, "store")
+                        this.store
                             .findRecord("event", onlineEventId)
                             .then(this._syncOneEvent.bind(this));
                     });
@@ -205,11 +203,11 @@ export default Service.extend(Evented, {
     },
 
     _removeAllListeners() {
-        Object.keys(get(this, "eventListeners")).forEach(this._removeListenerFor.bind(this));
+        Object.keys(this.eventListeners).forEach(this._removeListenerFor.bind(this));
     },
 
     _removeListenerFor(eventId) {
-        const eventListeners = get(this, "eventListeners");
+        const eventListeners = this.eventListeners;
         const ref = eventListeners[eventId];
 
         if (ref) {

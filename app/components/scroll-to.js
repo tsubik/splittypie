@@ -14,7 +14,7 @@ export default Component.extend({
     label: null,
 
     referenceElement: computed("href", function () {
-        const href = get(this, "href");
+        const href = this.href;
 
         return $(href);
     }),
@@ -23,10 +23,10 @@ export default Component.extend({
         event.stopPropagation();
         event.preventDefault();
 
-        const referenceElement = get(this, "referenceElement");
-        const offset = get(this, "offset");
-        const duration = get(this, "duration");
-        const easing = get(this, "easing");
+        const referenceElement = this.referenceElement;
+        const offset = this.offset;
+        const duration = this.duration;
+        const easing = this.easing;
 
         $("html, body").animate({
             scrollTop: referenceElement.offset().top - offset,
@@ -49,8 +49,8 @@ export default Component.extend({
     },
 
     _determineIfActive() {
-        const referenceElement = get(this, "referenceElement");
-        const offset = get(this, "offset");
+        const referenceElement = this.referenceElement;
+        const offset = this.offset;
         const scrollTop = $(window).scrollTop();
         const elementTop = Math.floor(referenceElement.offset().top);
 

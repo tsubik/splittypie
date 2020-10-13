@@ -1,3 +1,3 @@
 {{#each users as |user index|}}
-  {{user-form user=user index=index isSubmitted=isSubmitted isRemoveDisabled=isRemoveDisabled  onDelete=(action "deleteUser")}}
+  <UserForm @user={{user}} @index={{index}} @isSubmitted={{isSubmitted}} @isRemoveDisabled={{isRemoveDisabled}} @onDelete={{action "deleteUser"}} />
 {{/each}}

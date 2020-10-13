@@ -1,5 +1,5 @@
 import { notEmpty } from "@ember/object/computed";
-import EmberObject, { get, computed } from "@ember/object";
+import EmberObject, { computed } from "@ember/object";
 import Component from "@ember/component";
 
 export default Component.extend({
@@ -9,17 +9,17 @@ export default Component.extend({
     anyTransfers: notEmpty("transfers"),
 
     transfers: computed("users.@each.balance", function () {
-        const users = get(this, "users");
-        const currency = get(this, "users.firstObject.event.currency");
+        const users = this.users;
+        const currency = this.users.firstObject.event.currency;
 
-        const owed = users.filter(u => get(u, "balance") < 0).map(convertToUserAmount);
-        const paid = users.filter(u => get(u, "balance") > 0).map(convertToUserAmount);
+        const owed = users.filter(u => u.balance < 0).map(convertToUserAmount);
+        const paid = users.filter(u => u.balance > 0).map(convertToUserAmount);
         const transfers = [];
 
         function convertToUserAmount(user) {
             return EmberObject.create({
                 user,
-                amount: Math.abs(get(user, "balance")),
+                amount: Math.abs(user.balance),
             });
         }
 
@@ -32,18 +32,18 @@ export default Component.extend({
             const possibleTransfer = Math.min(canGive, demand);
 
             sender.set("amount", canGive - possibleTransfer);
-            if (get(sender, "amount") === 0) {
+            if (sender.amount === 0) {
                 owed.removeObject(sender);
             }
 
             recipient.set("amount", demand - possibleTransfer);
-            if (get(recipient, "amount") === 0) {
+            if (recipient.amount === 0) {
                 paid.removeObject(recipient);
             }
 
             transfers.pushObject(EmberObject.create({
-                sender: get(sender, "user"),
-                recipient: get(recipient, "user"),
+                sender: sender.user,
+                recipient: recipient.user,
                 amount: possibleTransfer.toFixed(2),
                 currency,
             }));

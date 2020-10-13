@@ -35,7 +35,7 @@ export default FormObject.extend(Validations, {
 
     init() {
         this._super(...arguments);
-        const model = get(this, "model");
+        const model = this.model;
 
         setProperties(
             this,
@@ -45,7 +45,7 @@ export default FormObject.extend(Validations, {
     },
 
     updateModelAttributes() {
-        const model = get(this, "model");
+        const model = this.model;
 
         setProperties(
             model,

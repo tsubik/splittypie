@@ -7,17 +7,17 @@
     <li class="dropdown-header">Switch to</li>
     {{#each otherEvents as |event|}}
       <li>
-        {{#link-to "event.index" event.id}}
+        <LinkTo @route="event.index" @model={{event.id}}>
           {{inline-svg "calendar" class="icon"}} {{event.name}}
-        {{/link-to}}
+        </LinkTo>
       </li>
     {{/each}}
     <li role="separator" class="divider"></li>
   {{/if}}
   <li>
-    {{#link-to "new"}}
+    <LinkTo @route="new">
       {{inline-svg "plus" class="icon"}}
       Add New Event
-    {{/link-to}}
+    </LinkTo>
   </li>
 </ul>

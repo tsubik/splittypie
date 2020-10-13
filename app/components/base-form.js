@@ -19,7 +19,7 @@ export default Component.extend({
 
     actions: {
         save() {
-            const formObject = get(this, "formObject");
+            const formObject = this.formObject;
 
             if (formObject.updateModel()) {
                 this.onModelUpdated(get(formObject, "model"));
@@ -29,7 +29,7 @@ export default Component.extend({
         delete() {
             const model = get(this, "formObject.model");
 
-            get(this, "modal").onConfirm(
+            this.modal.onConfirm(
                 () => this.onDelete(model)
             );
         },

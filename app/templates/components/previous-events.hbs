@@ -4,9 +4,9 @@
   <div class="previous-events">
     {{#each events as |event|}}
       <div class="btn-group">
-        {{#link-to "event.index" event.id class="btn btn-default"}}
+        <LinkTo @route="event.index" @model={{event.id}} class="btn btn-default">
           <strong>{{event.name}}</strong>
-        {{/link-to}}
+        </LinkTo>
         <button {{action "remove" event}} class="btn btn-default" title="Remove reference from this computer. The event will still be reachable by url." aria-label="Remove event reference locally">
           {{inline-svg "close" class="icon"}}
         </button>

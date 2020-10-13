@@ -8,7 +8,7 @@ export default Mixin.create({
 
     activate() {
         this._super(...arguments);
-        const lastScroll = get(this, "lastScroll");
+        const lastScroll = this.lastScroll;
 
         if (lastScroll) {
             next(() => {

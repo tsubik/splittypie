@@ -11,14 +11,14 @@ export default Service.extend({
 
     find(id) {
         return new Promise((resolve, reject) => {
-            const offlineRecord = get(this, "store")
+            const offlineRecord = this.store
                       .findRecord("event", id)
                       .then((event) => {
                           resolve(event);
                           return event;
                       })
                       .catch(() => false);
-            const onlineRecord = get(this, "onlineStore")
+            const onlineRecord = this.onlineStore
                       .findRecord("event", id)
                       .catch(() => false);
 
@@ -28,7 +28,7 @@ export default Service.extend({
             }).then(({ offlineRecord: offline, onlineRecord: online }) => {
                 if (!offline && online) {
                     resolve(
-                        get(this, "syncer").pushEventOffline(online)
+                        this.syncer.pushEventOffline(online)
                     );
                 } else if (!online && !offline) {
                     reject(new Error("no record was found"));
@@ -45,7 +45,7 @@ export default Service.extend({
 
             delete payload.transactions;
 
-            return get(this, "syncQueue")
+            return this.syncQueue
                 .enqueue(operation, payload)
                 .then(() => record);
         });
@@ -56,7 +56,7 @@ export default Service.extend({
 
         return event
             .destroyRecord()
-            .then(result => get(this, "syncQueue")
+            .then(result => this.syncQueue
                   .enqueue("destroyEvent", { id })
                   .then(() => result)
                  );

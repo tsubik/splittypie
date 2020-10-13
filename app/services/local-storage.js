@@ -18,13 +18,13 @@ export default Service.extend({
     }),
 
     setItem(key, value) {
-        if (get(this, "isLocalStorageSupported")) {
+        if (this.isLocalStorageSupported) {
             localStorage.setItem(key, value);
         }
     },
 
     getItem(key) {
-        if (get(this, "isLocalStorageSupported")) {
+        if (this.isLocalStorageSupported) {
             return localStorage.getItem(key);
         }
 
@@ -32,7 +32,7 @@ export default Service.extend({
     },
 
     removeItem(key) {
-        if (get(this, "isLocalStorageSupported")) {
+        if (this.isLocalStorageSupported) {
             localStorage.removeItem(key);
         }
     },
@@ -40,7 +40,7 @@ export default Service.extend({
     remove(entryName, id) {
         assert("First argument entryName must be present", entryName);
 
-        if (get(this, "isLocalStorageSupported")) {
+        if (this.isLocalStorageSupported) {
             const items = this.findAll(entryName);
 
             items.removeObject(items.findBy("id", id));

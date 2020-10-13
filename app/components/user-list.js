@@ -17,7 +17,7 @@ export default Component.extend({
 
     actions: {
         deleteUser(user) {
-            get(this, "users").removeObject(user);
+            this.users.removeObject(user);
         },
     },
 });

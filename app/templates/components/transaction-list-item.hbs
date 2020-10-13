@@ -1,5 +1,5 @@
 {{#if transaction.date}}
-  {{calendar-page date=transaction.date}}
+  <CalendarPage @date={{transaction.date}} />
 {{/if}}
 <div class="transaction-list-item-description">
   {{#if transaction.isTransfer}}

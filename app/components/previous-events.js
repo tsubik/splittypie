@@ -16,16 +16,16 @@ export default Component.extend({
 
     actions: {
         remove(event) {
-            const storage = get(this, "localStorage");
+            const storage = this.localStorage;
             const showModal = storage.getItem("remove-prev-events-got-it") !== "true";
 
             if (showModal) {
                 const yes = () => {
                     this._removeEventFromOfflineStore(event);
-                    get(this, "modal").trigger("hide");
+                    this.modal.trigger("hide");
                 };
 
-                get(this, "modal").trigger("show", {
+                this.modal.trigger("show", {
                     name: "remove-previous-event",
                     actions: {
                         yes,
@@ -43,7 +43,7 @@ export default Component.extend({
     },
 
     _removeEventFromOfflineStore(event) {
-        const storage = get(this, "localStorage");
+        const storage = this.localStorage;
         const lastEventId = storage.getItem("lastEventId");
 
         // remove only from offline store

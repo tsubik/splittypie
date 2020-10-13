@@ -1,7 +1,5 @@
-import DS from "ember-data";
+import { EmbeddedRecordsMixin } from '@ember-data/serializer/rest';
 import LFSerializer from "ember-localforage-adapter/serializers/localforage";
-
-const { EmbeddedRecordsMixin } = DS;
 
 export default LFSerializer.extend(
     EmbeddedRecordsMixin, {

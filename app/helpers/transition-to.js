@@ -8,7 +8,7 @@ export default Helper.extend({
         return getOwner(this).lookup("router:main");
     }).readOnly(),
     compute([routeName, ...params]) {
-        const router = get(this, "router");
+        const router = this.router;
 
         assert("[ember-transition-helper] Unable to lookup router", router);
 

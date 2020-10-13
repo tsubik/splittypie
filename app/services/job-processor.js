@@ -1,5 +1,4 @@
 import { assert } from "@ember/debug";
-import { get } from "@ember/object";
 import Service, { inject as service } from "@ember/service";
 import Ember from "ember";
 
@@ -12,7 +11,7 @@ export default Service.extend({
     store: service(),
 
     process(job) {
-        const name = get(job, "name");
+        const name = job.name;
         const payload = JSON.parse(job.get("payload"));
         const [jobType, modelName] = name.split(/(?=[A-Z])/);
         const method = this.commands[jobType];
@@ -33,8 +32,8 @@ export default Service.extend({
 
     commands: { // eslint-disable-line
         create(modelName, properties) {
-            const onlineStore = get(this, "onlineStore");
-            const offlineStore = get(this, "store");
+            const onlineStore = this.onlineStore;
+            const offlineStore = this.store;
             const modelClass = offlineStore.modelFor(modelName);
             const serializer = offlineStore.serializerFor(modelName);
             const normalized = serializer.normalize(modelClass, properties);
@@ -43,7 +42,7 @@ export default Service.extend({
         },
 
         update(modelName, properties) {
-            const onlineStore = get(this, "onlineStore");
+            const onlineStore = this.onlineStore;
             const id = properties.id;
 
             return onlineStore.findRecord(modelName, id).then((record) => {
@@ -53,7 +52,7 @@ export default Service.extend({
         },
 
         destroy(modelName, properties) {
-            const onlineStore = get(this, "onlineStore");
+            const onlineStore = this.onlineStore;
             const id = properties.id;
 
             return onlineStore

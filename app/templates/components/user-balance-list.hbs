@@ -6,7 +6,7 @@
       <table class="table table-hover no-border user-balance-list" role="presentation">
         <tbody>
           {{#each sortedUsers as |user|}}
-            {{user-balance-list-item user=user}}
+            <UserBalanceListItem @user={{user}} />
           {{/each}}
         </tbody>
       </table>

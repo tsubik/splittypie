@@ -13,7 +13,7 @@ export default Route.extend({
         chooseUser(user) {
             const event = this.modelFor("event");
 
-            get(this, "userContext").change(event, user);
+            this.userContext.change(event, user);
             this.transitionTo("event.index", event);
         },
     },

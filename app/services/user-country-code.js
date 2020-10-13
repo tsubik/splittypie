@@ -11,10 +11,10 @@ export default Service.extend({
     countryCode: null,
 
     getCountryCode() {
-        let countryCode = get(this, "countryCode");
+        let countryCode = this.countryCode;
 
         if (countryCode === null) {
-            countryCode = get(this, "ajax")
+            countryCode = this.ajax
                 .request("http://ip-api.com/json")
                 .then((data) => data && data.countryCode)
                 .catch((e) => {

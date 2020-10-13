@@ -1,7 +1,5 @@
+import Store from '@ember-data/store';
 import { computed } from "@ember/object";
-import DS from "ember-data";
-
-const { Store } = DS;
 
 export default Store.extend({
     adapter: computed("state", function () {

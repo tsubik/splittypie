@@ -1,6 +1,4 @@
-import DS from "ember-data";
-
-const { Store } = DS;
+import Store from '@ember-data/store';
 
 export default Store.extend({
     adapter: "offline/application",

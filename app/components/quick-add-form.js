@@ -39,11 +39,11 @@ export default Component.extend(Validations, {
     transactionToParse: null,
 
     transaction: computed("transactionToParse", function () {
-        const event = get(this, "event");
-        const transactionToParse = get(this, "transactionToParse");
+        const event = this.event;
+        const transactionToParse = this.transactionToParse;
         const transactionProps = parseTransaction(transactionToParse);
-        const payer = get(this, "payer");
-        let participants = get(this, "participants");
+        const payer = this.payer;
+        let participants = this.participants;
 
         if (transactionProps && get(transactionProps, "onlyMe")) {
             participants = [payer];
@@ -66,9 +66,9 @@ export default Component.extend(Validations, {
 
     actions: {
         add() {
-            const isFormInvalid = get(this, "isFormInvalid");
-            const transactionProps = get(this, "transaction");
-            const onAdd = get(this, "onAdd");
+            const isFormInvalid = this.isFormInvalid;
+            const transactionProps = this.transaction;
+            const onAdd = this.onAdd;
 
             if (isFormInvalid) return;
             if (typeof onAdd !== "function") return;
@@ -77,8 +77,8 @@ export default Component.extend(Validations, {
         },
 
         addWithDetails() {
-            const onAddWithDetails = get(this, "onAddWithDetails");
-            const transactionProps = get(this, "transaction");
+            const onAddWithDetails = this.onAddWithDetails;
+            const transactionProps = this.transaction;
 
             if (typeof onAddWithDetails !== "function") return;
 

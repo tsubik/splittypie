@@ -7,8 +7,8 @@ export default Component.extend({
     classNames: ["dropdown", "event-dropdown"],
 
     otherEvents: computed("events", "selected", function () {
-        const events = get(this, "events");
-        const selected = get(this, "selected");
+        const events = this.events;
+        const selected = this.selected;
 
         return events.rejectBy("id", selected.get("id"));
     }),

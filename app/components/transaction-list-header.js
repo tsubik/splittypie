@@ -9,7 +9,7 @@ export default Component.extend({
     count: alias("transactions.length"),
 
     total: computed("transactions.[]", function () {
-        const transactions = get(this, "transactions");
+        const transactions = this.transactions;
 
         return transactions.reduce(
             (prev, curr) => prev + parseFloat(get(curr, "amount")),

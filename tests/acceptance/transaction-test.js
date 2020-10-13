@@ -1,4 +1,10 @@
-import { click, fillIn, find, findAll, visit } from '@ember/test-helpers';
+import {
+  click,
+  fillIn,
+  find,
+  findAll,
+  visit
+} from '@ember/test-helpers';
 import moment from "moment";
 import { module, test } from "qunit";
 
