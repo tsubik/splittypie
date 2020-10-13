@@ -24,7 +24,8 @@ function createEvent(store) {
     return store.createRecord("event", {
         name: "Test event",
         currency: store.findRecord("currency", "EUR"),
-        participants: [
+        transactions: [],
+        users: [
             store.createRecord("user", { name: "Tomasz" }),
             store.createRecord("user", { name: "Maciej" }),
         ],
@@ -56,9 +57,9 @@ test("creates event in both stores when online", function (assert) {
     });
     andThen(() => {
         assert.ok(
-            !this.offlineStore.peekRecord("event", event.get("id")).isDeleted, "event in offline store"
+            !!this.offlineStore.peekRecord("event", event.get("id")), "event in offline store"
         );
-        assert.ok(!this.onlineStore.peekRecord("event", event.get("id")).isDeleted, "event in online store");
+        assert.ok(!!this.onlineStore.peekRecord("event", event.get("id")), "event in online store");
     });
 });
 
@@ -75,7 +76,7 @@ test("creates event in offline store first and then moves to online", function (
     });
     andThen(() => {
         assert.ok(
-            !this.offlineStore.peekRecord("event", event.get("id")).isDeleted, "event in offline store"
+            !!this.offlineStore.peekRecord("event", event.get("id")), "event in offline store"
         );
         assert.notOk(
             !!this.onlineStore.peekRecord("event", event.get("id")), "event not in online store"
