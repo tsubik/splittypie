@@ -1,4 +1,4 @@
-import { get, computed } from "@ember/object";
+import { computed } from "@ember/object";
 import ModelMixin from "splittypie/mixins/model-mixin";
 import Model, { attr, belongsTo } from '@ember-data/model';
 
@@ -6,15 +6,15 @@ export default Model.extend(ModelMixin, {
     name: attr("string"),
     event: belongsTo("event", { async: false }),
     balance: computed("event.transactions.[]", function () {
-        const transactions = get(this, "event.transactions");
+        const transactions = this.event.transactions;
         const paidTransactions = transactions.filterBy("payer", this);
-        const owedTransactions = transactions.filter(t => get(t, "participants").includes(this));
+        const owedTransactions = transactions.filter(t => t.participants.includes(this));
         const paidMoney = paidTransactions.reduce(
-            (acc, t) => acc + parseFloat(get(t, "amount")),
+            (acc, t) => acc + parseFloat(t.amount),
             0
         );
         const owedMoney = owedTransactions.reduce(
-            (acc, t) => acc + (parseFloat(get(t, "amount")) / get(t, "participants").length),
+            (acc, t) => acc + (parseFloat(t.amount) / t.participants.length),
             0
         );
 

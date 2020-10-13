@@ -1,7 +1,5 @@
 /* eslint-disable global-require */
 
-import { debug } from "@ember/debug";
-
 import { Promise, all } from "rsvp";
 
 const toArray = function (firebaseObject) {
@@ -31,7 +29,7 @@ export default function (dumpName, functionToRun) {
         loadData.then(function () {
             functionToRun(events);
             return andThen(function () {
-                debug("Clearing TEST DATA");
+                console.debug("Clearing TEST DATA");
                 return all(events.map(e => eventsRef.child(e.id).remove()));
             });
         }).then(resolve).catch(reject);

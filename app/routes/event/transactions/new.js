@@ -2,8 +2,7 @@ import { inject as service } from "@ember/service";
 import EmberObject, {
   setProperties,
   set,
-  getWithDefault,
-  get
+  getWithDefault
 } from "@ember/object";
 import Route from "@ember/routing/route";
 import moment from "moment";
@@ -18,8 +17,8 @@ export default Route.extend({
         const date = getWithDefault(params, "date", moment().format("YYYY-MM-DD"));
         const event = this.modelFor("event");
         const name = getWithDefault(params, "name", null);
-        const participants = get(event, "users");
-        const payer = get(this, "userContext.currentUser");
+        const participants = event.users;
+        const payer = this.userContext.currentUser;
 
         return EmberObject.create({
             amount,
@@ -36,7 +35,7 @@ export default Route.extend({
 
     setupController(controller, model) {
         this._super(controller, model);
-        const users = get(this.modelFor("event"), "users");
+        const users = this.modelFor("event").users;
         const form = this.formFactory.createForm("expense", model);
         setProperties(controller, {
             form,

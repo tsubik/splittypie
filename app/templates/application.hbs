@@ -1,9 +1,9 @@
 <SideMenu>
   <header class="navbar navbar-default">
     <div class="navbar-header">
-      {{#side-menu-link-to "index" class="navbar-brand" title="SplittyPie Home Page"}}
-        {{partial "shared/brand"}}
-      {{/side-menu-link-to}}
+      <SideMenuLinkTo @route="index" class="navbar-brand" title="SplittyPie Home Page">
+        <Brand />
+      </SideMenuLinkTo>
     </div>
   </header>
   <div class="content">
@@ -11,17 +11,17 @@
       <li class="header">Events</li>
       {{#each model.previousEvents as |event|}}
         <li>
-          {{#side-menu-link-to "event" event.id}}
+          <SideMenuLinkTo @route="event" @model={{event.id}}>
             {{inline-svg "calendar" class="icon"}}
             {{event.name}}
-          {{/side-menu-link-to}}
+          </SideMenuLinkTo>
         </li>
       {{/each}}
       <li>
-        {{#side-menu-link-to "new"}}
+        <SideMenuLinkTo @route="new">
           {{inline-svg "plus" class="icon"}}
           New Event
-        {{/side-menu-link-to}}
+        </SideMenuLinkTo>
       </li>
       <li class="divider"></li>
       <li>
@@ -44,7 +44,7 @@
 </SideMenu>
 <ContentBackdrop />
 <div class="page-content">
-  {{partial "shared/navbar"}}
+  <Navbar />
 
   <main>
     <div class="container">
@@ -52,7 +52,7 @@
     </div>
   </main>
 
-  {{outlet "footer"}}
+  <Footer />
   <EmberNotify @messageStyle="bootstrap" />
 </div>
 {{outlet "modal"}}

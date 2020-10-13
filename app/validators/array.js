@@ -1,5 +1,4 @@
 import { isArray } from "@ember/array";
-import { get } from "@ember/object";
 import Base from "ember-validations/validators/base";
 
 export default Base.extend({
@@ -11,7 +10,7 @@ export default Base.extend({
     },
 
     call() {
-        const arrayToValidate = get(this.model, this.property);
+        const arrayToValidate = this.model[this.property];
 
         if (!arrayToValidate) {
             return;

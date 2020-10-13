@@ -1,26 +1,23 @@
 /* eslint-disable no-param-reassign, max-len */
-import Ember from "ember";
-
-const { Logger: { error, debug } } = Ember;
 
 export default {
     name: "offline-support",
     initialize(applicationInstance) {
-        debug("initialize offline support");
+        console.debug("initialize offline support");
 
         // TODO: renable this
         const notify = applicationInstance.lookup("service:notify");
         /* if ("serviceWorker" in window.navigator) {
          *     window.navigator.serviceWorker.register("/offline-support.js").then((registration) => {
          *         const isUpdate = !!registration.active;
-         *         debug("Offline Support Registered", registration);
+         *         console.debug("Offline Support Registered", registration);
 
          *         registration.onupdatefound = function () {
-         *             debug("A new Service Worker version has been found...");
+         *             console.debug("A new Service Worker version has been found...");
 
          *             registration.installing.onstatechange = function () {
          *                 if (this.state === "installed") {
-         *                     debug("Service Worker Installed.");
+         *                     console.debug("Service Worker Installed.");
 
          *                     if (isUpdate) {
          *                         notify.info(
@@ -31,12 +28,12 @@ export default {
          *                         notify.success("App ready for offline use.");
          *                     }
          *                 } else {
-         *                     debug("New Service Worker state: ", this.state);
+         *                     console.debug("New Service Worker state: ", this.state);
          *                 }
          *             };
          *         };
          *     }).catch((err) => {
-         *         error(err);
+         *         console.error(err);
          *     });
          * } */
     },

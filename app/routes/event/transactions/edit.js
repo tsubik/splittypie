@@ -16,7 +16,7 @@ export default Route.extend({
         const form = this.formFactory.createForm(type, model);
         setProperties(controller, {
             form,
-            users: get(this.modelFor("event"), "users"),
+            users: this.modelFor("event").users,
         });
     },
 

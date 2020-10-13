@@ -7,11 +7,6 @@ import EmberObject, {
 } from "@ember/object";
 import Service, { inject as service } from "@ember/service";
 import Evented, { on } from "@ember/object/evented";
-import Ember from "ember";
-
-const {
-    Logger: { debug }
-} = Ember;
 
 export default Service.extend(Evented, {
     // Events
@@ -43,21 +38,21 @@ export default Service.extend(Evented, {
     },
 
     syncOnline() {
-        debug("Syncer: Starting online full sync");
+        console.debug("Syncer: Starting online full sync");
         set(this, "isSyncing", true);
         this.trigger("syncStarted");
         return this._reloadOnlineStore()
             .then(this._flushSyncQueue.bind(this))
             .then(this._updateOfflineStore.bind(this))
             .finally(() => {
-                debug("Syncer: Full sync has been completed");
+                console.debug("Syncer: Full sync has been completed");
                 set(this, "isSyncing", false);
                 this.trigger("syncCompleted");
             });
     },
 
     pushEventOffline(onlineEvent) {
-        debug(`Syncer: Syncing online event ${onlineEvent.name} into offline store`);
+        console.debug(`Syncer: Syncing online event ${onlineEvent.name} into offline store`);
 
         return this._pushToStore(this.store, onlineEvent);
     },
@@ -85,7 +80,7 @@ export default Service.extend(Evented, {
     },
 
     _updateOfflineStore() {
-        debug("Syncer: Updating Offline Store");
+        console.debug("Syncer: Updating Offline Store");
 
         return this.store
             .findAll("event")
@@ -126,8 +121,8 @@ export default Service.extend(Evented, {
     _onlineEventNotFound(offlineEvent, error) {
         const { id, name } = offlineEvent;
 
-        debug(`Syncer: Event ${name} not found online`);
-        debug("Syncer: Setting event as offline - it will be available to manual sync");
+        console.debug(`Syncer: Event ${name} not found online`);
+        console.debug("Syncer: Setting event as offline - it will be available to manual sync");
         set(offlineEvent, "isOffline", true);
         this._removeListenerFor(id);
         this.trigger("conflict", {

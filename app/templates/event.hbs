@@ -35,8 +35,12 @@
 </div>
 
 <ul class="nav nav-tabs">
-  {{#nav-link-to "event.index" title="Overview"}}Overview{{/nav-link-to}}
-  {{#nav-link-to "event.transactions" title="Transactions"}}Transactions{{/nav-link-to}}
+  <NavLinkTo @route="event.index" title="Overview">
+    Overview
+  </NavLinkTo>
+  <NavLinkTo @route="event.transactions" title="Transactions">
+    Transactions
+  </NavLinkTo>
 </ul>
 
 {{#if isMobile}}

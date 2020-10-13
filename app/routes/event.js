@@ -2,8 +2,7 @@ import { inject as service } from "@ember/service";
 import {
   setProperties,
   set,
-  getProperties,
-  get
+  getProperties
 } from "@ember/object";
 import Route from "@ember/routing/route";
 import isMobile from "splittypie/utils/is-mobile";

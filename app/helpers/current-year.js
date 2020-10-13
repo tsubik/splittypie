@@ -1,7 +1,7 @@
-import Helper from "@ember/component/helper";
+import { helper } from "@ember/component/helper";
 
 export function currentYear() {
     return new Date().getFullYear();
 }
 
-export default Helper.helper(currentYear);
+export default helper(currentYear);

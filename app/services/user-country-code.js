@@ -1,10 +1,5 @@
 import { set, get } from "@ember/object";
 import Service, { inject as service } from "@ember/service";
-import Ember from "ember";
-
-const {
-    Logger: { error }
-} = Ember;
 
 export default Service.extend({
     ajax: service(),
@@ -18,7 +13,7 @@ export default Service.extend({
                 .request("http://ip-api.com/json")
                 .then((data) => data && data.countryCode)
                 .catch((e) => {
-                    error(e);
+                    console.error(e);
                 });
             set(this, "countryCode", countryCode);
         }

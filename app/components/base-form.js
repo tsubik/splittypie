@@ -1,5 +1,5 @@
 import { inject as service } from "@ember/service";
-import { get, computed } from "@ember/object";
+import { computed } from "@ember/object";
 import Component from "@ember/component";
 
 export default Component.extend({
@@ -7,8 +7,8 @@ export default Component.extend({
     modal: service(),
 
     saveButtonText: computed("formObject.{isNew,isSaving}", function () {
-        const isNew = get(this, "formObject.isNew");
-        const isSaving = get(this, "formObject.isSaving");
+        const isNew = this.formObject.isNew;
+        const isSaving = this.formObject.isSaving;
 
         if (isSaving) {
             return "Saving...";
@@ -22,12 +22,12 @@ export default Component.extend({
             const formObject = this.formObject;
 
             if (formObject.updateModel()) {
-                this.onModelUpdated(get(formObject, "model"));
+                this.onModelUpdated(formObject.model);
             }
         },
 
         delete() {
-            const model = get(this, "formObject.model");
+            const model = this.formObject.model;
 
             this.modal.onConfirm(
                 () => this.onDelete(model)

@@ -6,7 +6,7 @@ export default BaseForm.extend({
     formObject: alias("transaction"),
 
     didInsertElement() {
-        if (get(this, "formObject.isNew")) {
+        if (this.formObject.isNew) {
             this.$(".transaction-name").focus();
         }
     },

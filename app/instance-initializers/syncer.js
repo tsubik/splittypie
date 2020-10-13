@@ -1,7 +1,5 @@
-import { debug } from "@ember/debug";
-
 export function initialize(applicationInstance) {
-    debug("initialize syncer");
+    console.debug("initialize syncer");
     applicationInstance.lookup("service:syncer");
 }
 

@@ -1,10 +1,5 @@
 import { assert } from "@ember/debug";
 import Service, { inject as service } from "@ember/service";
-import Ember from "ember";
-
-const {
-    Logger: { debug }
-} = Ember;
 
 export default Service.extend({
     onlineStore: service(),
@@ -16,16 +11,16 @@ export default Service.extend({
         const [jobType, modelName] = name.split(/(?=[A-Z])/);
         const method = this.commands[jobType];
 
-        debug(`Job-processor: Processing job ${name} with payload`, payload);
+        console.debug(`Job-processor: Processing job ${name} with payload`, payload);
         assert(`Job ${name} doesn't exists`, method);
 
         return method.call(this, modelName, payload)
             .then((result) => {
-                debug(`Job-processor: Job ${name} has successfully completed`);
+                console.debug(`Job-processor: Job ${name} has successfully completed`);
                 return result;
             })
             .catch((error) => {
-                debug("Job-processor: Job processing error", error);
+                console.debug("Job-processor: Job processing error", error);
                 throw error;
             });
     },

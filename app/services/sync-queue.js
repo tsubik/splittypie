@@ -2,11 +2,6 @@ import { Promise } from "rsvp";
 import { observer, set, get } from "@ember/object";
 import Evented from "@ember/object/evented";
 import Service, { inject as service } from "@ember/service";
-import Ember from "ember";
-
-const {
-    Logger: { debug }
-} = Ember;
 
 export default Service.extend(Evented, {
     store: service(),
@@ -21,17 +16,17 @@ export default Service.extend(Evented, {
     },
 
     enqueue(name, payload) {
-        debug(`Sync-queue: Creating offline job for ${name}: `, payload);
+        console.debug(`Sync-queue: Creating offline job for ${name}: `, payload);
         return this._createAndSaveJob(name, payload).then((job) => {
             if (this.connection.isOnline) {
-                debug(`Sync-queue: Adding job ${name} to pendingJobs array`);
+                console.debug(`Sync-queue: Adding job ${name} to pendingJobs array`);
                 this.pendingJobs.addObject(job);
             }
         });
     },
 
     flush() {
-        debug("Sync-queue: Flushing offline jobs");
+        console.debug("Sync-queue: Flushing offline jobs");
 
         return new Promise((resolve) => {
             this.store
@@ -40,7 +35,7 @@ export default Service.extend(Evented, {
                     const arrayJobs = jobs.sortBy("createdAt").toArray();
 
                     if (arrayJobs.length === 0) {
-                        debug("Sync-queue: No jobs to flush");
+                        console.debug("Sync-queue: No jobs to flush");
                         resolve();
                     } else {
                         this.one("flushed", resolve);
@@ -82,7 +77,7 @@ export default Service.extend(Evented, {
                         this._processNext();
                     } else {
                         set(this, "isProcessing", false);
-                        debug("Sync-queue: Sync queue is flushed");
+                        console.debug("Sync-queue: Sync queue is flushed");
                         this.trigger("flushed");
                     }
                 });

@@ -2,7 +2,6 @@
 import RSVP from "rsvp";
 
 import Ember from "ember";
-import { debug } from "@ember/debug";
 
 function shouldReportError(error) {
     if (error.message && error.message.indexOf("no record was found") > -1) {
@@ -36,7 +35,7 @@ function reportError(error) {
 }
 
 export function initialize(applicationInstance) {
-    debug("initialize rollbar");
+    console.debug("initialize rollbar");
     const syncQueue = applicationInstance.lookup("service:syncQueue");
 
     syncQueue.on("error", reportError);

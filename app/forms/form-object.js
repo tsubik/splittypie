@@ -3,11 +3,10 @@ import { inject as service } from "@ember/service";
 import { oneWay } from "@ember/object/computed";
 import { on } from "@ember/object/evented";
 import EmberObject, {
-  observer,
-  getWithDefault,
-  set,
-  get,
-  computed
+    observer,
+    set,
+    get,
+    computed
 } from "@ember/object";
 
 export default EmberObject.extend({
@@ -22,7 +21,7 @@ export default EmberObject.extend({
     }),
     isSaving: oneWay("model.isSaving"),
     isNew: computed("isModelEmberDataModel", "model.isNew", function () {
-        return this.isModelEmberDataModel ? get(this, "model.isNew") : true;
+        return this.isModelEmberDataModel ? this.model.isNew : true;
     }),
 
     parentSubmittedChanged: on("init", observer("parent.isSubmitted", function () {
@@ -30,7 +29,7 @@ export default EmberObject.extend({
     })),
 
     formErrors: computed("isSubmitted", function () {
-        return this.isSubmitted ? get(this, "validations.attrs") : {};
+        return this.isSubmitted ? this.validations.attrs : {};
     }),
 
     createInnerForm(name, model) {
@@ -40,7 +39,7 @@ export default EmberObject.extend({
     updateModel() {
         set(this, "isSubmitted", true);
 
-        if (get(this, "validations.isValid")) {
+        if (this.validations.isValid) {
             this.applyChangesToModel();
             return true;
         }
@@ -67,10 +66,10 @@ export default EmberObject.extend({
     updateModelAttributes() {},
 
     _getInnerForms() {
-        const innerForms = getWithDefault(this, "innerForms", []);
+        const innerForms = this.innerForms || [];
 
         return innerForms
-            .map(attribute => get(this, attribute))
+            .map(attribute => this[attribute])
             .flatten();
     },
 });

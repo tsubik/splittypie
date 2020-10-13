@@ -4,7 +4,6 @@ import { equal } from "@ember/object/computed";
 import { resolve } from "rsvp";
 import { module } from 'qunit';
 import { setupTest } from "ember-qunit";
-import sinonTest from "ember-sinon-qunit/test-support/test";
 import sinon from "sinon";
 
 const ConnectionMock = EmberObject.extend({
@@ -35,7 +34,7 @@ module("Unit | Service | syncer", function(hooks) {
         this.owner.register("service:sync-queue", SyncQueueMock);
     });
 
-    sinonTest("start syncing when goes online", function (assert) {
+    test("start syncing when goes online", function (assert) {
         const service = this.owner.lookup("service:syncer");
 
         service.syncOnline = this.stub();
@@ -44,7 +43,7 @@ module("Unit | Service | syncer", function(hooks) {
         assert.ok(service.syncOnline.calledOnce);
     });
 
-    sinonTest("syncOnline sets isSyncing property while syncing", function (assert) {
+    test("syncOnline sets isSyncing property while syncing", function (assert) {
         assert.expect(2);
 
         const service = this.owner.lookup("service:syncer");
@@ -57,7 +56,7 @@ module("Unit | Service | syncer", function(hooks) {
         });
     });
 
-    sinonTest("syncOnline runs operations: reloadOnline, flushQueue, updateOffline", function () {
+    test("syncOnline runs operations: reloadOnline, flushQueue, updateOffline", function () {
         const service = this.owner.lookup("service:syncer");
 
         service._reloadOnlineStore = this.stub().returns(resolve(true));

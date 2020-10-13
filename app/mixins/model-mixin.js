@@ -1,4 +1,4 @@
-import { set, get } from "@ember/object";
+import { set } from "@ember/object";
 import { isArray } from "@ember/array";
 import Mixin from "@ember/object/mixin";
 
@@ -45,7 +45,7 @@ export default Mixin.create({
     },
 
     _synchronizeWithNewArray(modelName, name, newArray) {
-        const currentArray = get(this, name);
+        const currentArray = this.name;
 
         return newArray
             .map((newRecord) => {

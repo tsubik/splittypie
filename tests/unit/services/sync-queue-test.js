@@ -4,7 +4,6 @@ import { equal } from "@ember/object/computed";
 import { resolve } from "rsvp";
 import { module, test } from 'qunit';
 import { setupTest } from "ember-qunit";
-import sinonTest from "ember-sinon-qunit/test-support/test";
 
 const ConnectionMock = EmberObject.extend({
     state: "online",
@@ -49,7 +48,7 @@ module("Unit | Service | sync queue", function(hooks) {
         assert.equal(service.get("pendingJobs").length, 0, "empty table of pending jobs");
     });
 
-    sinonTest("enqueue creates new job and saves to offline store", function (assert) {
+    test("enqueue creates new job and saves to offline store", function (assert) {
         assert.expect(1);
 
         const service = this.owner.lookup("service:sync-queue");
@@ -65,7 +64,7 @@ module("Unit | Service | sync queue", function(hooks) {
         });
     });
 
-    sinonTest("enqueue add to pendingJobs if connection online", function (assert) {
+    test("enqueue add to pendingJobs if connection online", function (assert) {
         assert.expect(2);
 
         const service = this.owner.lookup("service:sync-queue");
@@ -80,7 +79,7 @@ module("Unit | Service | sync queue", function(hooks) {
         });
     });
 
-    sinonTest("enqueue doesn't add to pendingJobs if connection offline", function (assert) {
+    test("enqueue doesn't add to pendingJobs if connection offline", function (assert) {
         assert.expect(2);
 
         const service = this.owner.lookup("service:sync-queue");
@@ -96,7 +95,7 @@ module("Unit | Service | sync queue", function(hooks) {
         });
     });
 
-    sinonTest("new pendingJob execute processNext if not already processing", function (assert) {
+    test("new pendingJob execute processNext if not already processing", function (assert) {
         assert.expect(3);
 
         const service = this.owner.lookup("service:sync-queue");
@@ -113,7 +112,7 @@ module("Unit | Service | sync queue", function(hooks) {
         });
     });
 
-    sinonTest("new pendingJob doesn't processNext if already processing", function (assert) {
+    test("new pendingJob doesn't processNext if already processing", function (assert) {
         assert.expect(1);
 
         const service = this.owner.lookup("service:sync-queue");
@@ -128,7 +127,7 @@ module("Unit | Service | sync queue", function(hooks) {
         });
     });
 
-    sinonTest("flush process all saved jobs", function (assert) {
+    test("flush process all saved jobs", function (assert) {
         assert.expect(1);
 
         this.owner.register('service:store', EmberObject.extend({

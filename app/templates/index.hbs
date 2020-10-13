@@ -1,7 +1,7 @@
 <MobileToolbar>
   <SideMenuToggleCustom />
   <span class="navbar-brand text-center">
-    {{partial "shared/brand"}}
+    <Brand />
   </span>
 </MobileToolbar>
 
@@ -18,10 +18,10 @@
         Source
       </a>
     </li>
-    {{#nav-link-to "new" title="Create New Event"}}
+    <NavLinkTo @route="new" title="Create New Event">
       {{inline-svg "plus" class="icon"}}
       New Event
-    {{/nav-link-to}}
+    </NavLinkTo>
   </ul>
 </EmberWormhole>
 
