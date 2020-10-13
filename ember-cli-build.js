@@ -13,6 +13,9 @@ module.exports = function (defaults) {
         "ember-cli-babel": {
             includePolyfill: true,
         },
+        autoImport: {
+            forbidEval: true
+        },
         fingerprint: {
             exclude: ["assets/icons/", "offline-support.js", "sw-toolbox.js"],
             enabled: (env === "production" || env === "staging" || env === "offline"),

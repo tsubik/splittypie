@@ -16,7 +16,7 @@ module.exports = function (environment) {
             "font-src": "'self' data: https://fonts.gstatic.com",
             "img-src": "'self' data: https://www.google-analytics.com",
         },
-        contentSecurityPolicyMeta: true,
+        contentSecurityPolicyMeta: false,
         "ember-index": {
             output: "app.html",
             content: [{
@@ -34,6 +34,7 @@ module.exports = function (environment) {
         firebase: {
             apiKey: process.env.FIREBASE_API_KEY,
             databaseURL: `https://${process.env.FIREBASE_APP_NAME}.firebaseio.com`,
+            projectId: process.env.FIREBASE_APP_NAME
         },
         /* serviceWorker: {
          *     enabled: true,

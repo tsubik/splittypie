@@ -8,11 +8,6 @@ export default Store.extend({
         return "online/application";
     }),
 
-    init() {
-        this._super(...arguments);
-        this.findAll("currency");
-    },
-
     serializerFor(modelName) {
         return this._super(`online/${modelName}`);
     },
