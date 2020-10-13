@@ -77,14 +77,15 @@ export default Service.extend(Evented, {
                 get(this, "pendingJobs").removeAt(0);
                 const moreJobsToProcess = get(this, "pendingJobs.length") > 0;
 
-                job.destroyRecord();
-                if (moreJobsToProcess) {
-                    this._processNext();
-                } else {
-                    set(this, "isProcessing", false);
-                    debug("Sync-queue: Sync queue is flushed");
-                    this.trigger("flushed");
-                }
+                job.destroyRecord().then(() => {
+                    if (moreJobsToProcess) {
+                        this._processNext();
+                    } else {
+                        set(this, "isProcessing", false);
+                        debug("Sync-queue: Sync queue is flushed");
+                        this.trigger("flushed");
+                    }
+                });
             });
     },
 
