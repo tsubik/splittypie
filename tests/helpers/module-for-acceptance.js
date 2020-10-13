@@ -18,6 +18,7 @@ export default function (name, options = {}) {
         },
 
         afterEach() {
+            // quick and dirty, instead of waiting for models to be not inFlight
             destroyApp(this.application);
             window.localStorage.clear();
             window.localforage.clear();

@@ -1,13 +1,6 @@
-import Ember from "ember";
-
-const {
-    get,
-    set,
-    on,
-    observer,
-    K,
-    Component,
-} = Ember;
+import { on } from "@ember/object/evented";
+import { observer, set, get } from "@ember/object";
+import Component from "@ember/component";
 
 export default Component.extend({
     // possible passed-in values with their defaults:
@@ -15,7 +8,7 @@ export default Component.extend({
     prompt: null,
     optionValuePath: "id",
     optionLabelPath: "title",
-    action: K, // action to fire on change
+    action() {}, // action to fire on change
 
     init() {
         this._super(...arguments);
@@ -24,6 +17,7 @@ export default Component.extend({
         }
     },
 
+    // eslint-disable-next-line
     valueDidChanged: on("init", observer("value", function () {
         const options = get(this, "options");
         const value = get(this, "value");

@@ -2,7 +2,7 @@
     title="Edit Event"
     currencies=currencies
     event=event
-    delete="delete"
-    modelUpdated="modelUpdated"
-    syncOnline="syncOnline"
+    onDelete=(route-action "delete")
+    onModelUpdated=(route-action "modelUpdated")
+    onSyncOnline=(route-action "syncOnline")
 }}

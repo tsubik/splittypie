@@ -1,12 +1,12 @@
+import EmberObject from "@ember/object";
 import { readPath } from "splittypie/helpers/read-path";
 import { module, test } from "qunit";
-import Ember from "ember";
 
 module("Unit | Helper | read path");
 
 // Replace this with your real tests.
 test("it works", function (assert) {
-    const object = Ember.Object.create({
+    const object = EmberObject.create({
         property: "test",
     });
 

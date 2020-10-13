@@ -1,11 +1,5 @@
-import Ember from "ember";
-
-const {
-    inject: { service },
-    get,
-    set,
-    Service,
-} = Ember;
+import { set, get } from "@ember/object";
+import Service, { inject as service } from "@ember/service";
 
 export default Service.extend({
     localStorage: service(),

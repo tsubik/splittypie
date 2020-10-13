@@ -1,14 +1,12 @@
-import Ember from "ember";
+import {
+  setProperties,
+  getProperties,
+  set,
+  get
+} from "@ember/object";
 import { validator, buildValidations } from "ember-cp-validations";
 
 import FormObject from "./form-object";
-
-const {
-    get,
-    set,
-    getProperties,
-    setProperties,
-} = Ember;
 
 const Validations = buildValidations({
     name: {

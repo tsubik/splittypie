@@ -1,14 +1,12 @@
-import Ember from "ember";
+import { inject as service } from "@ember/service";
+import {
+  setProperties,
+  set,
+  getProperties,
+  get
+} from "@ember/object";
+import Route from "@ember/routing/route";
 import isMobile from "splittypie/utils/is-mobile";
-
-const {
-    inject: { service },
-    get,
-    getProperties,
-    set,
-    setProperties,
-    Route,
-} = Ember;
 
 export default Route.extend({
     connection: service(),

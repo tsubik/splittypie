@@ -1,13 +1,6 @@
-import Ember from "ember";
-
-const {
-    computed: { notEmpty },
-    computed,
-    get,
-    set,
-    Object: EmberObject,
-    Component,
-} = Ember;
+import { notEmpty } from "@ember/object/computed";
+import EmberObject, { get, computed } from "@ember/object";
+import Component from "@ember/component";
 
 export default Component.extend({
     tagName: "ul",
@@ -34,16 +27,16 @@ export default Component.extend({
             const sender = owed.objectAt(0);
             const recipient = paid.objectAt(0);
 
-            const canGive = get(sender, "amount");
-            const demand = get(recipient, "amount");
+            const canGive = sender.get("amount");
+            const demand = recipient.get("amount");
             const possibleTransfer = Math.min(canGive, demand);
 
-            set(sender, "amount", canGive - possibleTransfer);
+            sender.set("amount", canGive - possibleTransfer);
             if (get(sender, "amount") === 0) {
                 owed.removeObject(sender);
             }
 
-            set(recipient, "amount", demand - possibleTransfer);
+            recipient.set("amount", demand - possibleTransfer);
             if (get(recipient, "amount") === 0) {
                 paid.removeObject(recipient);
             }
@@ -57,11 +50,5 @@ export default Component.extend({
         }
 
         return transfers;
-    }),
-
-    actions: {
-        settleUp(transfer) {
-            this.sendAction("settleUp", transfer);
-        },
-    },
+    })
 });

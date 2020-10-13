@@ -1,11 +1,9 @@
+import { set, get } from "@ember/object";
+import Service, { inject as service } from "@ember/service";
 import Ember from "ember";
 
 const {
-    inject: { service },
-    Logger: { error },
-    get,
-    set,
-    Service,
+    Logger: { error }
 } = Ember;
 
 export default Service.extend({
@@ -17,14 +15,8 @@ export default Service.extend({
 
         if (countryCode === null) {
             countryCode = get(this, "ajax")
-                .request("https://geoip.nekudo.com/api")
-                .then((data) => {
-                    if (data.country && data.country.code) {
-                        return data.country.code;
-                    }
-
-                    return undefined;
-                })
+                .request("http://ip-api.com/json")
+                .then((data) => data && data.countryCode)
                 .catch((e) => {
                     error(e);
                 });

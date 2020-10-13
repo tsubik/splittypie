@@ -1,10 +1,5 @@
-import Ember from "ember";
-
-const {
-    computed,
-    get,
-    Component,
-} = Ember;
+import { get, computed } from "@ember/object";
+import Component from "@ember/component";
 
 export default Component.extend({
     tagName: "div",
@@ -15,11 +10,5 @@ export default Component.extend({
         const currentUser = get(this, "selected");
 
         return users.rejectBy("id", get(currentUser, "id"));
-    }),
-
-    actions: {
-        switchUser(user) {
-            this.sendAction("action", user);
-        },
-    },
+    })
 });

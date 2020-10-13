@@ -1,14 +1,9 @@
-import Ember from "ember";
+import { equal } from "@ember/object/computed";
+import { get, computed } from "@ember/object";
 import ModelMixin from "splittypie/mixins/model-mixin";
 import Model from "ember-data/model";
 import attr from "ember-data/attr";
 import { belongsTo, hasMany } from "ember-data/relationships";
-
-const {
-    computed: { equal },
-    computed,
-    get,
-} = Ember;
 
 export default Model.extend(ModelMixin, {
     name: attr("string"),

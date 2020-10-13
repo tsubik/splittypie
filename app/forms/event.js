@@ -1,17 +1,14 @@
-import Ember from "ember";
+import { oneWay } from "@ember/object/computed";
+import EmberObject, {
+  getWithDefault,
+  setProperties,
+  getProperties,
+  set,
+  get
+} from "@ember/object";
 import { validator, buildValidations } from "ember-cp-validations";
 
 import FormObject from "./form-object";
-
-const {
-    computed: { oneWay },
-    get,
-    set,
-    getProperties,
-    setProperties,
-    getWithDefault,
-    Object: EmberObject,
-} = Ember;
 
 const Validations = buildValidations({
     name: {
@@ -26,7 +23,7 @@ const Validations = buildValidations({
 
 export default FormObject.extend(Validations, {
     modelName: "event",
-    innerForms: ["users"],
+    innerForms: ["users"], // eslint-disable-line
 
     isOffline: oneWay("model.isOffline"),
 
@@ -37,7 +34,7 @@ export default FormObject.extend(Validations, {
         setProperties(this, getProperties(model, "name", "currency"));
 
         const users = getWithDefault(model, "users", [])
-                  .map(user => this.createInnerForm("user", user));
+            .map(user => this.createInnerForm("user", user));
         set(this, "users", users);
     },
 

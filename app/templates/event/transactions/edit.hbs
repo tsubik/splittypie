@@ -1,5 +1,5 @@
 {{#if (is-equal form.formType "transfer")}}
-  {{transfer-form transfer=form delete="delete" title="View Transfer"}}
+  {{transfer-form transfer=form onDelete=(route-action "delete") title="View Transfer"}}
 {{else}}
-  {{transaction-form transaction=form users=users delete="delete" modelUpdated="modelUpdated" title="Edit Transaction"}}
+  {{transaction-form transaction=form users=users onDelete=(route-action "delete") onModelUpdated=(route-action "modelUpdated") title="Edit Transaction"}}
 {{/if}}

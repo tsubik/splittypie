@@ -1,9 +1,5 @@
-import Ember from "ember";
-
-const {
-    get,
-    Helper,
-} = Ember;
+import { get } from "@ember/object";
+import Helper from "@ember/component/helper";
 
 export function readPath([object, path]) {
     if (object) {

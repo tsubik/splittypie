@@ -1,7 +1,5 @@
 /* eslint "no-extend-native": 0 */
-import Ember from "ember";
-
-const { isArray } = Ember;
+import { isArray } from "@ember/array";
 
 export function initialize(application) {
     window.App = application;

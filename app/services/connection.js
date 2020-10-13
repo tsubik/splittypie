@@ -1,10 +1,10 @@
+import { equal } from "@ember/object/computed";
+import { set } from "@ember/object";
+import Service from "@ember/service";
 import Ember from "ember";
 
 const {
-    computed: { equal },
-    Logger: { debug },
-    set,
-    Service,
+    Logger: { debug }
 } = Ember;
 
 export default Service.extend({

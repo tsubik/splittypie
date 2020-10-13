@@ -1,6 +1,6 @@
-import Ember from "ember";
+import { registerAsyncHelper } from "@ember/test";
 
-export default Ember.Test.registerAsyncHelper("identifyUserAs", function (app, event, user) {
+registerAsyncHelper("identifyUserAs", function (app, event, user) {
     visit(`/${event.id}`);
 
     andThen(() => {

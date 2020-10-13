@@ -1,10 +1,5 @@
-import Ember from "ember";
-
-const {
-    computed,
-    get,
-    Component,
-} = Ember;
+import { get, computed } from "@ember/object";
+import Component from "@ember/component";
 
 export default Component.extend({
     tagName: "li",
@@ -17,7 +12,7 @@ export default Component.extend({
 
     actions: {
         delete(user) {
-            this.sendAction("delete", user);
+            this.onDelete(user);
         },
     },
 });

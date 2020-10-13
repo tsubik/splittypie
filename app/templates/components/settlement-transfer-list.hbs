@@ -9,7 +9,7 @@
           <span class="text-nowrap">
             {{format-money transfer.amount symbol=transfer.currency.code format="%v %s"}}
           </span>
-          <button class="btn btn-sm btn-success" {{action "settleUp" transfer}}>
+          <button class="btn btn-sm btn-success" {{action (action settleUp transfer)}}>
             Settle Up!
           </button>
         </li>

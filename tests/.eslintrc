@@ -10,6 +10,7 @@
     "identifyUserAs": true,
     "runWithTestData": true,
     "setEventAsViewed": true,
-    "runAndWaitForSyncQueueToFlush": true
+    "runAndWaitForSyncQueueToFlush": true,
+    "simulateDelay": true
   }
 }

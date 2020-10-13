@@ -1,11 +1,7 @@
-import Ember from "ember";
+import { oneWay, alias } from "@ember/object/computed";
+import { inject as service } from "@ember/service";
+import { get } from "@ember/object";
 import BaseForm from "splittypie/components/base-form";
-
-const {
-    computed: { alias, oneWay },
-    inject: { service },
-    get,
-} = Ember;
 
 export default BaseForm.extend({
     store: service(),
@@ -27,7 +23,7 @@ export default BaseForm.extend({
         },
 
         syncOnline() {
-            this.sendAction("syncOnline", get(this, "event.model"));
+            this.onSyncOnline(get(this, "event.model"));
         },
     },
 });

@@ -1,14 +1,11 @@
+import { Promise } from "rsvp";
+import { observer, set, get } from "@ember/object";
+import Evented from "@ember/object/evented";
+import Service, { inject as service } from "@ember/service";
 import Ember from "ember";
 
 const {
-    inject: { service },
-    Logger: { debug },
-    RSVP: { Promise },
-    get,
-    set,
-    observer,
-    Evented,
-    Service,
+    Logger: { debug }
 } = Ember;
 
 export default Service.extend(Evented, {
@@ -24,7 +21,7 @@ export default Service.extend(Evented, {
     },
 
     enqueue(name, payload) {
-        debug(`Sync-queue: Creating offline job for ${name}: ${payload}`);
+        debug(`Sync-queue: Creating offline job for ${name}: `, payload);
         return this._createAndSaveJob(name, payload).then((job) => {
             if (get(this, "connection.isOnline")) {
                 debug(`Sync-queue: Adding job ${name} to pendingJobs array`);
@@ -80,14 +77,15 @@ export default Service.extend(Evented, {
                 get(this, "pendingJobs").removeAt(0);
                 const moreJobsToProcess = get(this, "pendingJobs.length") > 0;
 
-                job.destroyRecord();
-                if (moreJobsToProcess) {
-                    this._processNext();
-                } else {
-                    set(this, "isProcessing", false);
-                    debug("Sync-queue: Sync queue is flushed");
-                    this.trigger("flushed");
-                }
+                job.destroyRecord().then(() => {
+                    if (moreJobsToProcess) {
+                        this._processNext();
+                    } else {
+                        set(this, "isProcessing", false);
+                        debug("Sync-queue: Sync queue is flushed");
+                        this.trigger("flushed");
+                    }
+                });
             });
     },
 

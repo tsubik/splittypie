@@ -1,14 +1,6 @@
-import Ember from "ember";
+import { set, get, observer, computed } from "@ember/object";
+import Component from "@ember/component";
 import isMobile from "splittypie/utils/is-mobile";
-
-const {
-    computed,
-    observer,
-    on,
-    get,
-    set,
-    Component,
-} = Ember;
 
 export default Component.extend({
     value: null,
@@ -38,9 +30,10 @@ export default Component.extend({
         }
     }),
 
-    dateInputClasses: on("init", computed("className", function () {
+    // eslint-disable-next-line
+    dateInputClasses: computed("className", function () {
         const className = get(this, "className");
 
         return `${className} form-control`;
-    })),
+    })
 });

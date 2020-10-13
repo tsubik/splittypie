@@ -1,11 +1,10 @@
+import { assert } from "@ember/debug";
+import { get } from "@ember/object";
+import Service, { inject as service } from "@ember/service";
 import Ember from "ember";
 
 const {
-    assert,
-    get,
-    inject: { service },
-    Logger: { debug },
-    Service,
+    Logger: { debug }
 } = Ember;
 
 export default Service.extend({
@@ -18,7 +17,7 @@ export default Service.extend({
         const [jobType, modelName] = name.split(/(?=[A-Z])/);
         const method = this.commands[jobType];
 
-        debug(`Job-processor: Processing job ${name} with payload: ${payload}`);
+        debug(`Job-processor: Processing job ${name} with payload`, payload);
         assert(`Job ${name} doesn't exists`, method);
 
         return method.call(this, modelName, payload)
@@ -32,7 +31,7 @@ export default Service.extend({
             });
     },
 
-    commands: {
+    commands: { // eslint-disable-line
         create(modelName, properties) {
             const onlineStore = get(this, "onlineStore");
             const offlineStore = get(this, "store");
@@ -57,7 +56,11 @@ export default Service.extend({
             const onlineStore = get(this, "onlineStore");
             const id = properties.id;
 
-            return onlineStore.findRecord(modelName, id).then(record => record.destroyRecord());
+            return onlineStore
+                .findRecord(modelName, id)
+                .then(
+                    record => record.destroyRecord()
+                );
         },
     },
 });

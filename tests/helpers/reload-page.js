@@ -1,9 +1,9 @@
-import Ember from "ember";
+import { registerAsyncHelper } from "@ember/test";
 
-export default Ember.Test.registerAsyncHelper("reloadPage", function (app) {
+registerAsyncHelper("reloadPage", function () {
     const url = currentURL();
 
-    app.buildRegistry();
-    app.reset();
+    /* app.buildRegistry();
+     * app.reset(); */
     visit(url);
 });

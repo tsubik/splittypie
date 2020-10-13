@@ -13,7 +13,7 @@
   <li class="dropdown-header">Switch user to</li>
   {{#each otherUsers as |user|}}
     <li>
-      <a {{action "switchUser" user}} href="#">
+      <a {{action (action onChange user)}} href="#">
         {{user.name}}
       </a>
     </li>

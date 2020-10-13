@@ -1,12 +1,8 @@
 /* eslint-disable arrow-body-style */
 
-import Ember from "ember";
+import { get } from "@ember/object";
 
-const {
-    inject: { service },
-    get,
-    Service,
-} = Ember;
+import Service, { inject as service } from "@ember/service";
 
 export default Service.extend({
     syncQueue: service(),

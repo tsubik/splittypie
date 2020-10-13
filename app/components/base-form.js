@@ -1,11 +1,6 @@
-import Ember from "ember";
-
-const {
-    inject: { service },
-    computed,
-    get,
-    Component,
-} = Ember;
+import { inject as service } from "@ember/service";
+import { get, computed } from "@ember/object";
+import Component from "@ember/component";
 
 export default Component.extend({
     formObject: null,
@@ -27,14 +22,16 @@ export default Component.extend({
             const formObject = get(this, "formObject");
 
             if (formObject.updateModel()) {
-                this.sendAction("modelUpdated", get(formObject, "model"));
+                this.onModelUpdated(get(formObject, "model"));
             }
         },
 
         delete() {
             const model = get(this, "formObject.model");
 
-            get(this, "modal").onConfirm(() => this.sendAction("delete", model));
+            get(this, "modal").onConfirm(
+                () => this.onDelete(model)
+            );
         },
     },
 });

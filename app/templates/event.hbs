@@ -7,12 +7,12 @@
   {{#link-to "event.edit" class="navbar-btn btn btn-link" title="Edit Event"}}
     {{inline-svg "edit" class="icon"}}
   {{/link-to}}
-  {{switch-user-dropdown selected=userContext.currentUser users=model.users action="switchUser" iconOnly=true class="navbar-btn btn btn-link"}}
+  {{switch-user-dropdown selected=userContext.currentUser users=model.users onChange=(route-action "switchUser") iconOnly=true class="navbar-btn btn btn-link"}}
 {{/mobile-toolbar}}
 
 {{#ember-wormhole to="navbar-right"}}
   <div class="nav navbar-nav navbar-right">
-    {{switch-user-dropdown selected=userContext.currentUser users=model.users action="switchUser" class="navbar-btn"}}
+    {{switch-user-dropdown selected=userContext.currentUser users=model.users onChange=(route-action "switchUser") class="navbar-btn"}}
   </div>
 {{/ember-wormhole}}
 

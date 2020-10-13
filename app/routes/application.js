@@ -1,14 +1,9 @@
-import Ember from "ember";
-
-const {
-    $,
-    inject: { service },
-    run: { schedule },
-    RSVP,
-    Route,
-    get,
-    setProperties,
-} = Ember;
+import $ from "jquery";
+import { inject as service } from "@ember/service";
+import { schedule } from "@ember/runloop";
+import RSVP from "rsvp";
+import Route from "@ember/routing/route";
+import { setProperties, get } from "@ember/object";
 
 export default Route.extend({
     modal: service(),
@@ -48,9 +43,9 @@ export default Route.extend({
 
     removeModal() {
         // Not sure why tests are failing removing outlet, below guards prevents tests from failing
-        // FIXME: try to figure out this one day, it's related to adding quick add feature
-        if (!this.connections) return;
-        if (!this.router.router.currentHandlerInfos) return;
+        // TODO: FIXME: try to figure out this one day, it's related to adding quick add feature
+        /* if (!this.connections) return; */
+        /* if (!this.router.currentHandlerInfos) return; */
         this.disconnectOutlet({
             outlet: "modal",
             parentView: "application",

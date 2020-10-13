@@ -1,5 +1,5 @@
+import { run } from "@ember/runloop";
 import { moduleForModel, test } from "ember-qunit";
-import Ember from "ember";
 
 moduleForModel("user", "Unit | Model | user", {
     // Specify the other units that are required for this test.
@@ -17,7 +17,7 @@ test("it shows user's transactions balance", function (assert) {
     let alice;
     let bob;
 
-    Ember.run(() => {
+    run(() => {
         const event = store.createRecord("event", {
             name: "Test event",
         });

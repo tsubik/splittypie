@@ -1,14 +1,8 @@
-import Ember from "ember";
+import { inject as service } from "@ember/service";
+import { setProperties, set, get } from "@ember/object";
+import RSVP from "rsvp";
+import Route from "@ember/routing/route";
 import countryToCurrencyCode from "splittypie/utils/country-to-currency-code";
-
-const {
-    inject: { service },
-    get,
-    set,
-    setProperties,
-    RSVP,
-    Route,
-} = Ember;
 
 export default Route.extend({
     userCountryCode: service(),

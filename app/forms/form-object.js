@@ -1,17 +1,14 @@
-import Ember from "ember";
+import { inject as service } from "@ember/service";
+import { oneWay } from "@ember/object/computed";
+import { on } from "@ember/object/evented";
+import EmberObject, {
+  observer,
+  getWithDefault,
+  set,
+  get,
+  computed
+} from "@ember/object";
 import DS from "ember-data";
-
-const {
-    inject: { service },
-    computed: { oneWay },
-    computed,
-    get,
-    set,
-    getWithDefault,
-    observer,
-    on,
-    Object: EmberObject,
-} = Ember;
 
 export default EmberObject.extend({
     store: service(),

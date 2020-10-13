@@ -1,11 +1,6 @@
-import Ember from "ember";
+import { alias } from "@ember/object/computed";
+import { get, computed } from "@ember/object";
 import BaseForm from "splittypie/components/base-form";
-
-const {
-    computed: { alias },
-    computed,
-    get,
-} = Ember;
 
 export default BaseForm.extend({
     formObject: alias("transaction"),

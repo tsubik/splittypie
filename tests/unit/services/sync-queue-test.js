@@ -1,24 +1,21 @@
+import EmberObject from "@ember/object";
+import { run } from "@ember/runloop";
+import { equal } from "@ember/object/computed";
+import { resolve } from "rsvp";
 import { moduleFor, test } from "ember-qunit";
-import Ember from "ember";
 import sinonTest from "ember-sinon-qunit/test-support/test";
 
-const {
-    run,
-    computed: { equal },
-    RSVP: { resolve },
-} = Ember;
-
-const ConnectionMock = Ember.Object.extend({
+const ConnectionMock = EmberObject.extend({
     state: "online",
     isOnline: equal("state", "online"),
     isOffline: equal("state", "offline"),
 });
-const JobProcessorMock = Ember.Object.extend({
+const JobProcessorMock = EmberObject.extend({
     process() {
         return resolve(true);
     },
 });
-const SyncJobModelMock = Ember.Object.extend({
+const SyncJobModelMock = EmberObject.extend({
     save() {
         return resolve(this);
     },
@@ -27,7 +24,7 @@ const SyncJobModelMock = Ember.Object.extend({
         return resolve(true);
     },
 });
-const StoreMock = Ember.Object.extend({
+const StoreMock = EmberObject.extend({
     createRecord(modelName, properties) {
         return SyncJobModelMock.create(properties);
     },
@@ -35,11 +32,9 @@ const StoreMock = Ember.Object.extend({
 
 moduleFor("service:sync-queue", "Unit | Service | sync queue", {
     beforeEach() {
-        this.subject({
-            connection: ConnectionMock.create(),
-            jobProcessor: JobProcessorMock.create(),
-            store: StoreMock.create(),
-        });
+        this.register('service:job-processor', JobProcessorMock);
+        this.register('service:connection', ConnectionMock);
+        this.register('service:store', StoreMock);
     },
 });
 
@@ -59,7 +54,7 @@ sinonTest("enqueue creates new job and saves to offline store", function (assert
     const model = SyncJobModelMock.create();
     const modelSaveSpy = this.spy(model, "save");
 
-    this.stub(service.store, "createRecord").returns(model);
+    this.stub(service.get('store'), "createRecord").returns(model);
 
     run(() => {
         service.enqueue("jobname", {}).then(() => {
@@ -105,7 +100,7 @@ sinonTest("new pendingJob execute processNext if not already processing", functi
     const service = this.subject();
     const job = SyncJobModelMock.create();
     const processNextSpy = this.spy(service, "_processNext");
-    const jobProcessorSpy = this.spy(service.jobProcessor, "process");
+    const jobProcessorSpy = this.spy(service.get('jobProcessor'), "process");
 
     run(() => {
         service.get("pendingJobs").addObject(job);
@@ -134,8 +129,7 @@ sinonTest("new pendingJob doesn't processNext if already processing", function (
 sinonTest("flush process all saved jobs", function (assert) {
     assert.expect(1);
 
-    const service = this.subject();
-    service.store = Ember.Object.create({
+    this.register('service:store', EmberObject.extend({
         findAll() {
             return resolve([
                 SyncJobModelMock.create(),
@@ -143,8 +137,9 @@ sinonTest("flush process all saved jobs", function (assert) {
                 SyncJobModelMock.create(),
             ]);
         },
-    });
-    const jobProcessorSpy = this.spy(service.jobProcessor, "process");
+    }));
+    const service = this.subject();
+    const jobProcessorSpy = this.spy(service.get('jobProcessor'), "process");
 
     run(() => {
         service.flush()
