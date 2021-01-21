@@ -1,6 +1,6 @@
 # SplittyPie
 
-[![Build Status](https://travis-ci.org/cowbell/splittypie.svg?branch=master)](https://travis-ci.org/cowbell/splittypie)
+[![Build Status](https://github.com/cowbell/splittypie/workflows/Tests/badge.svg)](https://github.com/cowbell/splittypie/actions?query=workflow%3ATests)
 [![Code Climate](https://codeclimate.com/github/cowbell/splittypie/badges/gpa.svg)](https://codeclimate.com/github/cowbell/splittypie)
 
 SplittyPie is an offline-first Ember application. It's mobile friendly and
