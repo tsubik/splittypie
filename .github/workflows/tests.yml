@@ -1,0 +1,19 @@
+name: Tests
+on: push
+
+jobs:
+  verify:
+    name: Tests
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v2
+      - uses: actions/setup-node@v2
+        with:
+          node-version: '10'
+      - name: Add hosts to /etc/hosts
+        run: |
+          sudo echo "127.0.0.1 localhost.firebaseio.test" | sudo tee -a /etc/hosts
+      - uses: bahmutov/npm-install@v1
+      - name: Run tests
+        run: yarn test
